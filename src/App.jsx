@@ -6,10 +6,10 @@ import { AnimatePresence } from "framer-motion";
 import MainLayout from "./layouts/MainLayout";
 
 // Pages
-import About from "./pages/About";
-import Home from "./pages/Home";
-import Login from "./pages/Login";
-import Test from "./pages/Test";
+import About from "./pages/About/About";
+import Home from "./pages/Home/Home";
+import Login from "./pages/Login/Login";
+import Test from "./pages/Test/Test";
 
 function App() {
   return (

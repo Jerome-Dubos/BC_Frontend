@@ -3,11 +3,11 @@ import { useState } from "react";
 import "./Test.css";
 
 // Import des tests et configuration
-import { englishQuestions } from "../tests/englishTest";
-import { frenchQuestions } from "../tests/frenchTest";
-import { germanQuestions } from "../tests/germanTest";
-import { spanishQuestions } from "../tests/spanishTest";
-import { calculateLevel, languages, levels } from "../tests/testConfig";
+import { englishQuestions } from "../../tests/englishTest";
+import { frenchQuestions } from "../../tests/frenchTest";
+import { germanQuestions } from "../../tests/germanTest";
+import { spanishQuestions } from "../../tests/spanishTest";
+import { calculateLevel, languages, levels } from "../../tests/testConfig";
 
 const Test = () => {
   const [currentStep, setCurrentStep] = useState("language"); // 'language', 'email', 'test', 'result'

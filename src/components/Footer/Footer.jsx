@@ -8,10 +8,10 @@ import {
   FaPhone,
   FaTwitter,
 } from "react-icons/fa";
+import LegalModal from "../Modals/LegalModal";
+import PrivacyModal from "../Modals/PrivacyModal";
+import TermsModal from "../Modals/TermsModal";
 import "./Footer.css";
-import LegalModal from "./LegalModal";
-import PrivacyModal from "./PrivacyModal";
-import TermsModal from "./TermsModal";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
