@@ -13,6 +13,10 @@ const Home = () => {
       exit={{ opacity: 0 }}
     >
       <section className="hero">
+        <div className="hero-glow"></div>
+        <div className="hero-glow"></div>
+        <div className="hero-lines"></div>
+
         <div className="hero-content">
           <motion.h1
             initial={{ y: 20, opacity: 0 }}
