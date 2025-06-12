@@ -345,6 +345,231 @@
   letter-spacing: 1px;
 }
 
+/* === SECTION ÉQUIPE === */
+.team-section {
+  padding: var(--spacing-xxl) var(--spacing-lg);
+  background: linear-gradient(
+    135deg,
+    var(--primary-blue-dark) 0%,
+    var(--primary-blue) 100%
+  );
+  position: relative;
+  overflow: hidden;
+}
+
+.team-section::before {
+  content: "";
+  position: absolute;
+  top: -45px;
+  left: 0;
+  right: 0;
+  height: 90px;
+  background: linear-gradient(
+    180deg,
+    var(--primary-blue) 0%,
+    var(--primary-blue-dark) 100%
+  );
+  transform: skewY(1deg);
+  transform-origin: top left;
+}
+
+.team-section h2 {
+  text-align: center;
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  margin-bottom: var(--spacing-xxl);
+  color: var(--text-light);
+  position: relative;
+  z-index: 2;
+}
+
+.team-section h2::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--secondary-gold) 50%,
+    transparent 100%
+  );
+}
+
+/* Section Directeur */
+.director-section {
+  max-width: 1000px;
+  margin: 0 auto var(--spacing-xxl);
+  position: relative;
+  z-index: 2;
+}
+
+.director-card {
+  display: flex;
+  gap: var(--spacing-xl);
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(25px);
+  border: 1px solid rgba(234, 189, 131, 0.2);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-xl);
+  transition: all var(--transition-normal);
+  align-items: center;
+}
+
+.director-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--secondary-gold);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.director-image {
+  flex-shrink: 0;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid var(--secondary-gold);
+  position: relative;
+}
+
+.director-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-normal);
+}
+
+.director-card:hover .director-image img {
+  transform: scale(1.1);
+}
+
+.director-info h3 {
+  font-size: 2rem;
+  color: var(--secondary-gold);
+  margin-bottom: var(--spacing-sm);
+  font-weight: 700;
+}
+
+.director-title {
+  font-size: 1.2rem;
+  color: var(--secondary-gold-light);
+  font-weight: 600;
+  margin-bottom: var(--spacing-md);
+}
+
+.director-description {
+  color: var(--text-light);
+  line-height: 1.7;
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+/* Grille des professeurs */
+.teachers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--spacing-xl);
+  max-width: 1400px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.teacher-card {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(25px);
+  border: 1px solid rgba(234, 189, 131, 0.2);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-xl);
+  text-align: center;
+  transition: all var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+.teacher-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(234, 189, 131, 0.05) 0%,
+    transparent 50%,
+    rgba(234, 189, 131, 0.02) 100%
+  );
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+}
+
+.teacher-card:hover::before {
+  opacity: 1;
+}
+
+.teacher-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--secondary-gold);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+}
+
+.teacher-image {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  margin: 0 auto var(--spacing-lg);
+  overflow: hidden;
+  border: 3px solid var(--secondary-gold);
+  transition: transform var(--transition-normal);
+}
+
+.teacher-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-normal);
+}
+
+.teacher-card:hover .teacher-image {
+  transform: scale(1.05);
+}
+
+.teacher-card:hover .teacher-image img {
+  transform: scale(1.1);
+}
+
+.teacher-card h4 {
+  font-size: 1.4rem;
+  color: var(--secondary-gold);
+  margin-bottom: var(--spacing-sm);
+  font-weight: 600;
+}
+
+.teacher-subject {
+  font-size: 1.1rem;
+  color: var(--secondary-gold-light);
+  font-weight: 500;
+  margin-bottom: var(--spacing-xs);
+}
+
+.teacher-experience {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  opacity: 0.8;
+  margin-bottom: var(--spacing-md);
+  font-style: italic;
+}
+
+.teacher-description {
+  color: var(--text-light);
+  line-height: 1.6;
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+
 /* Responsivité */
 @media (max-width: 768px) {
   .about-hero {
@@ -392,6 +617,36 @@
   .about-stats {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  /* Responsivité équipe */
+  .team-section {
+    padding: var(--spacing-xl) var(--spacing-md);
+  }
+
+  .director-card {
+    flex-direction: column;
+    text-align: center;
+    gap: var(--spacing-lg);
+  }
+
+  .director-image {
+    width: 150px;
+    height: 150px;
+  }
+
+  .teachers-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-lg);
+  }
+
+  .teacher-card {
+    padding: var(--spacing-lg);
+  }
+
+  .teacher-image {
+    width: 100px;
+    height: 100px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -401,5 +656,28 @@
 
   .stat-number {
     font-size: 2rem;
+  }
+
+  /* Équipe en version mobile */
+  .teachers-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .director-image {
+    width: 120px;
+    height: 120px;
+  }
+
+  .teacher-image {
+    width: 80px;
+    height: 80px;
+  }
+
+  .teacher-card h4 {
+    font-size: 1.2rem;
+  }
+
+  .director-info h3 {
+    font-size: 1.5rem;
   }
 }
