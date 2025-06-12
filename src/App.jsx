@@ -7,6 +7,7 @@ import MainLayout from "./layouts/MainLayout";
 
 // Pages
 import About from "./pages/About/About";
+import Error from "./pages/Error/Error";
 import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
 import Test from "./pages/Test/Test";
@@ -21,6 +22,8 @@ function App() {
             <Route path="about" element={<About />} />
             <Route path="test" element={<Test />} />
             <Route path="login" element={<Login />} />
+            <Route path="error" element={<Error />} />
+            <Route path="*" element={<Error />} />
           </Route>
         </Routes>
       </AnimatePresence>
