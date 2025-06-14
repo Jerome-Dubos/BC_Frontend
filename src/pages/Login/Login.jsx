@@ -2,9 +2,14 @@
 import { motion } from "framer-motion";
 import React, { useState } from "react";
 import {
+  IoEyeOffOutline,
+  IoEyeOutline,
   IoKeyOutline,
   IoPersonOutline,
   IoSchoolOutline,
+  IoShieldCheckmarkOutline,
+  IoSparklesOutline,
+  IoStarOutline,
 } from "react-icons/io5";
 import { MdAdminPanelSettings } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
@@ -22,6 +27,7 @@ const Login = () => {
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -52,7 +58,7 @@ const Login = () => {
         // Rediriger vers le dashboard après connexion réussie
         navigate("/dashboard");
       }
-    } catch (err) {
+    } catch {
       setError("Erreur de connexion. Veuillez réessayer.");
     } finally {
       setIsLoading(false);
@@ -69,15 +75,52 @@ const Login = () => {
       if (result.success) {
         navigate("/dashboard");
       }
-    } catch (err) {
+    } catch {
       setError("Erreur de connexion");
     } finally {
       setIsLoading(false);
     }
   };
 
+  // Animations pour les éléments décoratifs
+  const floatingVariants = {
+    animate: {
+      y: [-10, 10, -10],
+      rotate: [0, 5, -5, 0],
+      transition: {
+        duration: 6,
+        repeat: Infinity,
+        ease: "easeInOut",
+      },
+    },
+  };
+
+  const sparkleVariants = {
+    animate: {
+      scale: [1, 1.2, 1],
+      opacity: [0.3, 0.6, 0.3],
+      transition: {
+        duration: 3,
+        repeat: Infinity,
+        ease: "easeInOut",
+      },
+    },
+  };
+
   if (loading) {
-    return <div>Chargement...</div>;
+    return (
+      <div className="login loading-screen">
+        <motion.div
+          className="loading-content"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <div className="loading-spinner-large"></div>
+          <p>Chargement...</p>
+        </motion.div>
+      </div>
+    );
   }
 
   return (
@@ -86,24 +129,68 @@ const Login = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
+      transition={{ duration: 0.6 }}
     >
+      {/* Éléments décoratifs flottants */}
+      <motion.div
+        className="floating-icon floating-icon-1"
+        variants={floatingVariants}
+        animate="animate"
+      >
+        <IoSparklesOutline />
+      </motion.div>
+      <motion.div
+        className="floating-icon floating-icon-2"
+        variants={sparkleVariants}
+        animate="animate"
+      >
+        <IoStarOutline />
+      </motion.div>
+      <motion.div
+        className="floating-icon floating-icon-3"
+        variants={floatingVariants}
+        animate="animate"
+        transition={{ delay: 1 }}
+      >
+        <IoShieldCheckmarkOutline />
+      </motion.div>
+
       <motion.div
         className="login-card"
-        initial={{ y: 20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.8, delay: 0.2 }}
+        initial={{ y: 50, opacity: 0, scale: 0.95 }}
+        animate={{ y: 0, opacity: 1, scale: 1 }}
+        transition={{
+          duration: 0.8,
+          delay: 0.2,
+          type: "spring",
+          stiffness: 100,
+          damping: 15,
+        }}
+        whileHover={{ y: -5 }}
       >
-        <div className="login-header">
+        <motion.div
+          className="login-header"
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+        >
           <h1>Connexion</h1>
-          <p>
-            Bienvenue ! Connectez-vous pour accéder à votre espace personnel.
-          </p>
-        </div>
+          <p>Bienvenue dans votre espace d'apprentissage personnalisé</p>
+        </motion.div>
 
-        <form onSubmit={handleSubmit} className="login-form">
+        <motion.form
+          onSubmit={handleSubmit}
+          className="login-form"
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
+        >
           <div className="form-group">
-            <label htmlFor="identifier">Identifiant</label>
-            <input
+            <label htmlFor="identifier">
+              <IoPersonOutline className="label-icon" />
+              Identifiant
+            </label>
+            <motion.input
               type="text"
               id="identifier"
               name="identifier"
@@ -113,37 +200,67 @@ const Login = () => {
               required
               autoFocus
               autoComplete="username"
+              whileFocus={{ scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
             />
           </div>
 
           <div className="form-group">
-            <label htmlFor="password">Mot de passe</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              placeholder="Votre mot de passe"
-              autoComplete="current-password"
-            />
+            <label htmlFor="password">
+              <IoKeyOutline className="label-icon" />
+              Mot de passe
+            </label>
+            <div className="password-input-wrapper">
+              <motion.input
+                type={showPassword ? "text" : "password"}
+                id="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                placeholder="Votre mot de passe"
+                autoComplete="current-password"
+                whileFocus={{ scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              />
+              <button
+                type="button"
+                className="password-toggle"
+                onClick={() => setShowPassword(!showPassword)}
+                aria-label={
+                  showPassword
+                    ? "Masquer le mot de passe"
+                    : "Afficher le mot de passe"
+                }
+              >
+                {showPassword ? <IoEyeOffOutline /> : <IoEyeOutline />}
+              </button>
+            </div>
           </div>
 
           {error && (
             <motion.div
               className="error-message"
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: -10, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -10, scale: 0.95 }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
             >
               {error}
             </motion.div>
           )}
 
-          <button type="submit" className="login-button" disabled={isLoading}>
+          <motion.button
+            type="submit"
+            className="login-button"
+            disabled={isLoading}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ type: "spring", stiffness: 400, damping: 25 }}
+          >
             {isLoading ? (
               <>
                 <div className="loading-spinner"></div>
-                Connexion...
+                Connexion en cours...
               </>
             ) : (
               <>
@@ -151,59 +268,82 @@ const Login = () => {
                 Se connecter
               </>
             )}
-          </button>
-        </form>
+          </motion.button>
+        </motion.form>
 
         {/* Comptes de démo */}
-        <div className="demo-accounts">
-          <h3>Comptes de démonstration</h3>
+        <motion.div
+          className="demo-accounts"
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.7 }}
+        >
+          <h3>
+            <IoSparklesOutline className="section-icon" />
+            Comptes de démonstration
+          </h3>
           <p>Cliquez sur un profil pour vous connecter instantanément :</p>
 
           <div className="demo-buttons">
-            <button
+            <motion.button
               className="demo-btn director"
               onClick={() => handleDemoLogin("directrice")}
               disabled={isLoading}
+              whileHover={{ scale: 1.05, y: -3 }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ type: "spring", stiffness: 400, damping: 25 }}
             >
-              <MdAdminPanelSettings size={20} />
+              <MdAdminPanelSettings size={24} />
               <div>
                 <strong>Directrice</strong>
                 <span>Shirin Hosseini</span>
               </div>
-            </button>
+            </motion.button>
 
-            <button
+            <motion.button
               className="demo-btn teacher"
               onClick={() => handleDemoLogin("prof")}
               disabled={isLoading}
+              whileHover={{ scale: 1.05, y: -3 }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ type: "spring", stiffness: 400, damping: 25 }}
             >
-              <IoPersonOutline size={20} />
+              <IoPersonOutline size={24} />
               <div>
                 <strong>Professeure</strong>
                 <span>Marie Dubois</span>
               </div>
-            </button>
+            </motion.button>
 
-            <button
+            <motion.button
               className="demo-btn student"
               onClick={() => handleDemoLogin("etudiant")}
               disabled={isLoading}
+              whileHover={{ scale: 1.05, y: -3 }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ type: "spring", stiffness: 400, damping: 25 }}
             >
-              <IoSchoolOutline size={20} />
+              <IoSchoolOutline size={24} />
               <div>
                 <strong>Étudiant</strong>
                 <span>Pierre Martin</span>
               </div>
-            </button>
+            </motion.button>
           </div>
-        </div>
+        </motion.div>
 
-        <div className="login-info">
+        <motion.div
+          className="login-info"
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.8 }}
+        >
           <p>
+            <IoShieldCheckmarkOutline className="info-icon" />
             <strong>Mode démo :</strong> Vous pouvez aussi utiliser n'importe
             quel identifiant pour créer un compte étudiant temporaire.
           </p>
-        </div>
+        </motion.div>
       </motion.div>
     </motion.div>
   );
