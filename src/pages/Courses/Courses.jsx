@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
-import { motion } from "framer-motion";
-import { useState } from "react";
+import { motion, useInView, useScroll, useTransform } from "framer-motion";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { FaFlagUsa } from "react-icons/fa";
 import {
   IoBriefcaseOutline,
@@ -11,23 +11,91 @@ import {
   IoDocumentTextOutline,
   IoFilterOutline,
   IoFlagOutline,
+  IoGlobeOutline,
   IoLanguageOutline,
   IoMailOutline,
   IoPeopleOutline,
   IoPersonOutline,
   IoPlayCircleOutline,
   IoPricetagOutline,
+  IoRibbonOutline,
   IoSchoolOutline,
   IoStarOutline,
   IoTimeOutline,
   IoTrophyOutline,
 } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
 import "./Courses.css";
+
+// Composant de compteur animé
+const AnimatedCounter = ({ end, duration = 2, suffix = "" }) => {
+  const [count, setCount] = useState(0);
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
+
+  useEffect(() => {
+    if (isInView) {
+      let startTime;
+      const animate = (currentTime) => {
+        if (!startTime) startTime = currentTime;
+        const progress = Math.min(
+          (currentTime - startTime) / (duration * 1000),
+          1
+        );
+
+        setCount(Math.floor(progress * end));
+
+        if (progress < 1) {
+          requestAnimationFrame(animate);
+        }
+      };
+      requestAnimationFrame(animate);
+    }
+  }, [isInView, end, duration]);
+
+  return (
+    <span ref={ref}>
+      {count}
+      {suffix}
+    </span>
+  );
+};
 
 const Courses = () => {
   const [selectedLanguage, setSelectedLanguage] = useState("all");
   const [selectedLevel, setSelectedLevel] = useState("all");
   const [selectedFormat, setSelectedFormat] = useState("all");
+  const { scrollYProgress } = useScroll();
+  const y = useTransform(scrollYProgress, [0, 1], [0, -50]);
+  const navigate = useNavigate();
+
+  // Statistiques dynamiques
+  const stats = [
+    {
+      number: 1200,
+      suffix: "+",
+      label: "Étudiants formés",
+      icon: <IoPeopleOutline size={32} />,
+    },
+    {
+      number: 15,
+      suffix: "",
+      label: "Langues enseignées",
+      icon: <IoGlobeOutline size={32} />,
+    },
+    {
+      number: 95,
+      suffix: "%",
+      label: "Taux de réussite",
+      icon: <IoTrophyOutline size={32} />,
+    },
+    {
+      number: 8,
+      suffix: "",
+      label: "Années d'expérience",
+      icon: <IoRibbonOutline size={32} />,
+    },
+  ];
 
   // Données des cours
   const courses = [
@@ -214,14 +282,16 @@ const Courses = () => {
     },
   ];
 
-  // Filtrage des cours
-  const filteredCourses = courses.filter((course) => {
-    return (
-      (selectedLanguage === "all" || course.language === selectedLanguage) &&
-      (selectedLevel === "all" || course.level.includes(selectedLevel)) &&
-      (selectedFormat === "all" || course.format === selectedFormat)
-    );
-  });
+  // Filtrage des cours optimisé
+  const filteredCourses = useMemo(() => {
+    return courses.filter((course) => {
+      return (
+        (selectedLanguage === "all" || course.language === selectedLanguage) &&
+        (selectedLevel === "all" || course.level.includes(selectedLevel)) &&
+        (selectedFormat === "all" || course.format === selectedFormat)
+      );
+    });
+  }, [selectedLanguage, selectedLevel, selectedFormat]);
 
   // Fonction pour obtenir l'icône de la langue
   const getLanguageIcon = (language) => {
@@ -261,26 +331,86 @@ const Courses = () => {
       exit={{ opacity: 0 }}
     >
       {/* Hero Section */}
-      <section className="courses-hero">
+      <motion.section className="courses-hero" style={{ y }} role="banner">
+        <motion.div
+          className="hero-background"
+          initial={{ scale: 1.1, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 1.2 }}
+          aria-hidden="true"
+        />
         <motion.h1
-          initial={{ y: 20, opacity: 0 }}
+          initial={{ y: 30, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
+          transition={{
+            duration: 0.8,
+            delay: 0.2,
+            type: "spring",
+            stiffness: 100,
+          }}
         >
           Nos Cours & Programmes
         </motion.h1>
         <motion.p
-          initial={{ y: 20, opacity: 0 }}
+          initial={{ y: 30, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
+          transition={{
+            duration: 0.8,
+            delay: 0.4,
+            type: "spring",
+            stiffness: 100,
+          }}
         >
           Découvrez notre large gamme de cours de langues adaptés à tous les
           niveaux et tous les objectifs.
         </motion.p>
-      </section>
+
+        {/* Statistiques animées */}
+        <motion.div
+          className="hero-stats"
+          initial={{ y: 50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+          role="region"
+          aria-label="Statistiques de l'école"
+        >
+          {stats.map((stat, index) => (
+            <motion.div
+              key={index}
+              className="stat-item"
+              initial={{ scale: 0, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{
+                duration: 0.6,
+                delay: 0.8 + index * 0.1,
+                type: "spring",
+                stiffness: 200,
+              }}
+              whileHover={{
+                scale: 1.02,
+                transition: { duration: 0.2 },
+              }}
+              role="figure"
+              aria-label={`${stat.number}${stat.suffix} ${stat.label}`}
+            >
+              <div className="stat-icon" aria-hidden="true">
+                {stat.icon}
+              </div>
+              <div className="stat-number">
+                <AnimatedCounter end={stat.number} suffix={stat.suffix} />
+              </div>
+              <div className="stat-label">{stat.label}</div>
+            </motion.div>
+          ))}
+        </motion.div>
+      </motion.section>
 
       {/* Filtres */}
-      <section className="filters-section">
+      <section
+        className="filters-section"
+        role="search"
+        aria-label="Filtres de recherche"
+      >
         <motion.div
           className="filters-container"
           initial={{ y: 20, opacity: 0 }}
@@ -288,16 +418,18 @@ const Courses = () => {
           transition={{ duration: 0.8, delay: 0.6 }}
         >
           <div className="filter-header">
-            <IoFilterOutline size={24} />
+            <IoFilterOutline size={24} aria-hidden="true" />
             <h3>Filtrer les cours</h3>
           </div>
 
           <div className="filters-grid">
             <div className="filter-group">
-              <label>Langue</label>
+              <label htmlFor="language-filter">Langue</label>
               <select
+                id="language-filter"
                 value={selectedLanguage}
                 onChange={(e) => setSelectedLanguage(e.target.value)}
+                aria-describedby="language-help"
               >
                 <option value="all">Toutes les langues</option>
                 <option value="french">Français</option>
@@ -305,13 +437,18 @@ const Courses = () => {
                 <option value="spanish">Espagnol</option>
                 <option value="german">Allemand</option>
               </select>
+              <div id="language-help" className="sr-only">
+                Sélectionnez une langue pour filtrer les cours
+              </div>
             </div>
 
             <div className="filter-group">
-              <label>Niveau</label>
+              <label htmlFor="level-filter">Niveau</label>
               <select
+                id="level-filter"
                 value={selectedLevel}
                 onChange={(e) => setSelectedLevel(e.target.value)}
+                aria-describedby="level-help"
               >
                 <option value="all">Tous les niveaux</option>
                 <option value="A1">Débutant (A1)</option>
@@ -321,19 +458,27 @@ const Courses = () => {
                 <option value="C1">Avancé (C1)</option>
                 <option value="C2">Maîtrise (C2)</option>
               </select>
+              <div id="level-help" className="sr-only">
+                Sélectionnez un niveau pour filtrer les cours
+              </div>
             </div>
 
             <div className="filter-group">
-              <label>Format</label>
+              <label htmlFor="format-filter">Format</label>
               <select
+                id="format-filter"
                 value={selectedFormat}
                 onChange={(e) => setSelectedFormat(e.target.value)}
+                aria-describedby="format-help"
               >
                 <option value="all">Tous les formats</option>
                 <option value="private">Cours particulier</option>
                 <option value="group">Cours en groupe</option>
                 <option value="intensive">Stage intensif</option>
               </select>
+              <div id="format-help" className="sr-only">
+                Sélectionnez un format pour filtrer les cours
+              </div>
             </div>
           </div>
         </motion.div>
@@ -355,11 +500,22 @@ const Courses = () => {
             <motion.div
               key={course.id}
               className="course-card"
-              initial={{ y: 20, opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: index * 0.1 }}
-              whileHover={{ y: -5 }}
+              initial={{ y: 50, opacity: 0, scale: 0.9 }}
+              whileInView={{ y: 0, opacity: 1, scale: 1 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{
+                duration: 0.6,
+                delay: index * 0.1,
+                type: "spring",
+                stiffness: 100,
+              }}
+              whileHover={{
+                y: -10,
+                scale: 1.02,
+                rotateY: 2,
+                transition: { duration: 0.3, ease: "easeOut" },
+              }}
+              whileTap={{ scale: 0.98 }}
             >
               <div className="course-header">
                 <div className="course-language">
@@ -416,10 +572,22 @@ const Courses = () => {
                 </div>
               </div>
 
-              <button className="course-btn">
-                <IoPlayCircleOutline size={16} />
+              <motion.button
+                className="course-btn"
+                whileHover={{
+                  scale: 1.05,
+                  boxShadow: "0 10px 30px rgba(234, 189, 131, 0.3)",
+                }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ duration: 0.2 }}
+                aria-label={`S'inscrire au cours ${course.title}`}
+                onClick={() => {
+                  // Navigation vers formulaire d'inscription
+                }}
+              >
+                <IoPlayCircleOutline size={16} aria-hidden="true" />
                 S'inscrire
-              </button>
+              </motion.button>
             </motion.div>
           ))}
         </div>
@@ -453,11 +621,21 @@ const Courses = () => {
             <motion.div
               key={index}
               className={`pricing-card ${plan.popular ? "popular" : ""}`}
-              initial={{ y: 20, opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: index * 0.1 }}
-              whileHover={{ y: -5 }}
+              initial={{ y: 50, opacity: 0, rotateX: 15 }}
+              whileInView={{ y: 0, opacity: 1, rotateX: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{
+                duration: 0.6,
+                delay: index * 0.15,
+                type: "spring",
+                stiffness: 80,
+              }}
+              whileHover={{
+                y: -15,
+                scale: 1.03,
+                rotateY: plan.popular ? 0 : 3,
+                transition: { duration: 0.3 },
+              }}
             >
               {plan.popular && (
                 <div className="popular-badge">
@@ -484,10 +662,24 @@ const Courses = () => {
                 ))}
               </ul>
 
-              <button className="pricing-btn">
-                <IoCardOutline size={16} />
+              <motion.button
+                className="pricing-btn"
+                whileHover={{
+                  scale: 1.05,
+                  backgroundImage:
+                    "linear-gradient(135deg, var(--secondary-gold), var(--secondary-gold-light))",
+                  boxShadow: "0 15px 35px rgba(234, 189, 131, 0.4)",
+                }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ duration: 0.2 }}
+                aria-label={`Choisir le plan ${plan.name} à ${plan.price}${plan.period}`}
+                onClick={() => {
+                  // Navigation vers processus de commande
+                }}
+              >
+                <IoCardOutline size={16} aria-hidden="true" />
                 Choisir ce plan
-              </button>
+              </motion.button>
             </motion.div>
           ))}
         </div>
@@ -521,7 +713,19 @@ const Courses = () => {
               Évaluez gratuitement votre niveau actuel avec notre test en ligne
               ou en présentiel.
             </p>
-            <button className="step-btn">Faire le test</button>
+            <motion.button
+              className="step-btn"
+              whileHover={{
+                scale: 1.05,
+                boxShadow: "0 8px 25px rgba(234, 189, 131, 0.3)",
+              }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ duration: 0.2 }}
+              aria-label="Étape 1: Faire le test de niveau gratuitement"
+              onClick={() => navigate("/test")}
+            >
+              Faire le test
+            </motion.button>
           </motion.div>
 
           <motion.div
@@ -540,7 +744,24 @@ const Courses = () => {
               Sélectionnez le cours qui correspond à vos objectifs et votre
               emploi du temps.
             </p>
-            <button className="step-btn">Voir les cours</button>
+            <motion.button
+              className="step-btn"
+              whileHover={{
+                scale: 1.05,
+                boxShadow: "0 8px 25px rgba(234, 189, 131, 0.3)",
+              }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ duration: 0.2 }}
+              aria-label="Étape 2: Voir les cours disponibles et choisir"
+              onClick={() => {
+                // Scroll vers la section courses-catalog
+                document
+                  .querySelector(".courses-catalog")
+                  ?.scrollIntoView({ behavior: "smooth" });
+              }}
+            >
+              Voir les cours
+            </motion.button>
           </motion.div>
 
           <motion.div
@@ -559,7 +780,21 @@ const Courses = () => {
               Remplissez le formulaire d'inscription et effectuez le paiement
               sécurisé.
             </p>
-            <button className="step-btn">S'inscrire</button>
+            <motion.button
+              className="step-btn"
+              whileHover={{
+                scale: 1.05,
+                boxShadow: "0 8px 25px rgba(234, 189, 131, 0.3)",
+              }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ duration: 0.2 }}
+              aria-label="Étape 3: S'inscrire et effectuer le paiement"
+              onClick={() => {
+                // Navigation vers formulaire d'inscription
+              }}
+            >
+              S'inscrire
+            </motion.button>
           </motion.div>
 
           <motion.div
@@ -577,7 +812,21 @@ const Courses = () => {
             <p>
               Commencez votre apprentissage avec nos professeurs expérimentés.
             </p>
-            <button className="step-btn">Commencer</button>
+            <motion.button
+              className="step-btn"
+              whileHover={{
+                scale: 1.05,
+                boxShadow: "0 8px 25px rgba(234, 189, 131, 0.3)",
+              }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ duration: 0.2 }}
+              aria-label="Étape 4: Commencer l'apprentissage avec nos professeurs"
+              onClick={() => {
+                // Navigation vers dashboard/connexion
+              }}
+            >
+              Commencer
+            </motion.button>
           </motion.div>
         </div>
 
@@ -624,14 +873,40 @@ const Courses = () => {
             <h3>Des questions ?</h3>
             <p>Notre équipe est là pour vous accompagner dans votre choix.</p>
             <div className="contact-buttons">
-              <button className="contact-btn primary">
-                <IoCallOutline size={16} />
+              <motion.button
+                className="contact-btn primary"
+                whileHover={{
+                  scale: 1.05,
+                  boxShadow: "0 8px 25px rgba(234, 189, 131, 0.4)",
+                }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ duration: 0.2 }}
+                aria-label="Appeler Bon Cours au +33 1 23 45 67 89"
+                onClick={() => window.open("tel:+33123456789", "_self")}
+              >
+                <IoCallOutline size={16} aria-hidden="true" />
                 +33 1 23 45 67 89
-              </button>
-              <button className="contact-btn secondary">
-                <IoMailOutline size={16} />
+              </motion.button>
+              <motion.button
+                className="contact-btn secondary"
+                whileHover={{
+                  scale: 1.05,
+                  backgroundColor: "rgba(234, 189, 131, 0.15)",
+                  borderColor: "rgba(234, 189, 131, 0.8)",
+                }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ duration: 0.2 }}
+                aria-label="Envoyer un email à contact@boncours.fr"
+                onClick={() =>
+                  window.open(
+                    "mailto:contact@boncours.fr?subject=Demande%20d'information",
+                    "_self"
+                  )
+                }
+              >
+                <IoMailOutline size={16} aria-hidden="true" />
                 contact@boncours.fr
-              </button>
+              </motion.button>
             </div>
           </div>
         </motion.div>
