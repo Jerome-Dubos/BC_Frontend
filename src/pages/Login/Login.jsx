@@ -1,91 +1,84 @@
 // eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
-import { useState } from "react";
+import React, { useState } from "react";
+import {
+  IoKeyOutline,
+  IoPersonOutline,
+  IoSchoolOutline,
+} from "react-icons/io5";
+import { MdAdminPanelSettings } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import "./Login.css";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { login, loading } = useAuth();
+
   const [formData, setFormData] = useState({
-    emailOrUsername: "",
+    identifier: "",
     password: "",
   });
+
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-  const [showDemoAccounts, setShowDemoAccounts] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevState) => ({
-      ...prevState,
+    setFormData((prev) => ({
+      ...prev,
       [name]: value,
     }));
-    setError(""); // Effacer l'erreur quand l'utilisateur tape
+
+    // Effacer l'erreur quand l'utilisateur tape
+    if (error) setError("");
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const result = login(formData.emailOrUsername, formData.password);
+    // Validation minimale pour la démo
+    if (!formData.identifier.trim()) {
+      setError("Veuillez saisir un identifiant");
+      return;
+    }
 
-    if (result.success) {
-      navigate("/dashboard");
-    } else {
-      setError(result.error);
+    setIsLoading(true);
+    setError("");
+
+    try {
+      const result = await login(formData.identifier, formData.password);
+      if (result.success) {
+        // Rediriger vers le dashboard après connexion réussie
+        navigate("/dashboard");
+      }
+    } catch (err) {
+      setError("Erreur de connexion. Veuillez réessayer.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  const handleDemoLogin = (emailOrId, password) => {
-    setFormData({ emailOrUsername: emailOrId, password });
-    const result = login(emailOrId, password);
-    if (result.success) {
-      navigate("/dashboard");
+  const handleDemoLogin = async (identifier) => {
+    setFormData({ identifier, password: "demo" });
+    setIsLoading(true);
+    setError("");
+
+    try {
+      const result = await login(identifier, "demo");
+      if (result.success) {
+        navigate("/dashboard");
+      }
+    } catch (err) {
+      setError("Erreur de connexion");
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  const demoAccounts = [
-    {
-      type: "Directeur",
-      name: "Marie Dubois",
-      email: "marie.dubois@lecole.fr",
-      identifiant: "DIR001",
-      password: "directeur123",
-      color: "bg-purple-100 text-purple-800",
-    },
-    {
-      type: "Professeur",
-      name: "Jean Martin (Anglais)",
-      email: "jean.martin@lecole.fr",
-      identifiant: "PROF001",
-      password: "teacher123",
-      color: "bg-blue-100 text-blue-800",
-    },
-    {
-      type: "Professeur",
-      name: "Sophie Leroy (Espagnol)",
-      email: "sophie.leroy@lecole.fr",
-      identifiant: "PROF002",
-      password: "teacher123",
-      color: "bg-blue-100 text-blue-800",
-    },
-    {
-      type: "Étudiant",
-      name: "Lucas Petit (Anglais B2)",
-      email: "lucas.petit@lecole.fr",
-      identifiant: "ETU001",
-      password: "student123",
-      color: "bg-green-100 text-green-800",
-    },
-    {
-      type: "Étudiant",
-      name: "Emma Garcia (Espagnol B1)",
-      email: "emma.garcia@lecole.fr",
-      identifiant: "ETU002",
-      password: "student123",
-      color: "bg-green-100 text-green-800",
-    },
-  ];
+  if (loading) {
+    return <div>Chargement...</div>;
+  }
 
   return (
     <motion.div
@@ -95,53 +88,35 @@ const Login = () => {
       exit={{ opacity: 0 }}
     >
       <motion.div
-        className="auth-container"
+        className="login-card"
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.8 }}
+        transition={{ duration: 0.8, delay: 0.2 }}
       >
-        <motion.h1
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-        >
-          École Internationale de Langues
-        </motion.h1>
+        <div className="login-header">
+          <h1>Connexion</h1>
+          <p>
+            Bienvenue ! Connectez-vous pour accéder à votre espace personnel.
+          </p>
+        </div>
 
-        <motion.p
-          className="admin-notice"
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-        >
-          Connectez-vous avec votre email ou identifiant
-        </motion.p>
-
-        <form onSubmit={handleSubmit}>
-          <motion.div
-            className="form-group"
-            initial={{ x: -20, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-          >
-            <label htmlFor="emailOrUsername">Email ou Identifiant</label>
+        <form onSubmit={handleSubmit} className="login-form">
+          <div className="form-group">
+            <label htmlFor="identifier">Identifiant</label>
             <input
               type="text"
-              id="emailOrUsername"
-              name="emailOrUsername"
-              value={formData.emailOrUsername}
+              id="identifier"
+              name="identifier"
+              value={formData.identifier}
               onChange={handleChange}
-              placeholder="ex: jean.martin@lecole.fr ou PROF001"
+              placeholder="Votre identifiant"
               required
+              autoFocus
+              autoComplete="username"
             />
-          </motion.div>
+          </div>
 
-          <motion.div
-            className="form-group"
-            initial={{ x: -20, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.5 }}
-          >
+          <div className="form-group">
             <label htmlFor="password">Mot de passe</label>
             <input
               type="password"
@@ -149,166 +124,86 @@ const Login = () => {
               name="password"
               value={formData.password}
               onChange={handleChange}
-              placeholder="••••••••"
-              required
+              placeholder="Votre mot de passe"
+              autoComplete="current-password"
             />
-          </motion.div>
+          </div>
 
           {error && (
             <motion.div
               className="error-message"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              style={{
-                color: "red",
-                marginBottom: "1rem",
-                textAlign: "center",
-              }}
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
             >
               {error}
             </motion.div>
           )}
 
-          <motion.button
-            type="submit"
-            className="submit-button"
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.6 }}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            Se connecter
-          </motion.button>
+          <button type="submit" className="login-button" disabled={isLoading}>
+            {isLoading ? (
+              <>
+                <div className="loading-spinner"></div>
+                Connexion...
+              </>
+            ) : (
+              <>
+                <IoKeyOutline size={20} />
+                Se connecter
+              </>
+            )}
+          </button>
         </form>
 
-        {/* Bouton pour afficher les comptes de démonstration */}
-        <motion.button
-          type="button"
-          onClick={() => setShowDemoAccounts(!showDemoAccounts)}
-          className="demo-toggle-button"
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.7 }}
-          style={{
-            marginTop: "1rem",
-            background: "transparent",
-            border: "1px solid #ddd",
-            padding: "0.5rem 1rem",
-            borderRadius: "6px",
-            cursor: "pointer",
-            color: "#666",
-          }}
-        >
-          {showDemoAccounts ? "Masquer" : "Voir"} les comptes de démonstration
-        </motion.button>
+        {/* Comptes de démo */}
+        <div className="demo-accounts">
+          <h3>Comptes de démonstration</h3>
+          <p>Cliquez sur un profil pour vous connecter instantanément :</p>
 
-        {/* Comptes de démonstration */}
-        {showDemoAccounts && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            style={{ marginTop: "1rem" }}
-          >
-            <h3
-              style={{
-                textAlign: "center",
-                marginBottom: "1rem",
-                color: "#333",
-              }}
+          <div className="demo-buttons">
+            <button
+              className="demo-btn director"
+              onClick={() => handleDemoLogin("directrice")}
+              disabled={isLoading}
             >
-              Comptes de démonstration
-            </h3>
-            <div style={{ display: "grid", gap: "0.5rem" }}>
-              {demoAccounts.map((account, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ x: -20, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  transition={{ delay: index * 0.1 }}
-                  style={{
-                    border: "1px solid #e5e5e5",
-                    borderRadius: "8px",
-                    padding: "0.75rem",
-                    backgroundColor: "#f9f9f9",
-                  }}
-                >
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                    }}
-                  >
-                    <div>
-                      <span
-                        className={`inline-block px-2 py-1 rounded text-xs font-medium ${account.color}`}
-                      >
-                        {account.type}
-                      </span>
-                      <p style={{ margin: "0.25rem 0", fontWeight: "bold" }}>
-                        {account.name}
-                      </p>
-                      <p
-                        style={{
-                          margin: 0,
-                          fontSize: "0.85rem",
-                          color: "#666",
-                        }}
-                      >
-                        Email: {account.email}
-                      </p>
-                      <p
-                        style={{
-                          margin: 0,
-                          fontSize: "0.85rem",
-                          color: "#666",
-                        }}
-                      >
-                        ID: {account.identifiant}
-                      </p>
-                    </div>
-                    <div style={{ display: "flex", gap: "0.5rem" }}>
-                      <button
-                        onClick={() =>
-                          handleDemoLogin(account.email, account.password)
-                        }
-                        style={{
-                          background: "#3b82f6",
-                          color: "white",
-                          border: "none",
-                          padding: "0.4rem 0.8rem",
-                          borderRadius: "4px",
-                          fontSize: "0.8rem",
-                          cursor: "pointer",
-                        }}
-                      >
-                        Email
-                      </button>
-                      <button
-                        onClick={() =>
-                          handleDemoLogin(account.identifiant, account.password)
-                        }
-                        style={{
-                          background: "#059669",
-                          color: "white",
-                          border: "none",
-                          padding: "0.4rem 0.8rem",
-                          borderRadius: "4px",
-                          fontSize: "0.8rem",
-                          cursor: "pointer",
-                        }}
-                      >
-                        ID
-                      </button>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        )}
+              <MdAdminPanelSettings size={20} />
+              <div>
+                <strong>Directrice</strong>
+                <span>Shirin Hosseini</span>
+              </div>
+            </button>
+
+            <button
+              className="demo-btn teacher"
+              onClick={() => handleDemoLogin("prof")}
+              disabled={isLoading}
+            >
+              <IoPersonOutline size={20} />
+              <div>
+                <strong>Professeure</strong>
+                <span>Marie Dubois</span>
+              </div>
+            </button>
+
+            <button
+              className="demo-btn student"
+              onClick={() => handleDemoLogin("etudiant")}
+              disabled={isLoading}
+            >
+              <IoSchoolOutline size={20} />
+              <div>
+                <strong>Étudiant</strong>
+                <span>Pierre Martin</span>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <div className="login-info">
+          <p>
+            <strong>Mode démo :</strong> Vous pouvez aussi utiliser n'importe
+            quel identifiant pour créer un compte étudiant temporaire.
+          </p>
+        </div>
       </motion.div>
     </motion.div>
   );

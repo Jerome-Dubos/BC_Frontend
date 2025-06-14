@@ -1,52 +1,43 @@
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-
 import { AnimatePresence } from "framer-motion";
-
-// Layouts
-import MainLayout from "./layouts/MainLayout";
-
-// Pages
+import { Route, Routes, useLocation } from "react-router-dom";
+import Chatbot from "./components/Chatbot/Chatbot";
+import Navbar from "./components/Navbar/Navbar";
+import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
+import Notification from "./components/UI/Notification";
+import { useNotification } from "./hooks/useNotification";
 import About from "./pages/About/About";
+import Courses from "./pages/Courses/Courses";
+import Dashboard from "./pages/Dashboard/Dashboard";
 import Error from "./pages/Error/Error";
 import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
 import Test from "./pages/Test/Test";
 
-// Nouvelles pages pour le réseau social scolaire
-import AdminPanel from "./pages/Admin/AdminPanel";
-import Dashboard from "./pages/Dashboard/Dashboard";
-import Library from "./pages/Library/Library";
-import Profile from "./pages/Profile/Profile";
-import UserProfile from "./pages/Profile/UserProfile";
-import SocialFeed from "./pages/Social/SocialFeed";
-import VideoCall from "./pages/VideoCall/VideoCall";
-
 function App() {
+  const location = useLocation();
+  const { notifications, removeNotification } = useNotification();
+
   return (
-    <Router>
+    <>
+      <ScrollToTop />
+      <Navbar />
       <AnimatePresence mode="wait">
-        <Routes>
-          <Route path="/" element={<MainLayout />}>
-            <Route index element={<Home />} />
-            <Route path="about" element={<About />} />
-            <Route path="test" element={<Test />} />
-            <Route path="login" element={<Login />} />
-
-            {/* Nouvelles routes pour le réseau social */}
-            <Route path="dashboard" element={<Dashboard />} />
-            <Route path="admin" element={<AdminPanel />} />
-            <Route path="profile" element={<Profile />} />
-            <Route path="user/:userId" element={<UserProfile />} />
-            <Route path="social" element={<SocialFeed />} />
-            <Route path="library" element={<Library />} />
-            <Route path="video-call" element={<VideoCall />} />
-
-            <Route path="error" element={<Error />} />
-            <Route path="*" element={<Error />} />
-          </Route>
+        <Routes location={location} key={location.pathname}>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/courses" element={<Courses />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/test" element={<Test />} />
+          <Route path="*" element={<Error />} />
         </Routes>
       </AnimatePresence>
-    </Router>
+      <Chatbot />
+      <Notification
+        notifications={notifications}
+        onRemove={removeNotification}
+      />
+    </>
   );
 }
 

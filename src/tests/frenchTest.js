@@ -8,6 +8,8 @@ export const frenchQuestions = [
     options: ["suis", "es", "est", "sommes"],
     correct: 0,
     level: "A1",
+    coefficient: 1,
+    explanation: "À la première personne du singulier, on utilise 'suis'.",
   },
   {
     id: 2,
@@ -15,6 +17,8 @@ export const frenchQuestions = [
     options: ["viens", "vient", "venez", "viennent"],
     correct: 2,
     level: "A1",
+    coefficient: 1,
+    explanation: "Avec 'vous', on utilise la forme 'venez'.",
   },
   {
     id: 3,
@@ -22,6 +26,8 @@ export const frenchQuestions = [
     options: ["vais", "vas", "va", "allons"],
     correct: 0,
     level: "A1",
+    coefficient: 1,
+    explanation: "À la première personne du singulier, on utilise 'vais'.",
   },
   {
     id: 4,
@@ -29,6 +35,8 @@ export const frenchQuestions = [
     options: ["parle", "parles", "parlons", "parlez"],
     correct: 0,
     level: "A2",
+    coefficient: 1.5,
+    explanation: "À la troisième personne du singulier, on utilise 'parle'.",
   },
   {
     id: 5,
@@ -36,6 +44,9 @@ export const frenchQuestions = [
     options: ["vais", "suis allé", "irai", "allais"],
     correct: 1,
     level: "A2",
+    coefficient: 1.5,
+    explanation:
+      "Pour exprimer une action passée, on utilise le passé composé 'suis allé'.",
   },
 
   // Niveau B1-B2
@@ -45,6 +56,9 @@ export const frenchQuestions = [
     options: ["suis", "étais", "serais", "ai été"],
     correct: 1,
     level: "B1",
+    coefficient: 2,
+    explanation:
+      "Dans une condition irréelle au présent, on utilise l'imparfait 'étais'.",
   },
   {
     id: 7,
@@ -52,6 +66,9 @@ export const frenchQuestions = [
     options: ["a lu", "a été lu", "ont lu", "ont été lus"],
     correct: 1,
     level: "B1",
+    coefficient: 2,
+    explanation:
+      "À la voix passive, on utilise 'a été lu' pour un sujet singulier.",
   },
   {
     id: 8,
@@ -59,6 +76,9 @@ export const frenchQuestions = [
     options: ["as", "aies", "avais", "auras"],
     correct: 1,
     level: "B1",
+    coefficient: 2,
+    explanation:
+      "Après 'souhaiter que', on utilise le subjonctif présent 'aies'.",
   },
   {
     id: 9,
@@ -66,6 +86,9 @@ export const frenchQuestions = [
     options: ["a reporté", "a été reportée", "ont reporté", "reporte"],
     correct: 1,
     level: "B2",
+    coefficient: 2.5,
+    explanation:
+      "À la voix passive, on utilise 'a été reportée' pour un sujet féminin singulier.",
   },
   {
     id: 10,
@@ -73,6 +96,8 @@ export const frenchQuestions = [
     options: ["Malgré", "Bien que", "À cause de", "Cependant"],
     correct: 2,
     level: "B2",
+    coefficient: 2.5,
+    explanation: "'À cause de' exprime la cause d'une conséquence négative.",
   },
 
   // Niveau C1-C2
@@ -83,6 +108,9 @@ export const frenchQuestions = [
     options: ["acerbes", "dispersées", "croissantes", "exploratrices"],
     correct: 0,
     level: "C1",
+    coefficient: 3,
+    explanation:
+      "'Acerbes' qualifie des critiques particulièrement sévères et amères.",
   },
   {
     id: 12,
@@ -90,6 +118,9 @@ export const frenchQuestions = [
     options: ["partirais", "serais parti", "partirai", "suis parti"],
     correct: 1,
     level: "C1",
+    coefficient: 3,
+    explanation:
+      "Dans une condition irréelle au passé, on utilise le conditionnel passé 'serais parti'.",
   },
   {
     id: 13,
@@ -98,6 +129,9 @@ export const frenchQuestions = [
     options: ["lieux communs", "attitudes", "latitudes", "gratitudes"],
     correct: 0,
     level: "C1",
+    coefficient: 3,
+    explanation:
+      "'Lieux communs' désigne des idées ou expressions banales et répétitives.",
   },
   {
     id: 14,
@@ -106,6 +140,9 @@ export const frenchQuestions = [
     options: ["a terminé", "avait terminé", "aurait terminé", "termine"],
     correct: 0,
     level: "C2",
+    coefficient: 3.5,
+    explanation:
+      "Le passé composé 'a terminé' est utilisé pour une action achevée dans le passé.",
   },
   {
     id: 15,
@@ -114,5 +151,8 @@ export const frenchQuestions = [
     options: ["perspicace", "perspicace", "pernicieux", "tenace"],
     correct: 0,
     level: "C2",
+    coefficient: 3.5,
+    explanation:
+      "'Perspicace' qualifie un style qui montre une grande finesse d'analyse.",
   },
 ];
