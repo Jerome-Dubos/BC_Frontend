@@ -397,7 +397,7 @@ const About = () => {
               transition={{ duration: 0.3 }}
             >
               <img
-                src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=300&h=300&fit=crop&crop=face&auto=format&q=80"
+                src="https://images.unsplash.com/photo-1573496359142-b8d88e9218df?w=300&h=300&fit=crop&crop=face&auto=format&q=80"
                 alt="Professeur d'anglais"
               />
             </motion.div>
@@ -594,7 +594,7 @@ const About = () => {
         </motion.div>
       </section>
 
-      <section className="contact-section">
+      <section id="contact-form" className="contact-section">
         <motion.h2
           initial={{ y: 20, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
