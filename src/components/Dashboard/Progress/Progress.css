@@ -1,0 +1,476 @@
+/* === PROGRESS SECTION === */
+.progress-section {
+  padding: var(--spacing-xl);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(234, 189, 131, 0.15);
+  border-radius: var(--border-radius-lg);
+  backdrop-filter: blur(15px);
+  position: relative;
+  overflow: hidden;
+}
+
+.progress-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--secondary-gold) 0%, #f5d76c 100%);
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.progress-section h3 {
+  color: var(--secondary-gold);
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: var(--spacing-lg);
+  text-align: center;
+  background: linear-gradient(135deg, var(--secondary-gold) 0%, #f5d76c 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* === CURRENT LEVEL === */
+.current-level {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(234, 189, 131, 0.15);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-xl);
+  margin-bottom: var(--spacing-xl);
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+
+.current-level::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(234, 189, 131, 0.1),
+    transparent
+  );
+  transition: left 0.8s ease;
+}
+
+.current-level:hover::before {
+  left: 100%;
+}
+
+.current-level h4 {
+  color: var(--secondary-gold);
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: var(--spacing-lg);
+  text-align: center;
+}
+
+.level-progress {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+}
+
+.level-progress span {
+  color: var(--text-light);
+  font-weight: 600;
+  font-size: 1.1rem;
+  min-width: 100px;
+}
+
+/* === PROGRESS BARS === */
+.progress-bar {
+  flex: 1;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid rgba(234, 189, 131, 0.2);
+  min-width: 0;
+}
+
+.progress-bar.large {
+  height: 16px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--secondary-gold) 0%, #f5d76c 100%);
+  border-radius: 20px;
+  position: relative;
+  transition: width 1s ease-out;
+  box-shadow: 0 0 10px rgba(234, 189, 131, 0.5);
+}
+
+.progress-fill::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  animation: slide-shine 2s ease-in-out infinite;
+}
+
+@keyframes slide-shine {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* === SKILLS BREAKDOWN === */
+.skills-breakdown {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(234, 189, 131, 0.15);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-xl);
+  margin-bottom: var(--spacing-xl);
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+
+.skills-breakdown::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--secondary-gold) 0%, #f5d76c 100%);
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+.skills-breakdown h4 {
+  color: var(--secondary-gold);
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: var(--spacing-lg);
+  text-align: center;
+  background: linear-gradient(135deg, var(--secondary-gold) 0%, #f5d76c 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-lg);
+}
+
+.skill-item {
+  display: grid;
+  grid-template-columns: 1fr 2fr auto;
+  align-items: center;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-lg);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(234, 189, 131, 0.1);
+  border-radius: var(--border-radius-md);
+  transition: all var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+.skill-item::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(234, 189, 131, 0.05),
+    transparent
+  );
+  transition: left 0.6s ease;
+}
+
+.skill-item:hover::before {
+  left: 100%;
+}
+
+.skill-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(234, 189, 131, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(234, 189, 131, 0.1);
+}
+
+.skill-item span:first-child {
+  color: var(--text-light);
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.skill-item span:last-child {
+  color: var(--secondary-gold);
+  font-weight: 700;
+  font-size: 1.1rem;
+  min-width: 50px;
+  text-align: right;
+}
+
+/* === ACHIEVEMENTS SECTION === */
+.achievements-section {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(234, 189, 131, 0.15);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-xl);
+  backdrop-filter: blur(15px);
+  position: relative;
+  overflow: hidden;
+}
+
+.achievements-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--secondary-gold) 0%, #f5d76c 100%);
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+.achievements-section h4 {
+  color: var(--secondary-gold);
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: var(--spacing-lg);
+  text-align: center;
+  background: linear-gradient(135deg, var(--secondary-gold) 0%, #f5d76c 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.badges-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-lg);
+  justify-content: center;
+  align-items: center;
+}
+
+.achievement-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 130px;
+  height: 130px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(234, 189, 131, 0.15);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-lg);
+  transition: all var(--transition-normal);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+}
+
+.achievement-badge::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(234, 189, 131, 0.1),
+    transparent
+  );
+  transition: left 0.6s ease;
+}
+
+.achievement-badge:hover::before {
+  left: 100%;
+}
+
+.achievement-badge.earned {
+  background: rgba(234, 189, 131, 0.1);
+  border-color: rgba(234, 189, 131, 0.3);
+  box-shadow: 0 4px 20px rgba(234, 189, 131, 0.2);
+}
+
+.achievement-badge.locked {
+  opacity: 0.6;
+  background: rgba(255, 255, 255, 0.02);
+  border-color: rgba(107, 114, 128, 0.2);
+}
+
+.achievement-badge.earned:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 8px 30px rgba(234, 189, 131, 0.3);
+}
+
+.badge-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  margin-bottom: var(--spacing-md);
+  position: relative;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(234, 189, 131, 0.2);
+}
+
+.achievement-badge.earned .badge-icon-wrapper {
+  background: linear-gradient(
+    135deg,
+    rgba(234, 189, 131, 0.2) 0%,
+    rgba(245, 215, 108, 0.2) 100%
+  );
+}
+
+.lock-icon {
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  background: rgba(107, 114, 128, 0.8);
+  border-radius: 50%;
+  padding: 2px;
+}
+
+.badge-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-align: center;
+  line-height: 1.2;
+  color: var(--text-muted);
+  transition: color var(--transition-normal);
+}
+
+.achievement-badge.earned .badge-title {
+  color: var(--secondary-gold);
+  text-shadow: 0 0 10px rgba(234, 189, 131, 0.3);
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 1024px) {
+  .progress-section {
+    padding: var(--spacing-xl);
+  }
+
+  .achievement-badge {
+    width: 110px;
+    height: 110px;
+    padding: var(--spacing-md);
+  }
+
+  .badge-icon-wrapper {
+    width: 36px;
+    height: 36px;
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .badge-title {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .progress-section {
+    padding: var(--spacing-lg);
+    border-radius: 16px;
+  }
+
+  .badges-container {
+    gap: var(--spacing-sm);
+  }
+
+  .achievement-badge {
+    width: 90px;
+    height: 90px;
+    padding: var(--spacing-sm);
+  }
+
+  .badge-icon-wrapper {
+    width: 30px;
+    height: 30px;
+    margin-bottom: var(--spacing-xs);
+  }
+
+  .badge-title {
+    font-size: 0.75rem;
+  }
+
+  .skill-item {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: var(--spacing-sm);
+  }
+}
+
+@media (max-width: 480px) {
+  .progress-section {
+    padding: var(--spacing-md);
+  }
+
+  .badges-container {
+    gap: 10px;
+    justify-content: space-around;
+  }
+
+  .achievement-badge {
+    width: 90px;
+    height: 90px;
+    padding: 6px;
+  }
+
+  .badge-icon-wrapper {
+    width: 30px;
+    height: 30px;
+    margin-bottom: 4px;
+  }
+
+  .badge-title {
+    font-size: 0.65rem;
+  }
+
+  .level-progress {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
+  .level-progress span {
+    min-width: auto;
+    text-align: center;
+  }
+}
