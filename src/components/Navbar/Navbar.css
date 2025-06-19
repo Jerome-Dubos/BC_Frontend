@@ -1112,3 +1112,14 @@
 .navbar-logo:hover {
   animation: logoGlow 2s ease-in-out infinite;
 }
+
+/* Ajouté pour aligner précisément l'icône et le texte */
+.nav-link span[aria-hidden="true"] {
+  display: flex;
+  align-items: center;
+  line-height: 0; /* supprime la ligne de base qui décalait l'icône */
+}
+
+.nav-link span[aria-hidden="true"] svg {
+  display: block; /* évite l'espace supplémentaire sous le SVG */
+}

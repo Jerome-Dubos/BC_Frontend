@@ -1,5 +1,6 @@
+/* eslint-disable no-unused-vars */
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   IoCloseOutline,
   IoFlaskOutline,
@@ -13,23 +14,14 @@ import {
 import { MdDashboard } from "react-icons/md";
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import useScrollThreshold from "../../hooks/useScrollThreshold";
 import "./Navbar.css";
 
 const Navbar = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
+  const isScrolled = useScrollThreshold(20);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
   const { user, logout } = useAuth();
-  const [showUserMenu, setShowUserMenu] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -49,7 +41,6 @@ const Navbar = () => {
   const handleLogout = () => {
     logout();
     closeMobileMenu();
-    setShowUserMenu(false);
   };
 
   // Navigation links selon l'état d'authentification
@@ -100,7 +91,7 @@ const Navbar = () => {
         className="navbar-logo"
         onClick={() => handleNavLinkClick("/")}
       >
-        <IoSchoolOutline size={24} />
+        <IoSchoolOutline size={24} aria-hidden="true" />
         Bon Cours
       </Link>
 
@@ -134,8 +125,9 @@ const Navbar = () => {
                 location.pathname === link.path ? "active" : ""
               }`}
               onClick={() => handleNavLinkClick(link.path)}
+              aria-label={link.label}
             >
-              {link.icon}
+              <span aria-hidden="true">{link.icon}</span>
               {link.label}
             </Link>
           </motion.div>
@@ -158,7 +150,7 @@ const Navbar = () => {
               </span>
             </div>
             <button className="logout-btn" onClick={handleLogout}>
-              <IoLogOutOutline size={16} />
+              <IoLogOutOutline size={16} aria-hidden="true" />
               Se déconnecter
             </button>
           </motion.div>
@@ -166,6 +158,10 @@ const Navbar = () => {
       </motion.div>
     </motion.nav>
   );
+};
+
+Navbar.propTypes = {
+  // Aucune prop directement injectée pour le moment, mais on prépare la structure
 };
 
 export default Navbar;

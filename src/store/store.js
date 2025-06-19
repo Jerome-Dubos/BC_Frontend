@@ -4,10 +4,6 @@ import { persist } from "zustand/middleware";
 const useStore = create(
   persist(
     (set) => ({
-      // État de l'utilisateur
-      user: null,
-      setUser: (user) => set({ user }),
-
       // État du thème
       theme: "light",
       setTheme: (theme) => set({ theme }),

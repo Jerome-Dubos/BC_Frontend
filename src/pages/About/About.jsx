@@ -58,21 +58,20 @@ const About = () => {
   };
 
   const cardVariants = {
-    hidden: { y: 20, opacity: 0, scale: 0.98 },
+    hidden: { y: 30, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
-      scale: 1,
       transition: {
         duration: 0.6,
         ease: "easeOut",
       },
     },
     hover: {
-      y: -8,
-      scale: 1.02,
+      y: -6,
+      scale: 1.03,
       transition: {
-        duration: 0.3,
+        duration: 0.25,
         ease: "easeOut",
       },
     },
@@ -281,7 +280,7 @@ const About = () => {
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
+          viewport={{ once: true, amount: 0.2 }}
         >
           <motion.div
             className="about-card"

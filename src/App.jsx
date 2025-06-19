@@ -1,6 +1,7 @@
 import { AnimatePresence } from "framer-motion";
 import { Route, Routes, useLocation } from "react-router-dom";
 import Chatbot from "./components/Chatbot/Chatbot";
+import Footer from "./components/Footer/Footer";
 import Navbar from "./components/Navbar/Navbar";
 import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 import Notification from "./components/UI/Notification";
@@ -32,6 +33,7 @@ function App() {
           <Route path="*" element={<Error />} />
         </Routes>
       </AnimatePresence>
+      <Footer />
       <Chatbot />
       <Notification
         notifications={notifications}
