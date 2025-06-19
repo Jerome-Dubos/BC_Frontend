@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
   IoCalendarOutline,
   IoCloseOutline,
@@ -12,6 +13,7 @@ import {
 import "./TeacherCourses.css";
 
 const TeacherCourses = () => {
+  const { t } = useTranslation();
   const [showCreateForm, setShowCreateForm] = useState(false);
   const [newCourse, setNewCourse] = useState({
     title: "",
@@ -110,7 +112,7 @@ const TeacherCourses = () => {
 
   const handleGoogleDriveImport = () => {
     console.log("Import depuis Google Drive...");
-    alert("Fonctionnalité d'import Google Drive à venir !");
+    alert(t("teacherCourses.notifications.importAlert"));
   };
 
   return (
@@ -122,7 +124,7 @@ const TeacherCourses = () => {
     >
       <div className="teacher-courses-header">
         <div className="teacher-courses-header-left">
-          <h3 className="teacher-courses-title">Mes Cours</h3>
+          <h3 className="teacher-courses-title">{t("teacherCourses.title")}</h3>
         </div>
         <div className="teacher-courses-header-right">
           <button
@@ -130,7 +132,7 @@ const TeacherCourses = () => {
             onClick={handleGoogleDriveImport}
           >
             <IoCloudDownloadOutline size={20} />
-            Importer depuis Google Drive
+            {t("teacherCourses.importButton")}
           </button>
         </div>
       </div>
@@ -138,15 +140,21 @@ const TeacherCourses = () => {
       <div className="teacher-courses-stats">
         <div className="teacher-courses-stat">
           <div className="teacher-courses-stat-value">3</div>
-          <div className="teacher-courses-stat-label">Cours actifs</div>
+          <div className="teacher-courses-stat-label">
+            {t("teacherCourses.stats.activeCourses")}
+          </div>
         </div>
         <div className="teacher-courses-stat">
           <div className="teacher-courses-stat-value">30</div>
-          <div className="teacher-courses-stat-label">Étudiants totaux</div>
+          <div className="teacher-courses-stat-label">
+            {t("teacherCourses.stats.totalStudents")}
+          </div>
         </div>
         <div className="teacher-courses-stat">
           <div className="teacher-courses-stat-value">5h15</div>
-          <div className="teacher-courses-stat-label">Heures/semaine</div>
+          <div className="teacher-courses-stat-label">
+            {t("teacherCourses.stats.weeklyHours")}
+          </div>
         </div>
       </div>
 
@@ -180,7 +188,9 @@ const TeacherCourses = () => {
                   <div className="teacher-course-students-count">
                     {course.currentStudents}
                   </div>
-                  <div className="teacher-course-students-label">étudiants</div>
+                  <div className="teacher-course-students-label">
+                    {t("teacherCourses.courseInfo.students")}
+                  </div>
                 </div>
               </div>
               <div className="teacher-course-details">
@@ -196,11 +206,11 @@ const TeacherCourses = () => {
               <div className="teacher-course-actions">
                 <button className="teacher-course-action-btn primary">
                   <IoEyeOutline size={14} />
-                  Voir
+                  {t("teacherCourses.actions.view")}
                 </button>
                 <button className="teacher-course-action-btn secondary">
                   <IoCreateOutline size={14} />
-                  Modifier
+                  {t("teacherCourses.actions.edit")}
                 </button>
               </div>
             </motion.div>
@@ -213,7 +223,7 @@ const TeacherCourses = () => {
         <div className="modal-overlay">
           <div className="modal-content">
             <div className="modal-header">
-              <h3>Créer un nouveau cours</h3>
+              <h3>{t("teacherCourses.createForm.title")}</h3>
               <button
                 className="close-modal"
                 onClick={() => setShowCreateForm(false)}
@@ -224,43 +234,59 @@ const TeacherCourses = () => {
             <form onSubmit={handleCreateCourse} className="create-course-form">
               <div className="form-row">
                 <div className="form-group">
-                  <label>Titre du cours</label>
+                  <label>{t("teacherCourses.createForm.courseTitle")}</label>
                   <input
                     type="text"
                     value={newCourse.title}
                     onChange={(e) =>
                       setNewCourse({ ...newCourse, title: e.target.value })
                     }
-                    placeholder="Ex: Grammaire Française B1"
+                    placeholder={t(
+                      "teacherCourses.createForm.courseTitlePlaceholder"
+                    )}
                     required
                   />
                 </div>
                 <div className="form-group">
-                  <label>Niveau</label>
+                  <label>{t("teacherCourses.createForm.level")}</label>
                   <select
                     value={newCourse.level}
                     onChange={(e) =>
                       setNewCourse({ ...newCourse, level: e.target.value })
                     }
                   >
-                    <option value="A1">A1 - Débutant</option>
-                    <option value="A2">A2 - Élémentaire</option>
-                    <option value="B1">B1 - Intermédiaire</option>
-                    <option value="B2">B2 - Intermédiaire avancé</option>
-                    <option value="C1">C1 - Avancé</option>
-                    <option value="C2">C2 - Maîtrise</option>
+                    <option value="A1">
+                      {t("teacherCourses.createForm.levels.a1")}
+                    </option>
+                    <option value="A2">
+                      {t("teacherCourses.createForm.levels.a2")}
+                    </option>
+                    <option value="B1">
+                      {t("teacherCourses.createForm.levels.b1")}
+                    </option>
+                    <option value="B2">
+                      {t("teacherCourses.createForm.levels.b2")}
+                    </option>
+                    <option value="C1">
+                      {t("teacherCourses.createForm.levels.c1")}
+                    </option>
+                    <option value="C2">
+                      {t("teacherCourses.createForm.levels.c2")}
+                    </option>
                   </select>
                 </div>
               </div>
 
               <div className="form-group">
-                <label>Description</label>
+                <label>{t("teacherCourses.createForm.description")}</label>
                 <textarea
                   value={newCourse.description}
                   onChange={(e) =>
                     setNewCourse({ ...newCourse, description: e.target.value })
                   }
-                  placeholder="Décrivez le contenu et les objectifs du cours..."
+                  placeholder={t(
+                    "teacherCourses.createForm.descriptionPlaceholder"
+                  )}
                   rows="3"
                   required
                 />
@@ -268,19 +294,21 @@ const TeacherCourses = () => {
 
               <div className="form-row">
                 <div className="form-group">
-                  <label>Durée</label>
+                  <label>{t("teacherCourses.createForm.duration")}</label>
                   <input
                     type="text"
                     value={newCourse.duration}
                     onChange={(e) =>
                       setNewCourse({ ...newCourse, duration: e.target.value })
                     }
-                    placeholder="Ex: 2h"
+                    placeholder={t(
+                      "teacherCourses.createForm.durationPlaceholder"
+                    )}
                     required
                   />
                 </div>
                 <div className="form-group">
-                  <label>Nombre max d'étudiants</label>
+                  <label>{t("teacherCourses.createForm.maxStudents")}</label>
                   <input
                     type="number"
                     value={newCourse.maxStudents}
@@ -290,7 +318,9 @@ const TeacherCourses = () => {
                         maxStudents: e.target.value,
                       })
                     }
-                    placeholder="15"
+                    placeholder={t(
+                      "teacherCourses.createForm.maxStudentsPlaceholder"
+                    )}
                     min="1"
                     max="30"
                     required
@@ -299,25 +329,27 @@ const TeacherCourses = () => {
               </div>
 
               <div className="form-group">
-                <label>Horaire</label>
+                <label>{t("teacherCourses.createForm.schedule")}</label>
                 <input
                   type="text"
                   value={newCourse.schedule}
                   onChange={(e) =>
                     setNewCourse({ ...newCourse, schedule: e.target.value })
                   }
-                  placeholder="Ex: Lundi 14:00"
+                  placeholder={t(
+                    "teacherCourses.createForm.schedulePlaceholder"
+                  )}
                   required
                 />
               </div>
 
               <div className="form-actions">
                 <button type="button" onClick={() => setShowCreateForm(false)}>
-                  Annuler
+                  {t("teacherCourses.createForm.cancel")}
                 </button>
                 <button type="submit">
                   <IoSaveOutline size={16} />
-                  Créer le cours
+                  {t("teacherCourses.createForm.create")}
                 </button>
               </div>
             </form>

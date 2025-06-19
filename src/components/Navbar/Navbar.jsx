@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
   IoCloseOutline,
   IoFlaskOutline,
@@ -22,6 +23,7 @@ const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
   const { user, logout } = useAuth();
+  const { t, i18n } = useTranslation();
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -46,14 +48,22 @@ const Navbar = () => {
   // Navigation links selon l'état d'authentification
   const getNavLinks = () => {
     const baseLinks = [
-      { path: "/", label: "Accueil", icon: <IoHomeOutline size={18} /> },
+      { path: "/", label: t("nav.home"), icon: <IoHomeOutline size={18} /> },
       {
         path: "/about",
-        label: "À propos",
+        label: t("nav.about"),
         icon: <IoInformationCircleOutline size={18} />,
       },
-      { path: "/courses", label: "Cours", icon: <IoSchoolOutline size={18} /> },
-      { path: "/test", label: "Test", icon: <IoFlaskOutline size={18} /> },
+      {
+        path: "/courses",
+        label: t("nav.courses"),
+        icon: <IoSchoolOutline size={18} />,
+      },
+      {
+        path: "/test",
+        label: t("nav.test"),
+        icon: <IoFlaskOutline size={18} />,
+      },
     ];
 
     if (user) {
@@ -61,7 +71,7 @@ const Navbar = () => {
         ...baseLinks,
         {
           path: "/dashboard",
-          label: "Dashboard",
+          label: t("nav.dashboard"),
           icon: <MdDashboard size={18} />,
         },
       ];
@@ -70,7 +80,7 @@ const Navbar = () => {
         ...baseLinks,
         {
           path: "/login",
-          label: "Connexion",
+          label: t("nav.login"),
           icon: <IoLogInOutline size={18} />,
         },
       ];
@@ -95,17 +105,33 @@ const Navbar = () => {
         Bon Cours
       </Link>
 
-      <button
-        className="mobile-menu-button"
-        onClick={toggleMobileMenu}
-        aria-label="Menu"
-      >
-        {isMobileMenuOpen ? (
-          <IoCloseOutline size={24} />
-        ) : (
-          <IoMenuOutline size={24} />
-        )}
-      </button>
+      {/* Section droite mobile uniquement - sélecteur langue + bouton menu */}
+      <div className="navbar-right">
+        {/* Sélecteur de langue mobile */}
+        <div className="language-select-container mobile-only">
+          <select
+            className="language-select"
+            value={i18n.language}
+            onChange={(e) => i18n.changeLanguage(e.target.value)}
+            aria-label={t("nav.selectLanguage", "Choisir la langue")}
+          >
+            <option value="fr">🇫🇷 FR</option>
+            <option value="en">🇬🇧 EN</option>
+          </select>
+        </div>
+
+        <button
+          className="mobile-menu-button"
+          onClick={toggleMobileMenu}
+          aria-label="Menu"
+        >
+          {isMobileMenuOpen ? (
+            <IoCloseOutline size={28} />
+          ) : (
+            <IoMenuOutline size={28} />
+          )}
+        </button>
+      </div>
 
       <motion.div
         className={`nav-links ${isMobileMenuOpen ? "active" : ""}`}
@@ -143,18 +169,31 @@ const Navbar = () => {
               <span className="user-name">{user.name}</span>
               <span className="user-role">
                 {user.role === "director"
-                  ? "Directrice"
+                  ? t("nav.roles.director", "Directrice")
                   : user.role === "teacher"
-                  ? "Professeur"
-                  : "Étudiant"}
+                  ? t("nav.roles.teacher", "Professeur")
+                  : t("nav.roles.student", "Étudiant")}
               </span>
             </div>
             <button className="logout-btn" onClick={handleLogout}>
               <IoLogOutOutline size={16} aria-hidden="true" />
-              Se déconnecter
+              {t("nav.logout")}
             </button>
           </motion.div>
         )}
+
+        {/* Sélecteur de langue desktop - dans nav-links */}
+        <div className="language-select-container desktop-only">
+          <select
+            className="language-select"
+            value={i18n.language}
+            onChange={(e) => i18n.changeLanguage(e.target.value)}
+            aria-label={t("nav.selectLanguage", "Choisir la langue")}
+          >
+            <option value="fr">🇫🇷 FR</option>
+            <option value="en">🇬🇧 EN</option>
+          </select>
+        </div>
       </motion.div>
     </motion.nav>
   );

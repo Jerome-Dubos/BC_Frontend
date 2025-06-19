@@ -1,49 +1,57 @@
+// eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { IoLockClosedOutline } from "react-icons/io5";
 import "./Progress.css";
 
 const Progress = ({ user, getBadgesForRole }) => {
+  const { t } = useTranslation();
+
   return (
     <div className="progress-section">
-      <h3>Ma progression</h3>
+      <h3>{t("progress.title")}</h3>
 
       <div className="current-level">
-        <h4>Niveau actuel : B1 Intermédiaire</h4>
+        <h4>
+          {t("progress.currentLevel", { level: t("progress.levels.b1") })}
+        </h4>
         <div className="level-progress">
           <div className="progress-bar large">
             <div className="progress-fill" style={{ width: "65%" }}></div>
           </div>
-          <span>65% vers B2</span>
+          <span>
+            {t("progress.progressTo", { percentage: 65, level: "B2" })}
+          </span>
         </div>
       </div>
 
       <div className="skills-breakdown">
-        <h4>Compétences</h4>
+        <h4>{t("progress.skills.title")}</h4>
         <div className="skills-grid">
           <div className="skill-item">
-            <span>Compréhension orale</span>
+            <span>{t("progress.skills.listeningComprehension")}</span>
             <div className="progress-bar">
               <div className="progress-fill" style={{ width: "70%" }}></div>
             </div>
             <span>70%</span>
           </div>
           <div className="skill-item">
-            <span>Expression orale</span>
+            <span>{t("progress.skills.speaking")}</span>
             <div className="progress-bar">
               <div className="progress-fill" style={{ width: "60%" }}></div>
             </div>
             <span>60%</span>
           </div>
           <div className="skill-item">
-            <span>Compréhension écrite</span>
+            <span>{t("progress.skills.readingComprehension")}</span>
             <div className="progress-bar">
               <div className="progress-fill" style={{ width: "75%" }}></div>
             </div>
             <span>75%</span>
           </div>
           <div className="skill-item">
-            <span>Expression écrite</span>
+            <span>{t("progress.skills.writing")}</span>
             <div className="progress-bar">
               <div className="progress-fill" style={{ width: "55%" }}></div>
             </div>
@@ -53,7 +61,7 @@ const Progress = ({ user, getBadgesForRole }) => {
       </div>
 
       <div className="achievements-section">
-        <h4>Badges obtenus</h4>
+        <h4>{t("progress.achievements.title")}</h4>
         <div className="badges-container">
           {getBadgesForRole(user?.role || "student").map((badge) => {
             const IconComponent = badge.icon;

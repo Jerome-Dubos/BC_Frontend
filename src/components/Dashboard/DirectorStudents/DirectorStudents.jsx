@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
   IoBookOutline,
   IoFilterOutline,
@@ -10,9 +11,9 @@ import {
 import "./DirectorStudents.css";
 
 const DirectorStudents = () => {
+  const { t } = useTranslation();
   const [selectedLevel, setSelectedLevel] = useState("all");
   const [selectedCourse, setSelectedCourse] = useState("all");
-  const [selectedStatus, setSelectedStatus] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
 
   const studentsData = [
@@ -159,19 +160,6 @@ const DirectorStudents = () => {
         10
     ) / 10;
 
-  const getStatusText = (status) => {
-    switch (status) {
-      case "active":
-        return "Actif";
-      case "graduated":
-        return "Diplômé";
-      case "suspended":
-        return "Suspendu";
-      default:
-        return status;
-    }
-  };
-
   return (
     <motion.div
       className="director-students-section"
@@ -180,28 +168,38 @@ const DirectorStudents = () => {
       transition={{ duration: 0.5 }}
     >
       <div className="director-students-header">
-        <h3 className="director-students-title">Gestion des Étudiants</h3>
-        <p>Vue d'ensemble de tous les étudiants de l'école</p>
+        <h3 className="director-students-title">
+          {t("directorStudents.title")}
+        </h3>
+        <p>{t("directorStudents.subtitle")}</p>
       </div>
 
       <div className="director-students-overview">
         <div className="director-students-stat-card">
           <div className="director-students-stat-value">{totalStudents}</div>
-          <div className="director-students-stat-label">Étudiants Total</div>
+          <div className="director-students-stat-label">
+            {t("directorStudents.stats.totalStudents")}
+          </div>
         </div>
         <div className="director-students-stat-card">
           <div className="director-students-stat-value">{averageProgress}%</div>
-          <div className="director-students-stat-label">Progrès Moyen</div>
+          <div className="director-students-stat-label">
+            {t("directorStudents.stats.averageProgress")}
+          </div>
         </div>
         <div className="director-students-stat-card">
           <div className="director-students-stat-value">
             {averageAttendance}%
           </div>
-          <div className="director-students-stat-label">Assiduité Moyenne</div>
+          <div className="director-students-stat-label">
+            {t("directorStudents.stats.averageAttendance")}
+          </div>
         </div>
         <div className="director-students-stat-card">
           <div className="director-students-stat-value">{averageGrade}/20</div>
-          <div className="director-students-stat-label">Note Moyenne</div>
+          <div className="director-students-stat-label">
+            {t("directorStudents.stats.averageGrade")}
+          </div>
         </div>
       </div>
 
@@ -210,7 +208,7 @@ const DirectorStudents = () => {
           <IoSearchOutline size={20} />
           <input
             type="text"
-            placeholder="Rechercher un étudiant..."
+            placeholder={t("directorStudents.filters.searchPlaceholder")}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
@@ -222,7 +220,9 @@ const DirectorStudents = () => {
             value={selectedCourse}
             onChange={(e) => setSelectedCourse(e.target.value)}
           >
-            <option value="all">Tous les cours</option>
+            <option value="all">
+              {t("directorStudents.filters.allCourses")}
+            </option>
             {courses.map((course) => (
               <option key={course} value={course}>
                 {course}
@@ -236,7 +236,9 @@ const DirectorStudents = () => {
             value={selectedLevel}
             onChange={(e) => setSelectedLevel(e.target.value)}
           >
-            <option value="all">Tous les niveaux</option>
+            <option value="all">
+              {t("directorStudents.filters.allLevels")}
+            </option>
             {levels.map((level) => (
               <option key={level} value={level}>
                 {level}
@@ -283,30 +285,36 @@ const DirectorStudents = () => {
                 <div className="director-student-stat-value">
                   {student.progress}%
                 </div>
-                <div className="director-student-stat-label">Progrès</div>
+                <div className="director-student-stat-label">
+                  {t("directorStudents.studentInfo.progress")}
+                </div>
               </div>
               <div className="director-student-stat">
                 <div className="director-student-stat-value">
                   {student.attendance}%
                 </div>
-                <div className="director-student-stat-label">Assiduité</div>
+                <div className="director-student-stat-label">
+                  {t("directorStudents.studentInfo.attendance")}
+                </div>
               </div>
               <div className="director-student-stat">
                 <div className="director-student-stat-value">
                   {student.grade}/20
                 </div>
-                <div className="director-student-stat-label">Note</div>
+                <div className="director-student-stat-label">
+                  {t("directorStudents.studentInfo.grade")}
+                </div>
               </div>
             </div>
 
             <div className="director-student-actions">
               <button className="director-student-action-btn primary">
                 <IoStatsChartOutline size={14} />
-                Détails
+                {t("directorStudents.actions.details")}
               </button>
               <button className="director-student-action-btn secondary">
                 <IoBookOutline size={14} />
-                Cours
+                {t("directorStudents.actions.courses")}
               </button>
             </div>
           </motion.div>

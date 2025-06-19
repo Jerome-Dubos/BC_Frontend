@@ -1,0 +1,840 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "courses": "Courses",
+    "test": "Test",
+    "dashboard": "Dashboard",
+    "login": "Login",
+    "logout": "Logout",
+    "selectLanguage": "Select language",
+    "roles": {
+      "director": "Director",
+      "teacher": "Teacher",
+      "student": "Student"
+    }
+  },
+  "footer": {
+    "tagline": "Excellence in language learning",
+    "follow": "Follow us",
+    "contact": "Contact",
+    "address": "123 Education Street, 75001 Paris",
+    "rights": "All rights reserved."
+  },
+  "home": {
+    "hero_title": "Learn languages with Bon Cours",
+    "hero_desc": "Discover our innovative learning method and join more than 500 students who have already transformed their linguistic future.",
+    "cta_test": "Start the test",
+    "cta_courses": "View our courses",
+    "why_choose": "Why choose Bon Cours?",
+    "feature_innovative": "Innovative methods",
+    "feature_innovative_desc": "Interactive and personalised learning for all levels",
+    "feature_expert": "Expert teachers",
+    "feature_expert_desc": "Native, experienced teaching team",
+    "feature_results": "Guaranteed results",
+    "feature_results_desc": "95% success rate in certifications",
+    "feature_flexible": "Flexible timetable",
+    "feature_flexible_desc": "Courses adapted to your schedule",
+    "languages_taught": "Languages we teach",
+    "testimonials_title": "What our students say",
+    "cta_section_title": "Ready to start your learning journey?",
+    "cta_section_desc": "Join our community of learners and discover a new way to learn languages.",
+    "cta_free_test": "Take the free test",
+    "cta_learn_more": "Learn more",
+    "testimonial_1": "Amazing school! I improved quickly thanks to their innovative methods.",
+    "testimonial_2": "Highly skilled teachers and a friendly atmosphere—I totally recommend it!",
+    "testimonial_3": "Top-quality training with outstanding personalised support."
+  },
+  "about": {
+    "history_title": "Our story",
+    "history_desc": "For over 10 years, we've been helping students master new languages with passion and expertise.",
+    "approach_title": "Our approach",
+    "approach_innovation_title": "Educational innovation",
+    "approach_innovation_desc": "We constantly develop new learning methods to make the experience more effective and engaging.",
+    "approach_excellence_title": "Academic excellence",
+    "approach_excellence_desc": "Our programmes are designed by linguistics and teaching experts to ensure outstanding results.",
+    "approach_community_title": "International community",
+    "approach_community_desc": "Join a diverse community of learners and teachers from around the world.",
+    "team_title": "Our team",
+    "director_name": "Shirin Hosseini",
+    "director_role": "Managing Director",
+    "director_desc": "With over 15 years' experience teaching languages, Shirin leads our school with passion and expertise. Originally from Iran and holding a degree in applied linguistics, she brings a unique multicultural perspective to our vision of educational excellence.",
+    "teacher1_name": "Sarah Johnson",
+    "teacher1_subject": "English Teacher",
+    "teacher1_exp": "8 years' experience",
+    "teacher1_desc": "Born in England, Sarah brings genuine British flavour to our English classes.",
+    "teacher2_name": "Carlos Rodriguez",
+    "teacher2_subject": "Spanish Teacher",
+    "teacher2_exp": "6 years' experience",
+    "teacher2_desc": "A native of Madrid, Carlos enthusiastically shares the richness of Hispanic culture.",
+    "teacher3_name": "Marie Dubois",
+    "teacher3_subject": "French Teacher",
+    "teacher3_exp": "12 years' experience",
+    "teacher3_desc": "Passionate about the French language, Marie teaches its subtleties with expertise.",
+    "practical_title": "Practical information",
+    "address_title": "Address",
+    "address_content": "123 Rue de l'Éducation",
+    "address_location": "75001 Paris, France",
+    "phone_title": "Phone",
+    "phone_number": "+33 1 23 45 67 89",
+    "phone_hours": "Monday to Friday",
+    "hours_title": "Opening hours",
+    "hours_weekdays": "Mon-Fri: 9am-7pm",
+    "hours_saturday": "Sat: 9am-5pm",
+    "find_us_title": "Find us",
+    "map_name": "Bon Cours – Language School",
+    "map_address": "123 Education Street, 75001 Paris",
+    "map_btn_directions": "Get directions",
+    "map_btn_view": "360° view",
+    "contact_title": "Contact us",
+    "contact_success": "Message sent successfully!",
+    "contact_success_desc": "We will get back to you as soon as possible.",
+    "contact_send_another": "Send another message",
+    "form_name": "FULL NAME",
+    "form_email": "EMAIL",
+    "form_phone": "PHONE",
+    "form_language": "LANGUAGE OF INTEREST",
+    "form_subject": "SUBJECT",
+    "form_message": "MESSAGE",
+    "form_submit": "SEND",
+    "form_placeholder_name": "Your full name",
+    "form_placeholder_email": "your@email.com",
+    "form_placeholder_phone": "+33 1 23 45 67 89",
+    "form_placeholder_subject": "Subject of your message",
+    "form_placeholder_message": "Your message...",
+    "copy_tooltip": "Schedule copied!"
+  },
+  "courses": {
+    "hero_title": "Our Courses & Programs",
+    "hero_desc": "Discover our wide range of language courses adapted to all levels and objectives.",
+    "stats_students": "Students trained",
+    "stats_languages": "Languages taught",
+    "stats_success": "Success rate",
+    "stats_experience": "Years of experience",
+    "filters_title": "Filter courses",
+    "filter_language": "Language",
+    "filter_level": "Level",
+    "filter_format": "Format",
+    "filter_all_languages": "All languages",
+    "filter_french": "French",
+    "filter_english": "English",
+    "filter_spanish": "Spanish",
+    "filter_german": "German",
+    "filter_all_levels": "All levels",
+    "filter_beginner": "Beginner (A1)",
+    "filter_elementary": "Elementary (A2)",
+    "filter_intermediate": "Intermediate (B1)",
+    "filter_intermediate_plus": "Intermediate+ (B2)",
+    "filter_advanced": "Advanced (C1)",
+    "filter_mastery": "Mastery (C2)",
+    "filter_all_formats": "All formats",
+    "filter_private": "Private lesson",
+    "filter_group": "Group class",
+    "filter_intensive": "Intensive course",
+    "catalog_title": "Course catalog",
+    "course_register": "Register",
+    "course_start": "Start:",
+    "no_results_title": "No courses found",
+    "no_results_desc": "Try modifying your search criteria.",
+    "course_french_beginner_title": "French Beginner",
+    "course_french_beginner_desc": "Learn the basics of French with our interactive method.",
+    "course_french_beginner_feature1": "Basic grammar",
+    "course_french_beginner_feature2": "Essential vocabulary",
+    "course_french_beginner_feature3": "Simple conversation",
+    "course_french_beginner_feature4": "French culture",
+    "course_english_business_title": "Business English",
+    "course_english_business_desc": "Perfect your professional English.",
+    "course_english_business_feature1": "Business English",
+    "course_english_business_feature2": "Presentations",
+    "course_english_business_feature3": "Negotiations",
+    "course_english_business_feature4": "Professional emails",
+    "course_spanish_intensive_title": "Intensive Spanish",
+    "course_spanish_intensive_desc": "Intensive course to progress quickly in Spanish.",
+    "course_spanish_intensive_feature1": "Total immersion",
+    "course_spanish_intensive_feature2": "Intensive conversation",
+    "course_spanish_intensive_feature3": "Hispanic culture",
+    "course_spanish_intensive_feature4": "Certification",
+    "course_german_intermediate_title": "Intermediate German",
+    "course_german_intermediate_desc": "Deepen your knowledge of German.",
+    "course_german_intermediate_feature1": "Advanced grammar",
+    "course_german_intermediate_feature2": "Written expression",
+    "course_german_intermediate_feature3": "Oral comprehension",
+    "course_german_intermediate_feature4": "German culture",
+    "course_french_advanced_title": "Advanced French",
+    "course_french_advanced_desc": "Master the French language perfectly.",
+    "course_french_advanced_feature1": "French literature",
+    "course_french_advanced_feature2": "Debates",
+    "course_french_advanced_feature3": "Advanced writing",
+    "course_french_advanced_feature4": "DALF preparation",
+    "course_english_conversation_title": "English Conversation",
+    "course_english_conversation_desc": "Improve your oral English expression.",
+    "course_english_conversation_feature1": "Free conversation",
+    "course_english_conversation_feature2": "Debates",
+    "course_english_conversation_feature3": "Role playing",
+    "course_english_conversation_feature4": "British accent",
+    "course_duration_3months": "3 months",
+    "course_duration_2months": "2 months",
+    "course_duration_2weeks": "2 weeks",
+    "course_duration_4months": "4 months",
+    "course_duration_6months": "6 months",
+    "course_sessions_2week": "2 times/week",
+    "course_sessions_1week": "1 time/week",
+    "course_sessions_daily": "Every day",
+    "course_teacher_marie": "Marie Dubois",
+    "course_teacher_sarah": "Sarah Johnson",
+    "course_teacher_carlos": "Carlos Rodriguez",
+    "course_teacher_anna": "Anna Schmidt",
+    "course_start_jan15": "January 15, 2024",
+    "course_start_jan22": "January 22, 2024",
+    "course_start_feb5": "February 5, 2024",
+    "course_start_jan29": "January 29, 2024",
+    "course_start_feb12": "February 12, 2024",
+    "course_start_feb8": "February 8, 2024",
+    "pricing_title": "Our prices",
+    "pricing_private_title": "Private Lessons",
+    "pricing_private_feature1": "Personalized course",
+    "pricing_private_feature2": "Flexible schedule",
+    "pricing_private_feature3": "Fast progress",
+    "pricing_private_feature4": "Individual attention",
+    "pricing_private_feature5": "Materials included",
+    "pricing_group_title": "Group Classes",
+    "pricing_group_feature1": "Groups of 6-8 people",
+    "pricing_group_feature2": "Social interaction",
+    "pricing_group_feature3": "Collaborative method",
+    "pricing_group_feature4": "Advantageous price",
+    "pricing_group_feature5": "End certificate",
+    "pricing_intensive_title": "Intensive Course",
+    "pricing_intensive_feature1": "Total immersion",
+    "pricing_intensive_feature2": "Accelerated progress",
+    "pricing_intensive_feature3": "Daily classes",
+    "pricing_intensive_feature4": "Cultural activities",
+    "pricing_intensive_feature5": "Official certification",
+    "pricing_pro_title": "Professional Training",
+    "pricing_pro_feature1": "Custom program",
+    "pricing_pro_feature2": "Corporate training",
+    "pricing_pro_feature3": "Specific objectives",
+    "pricing_pro_feature4": "Personal follow-up",
+    "pricing_pro_feature5": "Financing possible",
+    "pricing_hour": "/hour",
+    "pricing_quarter": "/quarter",
+    "pricing_2weeks": "/2 weeks",
+    "pricing_quote": "Quote",
+    "pricing_popular": "Popular",
+    "pricing_choose": "Choose this plan",
+    "enrollment_title": "How to register?",
+    "enrollment_step1_title": "Level test",
+    "enrollment_step1_desc": "Assess your current level for free with our online or in-person test.",
+    "enrollment_step1_btn": "Take the test",
+    "enrollment_step2_title": "Course selection",
+    "enrollment_step2_desc": "Select the course that matches your objectives and schedule.",
+    "enrollment_step2_btn": "View courses",
+    "enrollment_step3_title": "Registration",
+    "enrollment_step3_desc": "Fill out the registration form and make secure payment.",
+    "enrollment_step3_btn": "Register",
+    "enrollment_step4_title": "Course start",
+    "enrollment_step4_desc": "Start your learning with our experienced teachers.",
+    "enrollment_step4_btn": "Start",
+    "enrollment_payment_title": "Flexible payment",
+    "enrollment_payment_desc": "Possibility to pay in 3 installments without fees",
+    "enrollment_commitment_title": "No commitment",
+    "enrollment_commitment_desc": "No prerequisites, all levels accepted",
+    "enrollment_objectives_title": "Clear objectives",
+    "enrollment_objectives_desc": "Measurable progress and certification",
+    "enrollment_support_title": "Support included",
+    "enrollment_support_desc": "Personalized support throughout",
+    "contact_question": "Questions?",
+    "contact_desc": "Our team is here to help you with your choice."
+  },
+  "test": {
+    "title": "Level Test",
+    "subtitle": "Assess your language skills",
+    "description": "Choose a language and discover your current level with our adaptive test.",
+    "chooseLanguage": "Choose your language",
+    "startTest": "Start test",
+    "backToHome": "Back to home",
+    "languages": {
+      "english": "English",
+      "french": "French",
+      "german": "German",
+      "spanish": "Spanish"
+    }
+  },
+  "login": {
+    "loading": "Loading...",
+    "title": "Login",
+    "subtitle": "Welcome to your personalized learning space",
+    "identifier": "Username",
+    "identifierPlaceholder": "Your username",
+    "password": "Password",
+    "passwordPlaceholder": "Your password",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
+    "loginButton": "Log in",
+    "loggingIn": "Logging in...",
+    "demoTitle": "Demo accounts",
+    "demoSubtitle": "Click on a profile to log in instantly:",
+    "director": "Director",
+    "teacher": "Teacher",
+    "student": "Student",
+    "demoInfo": "You can also use any username to create a temporary student account.",
+    "demoMode": "Demo mode:",
+    "errors": {
+      "identifierRequired": "Please enter a username",
+      "loginFailed": "Login failed. Please try again.",
+      "connectionError": "Connection error"
+    }
+  },
+  "error": {
+    "title": "Page not found",
+    "description": "Sorry, the page you're looking for seems to have gotten lost in digital space.",
+    "backToHome": "Back to home"
+  },
+  "dashboard": {
+    "title": {
+      "director": "Director Space",
+      "teacher": "Teacher Space",
+      "student": "Student Space"
+    },
+    "welcome": "Welcome, {{name}}!",
+    "accessDenied": {
+      "title": "❌ Access denied",
+      "description": "You don't have the necessary permissions to access this section."
+    },
+    "unauthorizedAccess": "Access denied",
+    "tabs": {
+      "overview": "Overview",
+      "progress": "My progress",
+      "resources": "Resources",
+      "schedule": "Schedule",
+      "users": "User management",
+      "courses": {
+        "director": "All courses",
+        "teacher": "My courses"
+      },
+      "students": {
+        "director": "All students",
+        "teacher": "My students"
+      }
+    },
+    "badges": {
+      "student": {
+        "firstStep": "First step",
+        "studious": "Studious",
+        "conversational": "Conversational",
+        "grammarian": "Grammarian",
+        "expert": "Expert"
+      },
+      "teacher": {
+        "mentor": "Mentor",
+        "inspiring": "Inspiring",
+        "expertTeacher": "Expert teacher"
+      },
+      "director": {
+        "leader": "Leader",
+        "visionary": "Visionary",
+        "excellence": "Excellence"
+      },
+      "section": {
+        "student": "🎖️ Earned badges",
+        "teacher": "🏅 Performance badges",
+        "director": "🏆 Leadership badges"
+      },
+      "earned": "Badge \"{{name}}\" earned!",
+      "locked": "Badge \"{{name}}\" to unlock"
+    },
+    "stats": {
+      "student": {
+        "coursesFollowed": "Courses followed",
+        "averageGrade": "Overall average",
+        "attendance": "Attendance",
+        "badgesEarned": "Badges earned",
+        "thisMonth": "This month",
+        "improving": "Improving",
+        "excellent": "Excellent",
+        "thisQuarter": "This quarter"
+      },
+      "teacher": {
+        "students": "Students",
+        "coursesTaught": "Courses taught",
+        "averageRating": "Average rating",
+        "successRate": "Success rate",
+        "newSemester": "New semester",
+        "thisSemester": "This semester",
+        "studentEvaluations": "Student evaluations",
+        "currentQuarter": "Current quarter"
+      },
+      "director": {
+        "totalStudents": "Total students",
+        "teachers": "Teachers",
+        "monthlyRevenue": "Monthly revenue",
+        "satisfaction": "Satisfaction",
+        "newRecord": "New record",
+        "expandedTeam": "Expanded team",
+        "exceptionalMonth": "Exceptional month"
+      }
+    },
+    "activities": {
+      "title": "📈 Recent activity",
+      "student": {
+        "testCompleted": "English test completed ({{score}}/20)",
+        "badgeEarned": "Badge '{{badge}}' earned",
+        "newCourse": "New Spanish course added",
+        "streak": "{{days}}-day streak",
+        "timeAgo": {
+          "hours": "{{count}} hour ago",
+          "hours_plural": "{{count}} hours ago",
+          "yesterday": "Yesterday",
+          "days": "{{count}} day ago",
+          "days_plural": "{{count}} days ago"
+        }
+      },
+      "teacher": {
+        "gradingCompleted": "{{count}} papers graded ({{subject}})",
+        "scheduleUpdated": "Schedule updated for the week",
+        "goalAchieved": "Monthly goal achieved ({{percentage}}% success)",
+        "newMessage": "New message from administration"
+      },
+      "director": {
+        "newTeacher": "New teacher added: {{name}}",
+        "reportGenerated": "Monthly report generated (↗️ +{{percentage}}%)",
+        "milestoneReached": "Goal reached: {{count}} students",
+        "revenueUpdate": "Monthly revenue: +{{percentage}}% vs last year"
+      }
+    }
+  },
+  "resources": {
+    "title": "Educational Resources",
+    "subtitle": "Access all your course materials and exercises",
+    "categories": {
+      "manuals": {
+        "title": "Manuals",
+        "count": "{{count}} documents",
+        "items": {
+          "frenchGrammar": {
+            "title": "French Grammar B1",
+            "description": "Complete manual - 240 pages"
+          },
+          "essentialVocab": {
+            "title": "Essential Vocabulary",
+            "description": "1000 most used words"
+          }
+        }
+      },
+      "audio": {
+        "title": "Audio",
+        "count": "{{count}} files",
+        "items": {
+          "dialogues": {
+            "title": "B1 Dialogues",
+            "description": "Everyday conversations"
+          },
+          "pronunciation": {
+            "title": "Pronunciation",
+            "description": "Phonetics exercises"
+          }
+        }
+      },
+      "exercises": {
+        "title": "Exercises",
+        "count": "{{count}} exercises",
+        "items": {
+          "conjugation": {
+            "title": "Conjugation",
+            "description": "Past tenses - B1 Level"
+          },
+          "reading": {
+            "title": "Reading comprehension",
+            "description": "Texts with questions"
+          }
+        }
+      },
+      "videos": {
+        "title": "Videos",
+        "count": "{{count}} videos",
+        "items": {
+          "culture": {
+            "title": "French culture",
+            "description": "Documentary - 45 minutes"
+          },
+          "grammar": {
+            "title": "Grammar lessons",
+            "description": "Past tenses explained"
+          }
+        }
+      }
+    },
+    "buttons": {
+      "download": "Download",
+      "listen": "Listen",
+      "start": "Start",
+      "watch": "Watch",
+      "open": "Open",
+      "resume": "Resume"
+    },
+    "recent": {
+      "title": "Recently viewed",
+      "timeAgo": {
+        "hours": "Viewed {{count}} hour ago",
+        "hours_plural": "Viewed {{count}} hours ago",
+        "yesterday": "Viewed yesterday",
+        "days": "Viewed {{count}} day ago",
+        "days_plural": "Viewed {{count}} days ago"
+      }
+    }
+  },
+  "progress": {
+    "title": "My progress",
+    "currentLevel": "Current level: {{level}}",
+    "levels": {
+      "b1": "B1 Intermediate",
+      "b2": "B2 Upper Intermediate"
+    },
+    "progressTo": "{{percentage}}% towards {{level}}",
+    "skills": {
+      "title": "Skills",
+      "listeningComprehension": "Listening comprehension",
+      "speaking": "Speaking",
+      "readingComprehension": "Reading comprehension",
+      "writing": "Writing"
+    },
+    "achievements": {
+      "title": "Earned badges"
+    }
+  },
+  "schedule": {
+    "title": "Schedule",
+    "navigation": {
+      "previousWeek": "Previous week",
+      "nextWeek": "Next week",
+      "today": "Today"
+    },
+    "days": {
+      "monday": "Monday",
+      "tuesday": "Tuesday",
+      "wednesday": "Wednesday",
+      "thursday": "Thursday",
+      "friday": "Friday",
+      "saturday": "Saturday",
+      "sunday": "Sunday"
+    },
+    "classTypes": {
+      "grammar": "Grammar",
+      "conversation": "Conversation",
+      "vocabulary": "Vocabulary",
+      "listening": "Listening",
+      "speaking": "Speaking",
+      "writing": "Writing Workshop",
+      "exam": "DELF Preparation"
+    },
+    "modes": {
+      "online": "Online",
+      "offline": "In-person"
+    },
+    "status": {
+      "confirmed": "Confirmed",
+      "pending": "Pending",
+      "cancelled": "Cancelled"
+    },
+    "classInfo": {
+      "teacher": "Teacher",
+      "students": "{{count}} student",
+      "students_plural": "{{count}} students",
+      "status": "Status",
+      "mode": "Mode",
+      "room": "Room",
+      "building": "Building",
+      "address": "Address",
+      "meetingId": "Meeting ID",
+      "password": "Password"
+    },
+    "actions": {
+      "joinClass": "Join class",
+      "viewLocation": "View location",
+      "copyMeetingInfo": "Copy meeting info",
+      "leaveCall": "Leave call",
+      "toggleMic": "Toggle microphone",
+      "toggleCamera": "Toggle camera"
+    },
+    "notifications": {
+      "meetingInfoCopied": "Meeting information copied!",
+      "locationCopied": "Address copied!",
+      "classJoined": "You joined the class {{className}}",
+      "micEnabled": "Microphone enabled",
+      "micDisabled": "Microphone disabled",
+      "cameraEnabled": "Camera enabled",
+      "cameraDisabled": "Camera disabled",
+      "connectionSuccess": "Connecting to class \"{{className}}\"",
+      "addressNotAvailable": "Address not available",
+      "routeOpened": "Route opened in Google Maps",
+      "leftClass": "You left the class"
+    },
+    "ui": {
+      "weeklySchedule": "Weekly schedule",
+      "upcomingClasses": "Upcoming classes",
+      "students": "{{count}} student",
+      "students_plural": "{{count}} students",
+      "online": "ONLINE",
+      "offline": "IN-PERSON",
+      "studyReminders": "Study reminders",
+      "locationTitle": "Class location",
+      "getDirections": "Get directions",
+      "close": "Close",
+      "join": "Join",
+      "locate": "Locate",
+      "scheduleUpdated": "Schedule updated for the week of {{date}}"
+    },
+    "courses": {
+      "grammaire": "Grammar",
+      "conversation": "Conversation",
+      "vocabulaire": "Vocabulary",
+      "listening": "Listening",
+      "speaking": "Speaking",
+      "writing": "Writing Workshop",
+      "exam": "DELF Preparation",
+      "culture": "Culture",
+      "pronunciation": "Phonetics",
+      "grammaireAvancee": "Advanced Grammar",
+      "conversationLibre": "Free Conversation",
+      "atelierPrononciation": "Pronunciation Workshop",
+      "cultureFrancaise": "French Culture"
+    },
+    "timeRelative": {
+      "today": "Today at {{time}}",
+      "tomorrow": "Tomorrow at {{time}}",
+      "friday": "Friday at {{time}}",
+      "inHours": "In {{count}} hour",
+      "inHours_plural": "In {{count}} hours",
+      "tomorrowAt": "Tomorrow {{time}}",
+      "beforeFriday": "Before Friday",
+      "thisWeekend": "This weekend"
+    },
+    "reminders": {
+      "vocabularyReview": "Vocabulary review",
+      "audioLesson": "Audio listening - Lesson 12",
+      "presentPerfectExercises": "Present Perfect exercises",
+      "conversationPractice": "Conversation practice"
+    }
+  },
+  "userManagement": {
+    "title": "User Management",
+    "subtitle": "Create, edit and manage user accounts",
+    "addBtn": "Create user",
+    "stats": {
+      "totalUsers": "Total Users",
+      "activeUsers": "Active Users",
+      "teachers": "Teachers",
+      "students": "Students"
+    },
+    "filters": {
+      "searchPlaceholder": "Search by name or email...",
+      "allRoles": "All roles",
+      "allStatuses": "All statuses"
+    },
+    "table": {
+      "name": "Name",
+      "email": "Email",
+      "role": "Role",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "roles": {
+      "student": "Student",
+      "teacher": "Teacher",
+      "director": "Director"
+    },
+    "statuses": {
+      "active": "Active",
+      "inactive": "Inactive",
+      "pending": "Pending"
+    },
+    "actions": {
+      "view": "View",
+      "edit": "Edit",
+      "delete": "Delete",
+      "createUser": "Create user"
+    },
+    "createForm": {
+      "title": "Create new user",
+      "name": "Full name",
+      "namePlaceholder": "e.g. Marie Dupont",
+      "email": "Email address",
+      "emailPlaceholder": "e.g. marie.dupont@email.com",
+      "role": "Role",
+      "password": "Password",
+      "generatePassword": "Generate secure password",
+      "passwordInfo": "Password must contain at least 8 characters with uppercase, lowercase and numbers",
+      "showPassword": "Show password",
+      "hidePassword": "Hide password",
+      "cancel": "Cancel",
+      "create": "Create user"
+    },
+    "notifications": {
+      "userCreated": "User {{name}} created successfully!",
+      "userUpdated": "User {{name}} updated successfully!",
+      "userDeleted": "User {{name}} deleted successfully!",
+      "passwordGenerated": "Secure password generated!"
+    },
+    "editForm": {
+      "title": "Edit user",
+      "nameNotAvailable": "Name not available",
+      "emailNotAvailable": "Email not available",
+      "save": "Save"
+    },
+    "viewModal": {
+      "title": "User details",
+      "nameLabel": "Name:",
+      "emailLabel": "Email:",
+      "roleLabel": "Role:",
+      "statusLabel": "Status:"
+    },
+    "deleteModal": {
+      "title": "Confirm deletion",
+      "question": "Are you sure you want to delete user",
+      "warningMessage": "This action is temporary - data will return on page reload",
+      "cancel": "Cancel",
+      "confirm": "Delete (demo)"
+    }
+  },
+  "directorCourses": {
+    "title": "Course Management",
+    "subtitle": "Overview of all school courses",
+    "importButton": "Import from Google Drive",
+    "stats": {
+      "totalCourses": "Total Courses",
+      "activeCourses": "Active Courses",
+      "enrolledStudents": "Enrolled Students",
+      "occupationRate": "Occupation Rate"
+    },
+    "filters": {
+      "searchPlaceholder": "Search for a course or teacher...",
+      "allLevels": "All levels",
+      "allLanguages": "All languages",
+      "allStatuses": "All statuses"
+    },
+    "courseInfo": {
+      "teacher": "Teacher",
+      "students": "{{count}} student",
+      "students_plural": "{{count}} students",
+      "progress": "Progress",
+      "schedule": "Schedule",
+      "period": "Period",
+      "to": "to"
+    },
+    "status": {
+      "active": "Active",
+      "completed": "Completed",
+      "scheduled": "Scheduled"
+    },
+    "actions": {
+      "edit": "Edit",
+      "delete": "Delete",
+      "viewDetails": "View details"
+    },
+    "languages": {
+      "Anglais": "English",
+      "Français": "French",
+      "Espagnol": "Spanish",
+      "Allemand": "German",
+      "Italien": "Italian"
+    }
+  },
+  "directorStudents": {
+    "title": "Student Management",
+    "subtitle": "Overview of all school students",
+    "stats": {
+      "totalStudents": "Total Students",
+      "averageProgress": "Average Progress",
+      "averageAttendance": "Average Attendance",
+      "averageGrade": "Average Grade"
+    },
+    "filters": {
+      "searchPlaceholder": "Search a student...",
+      "allCourses": "All courses",
+      "allLevels": "All levels"
+    },
+    "studentInfo": {
+      "progress": "Progress",
+      "attendance": "Attendance",
+      "grade": "Grade"
+    },
+    "status": {
+      "active": "Active",
+      "graduated": "Graduated",
+      "suspended": "Suspended"
+    },
+    "actions": {
+      "details": "Details",
+      "courses": "Courses"
+    }
+  },
+  "teacherCourses": {
+    "title": "My Courses",
+    "importButton": "Import from Google Drive",
+    "stats": {
+      "activeCourses": "Active courses",
+      "totalStudents": "Total students",
+      "weeklyHours": "Hours/week"
+    },
+    "courseInfo": {
+      "students": "students"
+    },
+    "actions": {
+      "view": "View",
+      "edit": "Edit"
+    },
+    "createForm": {
+      "title": "Create a new course",
+      "courseTitle": "Course title",
+      "courseTitlePlaceholder": "Ex: French Grammar B1",
+      "level": "Level",
+      "levels": {
+        "a1": "A1 - Beginner",
+        "a2": "A2 - Elementary",
+        "b1": "B1 - Intermediate",
+        "b2": "B2 - Upper Intermediate",
+        "c1": "C1 - Advanced",
+        "c2": "C2 - Proficient"
+      },
+      "description": "Description",
+      "descriptionPlaceholder": "Describe the course content and objectives...",
+      "duration": "Duration",
+      "durationPlaceholder": "Ex: 2h",
+      "maxStudents": "Max number of students",
+      "maxStudentsPlaceholder": "15",
+      "schedule": "Schedule",
+      "schedulePlaceholder": "Ex: Monday 2:00 PM",
+      "cancel": "Cancel",
+      "create": "Create course"
+    },
+    "notifications": {
+      "importAlert": "Google Drive import feature coming soon!"
+    }
+  },
+  "teacherStudents": {
+    "title": "My Students",
+    "subtitle": "Track progress and manage your students",
+    "filters": {
+      "searchPlaceholder": "Search a student...",
+      "allCourses": "All courses",
+      "allLevels": "All levels"
+    },
+    "stats": {
+      "students": "Students",
+      "averageProgress": "Average progress",
+      "averageAttendance": "Average attendance",
+      "activeStudents": "Active"
+    },
+    "studentInfo": {
+      "progress": "Progress",
+      "attendance": "Attendance",
+      "lastActivity": "Last activity: {{time}}"
+    },
+    "actions": {
+      "profile": "Profile"
+    },
+    "noResults": {
+      "title": "No students found",
+      "message": "Try modifying your search criteria"
+    }
+  }
+}

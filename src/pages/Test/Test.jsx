@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import "./Test.css";
 
@@ -24,9 +25,10 @@ import { englishQuestions } from "../../tests/englishTest";
 import { frenchQuestions } from "../../tests/frenchTest";
 import { germanQuestions } from "../../tests/germanTest";
 import { spanishQuestions } from "../../tests/spanishTest";
-import { calculateLevel, languages, levels } from "../../tests/testConfig";
+import { calculateLevel, levels as configLevels } from "../../tests/testConfig";
 
 const Test = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState("language"); // 'language', 'email', 'test', 'result'
   const [selectedLanguage, setSelectedLanguage] = useState("");
@@ -34,6 +36,68 @@ const Test = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState([]);
   const [testResult, setTestResult] = useState(null);
+
+  // Configuration des langues avec traductions
+  const languages = {
+    english: {
+      name: t("test.languages.english.name"),
+      flag: "🇬🇧",
+      code: "EN",
+      description: t("test.languages.english.description"),
+    },
+    spanish: {
+      name: t("test.languages.spanish.name"),
+      flag: "🇪🇸",
+      code: "ES",
+      description: t("test.languages.spanish.description"),
+    },
+    german: {
+      name: t("test.languages.german.name"),
+      flag: "🇩🇪",
+      code: "DE",
+      description: t("test.languages.german.description"),
+    },
+    french: {
+      name: t("test.languages.french.name"),
+      flag: "🇫🇷",
+      code: "FR",
+      description: t("test.languages.french.description"),
+    },
+  };
+
+  // Configuration des niveaux avec traductions
+  const levels = {
+    A1: {
+      name: t("test.levels.A1.name"),
+      description: t("test.levels.A1.description"),
+      color: configLevels.A1.color,
+    },
+    A2: {
+      name: t("test.levels.A2.name"),
+      description: t("test.levels.A2.description"),
+      color: configLevels.A2.color,
+    },
+    B1: {
+      name: t("test.levels.B1.name"),
+      description: t("test.levels.B1.description"),
+      color: configLevels.B1.color,
+    },
+    B2: {
+      name: t("test.levels.B2.name"),
+      description: t("test.levels.B2.description"),
+      color: configLevels.B2.color,
+    },
+    C1: {
+      name: t("test.levels.C1.name"),
+      description: t("test.levels.C1.description"),
+      color: configLevels.C1.color,
+    },
+    C2: {
+      name: t("test.levels.C2.name"),
+      description: t("test.levels.C2.description"),
+      color: configLevels.C2.color,
+    },
+  };
 
   // Sélection des questions selon la langue
   const getQuestions = () => {
@@ -208,14 +272,14 @@ const Test = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2, duration: 0.6 }}
               >
-                Test de Placement
+                {t("test.title")}
               </motion.h1>
               <motion.p
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4, duration: 0.6 }}
               >
-                Choisissez la langue que vous souhaitez évaluer
+                {t("test.language_selection_desc")}
               </motion.p>
             </div>
 
@@ -280,14 +344,14 @@ const Test = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.2, duration: 0.5 }}
               >
-                Test de {languages[selectedLanguage]?.name}
+                {t("test.test_of")} {languages[selectedLanguage]?.name}
               </motion.h1>
               <motion.p
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4, duration: 0.5 }}
               >
-                Évaluez votre niveau selon le Cadre Européen (CECRL)
+                {t("test.evaluation_desc")}
               </motion.p>
             </div>
 
@@ -314,17 +378,19 @@ const Test = () => {
                   >
                     {languages[selectedLanguage]?.flag}
                   </motion.span>
-                  <span>Test de {languages[selectedLanguage]?.name}</span>
+                  <span>
+                    {t("test.test_of")} {languages[selectedLanguage]?.name}
+                  </span>
                 </div>
                 <motion.button
                   className="change-language-btn"
                   onClick={() => setCurrentStep("language")}
-                  title="Changer de langue"
+                  title={t("test.change_language")}
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.95 }}
                 >
                   <HiOutlineRefresh className="change-icon" />
-                  <span>Changer de langue</span>
+                  <span>{t("test.change_language")}</span>
                 </motion.button>
               </motion.div>
 
@@ -333,15 +399,14 @@ const Test = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5, duration: 0.5 }}
               >
-                Avant de commencer
+                {t("test.before_start")}
               </motion.h2>
               <motion.p
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6, duration: 0.5 }}
               >
-                Veuillez saisir votre adresse email pour recevoir vos résultats
-                détaillés
+                {t("test.email_instruction")}
               </motion.p>
 
               <motion.form
@@ -352,13 +417,13 @@ const Test = () => {
                 transition={{ delay: 0.7, duration: 0.5 }}
               >
                 <div className="form-group">
-                  <label htmlFor="email">Adresse email</label>
+                  <label htmlFor="email">{t("test.email_label")}</label>
                   <motion.input
                     type="email"
                     id="email"
                     value={userEmail}
                     onChange={(e) => setUserEmail(e.target.value)}
-                    placeholder="votre@email.com"
+                    placeholder={t("test.email_placeholder")}
                     required
                     whileFocus={{ scale: 1.02 }}
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
@@ -375,7 +440,7 @@ const Test = () => {
                   whileTap={{ scale: 0.98 }}
                   transition={{ type: "spring", stiffness: 400, damping: 17 }}
                 >
-                  <span>Commencer le test</span>
+                  <span>{t("test.start_test")}</span>
                   <motion.span
                     className="btn-arrow"
                     initial={{ x: 0 }}
@@ -394,9 +459,9 @@ const Test = () => {
                 transition={{ delay: 0.8, duration: 0.5 }}
               >
                 {[
-                  { icon: FaClock, text: "Durée : 10-15 minutes" },
-                  { icon: FaFileAlt, text: "15 questions progressives" },
-                  { icon: FaCrosshairs, text: "Niveau CECRL (A1 à C2)" },
+                  { icon: FaClock, text: t("test.duration") },
+                  { icon: FaFileAlt, text: t("test.questions_count") },
+                  { icon: FaCrosshairs, text: t("test.level_cecrl") },
                 ].map((item, index) => (
                   <motion.div
                     key={index}
@@ -438,22 +503,18 @@ const Test = () => {
                   {languages[selectedLanguage]?.flag}
                 </motion.span>
                 <span className="language-name">
-                  Test de {languages[selectedLanguage]?.name}
+                  {t("test.test_of")} {languages[selectedLanguage]?.name}
                 </span>
                 <motion.button
                   className="change-language-test-btn"
                   onClick={() => {
-                    if (
-                      window.confirm(
-                        `Êtes-vous sûr de vouloir changer de langue ? Votre progression sera perdue.`
-                      )
-                    ) {
+                    if (window.confirm(t("test.change_language_warning"))) {
                       setCurrentStep("language");
                       setCurrentQuestion(0);
                       setAnswers([]);
                     }
                   }}
-                  title="Changer de langue (progression perdue)"
+                  title={t("test.change_language")}
                   whileHover={{ scale: 1.1, rotate: 180 }}
                   whileTap={{ scale: 0.9 }}
                   transition={{ type: "spring", stiffness: 400, damping: 17 }}
@@ -476,7 +537,8 @@ const Test = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3 }}
                 >
-                  Question {currentQuestion + 1} sur {questions.length}
+                  {t("test.question_of")} {currentQuestion + 1} {t("test.of")}{" "}
+                  {questions.length}
                 </motion.span>
                 <div className="language-indicator">
                   <span className="language-flag-small">
@@ -488,7 +550,7 @@ const Test = () => {
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.4 }}
                   >
-                    Niveau: {questions[currentQuestion].level}
+                    {t("test.level")} {questions[currentQuestion].level}
                   </motion.span>
                 </div>
               </div>
@@ -576,8 +638,11 @@ const Test = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.6 }}
             >
-              <h1>Félicitations !</h1>
-              <p>Votre test de {testResult.languageInfo.name} est terminé</p>
+              <h1>{t("test.congratulations")}</h1>
+              <p>
+                {t("test.test_completed")} {testResult.languageInfo.name}{" "}
+                {t("test.is_completed")}
+              </p>
             </motion.div>
 
             <motion.div
@@ -653,11 +718,14 @@ const Test = () => {
                 <div className="score-breakdown">
                   {[
                     {
-                      label: "Bonnes réponses:",
+                      label: t("test.correct_answers"),
                       value: `${testResult.correctAnswers}/${testResult.totalQuestions}`,
                     },
-                    { label: "Pourcentage:", value: `${testResult.score}%` },
-                    { label: "Niveau CECRL:", value: testResult.level },
+                    {
+                      label: t("test.percentage"),
+                      value: `${testResult.score}%`,
+                    },
+                    { label: t("test.cecrl_level"), value: testResult.level },
                   ].map((item, index) => (
                     <motion.div
                       key={index}
@@ -691,13 +759,11 @@ const Test = () => {
                   <FaEnvelope
                     style={{ marginRight: "8px", color: "#4CAF50" }}
                   />
-                  Vos résultats détaillés ont été envoyés à{" "}
-                  <strong>{testResult.userEmail}</strong>
+                  {t("test.email_sent")} <strong>{testResult.userEmail}</strong>
                 </p>
                 <p>
                   <FaPhone style={{ marginRight: "8px", color: "#4CAF50" }} />
-                  Notre équipe vous contactera sous 24h pour un entretien
-                  personnalisé
+                  {t("test.contact_info")}
                 </p>
               </motion.div>
 
@@ -716,7 +782,7 @@ const Test = () => {
                   whileTap={{ scale: 0.95 }}
                 >
                   <FaSync style={{ marginRight: "8px" }} />
-                  Tester une autre langue
+                  {t("test.test_another_language")}
                 </motion.button>
                 <motion.button
                   className="contact-btn"
@@ -732,7 +798,7 @@ const Test = () => {
                   whileTap={{ scale: 0.95 }}
                 >
                   <FaEnvelope style={{ marginRight: "8px" }} />
-                  Nous contacter
+                  {t("test.contact_us")}
                 </motion.button>
               </div>
             </motion.div>

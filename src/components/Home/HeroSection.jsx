@@ -1,5 +1,7 @@
+/* eslint-disable no-unused-vars */
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
   IoGlobeOutline,
   IoLanguageOutline,
@@ -11,12 +13,14 @@ import {
 import { Link } from "react-router-dom";
 
 const HeroSection = () => {
+  const { t, i18n } = useTranslation();
+  const fullText = t("home.hero_title");
   const [typedText, setTypedText] = useState("");
-  const fullText = "Apprenez les langues avec Bon Cours";
 
-  // Effet de typing
+  // Effet de typing (redémarre quand la langue change)
   useEffect(() => {
     let index = 0;
+    setTypedText("");
     const timer = setInterval(() => {
       if (index < fullText.length) {
         setTypedText(fullText.slice(0, index + 1));
@@ -27,7 +31,7 @@ const HeroSection = () => {
     }, 100);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [fullText]);
 
   return (
     <section className="hero">
@@ -139,8 +143,7 @@ const HeroSection = () => {
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8, delay: 1.5 }}
         >
-          Découvrez notre méthode d'apprentissage innovante et rejoignez plus de
-          500 étudiants qui ont déjà transformé leur avenir linguistique.
+          {t("home.hero_desc")}
         </motion.p>
         <motion.div
           className="hero-buttons"
@@ -150,11 +153,11 @@ const HeroSection = () => {
         >
           <Link to="/test" className="btn btn-primary pulse">
             <IoPlayCircleOutline size={20} />
-            Commencer le test
+            {t("home.cta_test")}
           </Link>
           <Link to="/courses" className="btn btn-secondary">
             <IoSchoolOutline size={20} />
-            Voir nos cours
+            {t("home.cta_courses")}
           </Link>
         </motion.div>
       </motion.div>

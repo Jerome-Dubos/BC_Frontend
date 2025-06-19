@@ -1,12 +1,15 @@
+/* eslint-disable no-unused-vars */
 import { AnimatePresence, motion } from "framer-motion";
 import { useRef, useState } from "react";
 import ReactCountryFlag from "react-country-flag";
+import { useTranslation } from "react-i18next";
 import { IoCheckmarkCircleOutline } from "react-icons/io5";
 
 const LanguagesSection = () => {
   const [flippedCards, setFlippedCards] = useState([]);
   const lastClickTime = useRef(0);
   const lastClickedIndex = useRef(null);
+  const { t } = useTranslation();
 
   const toggleCard = (index) => {
     const now = Date.now();
@@ -87,7 +90,7 @@ const LanguagesSection = () => {
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
       >
-        Nos langues enseignées
+        {t("home.languages_taught")}
       </motion.h2>
       <div className="languages-grid">
         {languages.map((language, index) => (

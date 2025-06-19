@@ -1,6 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
   IoBookOutline,
   IoCallOutline,
@@ -32,6 +33,8 @@ const About = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
+
+  const { t } = useTranslation();
 
   // Animations variants
   const containerVariants = {
@@ -200,7 +203,9 @@ const About = () => {
   };
 
   const handleScheduleClick = () => {
-    const scheduleText = "Horaires Bon Cours :\nLun-Ven: 9h-19h\nSam: 9h-17h";
+    const scheduleText = `Horaires Bon Cours :\n${t(
+      "about.hours_weekdays"
+    )}\n${t("about.hours_saturday")}`;
 
     // Afficher l'infobulle de confirmation
     setShowTooltip(true);
@@ -215,11 +220,17 @@ const About = () => {
         })
         .catch(() => {
           // Fallback si la copie échoue
-          alert("Horaires :\nLun-Ven: 9h-19h\nSam: 9h-17h");
+          alert(
+            `Horaires :\n${t("about.hours_weekdays")}\n${t(
+              "about.hours_saturday"
+            )}`
+          );
         });
     } else {
       // Fallback pour les navigateurs qui ne supportent pas clipboard
-      alert("Horaires :\nLun-Ven: 9h-19h\nSam: 9h-17h");
+      alert(
+        `Horaires :\n${t("about.hours_weekdays")}\n${t("about.hours_saturday")}`
+      );
     }
   };
 
@@ -258,11 +269,10 @@ const About = () => {
 
       <section className="about-hero">
         <motion.div className="hero-content" variants={itemVariants}>
-          <motion.h1 variants={itemVariants}>Notre histoire</motion.h1>
-          <motion.p variants={itemVariants}>
-            Depuis plus de 10 ans, nous accompagnons nos étudiants dans leur
-            apprentissage des langues avec passion et expertise.
-          </motion.p>
+          <motion.h1 variants={itemVariants}>
+            {t("about.history_title")}
+          </motion.h1>
+          <motion.p variants={itemVariants}>{t("about.history_desc")}</motion.p>
         </motion.div>
       </section>
 
@@ -273,7 +283,7 @@ const About = () => {
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.6 }}
         >
-          Notre approche
+          {t("about.approach_title")}
         </motion.h2>
         <motion.div
           className="about-grid"
@@ -290,11 +300,8 @@ const About = () => {
             <div className="card-icon">
               <IoFlashOutline />
             </div>
-            <h3>Innovation pédagogique</h3>
-            <p>
-              Nous développons constamment de nouvelles méthodes d'apprentissage
-              pour rendre l'expérience plus efficace et engageante.
-            </p>
+            <h3>{t("about.approach_innovation_title")}</h3>
+            <p>{t("about.approach_innovation_desc")}</p>
           </motion.div>
           <motion.div
             className="about-card"
@@ -304,11 +311,8 @@ const About = () => {
             <div className="card-icon">
               <IoTrophyOutline />
             </div>
-            <h3>Excellence académique</h3>
-            <p>
-              Nos programmes sont conçus par des experts en linguistique et en
-              pédagogie pour garantir les meilleurs résultats.
-            </p>
+            <h3>{t("about.approach_excellence_title")}</h3>
+            <p>{t("about.approach_excellence_desc")}</p>
           </motion.div>
           <motion.div
             className="about-card"
@@ -318,11 +322,8 @@ const About = () => {
             <div className="card-icon">
               <IoPeopleOutline />
             </div>
-            <h3>Communauté internationale</h3>
-            <p>
-              Rejoignez une communauté diverse d'apprenants et de professeurs du
-              monde entier.
-            </p>
+            <h3>{t("about.approach_community_title")}</h3>
+            <p>{t("about.approach_community_desc")}</p>
           </motion.div>
         </motion.div>
       </section>
@@ -334,7 +335,7 @@ const About = () => {
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.6 }}
         >
-          Notre équipe
+          {t("about.team_title")}
         </motion.h2>
 
         {/* Directeur */}
@@ -364,15 +365,9 @@ const About = () => {
               />
             </motion.div>
             <div className="director-info">
-              <h3>Shirin Hosseini</h3>
-              <p className="director-title">Directrice Générale</p>
-              <p className="director-description">
-                Avec plus de 15 ans d'expérience dans l'enseignement des
-                langues, Shirin dirige notre établissement avec passion et
-                expertise. Originaire d'Iran et diplômée en linguistique
-                appliquée, elle apporte une perspective multiculturelle unique à
-                notre vision pédagogique vers l'excellence.
-              </p>
+              <h3>{t("about.director_name")}</h3>
+              <p className="director-title">{t("about.director_role")}</p>
+              <p className="director-description">{t("about.director_desc")}</p>
             </div>
           </motion.div>
         </motion.div>
@@ -400,13 +395,10 @@ const About = () => {
                 alt="Professeur d'anglais"
               />
             </motion.div>
-            <h4>Sarah Johnson</h4>
-            <p className="teacher-subject">Professeure d'Anglais</p>
-            <p className="teacher-experience">8 ans d'expérience</p>
-            <p className="teacher-description">
-              Native d'Angleterre, Sarah apporte l'authenticité britannique à
-              nos cours d'anglais.
-            </p>
+            <h4>{t("about.teacher1_name")}</h4>
+            <p className="teacher-subject">{t("about.teacher1_subject")}</p>
+            <p className="teacher-experience">{t("about.teacher1_exp")}</p>
+            <p className="teacher-description">{t("about.teacher1_desc")}</p>
           </motion.div>
 
           <motion.div
@@ -424,13 +416,10 @@ const About = () => {
                 alt="Professeur d'espagnol"
               />
             </motion.div>
-            <h4>Carlos Rodriguez</h4>
-            <p className="teacher-subject">Professeur d'Espagnol</p>
-            <p className="teacher-experience">6 ans d'expérience</p>
-            <p className="teacher-description">
-              Originaire de Madrid, Carlos partage la richesse de la culture
-              hispanique avec enthousiasme.
-            </p>
+            <h4>{t("about.teacher2_name")}</h4>
+            <p className="teacher-subject">{t("about.teacher2_subject")}</p>
+            <p className="teacher-experience">{t("about.teacher2_exp")}</p>
+            <p className="teacher-description">{t("about.teacher2_desc")}</p>
           </motion.div>
 
           <motion.div
@@ -448,13 +437,10 @@ const About = () => {
                 alt="Professeur de français"
               />
             </motion.div>
-            <h4>Marie Dubois</h4>
-            <p className="teacher-subject">Professeure de Français</p>
-            <p className="teacher-experience">12 ans d'expérience</p>
-            <p className="teacher-description">
-              Passionnée de langue française, Marie enseigne la finesse de notre
-              belle langue avec expertise.
-            </p>
+            <h4>{t("about.teacher3_name")}</h4>
+            <p className="teacher-subject">{t("about.teacher3_subject")}</p>
+            <p className="teacher-experience">{t("about.teacher3_exp")}</p>
+            <p className="teacher-description">{t("about.teacher3_desc")}</p>
           </motion.div>
         </motion.div>
       </section>
@@ -466,7 +452,7 @@ const About = () => {
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.6 }}
         >
-          Informations pratiques
+          {t("about.practical_title")}
         </motion.h2>
         <motion.div
           className="info-grid"
@@ -489,11 +475,11 @@ const About = () => {
             >
               <IoLocationOutline />
             </motion.div>
-            <h3>Adresse</h3>
+            <h3>{t("about.address_title")}</h3>
             <p>
-              123 Rue de l'Éducation
+              {t("about.address_content")}
               <br />
-              75001 Paris, France
+              {t("about.address_location")}
             </p>
           </motion.div>
           <motion.div
@@ -510,11 +496,11 @@ const About = () => {
             >
               <IoCallOutline />
             </motion.div>
-            <h3>Téléphone</h3>
+            <h3>{t("about.phone_title")}</h3>
             <p>
-              +33 1 23 45 67 89
+              {t("about.phone_number")}
               <br />
-              Du lundi au vendredi
+              {t("about.phone_hours")}
             </p>
           </motion.div>
           <motion.div
@@ -531,11 +517,11 @@ const About = () => {
             >
               <IoTimeOutline />
             </motion.div>
-            <h3>Horaires</h3>
+            <h3>{t("about.hours_title")}</h3>
             <p>
-              Lun-Ven: 9h-19h
+              {t("about.hours_weekdays")}
               <br />
-              Sam: 9h-17h
+              {t("about.hours_saturday")}
             </p>
           </motion.div>
         </motion.div>
@@ -548,7 +534,7 @@ const About = () => {
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.6 }}
         >
-          Nous trouver
+          {t("about.find_us_title")}
         </motion.h2>
         <motion.div
           className="map-container"
@@ -566,8 +552,8 @@ const About = () => {
               >
                 <IoLocationOutline />
               </motion.div>
-              <h3>Bon Cours - École de Langues</h3>
-              <p>123 Rue de l'Éducation, 75001 Paris</p>
+              <h3>{t("about.map_name")}</h3>
+              <p>{t("about.map_address")}</p>
               <div className="map-actions">
                 <motion.button
                   className="map-btn"
@@ -576,7 +562,7 @@ const About = () => {
                   onClick={handleDirections}
                 >
                   <MdDirections />
-                  Itinéraire
+                  {t("about.map_btn_directions")}
                 </motion.button>
                 <motion.button
                   className="map-btn"
@@ -585,7 +571,7 @@ const About = () => {
                   onClick={handleStreetView}
                 >
                   <MdStreetview />
-                  Vue 360°
+                  {t("about.map_btn_view")}
                 </motion.button>
               </div>
             </div>
@@ -600,7 +586,7 @@ const About = () => {
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.6 }}
         >
-          Contactez-nous
+          {t("about.contact_title")}
         </motion.h2>
         <motion.div
           className="contact-container"
@@ -623,200 +609,163 @@ const About = () => {
               >
                 <IoCheckmarkCircleOutline />
               </motion.div>
-              <h3>Message envoyé avec succès !</h3>
-              <p>Nous vous répondrons dans les plus brefs délais.</p>
+              <h3>{t("about.contact_success")}</h3>
+              <p>{t("about.contact_success_desc")}</p>
               <motion.button
                 className="reset-btn"
                 onClick={() => setSubmitSuccess(false)}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                Envoyer un autre message
+                {t("about.contact_send_another")}
               </motion.button>
             </motion.div>
           ) : (
-            <motion.form
-              className="contact-form"
-              onSubmit={handleSubmit}
-              layout
-            >
+            <form className="contact-form" onSubmit={handleSubmit}>
               <div className="form-row">
                 <div className="form-group">
-                  <label htmlFor="name">Nom complet *</label>
-                  <motion.input
+                  <label htmlFor="name">
+                    {t("about.form_name")} <span className="required">*</span>
+                  </label>
+                  <input
                     type="text"
                     id="name"
                     name="name"
                     value={contactForm.name}
                     onChange={handleInputChange}
+                    placeholder={t("about.form_placeholder_name")}
                     className={formErrors.name ? "error" : ""}
-                    placeholder="Votre nom complet"
-                    whileFocus={{ scale: 1.02 }}
-                    transition={{ duration: 0.2 }}
+                    required
                   />
                   {formErrors.name && (
-                    <motion.span
-                      className="error-text"
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                    >
-                      {formErrors.name}
-                    </motion.span>
+                    <span className="error-message">{formErrors.name}</span>
                   )}
                 </div>
                 <div className="form-group">
-                  <label htmlFor="email">Email *</label>
-                  <motion.input
+                  <label htmlFor="email">
+                    {t("about.form_email")} <span className="required">*</span>
+                  </label>
+                  <input
                     type="email"
                     id="email"
                     name="email"
                     value={contactForm.email}
                     onChange={handleInputChange}
+                    placeholder={t("about.form_placeholder_email")}
                     className={formErrors.email ? "error" : ""}
-                    placeholder="votre@email.com"
-                    whileFocus={{ scale: 1.02 }}
-                    transition={{ duration: 0.2 }}
+                    required
                   />
                   {formErrors.email && (
-                    <motion.span
-                      className="error-text"
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                    >
-                      {formErrors.email}
-                    </motion.span>
+                    <span className="error-message">{formErrors.email}</span>
                   )}
                 </div>
               </div>
 
               <div className="form-row">
                 <div className="form-group">
-                  <label htmlFor="phone">Téléphone *</label>
-                  <motion.input
+                  <label htmlFor="phone">
+                    {t("about.form_phone")} <span className="required">*</span>
+                  </label>
+                  <input
                     type="tel"
                     id="phone"
                     name="phone"
                     value={contactForm.phone}
                     onChange={handleInputChange}
+                    placeholder={t("about.form_placeholder_phone")}
                     className={formErrors.phone ? "error" : ""}
-                    placeholder="+33 1 23 45 67 89"
-                    whileFocus={{ scale: 1.02 }}
-                    transition={{ duration: 0.2 }}
+                    required
                   />
                   {formErrors.phone && (
-                    <motion.span
-                      className="error-text"
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                    >
-                      {formErrors.phone}
-                    </motion.span>
+                    <span className="error-message">{formErrors.phone}</span>
                   )}
                 </div>
                 <div className="form-group">
-                  <label htmlFor="language">Langue d'intérêt</label>
-                  <motion.select
+                  <label htmlFor="language">{t("about.form_language")}</label>
+                  <select
                     id="language"
                     name="language"
                     value={contactForm.language}
                     onChange={handleInputChange}
-                    whileFocus={{ scale: 1.02 }}
-                    transition={{ duration: 0.2 }}
                   >
                     <option value="french">Français</option>
-                    <option value="english">Anglais</option>
-                    <option value="spanish">Espagnol</option>
-                    <option value="german">Allemand</option>
-                    <option value="italian">Italien</option>
-                    <option value="other">Autre</option>
-                  </motion.select>
+                    <option value="english">English</option>
+                    <option value="spanish">Español</option>
+                    <option value="german">Deutsch</option>
+                  </select>
                 </div>
               </div>
 
               <div className="form-group">
-                <label htmlFor="subject">Sujet *</label>
-                <motion.input
+                <label htmlFor="subject">
+                  {t("about.form_subject")} <span className="required">*</span>
+                </label>
+                <input
                   type="text"
                   id="subject"
                   name="subject"
                   value={contactForm.subject}
                   onChange={handleInputChange}
+                  placeholder={t("about.form_placeholder_subject")}
                   className={formErrors.subject ? "error" : ""}
-                  placeholder="Sujet de votre message"
-                  whileFocus={{ scale: 1.02 }}
-                  transition={{ duration: 0.2 }}
+                  required
                 />
                 {formErrors.subject && (
-                  <motion.span
-                    className="error-text"
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                  >
-                    {formErrors.subject}
-                  </motion.span>
+                  <span className="error-message">{formErrors.subject}</span>
                 )}
               </div>
 
               <div className="form-group">
-                <label htmlFor="message">Message *</label>
-                <motion.textarea
+                <label htmlFor="message">
+                  {t("about.form_message")} <span className="required">*</span>
+                </label>
+                <textarea
                   id="message"
                   name="message"
                   value={contactForm.message}
                   onChange={handleInputChange}
+                  placeholder={t("about.form_placeholder_message")}
                   className={formErrors.message ? "error" : ""}
-                  placeholder="Votre message..."
-                  rows="5"
-                  whileFocus={{ scale: 1.02 }}
-                  transition={{ duration: 0.2 }}
+                  required
+                  rows={6}
                 />
                 {formErrors.message && (
-                  <motion.span
-                    className="error-text"
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                  >
-                    {formErrors.message}
-                  </motion.span>
+                  <span className="error-message">{formErrors.message}</span>
                 )}
               </div>
 
               <motion.button
-                type="submit"
                 className="submit-btn"
+                type="submit"
                 disabled={isSubmitting}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
               >
                 {isSubmitting ? (
-                  <>
-                    <div className="loading-spinner"></div>
-                    Envoi en cours...
-                  </>
+                  "Envoi en cours..."
                 ) : (
                   <>
-                    <IoSendOutline />
-                    Envoyer le message
+                    <IoSendOutline /> {t("about.form_submit")}
                   </>
                 )}
               </motion.button>
-            </motion.form>
+            </form>
           )}
         </motion.div>
       </section>
 
-      {/* Infobulle de confirmation globale */}
+      {/* Message flottant de confirmation */}
       <AnimatePresence>
         {showTooltip && (
           <motion.div
             className="copy-tooltip"
-            initial={{ opacity: 0, y: -20, scale: 0.8 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -20, scale: 0.8 }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
           >
             <IoCopyOutline />
-            <span>Horaires copiés !</span>
+            {t("about.copy_tooltip")}
           </motion.div>
         )}
       </AnimatePresence>

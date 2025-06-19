@@ -1,0 +1,843 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "about": "À propos",
+    "courses": "Cours",
+    "test": "Test",
+    "dashboard": "Dashboard",
+    "login": "Connexion",
+    "logout": "Se déconnecter",
+    "selectLanguage": "Choisir la langue",
+    "roles": {
+      "director": "Directrice",
+      "teacher": "Professeur",
+      "student": "Étudiant"
+    }
+  },
+  "footer": {
+    "tagline": "Excellence en apprentissage des langues",
+    "follow": "Suivez-nous",
+    "contact": "Contact",
+    "address": "123 Rue de l'Éducation, 75001 Paris",
+    "rights": "Tous droits réservés."
+  },
+  "home": {
+    "hero_title": "Apprenez les langues avec Bon Cours",
+    "hero_desc": "Découvrez notre méthode d'apprentissage innovante et rejoignez plus de 500 étudiants qui ont déjà transformé leur avenir linguistique.",
+    "cta_test": "Commencer le test",
+    "cta_courses": "Voir nos cours",
+    "why_choose": "Pourquoi choisir Bon Cours ?",
+    "feature_innovative": "Méthodes innovantes",
+    "feature_innovative_desc": "Apprentissage interactif et personnalisé pour tous les niveaux",
+    "feature_expert": "Professeurs experts",
+    "feature_expert_desc": "Équipe pédagogique native et expérimentée",
+    "feature_results": "Résultats garantis",
+    "feature_results_desc": "95% de réussite aux certifications",
+    "feature_flexible": "Horaires flexibles",
+    "feature_flexible_desc": "Cours adaptés à votre emploi du temps",
+    "languages_taught": "Nos langues enseignées",
+    "testimonials_title": "Ce que disent nos étudiants",
+    "cta_section_title": "Prêt à commencer votre apprentissage ?",
+    "cta_section_desc": "Rejoignez notre communauté d'apprenants et découvrez une nouvelle façon d'apprendre les langues.",
+    "cta_free_test": "Faire le test gratuit",
+    "cta_learn_more": "En savoir plus",
+    "testimonial_1": "Excellente école ! J'ai progressé rapidement grâce aux méthodes innovantes.",
+    "testimonial_2": "Professeurs très compétents et ambiance conviviale. Je recommande !",
+    "testimonial_3": "Formation de qualité avec un suivi personnalisé exceptionnel."
+  },
+  "about": {
+    "history_title": "Notre histoire",
+    "history_desc": "Depuis plus de 10 ans, nous accompagnons nos étudiants dans leur apprentissage des langues avec passion et expertise.",
+    "approach_title": "Notre approche",
+    "approach_innovation_title": "Innovation pédagogique",
+    "approach_innovation_desc": "Nous développons constamment de nouvelles méthodes d'apprentissage pour rendre l'expérience plus efficace et engageante.",
+    "approach_excellence_title": "Excellence académique",
+    "approach_excellence_desc": "Nos programmes sont conçus par des experts en linguistique et en pédagogie pour garantir les meilleurs résultats.",
+    "approach_community_title": "Communauté internationale",
+    "approach_community_desc": "Rejoignez une communauté diverse d'apprenants et de professeurs du monde entier.",
+    "team_title": "Notre équipe",
+    "director_name": "Shirin Hosseini",
+    "director_role": "Directrice Générale",
+    "director_desc": "Avec plus de 15 ans d'expérience dans l'enseignement des langues, Shirin dirige notre établissement avec passion et expertise. Originaire d'Iran et diplômée en linguistique appliquée, elle apporte une perspective multiculturelle unique à notre vision pédagogique vers l'excellence.",
+    "teacher1_name": "Sarah Johnson",
+    "teacher1_subject": "Professeure d'Anglais",
+    "teacher1_exp": "8 ans d'expérience",
+    "teacher1_desc": "Native d'Angleterre, Sarah apporte l'authenticité britannique à nos cours d'anglais.",
+    "teacher2_name": "Carlos Rodriguez",
+    "teacher2_subject": "Professeur d'Espagnol",
+    "teacher2_exp": "6 ans d'expérience",
+    "teacher2_desc": "Originaire de Madrid, Carlos partage la richesse de la culture hispanique avec enthousiasme.",
+    "teacher3_name": "Marie Dubois",
+    "teacher3_subject": "Professeure de Français",
+    "teacher3_exp": "12 ans d'expérience",
+    "teacher3_desc": "Passionnée de langue française, Marie enseigne la finesse de notre belle langue avec expertise.",
+    "practical_title": "Informations pratiques",
+    "address_title": "Address",
+    "address_content": "123 Rue de l'Éducation",
+    "address_location": "75001 Paris, France",
+    "phone_title": "Phone",
+    "phone_number": "+33 1 23 45 67 89",
+    "phone_hours": "Du lundi au vendredi",
+    "hours_title": "Opening hours",
+    "hours_weekdays": "Lun-Ven: 9h-19h",
+    "hours_saturday": "Sam: 9h-17h",
+    "find_us_title": "Nous trouver",
+    "map_name": "Bon Cours - École de Langues",
+    "map_address": "123 Rue de l'Éducation, 75001 Paris",
+    "map_btn_directions": "Itinéraire",
+    "map_btn_view": "Vue 360°",
+    "contact_title": "Contactez-nous",
+    "contact_success": "Message envoyé avec succès !",
+    "contact_success_desc": "Nous vous répondrons dans les plus brefs délais.",
+    "contact_send_another": "Envoyer un autre message",
+    "form_name": "FULL NAME",
+    "form_email": "EMAIL",
+    "form_phone": "PHONE",
+    "form_language": "LANGUE D'INTÉRÊT",
+    "form_subject": "SUBJECT",
+    "form_message": "MESSAGE",
+    "form_submit": "SEND",
+    "form_placeholder_name": "Votre nom complet",
+    "form_placeholder_email": "votre@email.com",
+    "form_placeholder_phone": "+33 1 23 45 67 89",
+    "form_placeholder_subject": "Sujet de votre message",
+    "form_placeholder_message": "Votre message...",
+    "copy_tooltip": "Horaires copiés !"
+  },
+  "courses": {
+    "hero_title": "Nos Cours & Programmes",
+    "hero_desc": "Découvrez notre large gamme de cours de langues adaptés à tous les niveaux et tous les objectifs.",
+    "stats_students": "Étudiants formés",
+    "stats_languages": "Langues enseignées",
+    "stats_success": "Taux de réussite",
+    "stats_experience": "Années d'expérience",
+    "filters_title": "Filtrer les cours",
+    "filter_language": "Langue",
+    "filter_level": "Niveau",
+    "filter_format": "Format",
+    "filter_all_languages": "Toutes les langues",
+    "filter_french": "Français",
+    "filter_english": "Anglais",
+    "filter_spanish": "Espagnol",
+    "filter_german": "Allemand",
+    "filter_all_levels": "Tous les niveaux",
+    "filter_beginner": "Débutant (A1)",
+    "filter_elementary": "Élémentaire (A2)",
+    "filter_intermediate": "Intermédiaire (B1)",
+    "filter_intermediate_plus": "Intermédiaire+ (B2)",
+    "filter_advanced": "Avancé (C1)",
+    "filter_mastery": "Maîtrise (C2)",
+    "filter_all_formats": "Tous les formats",
+    "filter_private": "Cours particulier",
+    "filter_group": "Cours en groupe",
+    "filter_intensive": "Stage intensif",
+    "catalog_title": "Catalogue des cours",
+    "course_register": "S'inscrire",
+    "course_start": "Début:",
+    "no_results_title": "Aucun cours trouvé",
+    "no_results_desc": "Essayez de modifier vos critères de recherche.",
+    "course_french_beginner_title": "Français Débutant",
+    "course_french_beginner_desc": "Apprenez les bases du français avec notre méthode interactive.",
+    "course_french_beginner_feature1": "Grammaire de base",
+    "course_french_beginner_feature2": "Vocabulaire essentiel",
+    "course_french_beginner_feature3": "Conversation simple",
+    "course_french_beginner_feature4": "Culture française",
+    "course_english_business_title": "English Business",
+    "course_english_business_desc": "Perfectionnez votre anglais professionnel.",
+    "course_english_business_feature1": "Anglais des affaires",
+    "course_english_business_feature2": "Présentations",
+    "course_english_business_feature3": "Négociations",
+    "course_english_business_feature4": "Emails professionnels",
+    "course_spanish_intensive_title": "Español Intensivo",
+    "course_spanish_intensive_desc": "Stage intensif pour progresser rapidement en espagnol.",
+    "course_spanish_intensive_feature1": "Immersion totale",
+    "course_spanish_intensive_feature2": "Conversation intensive",
+    "course_spanish_intensive_feature3": "Culture hispanique",
+    "course_spanish_intensive_feature4": "Certification",
+    "course_german_intermediate_title": "Deutsch Mittelstufe",
+    "course_german_intermediate_desc": "Approfondissez vos connaissances en allemand.",
+    "course_german_intermediate_feature1": "Grammaire avancée",
+    "course_german_intermediate_feature2": "Expression écrite",
+    "course_german_intermediate_feature3": "Compréhension orale",
+    "course_german_intermediate_feature4": "Culture allemande",
+    "course_french_advanced_title": "Français Avancé",
+    "course_french_advanced_desc": "Maîtrisez parfaitement la langue française.",
+    "course_french_advanced_feature1": "Littérature française",
+    "course_french_advanced_feature2": "Débats",
+    "course_french_advanced_feature3": "Rédaction avancée",
+    "course_french_advanced_feature4": "Préparation DALF",
+    "course_english_conversation_title": "English Conversation",
+    "course_english_conversation_desc": "Améliorez votre expression orale en anglais.",
+    "course_english_conversation_feature1": "Conversation libre",
+    "course_english_conversation_feature2": "Débats",
+    "course_english_conversation_feature3": "Jeux de rôle",
+    "course_english_conversation_feature4": "Accent britannique",
+    "course_duration_3months": "3 mois",
+    "course_duration_2months": "2 mois",
+    "course_duration_2weeks": "2 semaines",
+    "course_duration_4months": "4 mois",
+    "course_duration_6months": "6 mois",
+    "course_sessions_2week": "2 fois/semaine",
+    "course_sessions_1week": "1 fois/semaine",
+    "course_sessions_daily": "Tous les jours",
+    "course_teacher_marie": "Marie Dubois",
+    "course_teacher_sarah": "Sarah Johnson",
+    "course_teacher_carlos": "Carlos Rodriguez",
+    "course_teacher_anna": "Anna Schmidt",
+    "course_start_jan15": "15 janvier 2024",
+    "course_start_jan22": "22 janvier 2024",
+    "course_start_feb5": "5 février 2024",
+    "course_start_jan29": "29 janvier 2024",
+    "course_start_feb12": "12 février 2024",
+    "course_start_feb8": "8 février 2024",
+    "pricing_title": "Nos tarifs",
+    "pricing_private_title": "Cours Particulier",
+    "pricing_private_feature1": "Cours personnalisé",
+    "pricing_private_feature2": "Horaires flexibles",
+    "pricing_private_feature3": "Progression rapide",
+    "pricing_private_feature4": "Attention individuelle",
+    "pricing_private_feature5": "Matériel inclus",
+    "pricing_group_title": "Cours en Groupe",
+    "pricing_group_feature1": "Groupes de 6-8 personnes",
+    "pricing_group_feature2": "Interaction sociale",
+    "pricing_group_feature3": "Méthode collaborative",
+    "pricing_group_feature4": "Prix avantageux",
+    "pricing_group_feature5": "Certificat de fin",
+    "pricing_intensive_title": "Stage Intensif",
+    "pricing_intensive_feature1": "Immersion totale",
+    "pricing_intensive_feature2": "Progression accélérée",
+    "pricing_intensive_feature3": "Cours quotidiens",
+    "pricing_intensive_feature4": "Activités culturelles",
+    "pricing_intensive_feature5": "Certification officielle",
+    "pricing_pro_title": "Formation Pro",
+    "pricing_pro_feature1": "Programme sur mesure",
+    "pricing_pro_feature2": "Formation en entreprise",
+    "pricing_pro_feature3": "Objectifs spécifiques",
+    "pricing_pro_feature4": "Suivi personnalisé",
+    "pricing_pro_feature5": "Financement possible",
+    "pricing_hour": "/heure",
+    "pricing_quarter": "/trimestre",
+    "pricing_2weeks": "/2 semaines",
+    "pricing_quote": "Sur devis",
+    "pricing_popular": "Populaire",
+    "pricing_choose": "Choisir ce plan",
+    "enrollment_title": "Comment s'inscrire ?",
+    "enrollment_step1_title": "Test de niveau",
+    "enrollment_step1_desc": "Évaluez gratuitement votre niveau actuel avec notre test en ligne ou en présentiel.",
+    "enrollment_step1_btn": "Faire le test",
+    "enrollment_step2_title": "Choix du cours",
+    "enrollment_step2_desc": "Sélectionnez le cours qui correspond à vos objectifs et votre emploi du temps.",
+    "enrollment_step2_btn": "Voir les cours",
+    "enrollment_step3_title": "Inscription",
+    "enrollment_step3_desc": "Remplissez le formulaire d'inscription et effectuez le paiement sécurisé.",
+    "enrollment_step3_btn": "S'inscrire",
+    "enrollment_step4_title": "Début des cours",
+    "enrollment_step4_desc": "Commencez votre apprentissage avec nos professeurs expérimentés.",
+    "enrollment_step4_btn": "Commencer",
+    "enrollment_payment_title": "Paiement flexible",
+    "enrollment_payment_desc": "Possibilité de paiement en 3 fois sans frais",
+    "enrollment_commitment_title": "Sans engagement",
+    "enrollment_commitment_desc": "Aucun prérequis, tous les niveaux acceptés",
+    "enrollment_objectives_title": "Objectifs clairs",
+    "enrollment_objectives_desc": "Progression mesurable et certification",
+    "enrollment_support_title": "Support inclus",
+    "enrollment_support_desc": "Accompagnement personnalisé tout au long",
+    "contact_question": "Des questions ?",
+    "contact_desc": "Notre équipe est là pour vous accompagner dans votre choix."
+  },
+  "test": {
+    "title": "Test de Niveau",
+    "subtitle": "Évaluez vos compétences linguistiques",
+    "description": "Choisissez une langue et découvrez votre niveau actuel grâce à notre test adaptatif.",
+    "chooseLanguage": "Choisissez votre langue",
+    "startTest": "Commencer le test",
+    "backToHome": "Retour à l'accueil",
+    "languages": {
+      "english": "Anglais",
+      "french": "Français",
+      "german": "Allemand",
+      "spanish": "Espagnol"
+    }
+  },
+  "login": {
+    "loading": "Chargement...",
+    "title": "Connexion",
+    "subtitle": "Bienvenue dans votre espace d'apprentissage personnalisé",
+    "identifier": "Identifiant",
+    "identifierPlaceholder": "Votre identifiant",
+    "password": "Mot de passe",
+    "passwordPlaceholder": "Votre mot de passe",
+    "showPassword": "Afficher le mot de passe",
+    "hidePassword": "Masquer le mot de passe",
+    "loginButton": "Se connecter",
+    "loggingIn": "Connexion en cours...",
+    "demoTitle": "Comptes de démonstration",
+    "demoSubtitle": "Cliquez sur un profil pour vous connecter instantanément :",
+    "director": "Directrice",
+    "teacher": "Professeure",
+    "student": "Étudiant",
+    "demoInfo": "Vous pouvez aussi utiliser n'importe quel identifiant pour créer un compte étudiant temporaire.",
+    "demoMode": "Mode démo :",
+    "errors": {
+      "identifierRequired": "Veuillez saisir un identifiant",
+      "loginFailed": "Erreur de connexion. Veuillez réessayer.",
+      "connectionError": "Erreur de connexion"
+    }
+  },
+  "error": {
+    "title": "Page non trouvée",
+    "description": "Désolé, la page que vous recherchez semble s'être perdue dans l'espace numérique.",
+    "backToHome": "Retour à l'accueil"
+  },
+  "dashboard": {
+    "title": {
+      "director": "Espace Direction",
+      "teacher": "Espace Professeur",
+      "student": "Espace Étudiant"
+    },
+    "welcome": "Bienvenue, {{name}} !",
+    "accessDenied": {
+      "title": "❌ Accès non autorisé",
+      "description": "Vous n'avez pas les permissions nécessaires pour accéder à cette section."
+    },
+    "unauthorizedAccess": "Accès non autorisé",
+    "tabs": {
+      "overview": "Vue d'ensemble",
+      "progress": "Ma progression",
+      "resources": "Ressources",
+      "schedule": "Planning",
+      "users": "Gestion utilisateurs",
+      "courses": {
+        "director": "Tous les cours",
+        "teacher": "Mes cours"
+      },
+      "students": {
+        "director": "Tous les étudiants",
+        "teacher": "Mes étudiants"
+      }
+    },
+    "badges": {
+      "student": {
+        "firstStep": "Premier pas",
+        "studious": "Studieux",
+        "conversational": "Conversationnel",
+        "grammarian": "Grammairien",
+        "expert": "Expert"
+      },
+      "teacher": {
+        "mentor": "Mentor",
+        "inspiring": "Inspirant",
+        "expertTeacher": "Expert pédagogue"
+      },
+      "director": {
+        "leader": "Leader",
+        "visionary": "Visionnaire",
+        "excellence": "Excellence"
+      },
+      "section": {
+        "student": "🎖️ Badges obtenus",
+        "teacher": "🏅 Badges de performance",
+        "director": "🏆 Badges de leadership"
+      },
+      "earned": "Badge \"{{name}}\" obtenu !",
+      "locked": "Badge \"{{name}}\" à débloquer"
+    },
+    "stats": {
+      "student": {
+        "coursesFollowed": "Cours suivis",
+        "averageGrade": "Moyenne générale",
+        "attendance": "Assiduité",
+        "badgesEarned": "Badges obtenus",
+        "thisMonth": "Ce mois",
+        "improving": "En amélioration",
+        "excellent": "Excellent",
+        "thisQuarter": "Ce trimestre"
+      },
+      "teacher": {
+        "students": "Étudiants",
+        "coursesTaught": "Cours enseignés",
+        "averageRating": "Note moyenne",
+        "successRate": "Taux de réussite",
+        "newSemester": "Nouveau semestre",
+        "thisSemester": "Ce semestre",
+        "studentEvaluations": "Évaluations étudiants",
+        "currentQuarter": "Trimestre actuel"
+      },
+      "director": {
+        "totalStudents": "Étudiants totaux",
+        "teachers": "Professeurs",
+        "monthlyRevenue": "Revenus mensuels",
+        "satisfaction": "Satisfaction",
+        "newRecord": "Nouveau record",
+        "expandedTeam": "Équipe agrandie",
+        "exceptionalMonth": "Mois exceptionnel"
+      }
+    },
+    "activities": {
+      "title": "📈 Activité récente",
+      "student": {
+        "testCompleted": "Test d'anglais complété ({{score}}/20)",
+        "badgeEarned": "Badge '{{badge}}' obtenu",
+        "newCourse": "Nouveau cours d'espagnol ajouté",
+        "streak": "Série de {{days}} jours consécutifs",
+        "timeAgo": {
+          "hours": "Il y a {{count}} heure",
+          "hours_plural": "Il y a {{count}} heures",
+          "yesterday": "Hier",
+          "days": "Il y a {{count}} jour",
+          "days_plural": "Il y a {{count}} jours"
+        }
+      },
+      "teacher": {
+        "gradingCompleted": "{{count}} copies corrigées ({{subject}})",
+        "scheduleUpdated": "Planning mis à jour pour la semaine",
+        "goalAchieved": "Objectif mensuel atteint ({{percentage}}% réussite)",
+        "newMessage": "Nouveau message de l'administration"
+      },
+      "director": {
+        "newTeacher": "Nouveau professeur ajouté : {{name}}",
+        "reportGenerated": "Rapport mensuel généré (↗️ +{{percentage}}%)",
+        "milestoneReached": "Objectif atteint : {{count}} étudiants",
+        "revenueUpdate": "Revenus mensuels : +{{percentage}}% vs l'an passé"
+      },
+      "achievements": {
+        "title": "Badges obtenus"
+      }
+    }
+  },
+  "resources": {
+    "title": "Ressources pédagogiques",
+    "subtitle": "Accédez à tous vos supports de cours et exercices",
+    "categories": {
+      "manuals": {
+        "title": "Manuels",
+        "count": "{{count}} documents",
+        "items": {
+          "frenchGrammar": {
+            "title": "Grammaire Française B1",
+            "description": "Manuel complet - 240 pages"
+          },
+          "essentialVocab": {
+            "title": "Vocabulaire Essentiel",
+            "description": "1000 mots les plus utilisés"
+          }
+        }
+      },
+      "audio": {
+        "title": "Audio",
+        "count": "{{count}} fichiers",
+        "items": {
+          "dialogues": {
+            "title": "Dialogues B1",
+            "description": "Conversations du quotidien"
+          },
+          "pronunciation": {
+            "title": "Prononciation",
+            "description": "Exercices de phonétique"
+          }
+        }
+      },
+      "exercises": {
+        "title": "Exercices",
+        "count": "{{count}} exercices",
+        "items": {
+          "conjugation": {
+            "title": "Conjugaison",
+            "description": "Temps du passé - Niveau B1"
+          },
+          "reading": {
+            "title": "Compréhension écrite",
+            "description": "Textes avec questions"
+          }
+        }
+      },
+      "videos": {
+        "title": "Vidéos",
+        "count": "{{count}} vidéos",
+        "items": {
+          "culture": {
+            "title": "Culture française",
+            "description": "Documentaire - 45 minutes"
+          },
+          "grammar": {
+            "title": "Cours de grammaire",
+            "description": "Les temps du passé expliqués"
+          }
+        }
+      }
+    },
+    "buttons": {
+      "download": "Télécharger",
+      "listen": "Écouter",
+      "start": "Commencer",
+      "watch": "Regarder",
+      "open": "Ouvrir",
+      "resume": "Reprendre"
+    },
+    "recent": {
+      "title": "Récemment consultés",
+      "timeAgo": {
+        "hours": "Consulté il y a {{count}} heure",
+        "hours_plural": "Consulté il y a {{count}} heures",
+        "yesterday": "Consulté hier",
+        "days": "Consulté il y a {{count}} jour",
+        "days_plural": "Consulté il y a {{count}} jours"
+      }
+    }
+  },
+  "progress": {
+    "title": "Ma progression",
+    "currentLevel": "Niveau actuel : {{level}}",
+    "levels": {
+      "b1": "B1 Intermédiaire",
+      "b2": "B2 Intermédiaire supérieur"
+    },
+    "progressTo": "{{percentage}}% vers {{level}}",
+    "skills": {
+      "title": "Compétences",
+      "listeningComprehension": "Compréhension orale",
+      "speaking": "Expression orale",
+      "readingComprehension": "Compréhension écrite",
+      "writing": "Expression écrite"
+    },
+    "achievements": {
+      "title": "Badges obtenus"
+    }
+  },
+  "schedule": {
+    "title": "Planning",
+    "navigation": {
+      "previousWeek": "Semaine précédente",
+      "nextWeek": "Semaine suivante",
+      "today": "Aujourd'hui"
+    },
+    "days": {
+      "monday": "Lundi",
+      "tuesday": "Mardi",
+      "wednesday": "Mercredi",
+      "thursday": "Jeudi",
+      "friday": "Vendredi",
+      "saturday": "Samedi",
+      "sunday": "Dimanche"
+    },
+    "classTypes": {
+      "grammar": "Grammaire",
+      "conversation": "Conversation",
+      "vocabulary": "Vocabulaire",
+      "listening": "Écoute",
+      "speaking": "Expression Orale",
+      "writing": "Atelier Écriture",
+      "exam": "Préparation DELF"
+    },
+    "modes": {
+      "online": "En ligne",
+      "offline": "Présentiel"
+    },
+    "status": {
+      "confirmed": "Confirmé",
+      "pending": "En attente",
+      "cancelled": "Annulé"
+    },
+    "classInfo": {
+      "teacher": "Professeur",
+      "students": "{{count}} étudiant",
+      "students_plural": "{{count}} étudiants",
+      "status": "Statut",
+      "mode": "Mode",
+      "room": "Salle",
+      "building": "Bâtiment",
+      "address": "Adresse",
+      "meetingId": "ID de réunion",
+      "password": "Mot de passe"
+    },
+    "actions": {
+      "joinClass": "Rejoindre le cours",
+      "viewLocation": "Voir l'emplacement",
+      "copyMeetingInfo": "Copier les infos de réunion",
+      "leaveCall": "Quitter l'appel",
+      "toggleMic": "Activer/Désactiver le micro",
+      "toggleCamera": "Activer/Désactiver la caméra"
+    },
+    "notifications": {
+      "meetingInfoCopied": "Informations de réunion copiées !",
+      "locationCopied": "Adresse copiée !",
+      "classJoined": "Vous avez rejoint le cours {{className}}",
+      "micEnabled": "Microphone activé",
+      "micDisabled": "Microphone désactivé",
+      "cameraEnabled": "Caméra activée",
+      "cameraDisabled": "Caméra désactivée",
+      "connectionSuccess": "Connexion au cours \"{{className}}\"",
+      "addressNotAvailable": "Adresse non disponible",
+      "routeOpened": "Itinéraire ouvert dans Google Maps",
+      "leftClass": "Vous avez quitté le cours"
+    },
+    "ui": {
+      "weeklySchedule": "Planning de la semaine",
+      "upcomingClasses": "Prochains cours",
+      "students": "{{count}} élève",
+      "students_plural": "{{count}} élèves",
+      "online": "VISIO",
+      "offline": "PRÉSENTIEL",
+      "studyReminders": "Rappels d'étude",
+      "locationTitle": "Localisation du cours",
+      "getDirections": "Obtenir l'itinéraire",
+      "close": "Fermer",
+      "join": "Rejoindre",
+      "locate": "Localiser",
+      "scheduleUpdated": "Planning mis à jour pour la semaine du {{date}}"
+    },
+    "courses": {
+      "grammaire": "Grammaire",
+      "conversation": "Conversation",
+      "vocabulaire": "Vocabulaire",
+      "listening": "Écoute",
+      "speaking": "Expression Orale",
+      "writing": "Atelier Écriture",
+      "exam": "Préparation DELF",
+      "culture": "Culture",
+      "pronunciation": "Phonétique",
+      "grammaireAvancee": "Grammaire avancée",
+      "conversationLibre": "Conversation libre",
+      "atelierPrononciation": "Atelier Prononciation",
+      "cultureFrancaise": "Culture Française"
+    },
+    "timeRelative": {
+      "today": "Aujourd'hui à {{time}}",
+      "tomorrow": "Demain à {{time}}",
+      "friday": "Vendredi à {{time}}",
+      "inHours": "Dans {{count}} heure",
+      "inHours_plural": "Dans {{count}} heures",
+      "tomorrowAt": "Demain {{time}}",
+      "beforeFriday": "Avant vendredi",
+      "thisWeekend": "Ce weekend"
+    },
+    "reminders": {
+      "vocabularyReview": "Révision vocabulaire",
+      "audioLesson": "Écoute audio - Leçon 12",
+      "presentPerfectExercises": "Exercices Present Perfect",
+      "conversationPractice": "Pratique conversation"
+    }
+  },
+  "userManagement": {
+    "title": "Gestion des utilisateurs",
+    "subtitle": "Créer, modifier et gérer les comptes utilisateurs",
+    "addBtn": "Créer un utilisateur",
+    "stats": {
+      "totalUsers": "Total Utilisateurs",
+      "activeUsers": "Utilisateurs Actifs",
+      "teachers": "Professeurs",
+      "students": "Étudiants"
+    },
+    "filters": {
+      "searchPlaceholder": "Rechercher par nom ou email...",
+      "allRoles": "Tous les rôles",
+      "allStatuses": "Tous les statuts"
+    },
+    "table": {
+      "name": "Nom",
+      "email": "Email",
+      "role": "Rôle",
+      "status": "Statut",
+      "actions": "Actions"
+    },
+    "roles": {
+      "student": "Étudiant",
+      "teacher": "Professeur",
+      "director": "Directeur"
+    },
+    "statuses": {
+      "active": "Actif",
+      "inactive": "Inactif",
+      "pending": "En attente"
+    },
+    "actions": {
+      "view": "Voir",
+      "edit": "Modifier",
+      "delete": "Supprimer",
+      "createUser": "Créer un utilisateur"
+    },
+    "createForm": {
+      "title": "Créer un nouvel utilisateur",
+      "name": "Nom complet",
+      "namePlaceholder": "Ex: Marie Dupont",
+      "email": "Adresse email",
+      "emailPlaceholder": "Ex: marie.dupont@email.com",
+      "role": "Rôle",
+      "password": "Mot de passe",
+      "generatePassword": "Générer un mot de passe sécurisé",
+      "passwordInfo": "Le mot de passe doit contenir au moins 8 caractères avec majuscules, minuscules et chiffres",
+      "showPassword": "Afficher le mot de passe",
+      "hidePassword": "Masquer le mot de passe",
+      "cancel": "Annuler",
+      "create": "Créer l'utilisateur"
+    },
+    "editForm": {
+      "title": "Modifier l'utilisateur",
+      "nameNotAvailable": "Nom non disponible",
+      "emailNotAvailable": "Email non disponible",
+      "save": "Sauvegarder"
+    },
+    "viewModal": {
+      "title": "Détails de l'utilisateur",
+      "nameLabel": "Nom :",
+      "emailLabel": "Email :",
+      "roleLabel": "Rôle :",
+      "statusLabel": "Statut :"
+    },
+    "deleteModal": {
+      "title": "Confirmer la suppression",
+      "question": "Êtes-vous sûr de vouloir supprimer l'utilisateur",
+      "warningMessage": "Cette action est temporaire - les données reviendront au rechargement de la page",
+      "cancel": "Annuler",
+      "confirm": "Supprimer (démo)"
+    },
+    "notifications": {
+      "userCreated": "Utilisateur {{name}} créé avec succès !",
+      "userUpdated": "Utilisateur {{name}} modifié avec succès !",
+      "userDeleted": "Utilisateur {{name}} supprimé avec succès !",
+      "passwordGenerated": "Mot de passe sécurisé généré !"
+    }
+  },
+  "directorCourses": {
+    "title": "Gestion des Cours",
+    "subtitle": "Vue d'ensemble de tous les cours de l'école",
+    "importButton": "Importer depuis Google Drive",
+    "stats": {
+      "totalCourses": "Cours Total",
+      "activeCourses": "Cours Actifs",
+      "enrolledStudents": "Étudiants Inscrits",
+      "occupationRate": "Taux Occupation"
+    },
+    "filters": {
+      "searchPlaceholder": "Rechercher un cours ou professeur...",
+      "allLevels": "Tous niveaux",
+      "allLanguages": "Toutes langues",
+      "allStatuses": "Tous statuts"
+    },
+    "courseInfo": {
+      "teacher": "Professeur",
+      "students": "{{count}} étudiant",
+      "students_plural": "{{count}} étudiants",
+      "progress": "Progression",
+      "schedule": "Horaires",
+      "period": "Période",
+      "to": "au"
+    },
+    "status": {
+      "active": "Actif",
+      "completed": "Terminé",
+      "scheduled": "Programmé"
+    },
+    "actions": {
+      "edit": "Modifier",
+      "delete": "Supprimer",
+      "viewDetails": "Voir détails"
+    },
+    "languages": {
+      "Anglais": "Anglais",
+      "Français": "Français",
+      "Espagnol": "Espagnol",
+      "Allemand": "Allemand",
+      "Italien": "Italien"
+    }
+  },
+  "directorStudents": {
+    "title": "Gestion des Étudiants",
+    "subtitle": "Vue d'ensemble de tous les étudiants de l'école",
+    "stats": {
+      "totalStudents": "Étudiants Total",
+      "averageProgress": "Progrès Moyen",
+      "averageAttendance": "Assiduité Moyenne",
+      "averageGrade": "Note Moyenne"
+    },
+    "filters": {
+      "searchPlaceholder": "Rechercher un étudiant...",
+      "allCourses": "Tous les cours",
+      "allLevels": "Tous les niveaux"
+    },
+    "studentInfo": {
+      "progress": "Progrès",
+      "attendance": "Assiduité",
+      "grade": "Note"
+    },
+    "status": {
+      "active": "Actif",
+      "graduated": "Diplômé",
+      "suspended": "Suspendu"
+    },
+    "actions": {
+      "details": "Détails",
+      "courses": "Cours"
+    }
+  },
+  "teacherCourses": {
+    "title": "Mes Cours",
+    "importButton": "Importer depuis Google Drive",
+    "stats": {
+      "activeCourses": "Cours actifs",
+      "totalStudents": "Étudiants totaux",
+      "weeklyHours": "Heures/semaine"
+    },
+    "courseInfo": {
+      "students": "étudiants"
+    },
+    "actions": {
+      "view": "Voir",
+      "edit": "Modifier"
+    },
+    "createForm": {
+      "title": "Créer un nouveau cours",
+      "courseTitle": "Titre du cours",
+      "courseTitlePlaceholder": "Ex: Grammaire Française B1",
+      "level": "Niveau",
+      "levels": {
+        "a1": "A1 - Débutant",
+        "a2": "A2 - Élémentaire",
+        "b1": "B1 - Intermédiaire",
+        "b2": "B2 - Intermédiaire avancé",
+        "c1": "C1 - Avancé",
+        "c2": "C2 - Maîtrise"
+      },
+      "description": "Description",
+      "descriptionPlaceholder": "Décrivez le contenu et les objectifs du cours...",
+      "duration": "Durée",
+      "durationPlaceholder": "Ex: 2h",
+      "maxStudents": "Nombre max d'étudiants",
+      "maxStudentsPlaceholder": "15",
+      "schedule": "Horaire",
+      "schedulePlaceholder": "Ex: Lundi 14:00",
+      "cancel": "Annuler",
+      "create": "Créer le cours"
+    },
+    "notifications": {
+      "importAlert": "Fonctionnalité d'import Google Drive à venir !"
+    }
+  },
+  "teacherStudents": {
+    "title": "Mes Étudiants",
+    "subtitle": "Suivez les progrès et gérez vos étudiants",
+    "filters": {
+      "searchPlaceholder": "Rechercher un étudiant...",
+      "allCourses": "Tous les cours",
+      "allLevels": "Tous les niveaux"
+    },
+    "stats": {
+      "students": "Étudiants",
+      "averageProgress": "Progrès moyen",
+      "averageAttendance": "Assiduité moyenne",
+      "activeStudents": "Actifs"
+    },
+    "studentInfo": {
+      "progress": "Progrès",
+      "attendance": "Assiduité",
+      "lastActivity": "Dernière activité: {{time}}"
+    },
+    "actions": {
+      "profile": "Profil"
+    },
+    "noResults": {
+      "title": "Aucun étudiant trouvé",
+      "message": "Essayez de modifier vos critères de recherche"
+    }
+  }
+}

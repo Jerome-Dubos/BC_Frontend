@@ -1,4 +1,6 @@
+/* eslint-disable no-unused-vars */
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import {
   IoLanguageOutline,
   IoPeopleOutline,
@@ -7,30 +9,30 @@ import {
 } from "react-icons/io5";
 
 const FeaturesSection = () => {
+  const { t } = useTranslation();
   const features = [
     {
       icon: <IoLanguageOutline size={48} />,
-      title: "Méthodes innovantes",
-      description:
-        "Apprentissage interactif et personnalisé pour tous les niveaux",
+      title: t("home.feature_innovative"),
+      description: t("home.feature_innovative_desc"),
       color: "#3498db",
     },
     {
       icon: <IoPeopleOutline size={48} />,
-      title: "Professeurs experts",
-      description: "Équipe pédagogique native et expérimentée",
+      title: t("home.feature_expert"),
+      description: t("home.feature_expert_desc"),
       color: "#e74c3c",
     },
     {
       icon: <IoTrophyOutline size={48} />,
-      title: "Résultats garantis",
-      description: "95% de réussite aux certifications",
+      title: t("home.feature_results"),
+      description: t("home.feature_results_desc"),
       color: "#f39c12",
     },
     {
       icon: <IoTimeOutline size={48} />,
-      title: "Horaires flexibles",
-      description: "Cours adaptés à votre emploi du temps",
+      title: t("home.feature_flexible"),
+      description: t("home.feature_flexible_desc"),
       color: "#2ecc71",
     },
   ];
@@ -43,7 +45,7 @@ const FeaturesSection = () => {
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
       >
-        Pourquoi choisir Bon Cours ?
+        {t("home.why_choose")}
       </motion.h2>
       <div className="features-grid">
         {features.map((feature, index) => (

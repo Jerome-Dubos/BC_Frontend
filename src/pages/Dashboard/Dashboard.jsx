@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
   IoBookOutline,
   IoCalendarOutline,
@@ -33,6 +34,7 @@ import { useAuth } from "../../context/AuthContext";
 import "./Dashboard.css";
 
 const Dashboard = () => {
+  const { t } = useTranslation();
   const { user } = useAuth();
   const [activeTab, setActiveTab] = useState("overview");
 
@@ -42,35 +44,35 @@ const Dashboard = () => {
       return [
         {
           id: 1,
-          name: "Premier pas",
+          name: t("dashboard.badges.student.firstStep"),
           icon: IoStarOutline,
           earned: true,
           color: "#FFD700",
         },
         {
           id: 2,
-          name: "Studieux",
+          name: t("dashboard.badges.student.studious"),
           icon: IoBookOutline,
           earned: true,
           color: "#4CAF50",
         },
         {
           id: 3,
-          name: "Conversationnel",
+          name: t("dashboard.badges.student.conversational"),
           icon: IoPersonOutline,
           earned: false,
           color: "#2196F3",
         },
         {
           id: 4,
-          name: "Grammairien",
+          name: t("dashboard.badges.student.grammarian"),
           icon: IoCreateOutline,
           earned: false,
           color: "#9C27B0",
         },
         {
           id: 5,
-          name: "Expert",
+          name: t("dashboard.badges.student.expert"),
           icon: IoTrophyOutline,
           earned: false,
           color: "#FF5722",
@@ -80,21 +82,21 @@ const Dashboard = () => {
       return [
         {
           id: 1,
-          name: "Mentor",
+          name: t("dashboard.badges.teacher.mentor"),
           icon: IoSchoolOutline,
           earned: true,
           color: "#FFD700",
         },
         {
           id: 2,
-          name: "Inspirant",
+          name: t("dashboard.badges.teacher.inspiring"),
           icon: IoFlashOutline,
           earned: true,
           color: "#4CAF50",
         },
         {
           id: 3,
-          name: "Expert pédagogue",
+          name: t("dashboard.badges.teacher.expertTeacher"),
           icon: IoMedalOutline,
           earned: false,
           color: "#2196F3",
@@ -104,21 +106,21 @@ const Dashboard = () => {
       return [
         {
           id: 1,
-          name: "Leader",
+          name: t("dashboard.badges.director.leader"),
           icon: MdAdminPanelSettings,
           earned: true,
           color: "#FFD700",
         },
         {
           id: 2,
-          name: "Visionnaire",
+          name: t("dashboard.badges.director.visionary"),
           icon: IoEyeOutline,
           earned: true,
           color: "#4CAF50",
         },
         {
           id: 3,
-          name: "Excellence",
+          name: t("dashboard.badges.director.excellence"),
           icon: IoRibbonOutline,
           earned: false,
           color: "#2196F3",
@@ -130,7 +132,11 @@ const Dashboard = () => {
   // Définir les onglets disponibles selon le rôle
   const getTabsForRole = (role) => {
     const baseTabs = [
-      { id: "overview", label: "Vue d'ensemble", icon: <MdDashboard /> },
+      {
+        id: "overview",
+        label: t("dashboard.tabs.overview"),
+        icon: <MdDashboard />,
+      },
     ];
 
     if (role === "director") {
@@ -139,15 +145,27 @@ const Dashboard = () => {
         ...baseTabs,
         {
           id: "users",
-          label: "Gestion utilisateurs",
+          label: t("dashboard.tabs.users"),
           icon: <IoSettingsOutline />,
         },
-        { id: "schedule", label: "Planning", icon: <IoCalendarOutline /> },
-        { id: "resources", label: "Ressources", icon: <IoBookOutline /> },
-        { id: "courses", label: "Tous les cours", icon: <IoSchoolSharp /> },
+        {
+          id: "schedule",
+          label: t("dashboard.tabs.schedule"),
+          icon: <IoCalendarOutline />,
+        },
+        {
+          id: "resources",
+          label: t("dashboard.tabs.resources"),
+          icon: <IoBookOutline />,
+        },
+        {
+          id: "courses",
+          label: t("dashboard.tabs.courses.director"),
+          icon: <IoSchoolSharp />,
+        },
         {
           id: "students",
-          label: "Tous les étudiants",
+          label: t("dashboard.tabs.students.director"),
           icon: <IoPeopleOutline />,
         },
       ];
@@ -155,10 +173,26 @@ const Dashboard = () => {
       // Professeurs : accès à tout sauf UserManagement et Progress
       return [
         ...baseTabs,
-        { id: "schedule", label: "Planning", icon: <IoCalendarOutline /> },
-        { id: "resources", label: "Ressources", icon: <IoBookOutline /> },
-        { id: "courses", label: "Mes cours", icon: <IoBookOutline /> },
-        { id: "students", label: "Mes étudiants", icon: <IoPeopleOutline /> },
+        {
+          id: "schedule",
+          label: t("dashboard.tabs.schedule"),
+          icon: <IoCalendarOutline />,
+        },
+        {
+          id: "resources",
+          label: t("dashboard.tabs.resources"),
+          icon: <IoBookOutline />,
+        },
+        {
+          id: "courses",
+          label: t("dashboard.tabs.courses.teacher"),
+          icon: <IoBookOutline />,
+        },
+        {
+          id: "students",
+          label: t("dashboard.tabs.students.teacher"),
+          icon: <IoPeopleOutline />,
+        },
       ];
     } else {
       // Étudiants : Overview, Progress, Resources, Schedule
@@ -166,11 +200,19 @@ const Dashboard = () => {
         ...baseTabs,
         {
           id: "progress",
-          label: "Ma progression",
+          label: t("dashboard.tabs.progress"),
           icon: <IoStatsChartOutline />,
         },
-        { id: "resources", label: "Ressources", icon: <IoBookOutline /> },
-        { id: "schedule", label: "Planning", icon: <IoCalendarOutline /> },
+        {
+          id: "resources",
+          label: t("dashboard.tabs.resources"),
+          icon: <IoBookOutline />,
+        },
+        {
+          id: "schedule",
+          label: t("dashboard.tabs.schedule"),
+          icon: <IoCalendarOutline />,
+        },
       ];
     }
   };
@@ -189,11 +231,8 @@ const Dashboard = () => {
     if (!hasAccess(activeTab)) {
       return (
         <div className="dashboard-access-denied">
-          <h3>❌ Accès non autorisé</h3>
-          <p>
-            Vous n'avez pas les permissions nécessaires pour accéder à cette
-            section.
-          </p>
+          <h3>{t("dashboard.accessDenied.title")}</h3>
+          <p>{t("dashboard.accessDenied.description")}</p>
         </div>
       );
     }
@@ -207,7 +246,7 @@ const Dashboard = () => {
         return userRole === "student" ? (
           <Progress user={user} getBadgesForRole={getBadgesForRole} />
         ) : (
-          <div>Accès non autorisé</div>
+          <div>{t("dashboard.unauthorizedAccess")}</div>
         );
 
       case "resources":
@@ -221,7 +260,7 @@ const Dashboard = () => {
         return userRole === "director" ? (
           <UserManagement />
         ) : (
-          <div>Accès non autorisé</div>
+          <div>{t("dashboard.unauthorizedAccess")}</div>
         );
 
       case "courses":
@@ -230,7 +269,7 @@ const Dashboard = () => {
         } else if (userRole === "teacher") {
           return <TeacherCourses />;
         }
-        return <div>Accès non autorisé</div>;
+        return <div>{t("dashboard.unauthorizedAccess")}</div>;
 
       case "students":
         if (userRole === "director") {
@@ -238,7 +277,7 @@ const Dashboard = () => {
         } else if (userRole === "teacher") {
           return <TeacherStudents />;
         }
-        return <div>Accès non autorisé</div>;
+        return <div>{t("dashboard.unauthorizedAccess")}</div>;
 
       default:
         return <Overview user={user} getBadgesForRole={getBadgesForRole} />;
@@ -253,12 +292,11 @@ const Dashboard = () => {
         <div className="header-content">
           <div className="header-text">
             <h1>
-              Espace{" "}
               {user?.role === "director"
-                ? "Direction"
+                ? t("dashboard.title.director")
                 : user?.role === "teacher"
-                ? "Professeur"
-                : "Étudiant"}
+                ? t("dashboard.title.teacher")
+                : t("dashboard.title.student")}
             </h1>
           </div>
         </div>
@@ -282,7 +320,9 @@ const Dashboard = () => {
 
         <main className="dashboard-main">
           <div className="dashboard-welcome-message">
-            <p>Bienvenue, {user?.name || "Utilisateur"} !</p>
+            <p>
+              {t("dashboard.welcome", { name: user?.name || "Utilisateur" })}
+            </p>
           </div>
           {renderContent()}
         </main>

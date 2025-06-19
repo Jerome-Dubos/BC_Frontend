@@ -1,6 +1,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
+import { useTranslation } from "react-i18next";
 import {
   IoCallOutline,
   IoCheckmarkCircleOutline,
@@ -24,6 +25,7 @@ const ModalPortal = ({ children, isOpen }) => {
 };
 
 const Schedule = () => {
+  const { t } = useTranslation();
   const [currentWeek, setCurrentWeek] = useState(new Date());
   const [showVideoModal, setShowVideoModalLocal] = useState(false);
   const [selectedClassLocal, setSelectedClassLocal] = useState(null);
@@ -229,8 +231,8 @@ const Schedule = () => {
   const upcomingClasses = [
     {
       id: 1,
-      title: "Grammaire avancée",
-      time: "Demain à 14:00",
+      title: t("schedule.courses.grammaireAvancee"),
+      time: t("schedule.timeRelative.tomorrow", { time: "14:00" }),
       type: "grammar",
       teacher: "Prof. Martin",
       students: 12,
@@ -242,8 +244,8 @@ const Schedule = () => {
     },
     {
       id: 2,
-      title: "Conversation libre",
-      time: "Aujourd'hui à 16:30",
+      title: t("schedule.courses.conversationLibre"),
+      time: t("schedule.timeRelative.today", { time: "16:30" }),
       type: "conversation",
       teacher: "Prof. Dubois",
       students: 8,
@@ -255,8 +257,8 @@ const Schedule = () => {
     },
     {
       id: 3,
-      title: "Atelier Prononciation",
-      time: "Vendredi à 10:00",
+      title: t("schedule.courses.atelierPrononciation"),
+      time: t("schedule.timeRelative.friday", { time: "10:00" }),
       type: "pronunciation",
       teacher: "Prof. Blanc",
       students: 6,
@@ -292,9 +294,9 @@ const Schedule = () => {
     setCurrentWeek(newDate);
     showFloatingNotification(
       "info",
-      `Planning mis à jour pour la semaine du ${newDate.toLocaleDateString(
-        "fr-FR"
-      )}`
+      t("schedule.ui.scheduleUpdated", {
+        date: newDate.toLocaleDateString("fr-FR"),
+      })
     );
   };
 
@@ -311,7 +313,9 @@ const Schedule = () => {
       setShowVideoModalLocal(true);
       showFloatingNotification(
         "success",
-        `Connexion au cours "${classInfo.title}"`
+        t("schedule.notifications.connectionSuccess", {
+          className: classInfo.title,
+        })
       );
     } else {
       // Cours en présentiel - afficher la modale de localisation
@@ -328,7 +332,9 @@ const Schedule = () => {
     setVideoControls((prev) => ({ ...prev, mic: !prev.mic }));
     showFloatingNotification(
       videoControls.mic ? "info" : "success",
-      videoControls.mic ? "Microphone désactivé" : "Microphone activé"
+      videoControls.mic
+        ? t("schedule.notifications.micDisabled")
+        : t("schedule.notifications.micEnabled")
     );
   };
 
@@ -336,7 +342,9 @@ const Schedule = () => {
     setVideoControls((prev) => ({ ...prev, camera: !prev.camera }));
     showFloatingNotification(
       videoControls.camera ? "info" : "success",
-      videoControls.camera ? "Caméra désactivée" : "Caméra activée"
+      videoControls.camera
+        ? t("schedule.notifications.cameraDisabled")
+        : t("schedule.notifications.cameraEnabled")
     );
   };
 
@@ -345,14 +353,17 @@ const Schedule = () => {
     setTimeout(() => {
       setShowVideoModalLocal(false);
       setSelectedClassLocal(null);
-      showFloatingNotification("info", "Vous avez quitté le cours");
+      showFloatingNotification("info", t("schedule.notifications.leftClass"));
     }, 1000);
   };
 
   // Fonction pour ouvrir Google Maps avec l'itinéraire
   const openGoogleMaps = (locationInfo) => {
     if (!locationInfo || !locationInfo.address) {
-      showFloatingNotification("error", "Adresse non disponible");
+      showFloatingNotification(
+        "error",
+        t("schedule.notifications.addressNotAvailable")
+      );
       return;
     }
 
@@ -366,7 +377,10 @@ const Schedule = () => {
 
     // Fermer la modale et afficher une notification
     setShowLocationModal(false);
-    showFloatingNotification("success", "Itinéraire ouvert dans Google Maps");
+    showFloatingNotification(
+      "success",
+      t("schedule.notifications.routeOpened")
+    );
   };
 
   return (
@@ -381,7 +395,7 @@ const Schedule = () => {
         <div className={`loading-bar ${isLoading ? "active" : ""}`}></div>
 
         <div className="schedule-header">
-          <h3 className="schedule-title">Planning de la semaine</h3>
+          <h3 className="schedule-title">{t("schedule.ui.weeklySchedule")}</h3>
           <div className="schedule-week-navigation">
             <motion.button
               className="schedule-nav-btn"
@@ -422,13 +436,13 @@ const Schedule = () => {
               const dateKey = formatDate(day);
               const dayEvents = events[dateKey] || [];
               const dayNames = [
-                "Lun",
-                "Mar",
-                "Mer",
-                "Jeu",
-                "Ven",
-                "Sam",
-                "Dim",
+                t("schedule.days.monday").slice(0, 3),
+                t("schedule.days.tuesday").slice(0, 3),
+                t("schedule.days.wednesday").slice(0, 3),
+                t("schedule.days.thursday").slice(0, 3),
+                t("schedule.days.friday").slice(0, 3),
+                t("schedule.days.saturday").slice(0, 3),
+                t("schedule.days.sunday").slice(0, 3),
               ];
 
               return (
@@ -463,10 +477,12 @@ const Schedule = () => {
                           {event.teacher}
                         </div>
                         <div className="schedule-event-students">
-                          {event.students} élèves
+                          {t("schedule.ui.students", { count: event.students })}
                         </div>
                         <div className={`schedule-event-mode ${event.mode}`}>
-                          {event.mode === "online" ? "VISIO" : "PRÉSENTIEL"}
+                          {event.mode === "online"
+                            ? t("schedule.ui.online")
+                            : t("schedule.ui.offline")}
                         </div>
                       </motion.div>
                     ))}
@@ -479,7 +495,9 @@ const Schedule = () => {
 
         <div className="schedule-bottom-section">
           <div className="schedule-upcoming-classes">
-            <h4 className="schedule-upcoming-title">Prochains cours</h4>
+            <h4 className="schedule-upcoming-title">
+              {t("schedule.ui.upcomingClasses")}
+            </h4>
             <div className="schedule-classes-list">
               {upcomingClasses.map((classItem, index) => (
                 <motion.div
@@ -502,7 +520,9 @@ const Schedule = () => {
                         {classItem.room}
                       </span>
                       <span className={`schedule-class-mode ${classItem.mode}`}>
-                        {classItem.mode === "online" ? "VISIO" : "PRÉSENTIEL"}
+                        {classItem.mode === "online"
+                          ? t("schedule.ui.online")
+                          : t("schedule.ui.offline")}
                       </span>
                     </div>
                   </div>
@@ -514,7 +534,9 @@ const Schedule = () => {
                       whileTap={{ scale: 0.95 }}
                       disabled={isLoading}
                     >
-                      {classItem.mode === "online" ? "Rejoindre" : "Localiser"}
+                      {classItem.mode === "online"
+                        ? t("schedule.ui.join")
+                        : t("schedule.ui.locate")}
                     </motion.button>
                   </div>
                 </motion.div>
@@ -528,7 +550,7 @@ const Schedule = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.3 }}
           >
-            <h4>Rappels d'étude</h4>
+            <h4>{t("schedule.ui.studyReminders")}</h4>
             <div className="reminders-list">
               <motion.div
                 className="reminder-item"
@@ -536,8 +558,10 @@ const Schedule = () => {
               >
                 <div className="reminder-icon">📚</div>
                 <div className="reminder-content">
-                  <p>Révision vocabulaire</p>
-                  <span>Dans 2 heures</span>
+                  <p>{t("schedule.reminders.vocabularyReview")}</p>
+                  <span>
+                    {t("schedule.timeRelative.inHours", { count: 2 })}
+                  </span>
                 </div>
               </motion.div>
               <motion.div
@@ -546,8 +570,10 @@ const Schedule = () => {
               >
                 <div className="reminder-icon">🎧</div>
                 <div className="reminder-content">
-                  <p>Écoute audio - Leçon 12</p>
-                  <span>Demain 14:00</span>
+                  <p>{t("schedule.reminders.audioLesson")}</p>
+                  <span>
+                    {t("schedule.timeRelative.tomorrowAt", { time: "14:00" })}
+                  </span>
                 </div>
               </motion.div>
               <motion.div
@@ -556,8 +582,8 @@ const Schedule = () => {
               >
                 <div className="reminder-icon">✍️</div>
                 <div className="reminder-content">
-                  <p>Exercices Present Perfect</p>
-                  <span>Avant vendredi</span>
+                  <p>{t("schedule.reminders.presentPerfectExercises")}</p>
+                  <span>{t("schedule.timeRelative.beforeFriday")}</span>
                 </div>
               </motion.div>
               <motion.div
@@ -566,8 +592,8 @@ const Schedule = () => {
               >
                 <div className="reminder-icon">🗣️</div>
                 <div className="reminder-content">
-                  <p>Pratique conversation</p>
-                  <span>Ce weekend</span>
+                  <p>{t("schedule.reminders.conversationPractice")}</p>
+                  <span>{t("schedule.timeRelative.thisWeekend")}</span>
                 </div>
               </motion.div>
             </div>
@@ -615,7 +641,7 @@ const Schedule = () => {
                 transition={{ duration: 0.3 }}
               >
                 <div className="modal-header">
-                  <h3>📍 Localisation du cours</h3>
+                  <h3>📍 {t("schedule.ui.locationTitle")}</h3>
                   <button
                     className="modal-close"
                     onClick={() => setShowLocationModal(false)}
@@ -650,7 +676,7 @@ const Schedule = () => {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
-                    Obtenir l'itinéraire
+                    {t("schedule.ui.getDirections")}
                   </motion.button>
                   <motion.button
                     className="secondary-btn"
@@ -658,7 +684,7 @@ const Schedule = () => {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
-                    Fermer
+                    {t("schedule.ui.close")}
                   </motion.button>
                 </div>
               </motion.div>

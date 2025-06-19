@@ -1,8 +1,11 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { IoLockClosedOutline, IoTrendingUpOutline } from "react-icons/io5";
 import "./Overview.css";
 
 const Overview = ({ user, getBadgesForRole }) => {
+  const { t } = useTranslation();
+
   const getProfileData = (role) => {
     if (role === "student") {
       return {
@@ -10,63 +13,67 @@ const Overview = ({ user, getBadgesForRole }) => {
           {
             icon: "📚",
             value: "8",
-            label: "Cours suivis",
+            label: t("dashboard.stats.student.coursesFollowed"),
             trend: "+2",
             trendPercent: "+15%",
             color: "#22C55E",
-            detail: "Ce mois",
+            detail: t("dashboard.stats.student.thisMonth"),
           },
           {
             icon: "⭐",
             value: "4.8",
-            label: "Moyenne générale",
+            label: t("dashboard.stats.student.averageGrade"),
             trend: "+0.3",
             trendPercent: "+6%",
             color: "#F59E0B",
-            detail: "En amélioration",
+            detail: t("dashboard.stats.student.improving"),
           },
           {
             icon: "🎯",
             value: "92%",
-            label: "Assiduité",
+            label: t("dashboard.stats.student.attendance"),
             trend: "+5%",
             trendPercent: "+5%",
             color: "#3B82F6",
-            detail: "Excellent",
+            detail: t("dashboard.stats.student.excellent"),
           },
           {
             icon: "🏆",
             value: "12",
-            label: "Badges obtenus",
+            label: t("dashboard.stats.student.badgesEarned"),
             trend: "+3",
             trendPercent: "+33%",
             color: "#8B5CF6",
-            detail: "Ce trimestre",
+            detail: t("dashboard.stats.student.thisQuarter"),
           },
         ],
         activities: [
           {
             icon: "📝",
-            text: "Test d'anglais complété (18/20)",
-            time: "Il y a 2 heures",
+            text: t("dashboard.activities.student.testCompleted", {
+              score: 18,
+            }),
+            time: t("dashboard.activities.student.timeAgo.hours", { count: 2 }),
             type: "test",
           },
           {
             icon: "🎓",
-            text: "Badge 'Premier de classe' obtenu",
-            time: "Hier",
+            text: t("dashboard.activities.student.badgeEarned", {
+              badge: "Premier de classe",
+            }),
+            time: t("dashboard.activities.student.timeAgo.yesterday"),
             type: "achievement",
           },
           {
             icon: "📖",
-            text: "Nouveau cours d'espagnol ajouté",
-            time: "Il y a 2 jours",
+            text: t("dashboard.activities.student.newCourse"),
+            time: t("dashboard.activities.student.timeAgo.days", { count: 2 }),
             type: "course",
           },
           {
             icon: "⚡",
-            text: "Série de 7 jours consécutifs",
-            time: "Il y a 3 jours",
+            text: t("dashboard.activities.student.streak", { days: 7 }),
+            time: t("dashboard.activities.student.timeAgo.days", { count: 3 }),
             type: "streak",
           },
         ],
@@ -77,63 +84,68 @@ const Overview = ({ user, getBadgesForRole }) => {
           {
             icon: "👥",
             value: "156",
-            label: "Étudiants",
+            label: t("dashboard.stats.teacher.students"),
             trend: "+12",
             trendPercent: "+8%",
             color: "#22C55E",
-            detail: "Nouveau semestre",
+            detail: t("dashboard.stats.teacher.newSemester"),
           },
           {
             icon: "📚",
             value: "6",
-            label: "Cours enseignés",
+            label: t("dashboard.stats.teacher.coursesTaught"),
             trend: "+1",
             trendPercent: "+20%",
             color: "#3B82F6",
-            detail: "Ce semestre",
+            detail: t("dashboard.stats.teacher.thisSemester"),
           },
           {
             icon: "⭐",
             value: "4.9",
-            label: "Note moyenne",
+            label: t("dashboard.stats.teacher.averageRating"),
             trend: "+0.2",
             trendPercent: "+4%",
             color: "#F59E0B",
-            detail: "Évaluations étudiants",
+            detail: t("dashboard.stats.teacher.studentEvaluations"),
           },
           {
             icon: "📊",
             value: "87%",
-            label: "Taux de réussite",
+            label: t("dashboard.stats.teacher.successRate"),
             trend: "+5%",
             trendPercent: "+6%",
             color: "#8B5CF6",
-            detail: "Trimestre actuel",
+            detail: t("dashboard.stats.teacher.currentQuarter"),
           },
         ],
         activities: [
           {
             icon: "✅",
-            text: "15 copies corrigées (Anglais B2)",
-            time: "Il y a 1 heure",
+            text: t("dashboard.activities.teacher.gradingCompleted", {
+              count: 15,
+              subject: "Anglais B2",
+            }),
+            time: t("dashboard.activities.student.timeAgo.hours", { count: 1 }),
             type: "grading",
           },
           {
             icon: "📅",
-            text: "Planning mis à jour pour la semaine",
-            time: "Il y a 3 heures",
+            text: t("dashboard.activities.teacher.scheduleUpdated"),
+            time: t("dashboard.activities.student.timeAgo.hours", { count: 3 }),
             type: "schedule",
           },
           {
             icon: "🎯",
-            text: "Objectif mensuel atteint (85% réussite)",
-            time: "Hier",
+            text: t("dashboard.activities.teacher.goalAchieved", {
+              percentage: 85,
+            }),
+            time: t("dashboard.activities.student.timeAgo.yesterday"),
             type: "goal",
           },
           {
             icon: "📧",
-            text: "Nouveau message de l'administration",
-            time: "Il y a 2 jours",
+            text: t("dashboard.activities.teacher.newMessage"),
+            time: t("dashboard.activities.student.timeAgo.days", { count: 2 }),
             type: "message",
           },
         ],
@@ -144,63 +156,71 @@ const Overview = ({ user, getBadgesForRole }) => {
           {
             icon: "🏫",
             value: "324",
-            label: "Étudiants totaux",
+            label: t("dashboard.stats.director.totalStudents"),
             trend: "+28",
             trendPercent: "+9%",
             color: "#22C55E",
-            detail: "Nouveau record",
+            detail: t("dashboard.stats.director.newRecord"),
           },
           {
             icon: "👨‍🏫",
             value: "18",
-            label: "Professeurs",
+            label: t("dashboard.stats.director.teachers"),
             trend: "+2",
             trendPercent: "+12%",
             color: "#3B82F6",
-            detail: "Équipe agrandie",
+            detail: t("dashboard.stats.director.expandedTeam"),
           },
           {
             icon: "💰",
             value: "€45,750",
-            label: "Revenus mensuels",
+            label: t("dashboard.stats.director.monthlyRevenue"),
             trend: "+€8,200",
             trendPercent: "+22%",
             color: "#10B981",
-            detail: "Mois exceptionnel",
+            detail: t("dashboard.stats.director.exceptionalMonth"),
           },
           {
             icon: "📈",
             value: "96%",
-            label: "Satisfaction",
+            label: t("dashboard.stats.director.satisfaction"),
             trend: "+3%",
             trendPercent: "+3%",
             color: "#F59E0B",
-            detail: "Mois exceptionnel",
+            detail: t("dashboard.stats.director.exceptionalMonth"),
           },
         ],
         activities: [
           {
             icon: "👨‍🏫",
-            text: "Nouveau professeur ajouté : Dr. Laurent",
-            time: "Il y a 2 heures",
+            text: t("dashboard.activities.director.newTeacher", {
+              name: "Dr. Laurent",
+            }),
+            time: t("dashboard.activities.student.timeAgo.hours", { count: 2 }),
             type: "hire",
           },
           {
             icon: "📊",
-            text: "Rapport mensuel généré (↗️ +15%)",
-            time: "Hier",
+            text: t("dashboard.activities.director.reportGenerated", {
+              percentage: 15,
+            }),
+            time: t("dashboard.activities.student.timeAgo.yesterday"),
             type: "report",
           },
           {
             icon: "🎯",
-            text: "Objectif atteint : 100 étudiants",
-            time: "Il y a 3 jours",
+            text: t("dashboard.activities.director.milestoneReached", {
+              count: 100,
+            }),
+            time: t("dashboard.activities.student.timeAgo.days", { count: 3 }),
             type: "milestone",
           },
           {
             icon: "💰",
-            text: "Revenus mensuels : +22% vs l'an passé",
-            time: "Il y a 5 jours",
+            text: t("dashboard.activities.director.revenueUpdate", {
+              percentage: 22,
+            }),
+            time: t("dashboard.activities.student.timeAgo.days", { count: 5 }),
             type: "financial",
           },
         ],
@@ -218,10 +238,10 @@ const Overview = ({ user, getBadgesForRole }) => {
         <div className="section-header">
           <h3 className="overview-section-title">
             {user?.role === "student"
-              ? "🎖️ Badges obtenus"
+              ? t("dashboard.badges.section.student")
               : user?.role === "teacher"
-              ? "🏅 Badges de performance"
-              : "🏆 Badges de leadership"}
+              ? t("dashboard.badges.section.teacher")
+              : t("dashboard.badges.section.director")}
           </h3>
           <span className="badge-count">
             {badges.filter((b) => b.earned).length}/{badges.length}
@@ -238,8 +258,8 @@ const Overview = ({ user, getBadgesForRole }) => {
                 }`}
                 title={
                   badge.earned
-                    ? `Badge "${badge.name}" obtenu !`
-                    : `Badge "${badge.name}" à débloquer`
+                    ? t("dashboard.badges.earned", { name: badge.name })
+                    : t("dashboard.badges.locked", { name: badge.name })
                 }
               >
                 <div className="overview-badge-icon-wrapper">
@@ -302,7 +322,9 @@ const Overview = ({ user, getBadgesForRole }) => {
       <div className="overview-main-content">
         {/* Activité récente améliorée */}
         <div className="overview-recent-activity">
-          <h3 className="overview-section-title">📈 Activité récente</h3>
+          <h3 className="overview-section-title">
+            {t("dashboard.activities.title")}
+          </h3>
           <div className="overview-activity-list">
             {profileData.activities.map((activity, index) => (
               <div

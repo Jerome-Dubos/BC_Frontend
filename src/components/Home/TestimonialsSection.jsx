@@ -1,31 +1,35 @@
+/* eslint-disable no-unused-vars */
+
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { IoStarOutline } from "react-icons/io5";
 
 const TestimonialsSection = () => {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
+  const { t } = useTranslation();
 
   const testimonials = [
     {
       name: "Marie L.",
-      course: "Anglais B2",
-      text: "Excellente école ! J'ai progressé rapidement grâce aux méthodes innovantes.",
+      course: "B2 English",
+      text: t("home.testimonial_1"),
       rating: 5,
       avatar:
         "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face",
     },
     {
       name: "Pierre M.",
-      course: "Espagnol A2",
-      text: "Professeurs très compétents et ambiance conviviale. Je recommande !",
+      course: "A2 Spanish",
+      text: t("home.testimonial_2"),
       rating: 5,
       avatar:
         "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
     },
     {
       name: "Sophie D.",
-      course: "Allemand B1",
-      text: "Formation de qualité avec un suivi personnalisé exceptionnel.",
+      course: "B1 German",
+      text: t("home.testimonial_3"),
       rating: 5,
       avatar:
         "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face",
@@ -47,7 +51,7 @@ const TestimonialsSection = () => {
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
       >
-        Ce que disent nos étudiants
+        {t("home.testimonials_title")}
       </motion.h2>
 
       <div className="testimonials-carousel">

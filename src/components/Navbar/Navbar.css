@@ -48,6 +48,13 @@
   gap: var(--spacing-sm);
 }
 
+/* Section droite de la navbar - visible seulement sur mobile */
+.navbar-right {
+  display: none;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
 .navbar-logo svg {
   color: var(--secondary-gold-light);
   flex-shrink: 0;
@@ -164,11 +171,15 @@
   background: none;
   border: none;
   color: var(--text-light);
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   cursor: pointer;
-  padding: var(--spacing-xs);
+  padding: var(--spacing-sm);
   border-radius: var(--border-radius-sm);
   transition: all var(--transition-normal);
+  align-items: center;
+  justify-content: center;
+  min-width: 48px;
+  min-height: 48px;
 }
 
 .mobile-menu-button:hover {
@@ -1122,4 +1133,96 @@
 
 .nav-link span[aria-hidden="true"] svg {
   display: block; /* évite l'espace supplémentaire sous le SVG */
+}
+
+/* Conteneur pour flèche custom */
+.language-select-container {
+  position: relative;
+}
+
+.language-select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(234, 189, 131, 0.3);
+  color: var(--text-light);
+  padding: var(--spacing-xs) var(--spacing-md) var(--spacing-xs)
+    var(--spacing-sm);
+  padding-right: 2rem; /* place pour la flèche */
+  border-radius: var(--border-radius-sm);
+  font-size: 0.9rem;
+  outline: none;
+  transition: background var(--transition-fast), border var(--transition-fast);
+  cursor: pointer;
+  min-width: 80px;
+}
+
+.language-select:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--secondary-gold-light);
+}
+
+.language-select-container::after {
+  content: "\25BE"; /* petite flèche ▼ */
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: var(--secondary-gold-light);
+  font-size: 0.6rem;
+}
+
+/* Supprime l'icône par défaut sur Edge */
+.language-select::-ms-expand {
+  display: none;
+}
+
+/* Classes de visibilité responsive */
+.mobile-only {
+  display: none;
+}
+
+.desktop-only {
+  display: block;
+}
+
+/* Mobile - affichage inversé et sélecteur langue compact */
+@media (max-width: 1023px) {
+  .mobile-only {
+    display: block;
+  }
+
+  .desktop-only {
+    display: none;
+  }
+
+  .navbar-right {
+    display: flex;
+    gap: var(--spacing-sm);
+  }
+
+  .mobile-menu-button {
+    display: flex;
+  }
+
+  .language-select {
+    font-size: 0.8rem;
+    padding: 6px 8px;
+    padding-right: 1.5rem;
+    min-width: 70px;
+    border-radius: 6px;
+  }
+
+  .language-select-container::after {
+    right: 0.5rem;
+    font-size: 0.5rem;
+  }
+}
+
+/* Style des options (limité selon navigateurs) */
+.language-select option {
+  background: var(--primary-blue-dark);
+  color: var(--text-light);
 }

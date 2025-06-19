@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
   IoBookOutline,
   IoCheckmarkCircleOutline,
@@ -14,6 +15,7 @@ import {
 import "./TeacherStudents.css";
 
 const TeacherStudents = () => {
+  const { t } = useTranslation();
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCourse, setSelectedCourse] = useState("all");
   const [selectedLevel, setSelectedLevel] = useState("all");
@@ -167,8 +169,8 @@ const TeacherStudents = () => {
       transition={{ duration: 0.5 }}
     >
       <div className="teacher-students-header">
-        <h3 className="teacher-students-title">Mes Étudiants</h3>
-        <p>Suivez les progrès et gérez vos étudiants</p>
+        <h3 className="teacher-students-title">{t("teacherStudents.title")}</h3>
+        <p>{t("teacherStudents.subtitle")}</p>
       </div>
 
       <div className="teacher-students-filters">
@@ -176,7 +178,7 @@ const TeacherStudents = () => {
           <IoSearchOutline size={20} />
           <input
             type="text"
-            placeholder="Rechercher un étudiant..."
+            placeholder={t("teacherStudents.filters.searchPlaceholder")}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
@@ -188,7 +190,9 @@ const TeacherStudents = () => {
             value={selectedCourse}
             onChange={(e) => setSelectedCourse(e.target.value)}
           >
-            <option value="all">Tous les cours</option>
+            <option value="all">
+              {t("teacherStudents.filters.allCourses")}
+            </option>
             {courses.map((course) => (
               <option key={course} value={course}>
                 {course}
@@ -200,7 +204,9 @@ const TeacherStudents = () => {
             value={selectedLevel}
             onChange={(e) => setSelectedLevel(e.target.value)}
           >
-            <option value="all">Tous les niveaux</option>
+            <option value="all">
+              {t("teacherStudents.filters.allLevels")}
+            </option>
             {levels.map((level) => (
               <option key={level} value={level}>
                 {level}
@@ -217,7 +223,7 @@ const TeacherStudents = () => {
           </div>
           <div className="stat-content">
             <h4>{filteredStudents.length}</h4>
-            <p>Étudiants</p>
+            <p>{t("teacherStudents.stats.students")}</p>
           </div>
         </div>
         <div className="stat-card">
@@ -232,7 +238,7 @@ const TeacherStudents = () => {
               )}
               %
             </h4>
-            <p>Progrès moyen</p>
+            <p>{t("teacherStudents.stats.averageProgress")}</p>
           </div>
         </div>
         <div className="stat-card">
@@ -247,7 +253,7 @@ const TeacherStudents = () => {
               )}
               %
             </h4>
-            <p>Assiduité moyenne</p>
+            <p>{t("teacherStudents.stats.averageAttendance")}</p>
           </div>
         </div>
         <div className="stat-card">
@@ -258,7 +264,7 @@ const TeacherStudents = () => {
             <h4>
               {filteredStudents.filter((s) => s.status === "active").length}
             </h4>
-            <p>Actifs</p>
+            <p>{t("teacherStudents.stats.activeStudents")}</p>
           </div>
         </div>
       </div>
@@ -310,7 +316,7 @@ const TeacherStudents = () => {
                 <div className="progress-item">
                   <div className="progress-label">
                     <IoStatsChartOutline size={16} />
-                    <span>Progrès</span>
+                    <span>{t("teacherStudents.studentInfo.progress")}</span>
                     <span>{student.progress}%</span>
                   </div>
                   <div className="progress-bar">
@@ -327,7 +333,7 @@ const TeacherStudents = () => {
                 <div className="progress-item">
                   <div className="progress-label">
                     <IoCheckmarkCircleOutline size={16} />
-                    <span>Assiduité</span>
+                    <span>{t("teacherStudents.studentInfo.attendance")}</span>
                     <span>{student.attendance}%</span>
                   </div>
                   <div className="progress-bar">
@@ -345,14 +351,18 @@ const TeacherStudents = () => {
               <div className="student-activity">
                 <div className="activity-item">
                   <IoTimeOutline size={16} />
-                  <span>Dernière activité: {student.lastActivity}</span>
+                  <span>
+                    {t("teacherStudents.studentInfo.lastActivity", {
+                      time: student.lastActivity,
+                    })}
+                  </span>
                 </div>
               </div>
 
               <div className="teacher-student-actions">
                 <button className="teacher-student-action-btn primary">
                   <IoEyeOutline size={16} />
-                  Profil
+                  {t("teacherStudents.actions.profile")}
                 </button>
                 <button className="teacher-student-action-btn secondary">
                   <IoMailOutline size={16} />
@@ -360,7 +370,9 @@ const TeacherStudents = () => {
               </div>
 
               <div className="teacher-student-last-activity">
-                Dernière activité: {student.lastActivity}
+                {t("teacherStudents.studentInfo.lastActivity", {
+                  time: student.lastActivity,
+                })}
               </div>
             </motion.div>
           );
@@ -370,8 +382,8 @@ const TeacherStudents = () => {
       {filteredStudents.length === 0 && (
         <div className="no-results">
           <div className="no-results-icon">🔍</div>
-          <h4>Aucun étudiant trouvé</h4>
-          <p>Essayez de modifier vos critères de recherche</p>
+          <h4>{t("teacherStudents.noResults.title")}</h4>
+          <p>{t("teacherStudents.noResults.message")}</p>
         </div>
       )}
     </motion.div>

@@ -1,6 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
   IoEyeOffOutline,
   IoEyeOutline,
@@ -17,6 +18,7 @@ import { useAuth } from "../../context/AuthContext";
 import "./Login.css";
 
 const Login = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { login, loading } = useAuth();
 
@@ -45,7 +47,7 @@ const Login = () => {
 
     // Validation minimale pour la démo
     if (!formData.identifier.trim()) {
-      setError("Veuillez saisir un identifiant");
+      setError(t("login.errors.identifierRequired"));
       return;
     }
 
@@ -59,7 +61,7 @@ const Login = () => {
         navigate("/dashboard");
       }
     } catch {
-      setError("Erreur de connexion. Veuillez réessayer.");
+      setError(t("login.errors.loginFailed"));
     } finally {
       setIsLoading(false);
     }
@@ -76,7 +78,7 @@ const Login = () => {
         navigate("/dashboard");
       }
     } catch {
-      setError("Erreur de connexion");
+      setError(t("login.errors.connectionError"));
     } finally {
       setIsLoading(false);
     }
@@ -117,7 +119,7 @@ const Login = () => {
           transition={{ duration: 0.5 }}
         >
           <div className="loading-spinner-large"></div>
-          <p>Chargement...</p>
+          <p>{t("login.loading")}</p>
         </motion.div>
       </div>
     );
@@ -174,8 +176,8 @@ const Login = () => {
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.4 }}
         >
-          <h1>Connexion</h1>
-          <p>Bienvenue dans votre espace d'apprentissage personnalisé</p>
+          <h1>{t("login.title")}</h1>
+          <p>{t("login.subtitle")}</p>
         </motion.div>
 
         <motion.form
@@ -188,7 +190,7 @@ const Login = () => {
           <div className="form-group">
             <label htmlFor="identifier">
               <IoPersonOutline className="label-icon" />
-              Identifiant
+              {t("login.identifier")}
             </label>
             <motion.input
               type="text"
@@ -196,7 +198,7 @@ const Login = () => {
               name="identifier"
               value={formData.identifier}
               onChange={handleChange}
-              placeholder="Votre identifiant"
+              placeholder={t("login.identifierPlaceholder")}
               required
               autoFocus
               autoComplete="username"
@@ -208,7 +210,7 @@ const Login = () => {
           <div className="form-group">
             <label htmlFor="password">
               <IoKeyOutline className="label-icon" />
-              Mot de passe
+              {t("login.password")}
             </label>
             <div className="password-input-wrapper">
               <motion.input
@@ -217,7 +219,7 @@ const Login = () => {
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
-                placeholder="Votre mot de passe"
+                placeholder={t("login.passwordPlaceholder")}
                 autoComplete="current-password"
                 whileFocus={{ scale: 1.02 }}
                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
@@ -228,8 +230,8 @@ const Login = () => {
                 onClick={() => setShowPassword(!showPassword)}
                 aria-label={
                   showPassword
-                    ? "Masquer le mot de passe"
-                    : "Afficher le mot de passe"
+                    ? t("login.hidePassword")
+                    : t("login.showPassword")
                 }
               >
                 {showPassword ? <IoEyeOffOutline /> : <IoEyeOutline />}
@@ -260,12 +262,12 @@ const Login = () => {
             {isLoading ? (
               <>
                 <div className="loading-spinner"></div>
-                Connexion en cours...
+                {t("login.loggingIn")}
               </>
             ) : (
               <>
                 <IoKeyOutline size={20} />
-                Se connecter
+                {t("login.loginButton")}
               </>
             )}
           </motion.button>
@@ -280,9 +282,9 @@ const Login = () => {
         >
           <h3>
             <IoSparklesOutline className="section-icon" />
-            Comptes de démonstration
+            {t("login.demoTitle")}
           </h3>
-          <p>Cliquez sur un profil pour vous connecter instantanément :</p>
+          <p>{t("login.demoSubtitle")}</p>
 
           <div className="demo-buttons">
             <motion.button
@@ -295,7 +297,7 @@ const Login = () => {
             >
               <MdAdminPanelSettings size={24} />
               <div>
-                <strong>Directrice</strong>
+                <strong>{t("login.director")}</strong>
                 <span>Shirin Hosseini</span>
               </div>
             </motion.button>
@@ -310,7 +312,7 @@ const Login = () => {
             >
               <IoPersonOutline size={24} />
               <div>
-                <strong>Professeure</strong>
+                <strong>{t("login.teacher")}</strong>
                 <span>Marie Dubois</span>
               </div>
             </motion.button>
@@ -325,7 +327,7 @@ const Login = () => {
             >
               <IoSchoolOutline size={24} />
               <div>
-                <strong>Étudiant</strong>
+                <strong>{t("login.student")}</strong>
                 <span>Pierre Martin</span>
               </div>
             </motion.button>
@@ -340,8 +342,7 @@ const Login = () => {
         >
           <p>
             <IoShieldCheckmarkOutline className="info-icon" />
-            <strong>Mode démo :</strong> Vous pouvez aussi utiliser n'importe
-            quel identifiant pour créer un compte étudiant temporaire.
+            <strong>{t("login.demoMode")}</strong> {t("login.demoInfo")}
           </p>
         </motion.div>
       </motion.div>

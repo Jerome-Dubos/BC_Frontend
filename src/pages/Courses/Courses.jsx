@@ -1,6 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { FaFlagUsa } from "react-icons/fa";
 import {
   IoBriefcaseOutline,
@@ -62,6 +63,7 @@ const AnimatedCounter = ({ end, duration = 2, suffix = "" }) => {
 };
 
 const Courses = () => {
+  const { t } = useTranslation();
   const [selectedLanguage, setSelectedLanguage] = useState("all");
   const [selectedLevel, setSelectedLevel] = useState("all");
   const [selectedFormat, setSelectedFormat] = useState("all");
@@ -74,25 +76,25 @@ const Courses = () => {
     {
       number: 1200,
       suffix: "+",
-      label: "Étudiants formés",
+      label: t("courses.stats_students"),
       icon: <IoPeopleOutline size={32} />,
     },
     {
       number: 15,
       suffix: "",
-      label: "Langues enseignées",
+      label: t("courses.stats_languages"),
       icon: <IoGlobeOutline size={32} />,
     },
     {
       number: 95,
       suffix: "%",
-      label: "Taux de réussite",
+      label: t("courses.stats_success"),
       icon: <IoTrophyOutline size={32} />,
     },
     {
       number: 8,
       suffix: "",
-      label: "Années d'expérience",
+      label: t("courses.stats_experience"),
       icon: <IoRibbonOutline size={32} />,
     },
   ];
@@ -101,123 +103,122 @@ const Courses = () => {
   const courses = [
     {
       id: 1,
-      title: "Français Débutant",
+      title: t("courses.course_french_beginner_title"),
       language: "french",
       level: "A1-A2",
       format: "group",
-      duration: "3 mois",
-      sessions: "2 fois/semaine",
+      duration: t("courses.course_duration_3months"),
+      sessions: t("courses.course_sessions_2week"),
       hours: "60h",
       price: "299€",
-      teacher: "Marie Dubois",
-      startDate: "15 janvier 2024",
-      description:
-        "Apprenez les bases du français avec notre méthode interactive.",
+      teacher: t("courses.course_teacher_marie"),
+      startDate: t("courses.course_start_jan15"),
+      description: t("courses.course_french_beginner_desc"),
       features: [
-        "Grammaire de base",
-        "Vocabulaire essentiel",
-        "Conversation simple",
-        "Culture française",
+        t("courses.course_french_beginner_feature1"),
+        t("courses.course_french_beginner_feature2"),
+        t("courses.course_french_beginner_feature3"),
+        t("courses.course_french_beginner_feature4"),
       ],
     },
     {
       id: 2,
-      title: "English Business",
+      title: t("courses.course_english_business_title"),
       language: "english",
       level: "B2-C1",
       format: "private",
-      duration: "2 mois",
-      sessions: "1 fois/semaine",
+      duration: t("courses.course_duration_2months"),
+      sessions: t("courses.course_sessions_1week"),
       hours: "16h",
       price: "640€",
-      teacher: "Sarah Johnson",
-      startDate: "22 janvier 2024",
-      description: "Perfectionnez votre anglais professionnel.",
+      teacher: t("courses.course_teacher_sarah"),
+      startDate: t("courses.course_start_jan22"),
+      description: t("courses.course_english_business_desc"),
       features: [
-        "Anglais des affaires",
-        "Présentations",
-        "Négociations",
-        "Emails professionnels",
+        t("courses.course_english_business_feature1"),
+        t("courses.course_english_business_feature2"),
+        t("courses.course_english_business_feature3"),
+        t("courses.course_english_business_feature4"),
       ],
     },
     {
       id: 3,
-      title: "Español Intensivo",
+      title: t("courses.course_spanish_intensive_title"),
       language: "spanish",
       level: "A2-B1",
       format: "intensive",
-      duration: "2 semaines",
-      sessions: "Tous les jours",
+      duration: t("courses.course_duration_2weeks"),
+      sessions: t("courses.course_sessions_daily"),
       hours: "40h",
       price: "450€",
-      teacher: "Carlos Rodriguez",
-      startDate: "5 février 2024",
-      description: "Stage intensif pour progresser rapidement en espagnol.",
+      teacher: t("courses.course_teacher_carlos"),
+      startDate: t("courses.course_start_feb5"),
+      description: t("courses.course_spanish_intensive_desc"),
       features: [
-        "Immersion totale",
-        "Conversation intensive",
-        "Culture hispanique",
-        "Certification",
+        t("courses.course_spanish_intensive_feature1"),
+        t("courses.course_spanish_intensive_feature2"),
+        t("courses.course_spanish_intensive_feature3"),
+        t("courses.course_spanish_intensive_feature4"),
       ],
     },
     {
       id: 4,
-      title: "Deutsch Mittelstufe",
+      title: t("courses.course_german_intermediate_title"),
       language: "german",
       level: "B1-B2",
       format: "group",
-      duration: "4 mois",
-      sessions: "2 fois/semaine",
+      duration: t("courses.course_duration_4months"),
+      sessions: t("courses.course_sessions_2week"),
       hours: "80h",
       price: "399€",
-      teacher: "Anna Schmidt",
-      startDate: "29 janvier 2024",
-      description: "Approfondissez vos connaissances en allemand.",
+      teacher: t("courses.course_teacher_anna"),
+      startDate: t("courses.course_start_jan29"),
+      description: t("courses.course_german_intermediate_desc"),
       features: [
-        "Grammaire avancée",
-        "Expression écrite",
-        "Compréhension orale",
-        "Culture allemande",
+        t("courses.course_german_intermediate_feature1"),
+        t("courses.course_german_intermediate_feature2"),
+        t("courses.course_german_intermediate_feature3"),
+        t("courses.course_german_intermediate_feature4"),
       ],
     },
     {
       id: 5,
-      title: "Français Avancé",
+      title: t("courses.course_french_advanced_title"),
       language: "french",
       level: "C1-C2",
       format: "group",
-      duration: "6 mois",
-      sessions: "1 fois/semaine",
+      duration: t("courses.course_duration_6months"),
+      sessions: t("courses.course_sessions_1week"),
       hours: "60h",
       price: "449€",
-      teacher: "Marie Dubois",
-      startDate: "12 février 2024",
-      description: "Maîtrisez parfaitement la langue française.",
+      teacher: t("courses.course_teacher_marie"),
+      startDate: t("courses.course_start_feb12"),
+      description: t("courses.course_french_advanced_desc"),
       features: [
-        "Littérature française",
-        "Débats",
-        "Rédaction avancée",
-        "Préparation DALF",
+        t("courses.course_french_advanced_feature1"),
+        t("courses.course_french_advanced_feature2"),
+        t("courses.course_french_advanced_feature3"),
+        t("courses.course_french_advanced_feature4"),
       ],
     },
     {
       id: 6,
-      title: "English Conversation",
+      title: t("courses.course_english_conversation_title"),
       language: "english",
       level: "B1-B2",
       format: "group",
-      duration: "3 mois",
-      sessions: "2 fois/semaine",
+      duration: t("courses.course_duration_3months"),
+      sessions: t("courses.course_sessions_2week"),
       hours: "48h",
       price: "329€",
-      teacher: "Sarah Johnson",
-      startDate: "8 février 2024",
-      description: "Améliorez votre expression orale en anglais.",
+      teacher: t("courses.course_teacher_sarah"),
+      startDate: t("courses.course_start_feb8"),
+      description: t("courses.course_english_conversation_desc"),
       features: [
-        "Conversation libre",
-        "Débats",
-        "Jeux de rôle",
-        "Accent britannique",
+        t("courses.course_english_conversation_feature1"),
+        t("courses.course_english_conversation_feature2"),
+        t("courses.course_english_conversation_feature3"),
+        t("courses.course_english_conversation_feature4"),
       ],
     },
   ];
@@ -225,58 +226,58 @@ const Courses = () => {
   // Plans tarifaires
   const pricingPlans = [
     {
-      name: "Cours Particulier",
+      name: t("courses.pricing_private_title"),
       price: "40€",
-      period: "/heure",
+      period: t("courses.pricing_hour"),
       icon: <IoPersonOutline size={32} />,
       features: [
-        "Cours personnalisé",
-        "Horaires flexibles",
-        "Progression rapide",
-        "Attention individuelle",
-        "Matériel inclus",
+        t("courses.pricing_private_feature1"),
+        t("courses.pricing_private_feature2"),
+        t("courses.pricing_private_feature3"),
+        t("courses.pricing_private_feature4"),
+        t("courses.pricing_private_feature5"),
       ],
       popular: false,
     },
     {
-      name: "Cours en Groupe",
+      name: t("courses.pricing_group_title"),
       price: "299€",
-      period: "/trimestre",
+      period: t("courses.pricing_quarter"),
       icon: <IoPeopleOutline size={32} />,
       features: [
-        "Groupes de 6-8 personnes",
-        "Interaction sociale",
-        "Méthode collaborative",
-        "Prix avantageux",
-        "Certificat de fin",
+        t("courses.pricing_group_feature1"),
+        t("courses.pricing_group_feature2"),
+        t("courses.pricing_group_feature3"),
+        t("courses.pricing_group_feature4"),
+        t("courses.pricing_group_feature5"),
       ],
       popular: true,
     },
     {
-      name: "Stage Intensif",
+      name: t("courses.pricing_intensive_title"),
       price: "450€",
-      period: "/2 semaines",
+      period: t("courses.pricing_2weeks"),
       icon: <IoTrophyOutline size={32} />,
       features: [
-        "Immersion totale",
-        "Progression accélérée",
-        "Cours quotidiens",
-        "Activités culturelles",
-        "Certification officielle",
+        t("courses.pricing_intensive_feature1"),
+        t("courses.pricing_intensive_feature2"),
+        t("courses.pricing_intensive_feature3"),
+        t("courses.pricing_intensive_feature4"),
+        t("courses.pricing_intensive_feature5"),
       ],
       popular: false,
     },
     {
-      name: "Formation Pro",
-      price: "Sur devis",
+      name: t("courses.pricing_pro_title"),
+      price: t("courses.pricing_quote"),
       period: "",
       icon: <IoBriefcaseOutline size={32} />,
       features: [
-        "Programme sur mesure",
-        "Formation en entreprise",
-        "Objectifs spécifiques",
-        "Suivi personnalisé",
-        "Financement possible",
+        t("courses.pricing_pro_feature1"),
+        t("courses.pricing_pro_feature2"),
+        t("courses.pricing_pro_feature3"),
+        t("courses.pricing_pro_feature4"),
+        t("courses.pricing_pro_feature5"),
       ],
       popular: false,
     },
@@ -349,7 +350,7 @@ const Courses = () => {
             stiffness: 100,
           }}
         >
-          Nos Cours & Programmes
+          {t("courses.hero_title")}
         </motion.h1>
         <motion.p
           initial={{ y: 30, opacity: 0 }}
@@ -361,8 +362,7 @@ const Courses = () => {
             stiffness: 100,
           }}
         >
-          Découvrez notre large gamme de cours de langues adaptés à tous les
-          niveaux et tous les objectifs.
+          {t("courses.hero_desc")}
         </motion.p>
 
         {/* Statistiques animées */}
@@ -419,23 +419,25 @@ const Courses = () => {
         >
           <div className="filter-header">
             <IoFilterOutline size={24} aria-hidden="true" />
-            <h3>Filtrer les cours</h3>
+            <h3>{t("courses.filters_title")}</h3>
           </div>
 
           <div className="filters-grid">
             <div className="filter-group">
-              <label htmlFor="language-filter">Langue</label>
+              <label htmlFor="language-filter">
+                {t("courses.filter_language")}
+              </label>
               <select
                 id="language-filter"
                 value={selectedLanguage}
                 onChange={(e) => setSelectedLanguage(e.target.value)}
                 aria-describedby="language-help"
               >
-                <option value="all">Toutes les langues</option>
-                <option value="french">Français</option>
-                <option value="english">Anglais</option>
-                <option value="spanish">Espagnol</option>
-                <option value="german">Allemand</option>
+                <option value="all">{t("courses.filter_all_languages")}</option>
+                <option value="french">{t("courses.filter_french")}</option>
+                <option value="english">{t("courses.filter_english")}</option>
+                <option value="spanish">{t("courses.filter_spanish")}</option>
+                <option value="german">{t("courses.filter_german")}</option>
               </select>
               <div id="language-help" className="sr-only">
                 Sélectionnez une langue pour filtrer les cours
@@ -443,20 +445,22 @@ const Courses = () => {
             </div>
 
             <div className="filter-group">
-              <label htmlFor="level-filter">Niveau</label>
+              <label htmlFor="level-filter">{t("courses.filter_level")}</label>
               <select
                 id="level-filter"
                 value={selectedLevel}
                 onChange={(e) => setSelectedLevel(e.target.value)}
                 aria-describedby="level-help"
               >
-                <option value="all">Tous les niveaux</option>
-                <option value="A1">Débutant (A1)</option>
-                <option value="A2">Élémentaire (A2)</option>
-                <option value="B1">Intermédiaire (B1)</option>
-                <option value="B2">Intermédiaire+ (B2)</option>
-                <option value="C1">Avancé (C1)</option>
-                <option value="C2">Maîtrise (C2)</option>
+                <option value="all">{t("courses.filter_all_levels")}</option>
+                <option value="A1">{t("courses.filter_beginner")}</option>
+                <option value="A2">{t("courses.filter_elementary")}</option>
+                <option value="B1">{t("courses.filter_intermediate")}</option>
+                <option value="B2">
+                  {t("courses.filter_intermediate_plus")}
+                </option>
+                <option value="C1">{t("courses.filter_advanced")}</option>
+                <option value="C2">{t("courses.filter_mastery")}</option>
               </select>
               <div id="level-help" className="sr-only">
                 Sélectionnez un niveau pour filtrer les cours
@@ -464,17 +468,21 @@ const Courses = () => {
             </div>
 
             <div className="filter-group">
-              <label htmlFor="format-filter">Format</label>
+              <label htmlFor="format-filter">
+                {t("courses.filter_format")}
+              </label>
               <select
                 id="format-filter"
                 value={selectedFormat}
                 onChange={(e) => setSelectedFormat(e.target.value)}
                 aria-describedby="format-help"
               >
-                <option value="all">Tous les formats</option>
-                <option value="private">Cours particulier</option>
-                <option value="group">Cours en groupe</option>
-                <option value="intensive">Stage intensif</option>
+                <option value="all">{t("courses.filter_all_formats")}</option>
+                <option value="private">{t("courses.filter_private")}</option>
+                <option value="group">{t("courses.filter_group")}</option>
+                <option value="intensive">
+                  {t("courses.filter_intensive")}
+                </option>
               </select>
               <div id="format-help" className="sr-only">
                 Sélectionnez un format pour filtrer les cours
@@ -492,7 +500,7 @@ const Courses = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          Catalogue des cours ({filteredCourses.length})
+          {t("courses.catalog_title")} ({filteredCourses.length})
         </motion.h2>
 
         <div className="courses-grid">
@@ -539,9 +547,10 @@ const Courses = () => {
                 <div className="course-detail">
                   {getFormatIcon(course.format)}
                   <span>
-                    {course.format === "private" && "Cours particulier"}
-                    {course.format === "group" && "Cours en groupe"}
-                    {course.format === "intensive" && "Stage intensif"}
+                    {course.format === "private" && t("courses.filter_private")}
+                    {course.format === "group" && t("courses.filter_group")}
+                    {course.format === "intensive" &&
+                      t("courses.filter_intensive")}
                   </span>
                 </div>
                 <div className="course-detail">
@@ -568,7 +577,9 @@ const Courses = () => {
                 </div>
                 <div className="course-start">
                   <IoCalendarOutline size={16} />
-                  <span>Début: {course.startDate}</span>
+                  <span>
+                    {t("courses.course_start")} {course.startDate}
+                  </span>
                 </div>
               </div>
 
@@ -586,7 +597,7 @@ const Courses = () => {
                 }}
               >
                 <IoPlayCircleOutline size={16} aria-hidden="true" />
-                S'inscrire
+                {t("courses.course_register")}
               </motion.button>
             </motion.div>
           ))}
@@ -599,8 +610,8 @@ const Courses = () => {
             animate={{ opacity: 1 }}
           >
             <IoSchoolOutline size={48} />
-            <h3>Aucun cours trouvé</h3>
-            <p>Essayez de modifier vos critères de recherche.</p>
+            <h3>{t("courses.no_results_title")}</h3>
+            <p>{t("courses.no_results_desc")}</p>
           </motion.div>
         )}
       </section>
@@ -613,7 +624,7 @@ const Courses = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          Nos tarifs
+          {t("courses.pricing_title")}
         </motion.h2>
 
         <div className="pricing-grid">
@@ -640,7 +651,7 @@ const Courses = () => {
               {plan.popular && (
                 <div className="popular-badge">
                   <IoStarOutline size={16} />
-                  Populaire
+                  {t("courses.pricing_popular")}
                 </div>
               )}
 
@@ -678,7 +689,7 @@ const Courses = () => {
                 }}
               >
                 <IoCardOutline size={16} aria-hidden="true" />
-                Choisir ce plan
+                {t("courses.pricing_choose")}
               </motion.button>
             </motion.div>
           ))}
@@ -693,7 +704,7 @@ const Courses = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          Comment s'inscrire ?
+          {t("courses.enrollment_title")}
         </motion.h2>
 
         <div className="enrollment-steps">
@@ -708,11 +719,8 @@ const Courses = () => {
             <div className="step-icon">
               <IoDocumentTextOutline size={32} />
             </div>
-            <h3>Test de niveau</h3>
-            <p>
-              Évaluez gratuitement votre niveau actuel avec notre test en ligne
-              ou en présentiel.
-            </p>
+            <h3>{t("courses.enrollment_step1_title")}</h3>
+            <p>{t("courses.enrollment_step1_desc")}</p>
             <motion.button
               className="step-btn"
               whileHover={{
@@ -724,7 +732,7 @@ const Courses = () => {
               aria-label="Étape 1: Faire le test de niveau gratuitement"
               onClick={() => navigate("/test")}
             >
-              Faire le test
+              {t("courses.enrollment_step1_btn")}
             </motion.button>
           </motion.div>
 
@@ -739,11 +747,8 @@ const Courses = () => {
             <div className="step-icon">
               <IoSchoolOutline size={32} />
             </div>
-            <h3>Choix du cours</h3>
-            <p>
-              Sélectionnez le cours qui correspond à vos objectifs et votre
-              emploi du temps.
-            </p>
+            <h3>{t("courses.enrollment_step2_title")}</h3>
+            <p>{t("courses.enrollment_step2_desc")}</p>
             <motion.button
               className="step-btn"
               whileHover={{
@@ -760,7 +765,7 @@ const Courses = () => {
                   ?.scrollIntoView({ behavior: "smooth" });
               }}
             >
-              Voir les cours
+              {t("courses.enrollment_step2_btn")}
             </motion.button>
           </motion.div>
 
@@ -775,11 +780,8 @@ const Courses = () => {
             <div className="step-icon">
               <IoCardOutline size={32} />
             </div>
-            <h3>Inscription</h3>
-            <p>
-              Remplissez le formulaire d'inscription et effectuez le paiement
-              sécurisé.
-            </p>
+            <h3>{t("courses.enrollment_step3_title")}</h3>
+            <p>{t("courses.enrollment_step3_desc")}</p>
             <motion.button
               className="step-btn"
               whileHover={{
@@ -793,7 +795,7 @@ const Courses = () => {
                 // Navigation vers formulaire d'inscription
               }}
             >
-              S'inscrire
+              {t("courses.enrollment_step3_btn")}
             </motion.button>
           </motion.div>
 
@@ -808,10 +810,8 @@ const Courses = () => {
             <div className="step-icon">
               <IoPlayCircleOutline size={32} />
             </div>
-            <h3>Début des cours</h3>
-            <p>
-              Commencez votre apprentissage avec nos professeurs expérimentés.
-            </p>
+            <h3>{t("courses.enrollment_step4_title")}</h3>
+            <p>{t("courses.enrollment_step4_desc")}</p>
             <motion.button
               className="step-btn"
               whileHover={{
@@ -825,7 +825,7 @@ const Courses = () => {
                 // Navigation vers dashboard/connexion
               }}
             >
-              Commencer
+              {t("courses.enrollment_step4_btn")}
             </motion.button>
           </motion.div>
         </div>
@@ -842,36 +842,36 @@ const Courses = () => {
             <div className="info-item">
               <IoCardOutline size={24} />
               <div>
-                <h4>Paiement flexible</h4>
-                <p>Possibilité de paiement en 3 fois sans frais</p>
+                <h4>{t("courses.enrollment_payment_title")}</h4>
+                <p>{t("courses.enrollment_payment_desc")}</p>
               </div>
             </div>
             <div className="info-item">
               <IoCheckmarkCircleOutline size={24} />
               <div>
-                <h4>Sans engagement</h4>
-                <p>Aucun prérequis, tous les niveaux acceptés</p>
+                <h4>{t("courses.enrollment_commitment_title")}</h4>
+                <p>{t("courses.enrollment_commitment_desc")}</p>
               </div>
             </div>
             <div className="info-item">
               <IoTrophyOutline size={24} />
               <div>
-                <h4>Objectifs clairs</h4>
-                <p>Progression mesurable et certification</p>
+                <h4>{t("courses.enrollment_objectives_title")}</h4>
+                <p>{t("courses.enrollment_objectives_desc")}</p>
               </div>
             </div>
             <div className="info-item">
               <IoCallOutline size={24} />
               <div>
-                <h4>Support inclus</h4>
-                <p>Accompagnement personnalisé tout au long</p>
+                <h4>{t("courses.enrollment_support_title")}</h4>
+                <p>{t("courses.enrollment_support_desc")}</p>
               </div>
             </div>
           </div>
 
           <div className="contact-cta">
-            <h3>Des questions ?</h3>
-            <p>Notre équipe est là pour vous accompagner dans votre choix.</p>
+            <h3>{t("courses.contact_question")}</h3>
+            <p>{t("courses.contact_desc")}</p>
             <div className="contact-buttons">
               <motion.button
                 className="contact-btn primary"

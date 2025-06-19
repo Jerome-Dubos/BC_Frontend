@@ -1,5 +1,7 @@
+// eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import {
   IoGlobeOutline,
   IoHomeOutline,
@@ -13,6 +15,8 @@ import { Link } from "react-router-dom";
 import "./Error.css";
 
 const Error = () => {
+  const { t } = useTranslation();
+
   // Animations pour les éléments décoratifs
   const floatingVariants = {
     animate: {
@@ -133,7 +137,7 @@ const Error = () => {
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.7 }}
         >
-          Page non trouvée
+          {t("error.title")}
         </motion.h2>
 
         <motion.p
@@ -142,8 +146,7 @@ const Error = () => {
           transition={{ duration: 0.6, delay: 0.9 }}
         >
           <IoSadOutline className="inline-icon" />
-          Désolé, la page que vous recherchez semble s'être perdue dans l'espace
-          numérique.
+          {t("error.description")}
         </motion.p>
 
         <motion.div
@@ -159,7 +162,7 @@ const Error = () => {
               transition={{ type: "spring", stiffness: 400, damping: 25 }}
             >
               <IoHomeOutline size={20} />
-              Retour à l'accueil
+              {t("error.backToHome")}
             </motion.div>
           </Link>
         </motion.div>

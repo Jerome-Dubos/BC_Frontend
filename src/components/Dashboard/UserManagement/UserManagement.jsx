@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
+import { useTranslation } from "react-i18next";
 import {
   IoAddOutline,
   IoAlertCircleOutline,
@@ -32,6 +33,7 @@ const UserManagement = ({
   setNewUser: propSetNewUser,
   handleCreateUser: propHandleCreateUser,
 }) => {
+  const { t } = useTranslation();
   const [localShowCreateForm, setLocalShowCreateForm] = useState(false);
   const [localNewUser, setLocalNewUser] = useState({
     name: "",
@@ -99,7 +101,9 @@ const UserManagement = ({
       };
       setLocalUsers((prev) => [...prev, newUserWithId]);
 
-      showNotification(`Utilisateur ${newUser.name} créé avec succès !`);
+      showNotification(
+        t("userManagement.notifications.userCreated", { name: newUser.name })
+      );
       setShowCreateForm(false);
       setNewUser({
         name: "",
@@ -124,7 +128,9 @@ const UserManagement = ({
     setLocalUsers((prev) =>
       prev.map((user) => (user.id === editingUser.id ? editingUser : user))
     );
-    showNotification(`Utilisateur ${editingUser.name} modifié avec succès !`);
+    showNotification(
+      t("userManagement.notifications.userUpdated", { name: editingUser.name })
+    );
     setShowEditModal(false);
     setEditingUser(null);
   };
@@ -137,7 +143,9 @@ const UserManagement = ({
   const confirmDelete = () => {
     setLocalUsers((prev) => prev.filter((user) => user.id !== selectedUser.id));
     showNotification(
-      `Utilisateur ${selectedUser.name} supprimé avec succès !`,
+      t("userManagement.notifications.userDeleted", {
+        name: selectedUser.name,
+      }),
       "warning"
     );
     setShowDeleteModal(false);
@@ -214,9 +222,9 @@ const UserManagement = ({
   };
 
   const handleGeneratePassword = () => {
-    const newPassword = generateSecurePassword();
-    setNewUser({ ...newUser, password: newPassword });
-    showNotification("Mot de passe sécurisé généré !", "success");
+    const password = generateSecurePassword();
+    setNewUser({ ...newUser, password });
+    showNotification(t("userManagement.notifications.passwordGenerated"));
   };
 
   return (
@@ -233,13 +241,13 @@ const UserManagement = ({
       )}
 
       <div className="user-management-header">
-        <h3 className="user-management-title">Gestion des utilisateurs</h3>
+        <h3 className="user-management-title">{t("userManagement.title")}</h3>
         <button
           className="user-management-add-btn"
           onClick={() => setShowCreateForm(true)}
         >
           <IoAddOutline size={16} />
-          Créer un utilisateur
+          {t("userManagement.addBtn")}
         </button>
       </div>
 
@@ -306,7 +314,7 @@ const UserManagement = ({
         >
           <div className="modal-content">
             <div className="modal-header">
-              <h3>Créer un nouvel utilisateur</h3>
+              <h3>{t("userManagement.createForm.title")}</h3>
               <button
                 className="close-modal"
                 onClick={() => setShowCreateForm(false)}
@@ -316,42 +324,50 @@ const UserManagement = ({
             </div>
             <form onSubmit={handleCreateUser} className="create-user-form">
               <div className="form-group">
-                <label>Nom complet</label>
+                <label>{t("userManagement.createForm.name")}</label>
                 <input
                   type="text"
                   value={newUser.name}
                   onChange={(e) =>
                     setNewUser({ ...newUser, name: e.target.value })
                   }
+                  placeholder={t("userManagement.createForm.namePlaceholder")}
                   required
                 />
               </div>
               <div className="form-group">
-                <label>Email</label>
+                <label>{t("userManagement.createForm.email")}</label>
                 <input
                   type="email"
                   value={newUser.email}
                   onChange={(e) =>
                     setNewUser({ ...newUser, email: e.target.value })
                   }
+                  placeholder={t("userManagement.createForm.emailPlaceholder")}
                   required
                 />
               </div>
               <div className="form-group">
-                <label>Rôle</label>
+                <label>{t("userManagement.createForm.role")}</label>
                 <select
                   value={newUser.role}
                   onChange={(e) =>
                     setNewUser({ ...newUser, role: e.target.value })
                   }
                 >
-                  <option value="student">Étudiant</option>
-                  <option value="teacher">Professeur</option>
-                  <option value="director">Directeur</option>
+                  <option value="student">
+                    {t("userManagement.roles.student")}
+                  </option>
+                  <option value="teacher">
+                    {t("userManagement.roles.teacher")}
+                  </option>
+                  <option value="director">
+                    {t("userManagement.roles.director")}
+                  </option>
                 </select>
               </div>
               <div className="form-group">
-                <label>Mot de passe temporaire</label>
+                <label>{t("userManagement.createForm.password")}</label>
                 <div className="password-input-container">
                   <input
                     type={showPassword ? "text" : "password"}
@@ -360,43 +376,38 @@ const UserManagement = ({
                       setNewUser({ ...newUser, password: e.target.value })
                     }
                     required
-                    placeholder="Mot de passe"
                   />
-                  <div className="password-buttons">
-                    <button
-                      type="button"
-                      className="toggle-password-btn"
-                      onClick={() => setShowPassword(!showPassword)}
-                      title={
-                        showPassword
-                          ? "Cacher le mot de passe"
-                          : "Voir le mot de passe"
-                      }
-                    >
-                      {showPassword ? (
-                        <IoEyeOffOutline size={16} />
-                      ) : (
-                        <IoEyeOutline size={16} />
-                      )}
-                    </button>
-                    <button
-                      type="button"
-                      className="generate-password-btn"
-                      onClick={handleGeneratePassword}
-                      title="Générer un mot de passe sécurisé"
-                    >
-                      <IoSyncOutline size={16} />
-                    </button>
-                  </div>
+                  <button
+                    type="button"
+                    className="toggle-password-btn"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? (
+                      <IoEyeOffOutline size={16} />
+                    ) : (
+                      <IoEyeOutline size={16} />
+                    )}
+                  </button>
                 </div>
+                <button
+                  type="button"
+                  className="generate-password-btn"
+                  onClick={handleGeneratePassword}
+                >
+                  <IoSyncOutline size={16} />
+                  {t("userManagement.createForm.generatePassword")}
+                </button>
+                <p className="password-info">
+                  {t("userManagement.createForm.passwordInfo")}
+                </p>
               </div>
               <div className="form-actions">
                 <button type="button" onClick={() => setShowCreateForm(false)}>
-                  Annuler
+                  {t("userManagement.createForm.cancel")}
                 </button>
                 <button type="submit">
-                  <IoAddOutline size={16} />
-                  Créer l'utilisateur
+                  <IoCheckmarkCircleOutline size={16} />
+                  {t("userManagement.createForm.create")}
                 </button>
               </div>
             </form>
@@ -412,7 +423,7 @@ const UserManagement = ({
         >
           <div className="modal-content">
             <div className="modal-header">
-              <h3>Détails de l'utilisateur</h3>
+              <h3>{t("userManagement.viewModal.title")}</h3>
               <button
                 className="close-modal"
                 onClick={() => setShowViewModal(false)}
@@ -435,10 +446,12 @@ const UserManagement = ({
                 </div>
                 <div className="user-info">
                   <span className="user-name">
-                    {selectedUser?.name || "Nom non disponible"}
+                    {selectedUser?.name ||
+                      t("userManagement.editForm.nameNotAvailable")}
                   </span>
                   <span className="user-email">
-                    {selectedUser?.email || "Email non disponible"}
+                    {selectedUser?.email ||
+                      t("userManagement.editForm.emailNotAvailable")}
                   </span>
                 </div>
               </div>
@@ -447,13 +460,15 @@ const UserManagement = ({
             {selectedUser && (
               <div className="user-details">
                 <div className="detail-row">
-                  <strong>Nom :</strong> {selectedUser.name}
+                  <strong>{t("userManagement.viewModal.nameLabel")}</strong>{" "}
+                  {selectedUser.name}
                 </div>
                 <div className="detail-row">
-                  <strong>Email :</strong> {selectedUser.email}
+                  <strong>{t("userManagement.viewModal.emailLabel")}</strong>{" "}
+                  {selectedUser.email}
                 </div>
                 <div className="detail-row">
-                  <strong>Rôle :</strong>
+                  <strong>{t("userManagement.viewModal.roleLabel")}</strong>
                   <span className={`role-badge ${selectedUser.role}`}>
                     {selectedUser.role === "teacher" && (
                       <IoPersonOutline size={12} />
@@ -464,17 +479,13 @@ const UserManagement = ({
                     {selectedUser.role === "director" && (
                       <MdAdminPanelSettings size={12} />
                     )}
-                    {selectedUser.role === "teacher"
-                      ? "Professeur"
-                      : selectedUser.role === "student"
-                      ? "Étudiant"
-                      : "Directeur"}
+                    {t(`userManagement.roles.${selectedUser.role}`)}
                   </span>
                 </div>
                 <div className="detail-row">
-                  <strong>Statut :</strong>
+                  <strong>{t("userManagement.viewModal.statusLabel")}</strong>
                   <span className={`status-badge ${selectedUser.status}`}>
-                    {selectedUser.status === "active" ? "Actif" : "Inactif"}
+                    {t(`userManagement.statuses.${selectedUser.status}`)}
                   </span>
                 </div>
               </div>
@@ -491,7 +502,7 @@ const UserManagement = ({
         >
           <div className="modal-content">
             <div className="modal-header">
-              <h3>Modifier l'utilisateur</h3>
+              <h3>{t("userManagement.editForm.title")}</h3>
               <button
                 className="close-modal"
                 onClick={() => setShowEditModal(false)}
@@ -514,10 +525,12 @@ const UserManagement = ({
                 </div>
                 <div className="user-info">
                   <span className="user-name">
-                    {editingUser?.name || "Nom non disponible"}
+                    {editingUser?.name ||
+                      t("userManagement.editForm.nameNotAvailable")}
                   </span>
                   <span className="user-email">
-                    {editingUser?.email || "Email non disponible"}
+                    {editingUser?.email ||
+                      t("userManagement.editForm.emailNotAvailable")}
                   </span>
                 </div>
               </div>
@@ -526,7 +539,7 @@ const UserManagement = ({
             {editingUser && (
               <form onSubmit={handleSaveEdit} className="create-user-form">
                 <div className="form-group">
-                  <label>Nom complet</label>
+                  <label>{t("userManagement.createForm.name")}</label>
                   <input
                     type="text"
                     value={editingUser.name}
@@ -537,7 +550,7 @@ const UserManagement = ({
                   />
                 </div>
                 <div className="form-group">
-                  <label>Email</label>
+                  <label>{t("userManagement.createForm.email")}</label>
                   <input
                     type="email"
                     value={editingUser.email}
@@ -548,37 +561,47 @@ const UserManagement = ({
                   />
                 </div>
                 <div className="form-group">
-                  <label>Rôle</label>
+                  <label>{t("userManagement.createForm.role")}</label>
                   <select
                     value={editingUser.role}
                     onChange={(e) =>
                       setEditingUser({ ...editingUser, role: e.target.value })
                     }
                   >
-                    <option value="student">Étudiant</option>
-                    <option value="teacher">Professeur</option>
-                    <option value="director">Directeur</option>
+                    <option value="student">
+                      {t("userManagement.roles.student")}
+                    </option>
+                    <option value="teacher">
+                      {t("userManagement.roles.teacher")}
+                    </option>
+                    <option value="director">
+                      {t("userManagement.roles.director")}
+                    </option>
                   </select>
                 </div>
                 <div className="form-group">
-                  <label>Statut</label>
+                  <label>{t("userManagement.table.status")}</label>
                   <select
                     value={editingUser.status}
                     onChange={(e) =>
                       setEditingUser({ ...editingUser, status: e.target.value })
                     }
                   >
-                    <option value="active">Actif</option>
-                    <option value="inactive">Inactif</option>
+                    <option value="active">
+                      {t("userManagement.statuses.active")}
+                    </option>
+                    <option value="inactive">
+                      {t("userManagement.statuses.inactive")}
+                    </option>
                   </select>
                 </div>
                 <div className="form-actions">
                   <button type="button" onClick={() => setShowEditModal(false)}>
-                    Annuler
+                    {t("userManagement.createForm.cancel")}
                   </button>
                   <button type="submit">
                     <IoCheckmarkCircleOutline size={16} />
-                    Sauvegarder
+                    {t("userManagement.editForm.save")}
                   </button>
                 </div>
               </form>
@@ -602,7 +625,7 @@ const UserManagement = ({
 
             {/* Header moderne */}
             <div className="delete-header">
-              <h3>Confirmer la suppression</h3>
+              <h3>{t("userManagement.deleteModal.title")}</h3>
             </div>
 
             {/* Bouton de fermeture positionné par rapport au modal */}
@@ -616,7 +639,7 @@ const UserManagement = ({
             {selectedUser && (
               <div className="delete-content-modern">
                 <p className="delete-question">
-                  Êtes-vous sûr de vouloir supprimer l'utilisateur
+                  {t("userManagement.deleteModal.question")}
                 </p>
                 <div className="user-highlight">
                   <div className="user-profile-section">
@@ -631,10 +654,12 @@ const UserManagement = ({
                     </div>
                     <div className="user-info">
                       <span className="user-name">
-                        {selectedUser?.name || "Nom non disponible"}
+                        {selectedUser?.name ||
+                          t("userManagement.editForm.nameNotAvailable")}
                       </span>
                       <span className="user-email">
-                        {selectedUser?.email || "Email non disponible"}
+                        {selectedUser?.email ||
+                          t("userManagement.editForm.emailNotAvailable")}
                       </span>
                     </div>
                   </div>
@@ -642,10 +667,7 @@ const UserManagement = ({
 
                 <div className="warning-box">
                   <IoAlertCircleOutline size={20} />
-                  <span>
-                    Cette action est temporaire - les données reviendront au
-                    rechargement de la page
-                  </span>
+                  <span>{t("userManagement.deleteModal.warningMessage")}</span>
                 </div>
               </div>
             )}
@@ -656,7 +678,7 @@ const UserManagement = ({
                 className="cancel-btn-modern"
                 onClick={() => setShowDeleteModal(false)}
               >
-                Annuler
+                {t("userManagement.deleteModal.cancel")}
               </button>
               <button
                 type="button"
@@ -664,7 +686,7 @@ const UserManagement = ({
                 onClick={confirmDelete}
               >
                 <IoTrashOutline size={18} />
-                Supprimer (démo)
+                {t("userManagement.deleteModal.confirm")}
               </button>
             </div>
           </div>

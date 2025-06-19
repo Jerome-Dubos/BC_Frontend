@@ -1,5 +1,7 @@
+// eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
   IoBookOutline,
   IoCalendarOutline,
@@ -13,9 +15,14 @@ import {
 import "./DirectorCourses.css";
 
 const DirectorCourses = () => {
+  const { t } = useTranslation();
+  // eslint-disable-next-line no-unused-vars
   const [selectedLevel, setSelectedLevel] = useState("");
+  // eslint-disable-next-line no-unused-vars
   const [selectedLanguage, setSelectedLanguage] = useState("");
+  // eslint-disable-next-line no-unused-vars
   const [selectedStatus, setSelectedStatus] = useState("");
+  // eslint-disable-next-line no-unused-vars
   const [searchTerm, setSearchTerm] = useState("");
 
   const coursesData = [
@@ -110,14 +117,15 @@ const DirectorCourses = () => {
     );
   });
 
+  // eslint-disable-next-line no-unused-vars
   const getStatusText = (status) => {
     switch (status) {
       case "active":
-        return "Actif";
+        return t("directorCourses.status.active");
       case "completed":
-        return "Terminé";
+        return t("directorCourses.status.completed");
       case "scheduled":
-        return "Programmé";
+        return t("directorCourses.status.scheduled");
       default:
         return status;
     }
@@ -152,15 +160,17 @@ const DirectorCourses = () => {
       <div className="director-courses-header">
         <div className="director-courses-header-content">
           <div className="director-courses-title-section">
-            <h3 className="director-courses-title">Gestion des Cours</h3>
-            <p>Vue d'ensemble de tous les cours de l'école</p>
+            <h3 className="director-courses-title">
+              {t("directorCourses.title")}
+            </h3>
+            <p>{t("directorCourses.subtitle")}</p>
           </div>
           <button
             className="director-courses-import-btn"
             onClick={handleGoogleDriveImport}
           >
             <IoCloudDownloadOutline size={20} />
-            Importer depuis Google Drive
+            {t("directorCourses.importButton")}
           </button>
         </div>
       </div>
@@ -170,7 +180,9 @@ const DirectorCourses = () => {
           <div className="director-courses-stat-value">
             {filteredCourses.length}
           </div>
-          <div className="director-courses-stat-label">Cours Total</div>
+          <div className="director-courses-stat-label">
+            {t("directorCourses.stats.totalCourses")}
+          </div>
         </div>
         <div className="director-courses-stat-card">
           <div className="director-courses-stat-value">
@@ -179,13 +191,17 @@ const DirectorCourses = () => {
                 .length
             }
           </div>
-          <div className="director-courses-stat-label">Cours Actifs</div>
+          <div className="director-courses-stat-label">
+            {t("directorCourses.stats.activeCourses")}
+          </div>
         </div>
         <div className="director-courses-stat-card">
           <div className="director-courses-stat-value">
             {filteredCourses.reduce((sum, course) => sum + course.students, 0)}
           </div>
-          <div className="director-courses-stat-label">Étudiants Inscrits</div>
+          <div className="director-courses-stat-label">
+            {t("directorCourses.stats.enrolledStudents")}
+          </div>
         </div>
         <div className="director-courses-stat-card">
           <div className="director-courses-stat-value">
@@ -197,7 +213,9 @@ const DirectorCourses = () => {
             )}
             %
           </div>
-          <div className="director-courses-stat-label">Taux Occupation</div>
+          <div className="director-courses-stat-label">
+            {t("directorCourses.stats.occupationRate")}
+          </div>
         </div>
       </div>
 

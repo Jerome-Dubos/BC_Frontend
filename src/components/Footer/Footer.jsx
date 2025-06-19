@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
   FaEnvelope,
   FaFacebookF,
@@ -15,6 +16,7 @@ import TermsModal from "./Modals/TermsModal";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const { t } = useTranslation();
 
   // États pour contrôler l'ouverture des modales
   const [isLegalModalOpen, setIsLegalModalOpen] = useState(false);
@@ -29,7 +31,7 @@ const Footer = () => {
           <div className="footer-section">
             <div className="footer-logo">
               <h2>Bon Cours</h2>
-              <p>Excellence en apprentissage des langues</p>
+              <p>{t("footer.tagline")}</p>
             </div>
             <p>
               Depuis plus de 10 ans, nous accompagnons nos étudiants dans leur
@@ -37,7 +39,7 @@ const Footer = () => {
               approche innovante garantit des résultats exceptionnels.
             </p>
             <div className="footer-social">
-              <h3>Suivez-nous</h3>
+              <h3>{t("footer.follow")}</h3>
               <div className="social-links">
                 <a href="#" className="social-link" aria-label="Facebook">
                   <FaFacebookF />
@@ -57,7 +59,7 @@ const Footer = () => {
 
           {/* Section Contact */}
           <div className="footer-section footer-contact">
-            <h3>Contact</h3>
+            <h3>{t("footer.contact")}</h3>
             <div className="contact-item">
               <div className="contact-icon">
                 <FaMapMarkerAlt />
@@ -68,7 +70,7 @@ const Footer = () => {
                 rel="noopener noreferrer"
                 className="contact-text contact-link"
               >
-                123 Rue de l'Éducation, 75001 Paris
+                {t("footer.address")}
               </a>
             </div>
             <div className="contact-item">
@@ -106,7 +108,9 @@ const Footer = () => {
         {/* Bas du footer */}
         <div className="footer-bottom">
           <div className="footer-copyright">
-            <span>© {currentYear} Bon Cours. Tous droits réservés.</span>
+            <span>
+              © {currentYear} Bon Cours. {t("footer.rights")}
+            </span>
           </div>
           <div className="footer-links">
             <button
