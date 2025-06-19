@@ -264,7 +264,7 @@
   justify-content: center;
   z-index: 99999;
   backdrop-filter: blur(8px);
-  overflow-y: auto;
+  overflow: hidden;
   padding: 20px;
   scrollbar-width: none;
   -ms-overflow-style: none;
@@ -310,13 +310,14 @@
   padding: 0;
   width: 90%;
   max-width: 480px;
-  max-height: 90vh;
+  max-height: 85vh;
   position: relative;
   overflow: hidden;
-  overflow-y: auto;
   box-shadow: 0 32px 64px rgba(0, 0, 0, 0.4),
     0 16px 32px rgba(234, 189, 131, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2);
   margin: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 .delete-modal-modern::before {
@@ -887,23 +888,23 @@
   background: linear-gradient(
     145deg,
     rgba(255, 255, 255, 0.12) 0%,
-    rgba(255, 255, 255, 0.06) 50%,
-    rgba(255, 255, 255, 0.02) 100%
+    rgba(255, 255, 255, 0.08) 50%,
+    rgba(255, 255, 255, 0.04) 100%
   );
   backdrop-filter: blur(40px) saturate(200%);
   border: 2px solid rgba(234, 189, 131, 0.4);
   border-radius: var(--border-radius-xl);
-  padding: var(--spacing-xl);
+  padding: 0;
   width: 90%;
-  max-width: 500px;
-  max-height: 90vh;
+  max-width: 600px;
+  max-height: 85vh;
   position: relative;
-  overflow: visible;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
   box-shadow: 0 32px 64px rgba(0, 0, 0, 0.4),
     0 16px 32px rgba(234, 189, 131, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2);
   margin: auto;
-  display: flex;
-  flex-direction: column;
 }
 
 .modal-content::before {
@@ -929,17 +930,33 @@
 }
 
 .create-user-form {
-  max-height: calc(90vh - 160px);
-  overflow-y: auto;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* Internet Explorer 10+ */
-  padding-bottom: 20px;
+  padding: var(--spacing-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
   flex: 1;
-  min-height: 0;
+  overflow-y: auto;
+  max-height: calc(85vh - 200px);
 }
 
 .create-user-form::-webkit-scrollbar {
-  display: none; /* WebKit */
+  width: 6px;
+}
+
+.create-user-form::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 2px;
+}
+
+.create-user-form::-webkit-scrollbar-thumb {
+  background: var(--secondary-gold);
+  border-radius: 2px;
+  opacity: 0.6;
+}
+
+.create-user-form::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary-gold-light);
+  opacity: 1;
 }
 
 .modal-header {
@@ -1163,35 +1180,12 @@
   display: none;
 }
 
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.8);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 99999;
-  backdrop-filter: blur(8px);
-  overflow-y: auto;
-  padding: 20px;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
-.modal-overlay::-webkit-scrollbar {
-  display: none;
-}
-
 /* === RESPONSIVE SCROLL AMÉLIORÉ === */
 @media (max-height: 700px) {
   .modal-overlay {
     align-items: flex-start;
     padding: 10px;
+    overflow-y: auto;
   }
 
   .modal-content,
@@ -1200,11 +1194,16 @@
     margin-top: 10px;
     margin-bottom: 10px;
   }
+
+  .create-user-form {
+    max-height: calc(95vh - 180px);
+  }
 }
 
 @media (max-height: 500px) {
   .modal-overlay {
     padding: 5px;
+    overflow-y: auto;
   }
 
   .modal-content,
@@ -1212,6 +1211,10 @@
     max-height: 98vh;
     margin-top: 5px;
     margin-bottom: 5px;
+  }
+
+  .create-user-form {
+    max-height: calc(98vh - 160px);
   }
 }
 

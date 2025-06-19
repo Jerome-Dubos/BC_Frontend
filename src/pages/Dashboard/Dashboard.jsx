@@ -1,5 +1,3 @@
-// eslint-disable-next-line no-unused-vars
-import { motion } from "framer-motion";
 import { useState } from "react";
 import {
   IoBookOutline,
@@ -21,6 +19,8 @@ import {
 import { MdAdminPanelSettings, MdDashboard } from "react-icons/md";
 
 // Import des composants
+import DirectorCourses from "../../components/Dashboard/DirectorCourses/DirectorCourses";
+import DirectorStudents from "../../components/Dashboard/DirectorStudents/DirectorStudents";
 import Overview from "../../components/Dashboard/Overview/Overview";
 import Progress from "../../components/Dashboard/Progress/Progress";
 import Resources from "../../components/Dashboard/Ressources/Resources";
@@ -178,6 +178,7 @@ const Dashboard = () => {
   // Fonction pour rendre le contenu selon l'onglet actif
   const renderContent = () => {
     const userRole = user?.role || "student";
+    console.log("UserRole:", userRole, "ActiveTab:", activeTab); // Debug
 
     // Vérification des permissions d'accès
     const hasAccess = (tabId) => {
@@ -225,32 +226,20 @@ const Dashboard = () => {
         );
 
       case "courses":
+        console.log("Rendering courses for:", userRole); // Debug
         if (userRole === "director") {
-          return (
-            <div className="courses-content">
-              <h3>📚 Tous les cours</h3>
-              <div className="courses-overview">
-                <p>Gestion de tous les cours de l'établissement...</p>
-                {/* Ici on pourrait afficher un composant pour gérer tous les cours */}
-              </div>
-            </div>
-          );
+          console.log("Rendering DirectorCourses"); // Debug
+          return <DirectorCourses />;
         } else if (userRole === "teacher") {
           return <TeacherCourses />;
         }
         return <div>Accès non autorisé</div>;
 
       case "students":
+        console.log("Rendering students for:", userRole); // Debug
         if (userRole === "director") {
-          return (
-            <div className="students-content">
-              <h3>👥 Tous les étudiants</h3>
-              <div className="students-overview">
-                <p>Gestion de tous les étudiants de l'établissement...</p>
-                {/* Ici on pourrait afficher un composant pour gérer tous les étudiants */}
-              </div>
-            </div>
-          );
+          console.log("Rendering DirectorStudents"); // Debug
+          return <DirectorStudents />;
         } else if (userRole === "teacher") {
           return <TeacherStudents />;
         }
@@ -264,34 +253,19 @@ const Dashboard = () => {
   const tabs = getTabsForRole(user?.role || "student");
 
   return (
-    <motion.div
-      className="dashboard"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-    >
+    <div className="dashboard">
       <div className="dashboard-header">
         <div className="header-content">
           <div className="header-text">
-            <motion.h1
-              initial={{ y: -20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.2 }}
-            >
+            <h1>
               Espace{" "}
               {user?.role === "director"
                 ? "Direction"
                 : user?.role === "teacher"
                 ? "Professeur"
                 : "Étudiant"}
-            </motion.h1>
-            <motion.p
-              initial={{ y: -20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.3 }}
-            >
-              Bienvenue, {user?.name || "Utilisateur"} !
-            </motion.p>
+            </h1>
+            <p>Bienvenue, {user?.name || "Utilisateur"} !</p>
           </div>
         </div>
       </div>
@@ -312,7 +286,7 @@ const Dashboard = () => {
 
         <main className="dashboard-main">{renderContent()}</main>
       </div>
-    </motion.div>
+    </div>
   );
 };
 

@@ -1,7 +1,5 @@
-import { Outlet, useLocation } from "react-router-dom";
-// eslint-disable-next-line no-unused-vars
-import { motion } from "framer-motion";
 import { useEffect } from "react";
+import { Outlet, useLocation } from "react-router-dom";
 import Footer from "../components/Footer/Footer";
 import Navbar from "../components/Navbar/Navbar";
 import "./MainLayout.css";
@@ -14,23 +12,13 @@ const MainLayout = () => {
   }, [location.pathname]);
 
   return (
-    <motion.div
-      className="main-layout"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-    >
+    <div className="main-layout">
       <Navbar />
-      <motion.main
-        className="main-content"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5, delay: 0.2 }}
-      >
+      <main className="main-content">
         <Outlet />
-      </motion.main>
+      </main>
       <Footer />
-    </motion.div>
+    </div>
   );
 };
 

@@ -30,13 +30,12 @@
 
 /* Dashboard principal avec fond dégradé avancé */
 .dashboard {
-  min-height: 100vh;
+  min-height: calc(100vh - 80px);
   background: var(--gradient-primary);
   color: var(--text-light);
-  padding-top: 80px;
   position: relative;
-  overflow-x: hidden;
-  overflow-y: visible;
+  overflow: visible;
+  width: 100%;
 }
 
 /* Effets de particules en arrière-plan */
@@ -226,8 +225,7 @@
   backdrop-filter: blur(25px) saturate(180%);
   border: 1px solid var(--glass-border);
   height: fit-content;
-  position: sticky;
-  top: 120px;
+  position: static;
   box-shadow: var(--shadow-medium);
   transition: all 0.3s ease;
 }
@@ -346,6 +344,7 @@
   box-shadow: var(--shadow-medium);
   position: relative;
   overflow: visible;
+  height: auto;
 }
 
 .dashboard-main::before {
@@ -577,11 +576,16 @@
 
 @media (max-width: 768px) {
   .dashboard {
-    padding-top: 60px;
+    height: 100%;
   }
 
   .dashboard-header {
     padding: var(--spacing-lg);
+  }
+
+  .main-content {
+    padding-top: 70px;
+    height: calc(100vh - 70px);
   }
 
   .header-content {
@@ -628,6 +632,15 @@
 }
 
 @media (max-width: 480px) {
+  .dashboard {
+    height: 100%;
+  }
+
+  .main-content {
+    padding-top: 60px;
+    height: calc(100vh - 60px);
+  }
+
   .dashboard-header h1 {
     font-size: 1.8rem;
   }
@@ -1334,6 +1347,7 @@
   background: var(--gradient-glass);
   border-left: 1px solid var(--glass-border);
   overflow-y: auto;
+  max-height: calc(60vh - 100px);
 }
 
 .modal-body {
@@ -1763,6 +1777,9 @@
   border: 1px solid rgba(234, 189, 131, 0.15);
   border-radius: var(--border-radius-lg);
   backdrop-filter: blur(15px);
+  overflow: visible;
+  height: auto;
+  max-height: none;
 }
 
 .dashboard .user-management h3,
@@ -1857,6 +1874,8 @@
   --transition-fast: 0.15s ease;
   --transition-normal: 0.3s ease;
   --transition-slow: 0.5s ease;
+  /* Éliminer les scrollbars multiples dans tous les enfants du dashboard */
+  scrollbar-gutter: stable;
 }
 
 /* === STYLES SPÉCIFIQUES MODALE DE PROFIL === */
@@ -2180,4 +2199,9 @@
   .secondary-btn {
     width: 100%;
   }
+}
+
+/* === SCROLL NATUREL === */
+.dashboard {
+  overflow-x: hidden;
 }

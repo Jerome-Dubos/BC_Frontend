@@ -45,9 +45,7 @@
 }
 
 html {
-  scroll-behavior: smooth;
-  height: auto;
-  overflow-y: auto;
+  height: 100%;
   overflow-x: hidden;
 }
 
@@ -59,16 +57,16 @@ body {
   background-color: var(--primary-blue-dark);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  height: auto;
   min-height: 100vh;
-  overflow-y: auto;
   overflow-x: hidden;
+  margin: 0;
+  padding: 0;
 }
 
 #root {
-  height: auto;
   min-height: 100vh;
-  overflow: visible;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 
 h1,
@@ -129,3 +127,6 @@ img {
   background-color: var(--secondary-gold);
   color: var(--text-dark);
 }
+
+/* === CORRECTION GLOBALE DU DOUBLE SCROLL === */
+/* Solution propre : scroll naturel du navigateur */
