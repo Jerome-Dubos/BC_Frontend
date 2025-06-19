@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import {
@@ -221,32 +220,22 @@ const UserManagement = ({
   };
 
   return (
-    <motion.div
-      className="user-management"
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-    >
+    <div className="user-management-section">
       {notification && (
-        <motion.div
-          className={`notification ${notification.type}`}
-          initial={{ opacity: 0, y: -50 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -50 }}
-        >
+        <div className={`notification ${notification.type}`}>
           {notification.type === "success" ? (
             <IoCheckmarkCircleOutline size={20} />
           ) : (
             <IoAlertCircleOutline size={20} />
           )}
           <span>{notification.message}</span>
-        </motion.div>
+        </div>
       )}
 
-      <div className="management-header">
-        <h3>Gestion des utilisateurs</h3>
+      <div className="user-management-header">
+        <h3 className="user-management-title">Gestion des utilisateurs</h3>
         <button
-          className="create-user-btn"
+          className="user-management-add-btn"
           onClick={() => setShowCreateForm(true)}
         >
           <IoAddOutline size={16} />
@@ -254,70 +243,59 @@ const UserManagement = ({
         </button>
       </div>
 
-      <div className="users-table">
-        <table>
-          <thead>
-            <tr>
-              <th>Nom</th>
-              <th>Email</th>
-              <th>Rôle</th>
-              <th>Statut</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {usersToDisplay.map((user) => (
-              <tr key={user.id}>
-                <td>{user.name}</td>
-                <td>{user.email}</td>
-                <td>
-                  <span className={`role-badge ${user.role}`}>
-                    {user.role === "teacher" && <IoPersonOutline size={12} />}
-                    {user.role === "student" && <IoSchoolOutline size={12} />}
-                    {user.role === "director" && (
-                      <MdAdminPanelSettings size={12} />
-                    )}
-                    {user.role === "teacher"
-                      ? "Professeur"
-                      : user.role === "student"
-                      ? "Étudiant"
-                      : "Directeur"}
-                  </span>
-                </td>
-                <td>
-                  <span className={`status-badge ${user.status}`}>
-                    {user.status === "active" ? "Actif" : "Inactif"}
-                  </span>
-                </td>
-                <td>
-                  <div className="action-buttons">
-                    <button
-                      className="action-btn view"
-                      onClick={() => handleViewUser(user)}
-                      title="Voir les détails"
-                    >
-                      <IoEyeOutline size={14} />
-                    </button>
-                    <button
-                      className="action-btn edit"
-                      onClick={() => handleEditUser(user)}
-                      title="Modifier l'utilisateur"
-                    >
-                      <IoCreateOutline size={14} />
-                    </button>
-                    <button
-                      className="action-btn delete"
-                      onClick={() => handleDeleteUser(user)}
-                      title="Supprimer l'utilisateur"
-                    >
-                      <IoTrashOutline size={14} />
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <div className="user-management-users-grid">
+        {usersToDisplay.map((user) => (
+          <div key={user.id} className="user-management-user-card">
+            <div className="user-management-user-header">
+              <div className="user-management-user-avatar">
+                {user.name
+                  .split(" ")
+                  .map((n) => n[0])
+                  .join("")
+                  .toUpperCase()}
+              </div>
+              <div className="user-management-user-info">
+                <h4>{user.name}</h4>
+                <p>{user.email}</p>
+                <span className={`user-management-user-role ${user.role}`}>
+                  {user.role === "teacher" && <IoPersonOutline size={12} />}
+                  {user.role === "student" && <IoSchoolOutline size={12} />}
+                  {user.role === "director" && (
+                    <MdAdminPanelSettings size={12} />
+                  )}
+                  {user.role === "teacher"
+                    ? "Professeur"
+                    : user.role === "student"
+                    ? "Étudiant"
+                    : "Directeur"}
+                </span>
+              </div>
+            </div>
+            <div className="user-management-user-actions">
+              <button
+                className="user-management-action-btn view"
+                onClick={() => handleViewUser(user)}
+                title="Voir les détails"
+              >
+                <IoEyeOutline size={14} />
+              </button>
+              <button
+                className="user-management-action-btn edit"
+                onClick={() => handleEditUser(user)}
+                title="Modifier l'utilisateur"
+              >
+                <IoCreateOutline size={14} />
+              </button>
+              <button
+                className="user-management-action-btn delete"
+                onClick={() => handleDeleteUser(user)}
+                title="Supprimer l'utilisateur"
+              >
+                <IoTrashOutline size={14} />
+              </button>
+            </div>
+          </div>
+        ))}
       </div>
 
       {/* Modal de création d'utilisateur - PORTAL PLEINE PAGE */}
@@ -326,13 +304,7 @@ const UserManagement = ({
           className="modal-overlay"
           onClick={(e) => handleOverlayClick(e, () => setShowCreateForm(false))}
         >
-          <motion.div
-            className="modal-content"
-            initial={{ opacity: 0, scale: 0.8, y: 50 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.8, y: 50 }}
-            transition={{ type: "spring", damping: 25, stiffness: 300 }}
-          >
+          <div className="modal-content">
             <div className="modal-header">
               <h3>Créer un nouvel utilisateur</h3>
               <button
@@ -388,7 +360,7 @@ const UserManagement = ({
                       setNewUser({ ...newUser, password: e.target.value })
                     }
                     required
-                    placeholder="Entrez un mot de passe ou générez-en un"
+                    placeholder="Mot de passe"
                   />
                   <div className="password-buttons">
                     <button
@@ -428,7 +400,7 @@ const UserManagement = ({
                 </button>
               </div>
             </form>
-          </motion.div>
+          </div>
         </div>
       </ModalPortal>
 
@@ -438,13 +410,7 @@ const UserManagement = ({
           className="modal-overlay"
           onClick={(e) => handleOverlayClick(e, () => setShowViewModal(false))}
         >
-          <motion.div
-            className="modal-content"
-            initial={{ opacity: 0, scale: 0.8, y: 50 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.8, y: 50 }}
-            transition={{ type: "spring", damping: 25, stiffness: 300 }}
-          >
+          <div className="modal-content">
             <div className="modal-header">
               <h3>Détails de l'utilisateur</h3>
               <button
@@ -513,7 +479,7 @@ const UserManagement = ({
                 </div>
               </div>
             )}
-          </motion.div>
+          </div>
         </div>
       </ModalPortal>
 
@@ -523,13 +489,7 @@ const UserManagement = ({
           className="modal-overlay"
           onClick={(e) => handleOverlayClick(e, () => setShowEditModal(false))}
         >
-          <motion.div
-            className="modal-content"
-            initial={{ opacity: 0, scale: 0.8, y: 50 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.8, y: 50 }}
-            transition={{ type: "spring", damping: 25, stiffness: 300 }}
-          >
+          <div className="modal-content">
             <div className="modal-header">
               <h3>Modifier l'utilisateur</h3>
               <button
@@ -623,7 +583,7 @@ const UserManagement = ({
                 </div>
               </form>
             )}
-          </motion.div>
+          </div>
         </div>
       </ModalPortal>
 
@@ -635,21 +595,10 @@ const UserManagement = ({
             handleOverlayClick(e, () => setShowDeleteModal(false))
           }
         >
-          <motion.div
-            className="modal-content delete-modal-modern"
-            initial={{ opacity: 0, scale: 0.8, y: 50 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.8, y: 50 }}
-            transition={{ type: "spring", damping: 25, stiffness: 300 }}
-          >
-            <motion.div
-              className="delete-icon-container"
-              initial={{ scale: 0, rotate: -180 }}
-              animate={{ scale: 1, rotate: 0 }}
-              transition={{ delay: 0.2, type: "spring", damping: 15 }}
-            >
+          <div className="modal-content delete-modal-modern">
+            <div className="delete-icon-container">
               <IoWarningOutline size={48} />
-            </motion.div>
+            </div>
 
             {/* Header moderne */}
             <div className="delete-header">
@@ -701,12 +650,7 @@ const UserManagement = ({
               </div>
             )}
 
-            <motion.div
-              className="delete-actions"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-            >
+            <div className="delete-actions">
               <button
                 type="button"
                 className="cancel-btn-modern"
@@ -722,11 +666,11 @@ const UserManagement = ({
                 <IoTrashOutline size={18} />
                 Supprimer (démo)
               </button>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         </div>
       </ModalPortal>
-    </motion.div>
+    </div>
   );
 };
 

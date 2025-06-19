@@ -2,7 +2,6 @@ import { motion } from "framer-motion";
 import React, { useState } from "react";
 import {
   IoBookOutline,
-  IoCallOutline,
   IoCheckmarkCircleOutline,
   IoEyeOutline,
   IoFilterOutline,
@@ -162,20 +161,18 @@ const TeacherStudents = () => {
 
   return (
     <motion.div
-      className="teacher-students"
+      className="teacher-students-section"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <div className="students-header">
-        <div className="header-content">
-          <h3>Mes Étudiants</h3>
-          <p>Suivez les progrès et gérez vos étudiants</p>
-        </div>
+      <div className="teacher-students-header">
+        <h3 className="teacher-students-title">Mes Étudiants</h3>
+        <p>Suivez les progrès et gérez vos étudiants</p>
       </div>
 
-      <div className="students-filters">
-        <div className="search-bar">
+      <div className="teacher-students-filters">
+        <div className="teacher-students-search-bar">
           <IoSearchOutline size={20} />
           <input
             type="text"
@@ -185,7 +182,7 @@ const TeacherStudents = () => {
           />
         </div>
 
-        <div className="filter-group">
+        <div className="teacher-students-filter-group">
           <IoFilterOutline size={16} />
           <select
             value={selectedCourse}
@@ -266,7 +263,7 @@ const TeacherStudents = () => {
         </div>
       </div>
 
-      <div className="students-grid">
+      <div className="teacher-students-grid">
         {filteredStudents.map((student) => {
           const statusStyle = getStatusColor(student.status);
           const levelStyle = getLevelColor(student.level);
@@ -274,42 +271,35 @@ const TeacherStudents = () => {
           return (
             <motion.div
               key={student.id}
-              className="student-card"
+              className={`teacher-student-card status-${student.status}`}
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: student.id * 0.1 }}
               whileHover={{ y: -5 }}
             >
-              <div className="student-header">
-                <div className="student-avatar">
+              <div className="teacher-student-header">
+                <div className="teacher-student-avatar">
                   <span>{student.avatar}</span>
-                  <div
-                    className="status-indicator"
-                    style={{ backgroundColor: statusStyle.color }}
-                  ></div>
                 </div>
-                <div className="student-info">
+                <div className="teacher-student-info">
                   <h4>{student.name}</h4>
                   <p>{student.email}</p>
-                  <div className="student-meta">
-                    <span
-                      className="level-badge"
-                      style={{
-                        background: levelStyle.bg,
-                        color: levelStyle.color,
-                        border: `1px solid ${levelStyle.border}`,
-                      }}
-                    >
-                      {student.level}
-                    </span>
-                    <span className="course-name">{student.course}</span>
-                  </div>
+                  <span
+                    className="teacher-student-level"
+                    style={{
+                      background: levelStyle.bg,
+                      color: levelStyle.color,
+                      border: `1px solid ${levelStyle.border}`,
+                    }}
+                  >
+                    {student.level}
+                  </span>
                 </div>
               </div>
 
-              <div className="student-badges">
+              <div className="teacher-student-badges">
                 {student.badges.map((badge, index) => (
-                  <span key={index} className="achievement-badge">
+                  <span key={index} className="teacher-student-badge">
                     <IoTrophyOutline size={12} />
                     {badge}
                   </span>
@@ -359,17 +349,18 @@ const TeacherStudents = () => {
                 </div>
               </div>
 
-              <div className="student-actions">
-                <button className="action-btn primary">
+              <div className="teacher-student-actions">
+                <button className="teacher-student-action-btn primary">
                   <IoEyeOutline size={16} />
-                  Voir profil
+                  Profil
                 </button>
-                <button className="action-btn secondary">
+                <button className="teacher-student-action-btn secondary">
                   <IoMailOutline size={16} />
                 </button>
-                <button className="action-btn secondary">
-                  <IoCallOutline size={16} />
-                </button>
+              </div>
+
+              <div className="teacher-student-last-activity">
+                Dernière activité: {student.lastActivity}
               </div>
             </motion.div>
           );

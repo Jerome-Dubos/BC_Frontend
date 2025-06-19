@@ -178,7 +178,6 @@ const Dashboard = () => {
   // Fonction pour rendre le contenu selon l'onglet actif
   const renderContent = () => {
     const userRole = user?.role || "student";
-    console.log("UserRole:", userRole, "ActiveTab:", activeTab); // Debug
 
     // Vérification des permissions d'accès
     const hasAccess = (tabId) => {
@@ -189,7 +188,7 @@ const Dashboard = () => {
     // Si l'utilisateur n'a pas accès à cet onglet, afficher un message d'erreur
     if (!hasAccess(activeTab)) {
       return (
-        <div className="access-denied">
+        <div className="dashboard-access-denied">
           <h3>❌ Accès non autorisé</h3>
           <p>
             Vous n'avez pas les permissions nécessaires pour accéder à cette
@@ -226,9 +225,7 @@ const Dashboard = () => {
         );
 
       case "courses":
-        console.log("Rendering courses for:", userRole); // Debug
         if (userRole === "director") {
-          console.log("Rendering DirectorCourses"); // Debug
           return <DirectorCourses />;
         } else if (userRole === "teacher") {
           return <TeacherCourses />;
@@ -236,9 +233,7 @@ const Dashboard = () => {
         return <div>Accès non autorisé</div>;
 
       case "students":
-        console.log("Rendering students for:", userRole); // Debug
         if (userRole === "director") {
-          console.log("Rendering DirectorStudents"); // Debug
           return <DirectorStudents />;
         } else if (userRole === "teacher") {
           return <TeacherStudents />;
@@ -265,7 +260,6 @@ const Dashboard = () => {
                 ? "Professeur"
                 : "Étudiant"}
             </h1>
-            <p>Bienvenue, {user?.name || "Utilisateur"} !</p>
           </div>
         </div>
       </div>
@@ -275,16 +269,23 @@ const Dashboard = () => {
           {tabs.map((tab) => (
             <button
               key={tab.id}
-              className={`nav-tab ${activeTab === tab.id ? "active" : ""}`}
+              className={`dashboard-nav-tab ${
+                activeTab === tab.id ? "active" : ""
+              }`}
               onClick={() => setActiveTab(tab.id)}
             >
-              <span className="tab-icon">{tab.icon}</span>
-              <span className="tab-label">{tab.label}</span>
+              <span className="dashboard-tab-icon">{tab.icon}</span>
+              <span className="dashboard-tab-label">{tab.label}</span>
             </button>
           ))}
         </nav>
 
-        <main className="dashboard-main">{renderContent()}</main>
+        <main className="dashboard-main">
+          <div className="dashboard-welcome-message">
+            <p>Bienvenue, {user?.name || "Utilisateur"} !</p>
+          </div>
+          {renderContent()}
+        </main>
       </div>
     </div>
   );

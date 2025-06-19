@@ -1,16 +1,13 @@
 import { motion } from "framer-motion";
 import React, { useState } from "react";
 import {
-  IoAddOutline,
-  IoBookOutline,
   IoCalendarOutline,
   IoCloseOutline,
+  IoCloudDownloadOutline,
   IoCreateOutline,
   IoEyeOutline,
-  IoPersonOutline,
   IoSaveOutline,
   IoTimeOutline,
-  IoTrashOutline,
 } from "react-icons/io5";
 import "./TeacherCourses.css";
 
@@ -111,74 +108,65 @@ const TeacherCourses = () => {
     return colors[level] || colors.A1;
   };
 
+  const handleGoogleDriveImport = () => {
+    console.log("Import depuis Google Drive...");
+    alert("Fonctionnalité d'import Google Drive à venir !");
+  };
+
   return (
     <motion.div
-      className="teacher-courses"
+      className="teacher-courses-section"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <div className="courses-header">
-        <div className="header-content">
-          <h3>Mes Cours</h3>
-          <p>Gérez vos cours et suivez vos étudiants</p>
+      <div className="teacher-courses-header">
+        <div className="teacher-courses-header-left">
+          <h3 className="teacher-courses-title">Mes Cours</h3>
         </div>
-        <button
-          className="create-course-btn"
-          onClick={() => setShowCreateForm(true)}
-        >
-          <IoAddOutline size={16} />
-          Créer un cours
-        </button>
-      </div>
-
-      <div className="courses-stats">
-        <div className="stat-card">
-          <div className="stat-icon">
-            <IoBookOutline size={24} />
-          </div>
-          <div className="stat-content">
-            <h4>3</h4>
-            <p>Cours actifs</p>
-          </div>
-        </div>
-        <div className="stat-card">
-          <div className="stat-icon">
-            <IoPersonOutline size={24} />
-          </div>
-          <div className="stat-content">
-            <h4>30</h4>
-            <p>Étudiants totaux</p>
-          </div>
-        </div>
-        <div className="stat-card">
-          <div className="stat-icon">
-            <IoTimeOutline size={24} />
-          </div>
-          <div className="stat-content">
-            <h4>5h15</h4>
-            <p>Heures/semaine</p>
-          </div>
+        <div className="teacher-courses-header-right">
+          <button
+            className="google-drive-import-btn"
+            onClick={handleGoogleDriveImport}
+          >
+            <IoCloudDownloadOutline size={20} />
+            Importer depuis Google Drive
+          </button>
         </div>
       </div>
 
-      <div className="courses-grid">
+      <div className="teacher-courses-stats">
+        <div className="teacher-courses-stat">
+          <div className="teacher-courses-stat-value">3</div>
+          <div className="teacher-courses-stat-label">Cours actifs</div>
+        </div>
+        <div className="teacher-courses-stat">
+          <div className="teacher-courses-stat-value">30</div>
+          <div className="teacher-courses-stat-label">Étudiants totaux</div>
+        </div>
+        <div className="teacher-courses-stat">
+          <div className="teacher-courses-stat-value">5h15</div>
+          <div className="teacher-courses-stat-label">Heures/semaine</div>
+        </div>
+      </div>
+
+      <div className="teacher-courses-grid">
         {courses.map((course) => {
           const levelStyle = getLevelColor(course.level);
           return (
             <motion.div
               key={course.id}
-              className="course-card"
+              className="teacher-course-card"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: course.id * 0.1 }}
               whileHover={{ y: -5 }}
             >
-              <div className="course-header">
-                <div className="course-title">
-                  <h4>{course.title}</h4>
+              <div className="teacher-course-header">
+                <div className="teacher-course-info">
+                  <h3>{course.title}</h3>
                   <span
-                    className="level-badge"
+                    className="teacher-course-level"
                     style={{
                       background: levelStyle.bg,
                       color: levelStyle.color,
@@ -188,64 +176,32 @@ const TeacherCourses = () => {
                     {course.level}
                   </span>
                 </div>
-                <div className="course-actions">
-                  <button className="action-btn view">
-                    <IoEyeOutline size={14} />
-                  </button>
-                  <button className="action-btn edit">
-                    <IoCreateOutline size={14} />
-                  </button>
-                  <button className="action-btn delete">
-                    <IoTrashOutline size={14} />
-                  </button>
+                <div className="teacher-course-students">
+                  <div className="teacher-course-students-count">
+                    {course.currentStudents}
+                  </div>
+                  <div className="teacher-course-students-label">étudiants</div>
                 </div>
               </div>
-
-              <div className="course-description">
-                <p>{course.description}</p>
-              </div>
-
-              <div className="course-details">
-                <div className="detail-item">
-                  <IoTimeOutline size={16} />
+              <div className="teacher-course-details">
+                <div className="teacher-course-detail-item">
+                  <IoTimeOutline className="teacher-course-detail-icon" />
                   <span>{course.duration}</span>
                 </div>
-                <div className="detail-item">
-                  <IoCalendarOutline size={16} />
+                <div className="teacher-course-detail-item">
+                  <IoCalendarOutline className="teacher-course-detail-icon" />
                   <span>{course.schedule}</span>
                 </div>
-                <div className="detail-item">
-                  <IoPersonOutline size={16} />
-                  <span>
-                    {course.currentStudents}/{course.maxStudents} étudiants
-                  </span>
-                </div>
               </div>
-
-              <div className="course-progress">
-                <div className="progress-label">
-                  <span>Capacité</span>
-                  <span>
-                    {Math.round(
-                      (course.currentStudents / course.maxStudents) * 100
-                    )}
-                    %
-                  </span>
-                </div>
-                <div className="progress-bar">
-                  <div
-                    className="progress-fill"
-                    style={{
-                      width: `${
-                        (course.currentStudents / course.maxStudents) * 100
-                      }%`,
-                    }}
-                  ></div>
-                </div>
-              </div>
-
-              <div className="course-footer">
-                <button className="manage-btn">Gérer le cours</button>
+              <div className="teacher-course-actions">
+                <button className="teacher-course-action-btn primary">
+                  <IoEyeOutline size={14} />
+                  Voir
+                </button>
+                <button className="teacher-course-action-btn secondary">
+                  <IoCreateOutline size={14} />
+                  Modifier
+                </button>
               </div>
             </motion.div>
           );

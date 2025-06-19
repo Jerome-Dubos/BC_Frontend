@@ -1,17 +1,17 @@
+import { motion } from "framer-motion";
 import React, { useState } from "react";
 import {
-  IoAddOutline,
-  IoEyeOutline,
-  IoMailOutline,
-  IoPencilOutline,
+  IoBookOutline,
+  IoFilterOutline,
+  IoPersonOutline,
   IoSearchOutline,
-  IoTrashOutline,
+  IoStatsChartOutline,
 } from "react-icons/io5";
 import "./DirectorStudents.css";
 
 const DirectorStudents = () => {
-  const [selectedLevel, setSelectedLevel] = useState("");
-  const [selectedCourse, setSelectedCourse] = useState("");
+  const [selectedLevel, setSelectedLevel] = useState("all");
+  const [selectedCourse, setSelectedCourse] = useState("all");
   const [selectedStatus, setSelectedStatus] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -122,16 +122,42 @@ const DirectorStudents = () => {
     },
   ];
 
+  const courses = [
+    "Français A1",
+    "Conversation B1",
+    "Français B2",
+    "Grammaire A2",
+    "Français C1",
+  ];
+  const levels = ["A1", "A2", "B1", "B2", "C1", "C2"];
+
   const filteredStudents = studentsData.filter((student) => {
-    return (
-      (selectedLevel === "" || student.level === selectedLevel) &&
-      (selectedCourse === "" || student.course.includes(selectedCourse)) &&
-      (selectedStatus === "" || student.status === selectedStatus) &&
-      (searchTerm === "" ||
-        student.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        student.email.toLowerCase().includes(searchTerm.toLowerCase()))
-    );
+    const matchesSearch =
+      student.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      student.email.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCourse =
+      selectedCourse === "all" || student.course === selectedCourse;
+    const matchesLevel =
+      selectedLevel === "all" || student.level === selectedLevel;
+
+    return matchesSearch && matchesCourse && matchesLevel;
   });
+
+  const totalStudents = studentsData.length;
+  const averageProgress = Math.round(
+    studentsData.reduce((sum, student) => sum + student.progress, 0) /
+      studentsData.length
+  );
+  const averageAttendance = Math.round(
+    studentsData.reduce((sum, student) => sum + student.progress, 0) /
+      studentsData.length
+  );
+  const averageGrade =
+    Math.round(
+      (studentsData.reduce((sum, student) => sum + student.progress, 0) /
+        studentsData.length) *
+        10
+    ) / 10;
 
   const getStatusText = (status) => {
     switch (status) {
@@ -147,189 +173,146 @@ const DirectorStudents = () => {
   };
 
   return (
-    <div className="director-students">
-      <div className="students-header">
-        <h3>👥 Gestion des étudiants</h3>
-        <button className="primary-btn">
-          <IoAddOutline size={20} />
-          Nouvel étudiant
-        </button>
+    <motion.div
+      className="director-students-section"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      <div className="director-students-header">
+        <h3 className="director-students-title">Gestion des Étudiants</h3>
+        <p>Vue d'ensemble de tous les étudiants de l'école</p>
       </div>
 
-      <div className="students-stats">
-        <div className="stat-card">
-          <div className="stat-icon">👥</div>
-          <div className="stat-info">
-            <h4>324</h4>
-            <p>Étudiants actifs</p>
-          </div>
+      <div className="director-students-overview">
+        <div className="director-students-stat-card">
+          <div className="director-students-stat-value">{totalStudents}</div>
+          <div className="director-students-stat-label">Étudiants Total</div>
         </div>
-        <div className="stat-card">
-          <div className="stat-icon">🎓</div>
-          <div className="stat-info">
-            <h4>89</h4>
-            <p>Diplômés ce mois</p>
-          </div>
+        <div className="director-students-stat-card">
+          <div className="director-students-stat-value">{averageProgress}%</div>
+          <div className="director-students-stat-label">Progrès Moyen</div>
         </div>
-        <div className="stat-card">
-          <div className="stat-icon">📈</div>
-          <div className="stat-info">
-            <h4>92%</h4>
-            <p>Taux de réussite</p>
+        <div className="director-students-stat-card">
+          <div className="director-students-stat-value">
+            {averageAttendance}%
           </div>
+          <div className="director-students-stat-label">Assiduité Moyenne</div>
         </div>
-        <div className="stat-card">
-          <div className="stat-icon">⭐</div>
-          <div className="stat-info">
-            <h4>4.6</h4>
-            <p>Satisfaction moyenne</p>
-          </div>
+        <div className="director-students-stat-card">
+          <div className="director-students-stat-value">{averageGrade}/20</div>
+          <div className="director-students-stat-label">Note Moyenne</div>
         </div>
       </div>
 
-      <div className="students-filters">
-        <div className="filter-group">
-          <label>Niveau :</label>
-          <select
-            value={selectedLevel}
-            onChange={(e) => setSelectedLevel(e.target.value)}
-          >
-            <option value="">Tous les niveaux</option>
-            <option value="A1">A1 - Débutant</option>
-            <option value="A2">A2 - Élémentaire</option>
-            <option value="B1">B1 - Intermédiaire</option>
-            <option value="B2">B2 - Intermédiaire avancé</option>
-            <option value="C1">C1 - Avancé</option>
-            <option value="C2">C2 - Maîtrise</option>
-          </select>
-        </div>
-        <div className="filter-group">
-          <label>Cours :</label>
-          <select
-            value={selectedCourse}
-            onChange={(e) => setSelectedCourse(e.target.value)}
-          >
-            <option value="">Tous les cours</option>
-            <option value="Anglais">Anglais</option>
-            <option value="Français">Français</option>
-            <option value="Espagnol">Espagnol</option>
-            <option value="Allemand">Allemand</option>
-            <option value="Italien">Italien</option>
-          </select>
-        </div>
-        <div className="filter-group">
-          <label>Statut :</label>
-          <select
-            value={selectedStatus}
-            onChange={(e) => setSelectedStatus(e.target.value)}
-          >
-            <option value="">Tous les statuts</option>
-            <option value="active">Actif</option>
-            <option value="graduated">Diplômé</option>
-            <option value="suspended">Suspendu</option>
-          </select>
-        </div>
-        <div className="search-group">
+      <div className="director-students-filters">
+        <div className="director-students-search-bar">
+          <IoSearchOutline size={20} />
           <input
             type="text"
             placeholder="Rechercher un étudiant..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-          <IoSearchOutline />
         </div>
-      </div>
 
-      <div className="students-table-container">
-        <table className="students-table">
-          <thead>
-            <tr>
-              <th>Étudiant</th>
-              <th>Email</th>
-              <th>Cours</th>
-              <th>Niveau</th>
-              <th>Progression</th>
-              <th>Dernier accès</th>
-              <th>Statut</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredStudents.map((student) => (
-              <tr key={student.id}>
-                <td>
-                  <div className="student-info">
-                    <span className="student-avatar">{student.avatar}</span>
-                    <div className="student-details">
-                      <span className="student-name">{student.name}</span>
-                      <span className="student-join-date">
-                        Inscrit le {student.joinDate}
-                      </span>
-                    </div>
-                  </div>
-                </td>
-                <td>{student.email}</td>
-                <td>
-                  <span className="course-badge">{student.course}</span>
-                  <div className="completed-courses">
-                    {student.completedCourses} cours terminés
-                  </div>
-                </td>
-                <td>
-                  <span
-                    className={`level-badge ${student.level.toLowerCase()}`}
-                  >
-                    {student.level}
-                  </span>
-                </td>
-                <td>
-                  <div className="progress-cell">
-                    <div className="progress-bar">
-                      <div
-                        className="progress-fill"
-                        style={{ width: `${student.progress}%` }}
-                      ></div>
-                    </div>
-                    <span>{student.progress}%</span>
-                  </div>
-                </td>
-                <td>{student.lastAccess}</td>
-                <td>
-                  <span className={`status-badge ${student.status}`}>
-                    {getStatusText(student.status)}
-                  </span>
-                </td>
-                <td>
-                  <div className="action-buttons">
-                    <button className="action-btn view" title="Voir profil">
-                      <IoEyeOutline />
-                    </button>
-                    <button className="action-btn edit" title="Modifier">
-                      <IoPencilOutline />
-                    </button>
-                    <button
-                      className="action-btn message"
-                      title="Envoyer message"
-                    >
-                      <IoMailOutline />
-                    </button>
-                    <button className="action-btn delete" title="Supprimer">
-                      <IoTrashOutline />
-                    </button>
-                  </div>
-                </td>
-              </tr>
+        <div className="director-students-filter-group">
+          <IoFilterOutline size={16} />
+          <select
+            value={selectedCourse}
+            onChange={(e) => setSelectedCourse(e.target.value)}
+          >
+            <option value="all">Tous les cours</option>
+            {courses.map((course) => (
+              <option key={course} value={course}>
+                {course}
+              </option>
             ))}
-          </tbody>
-        </table>
+          </select>
+        </div>
+
+        <div className="director-students-filter-group">
+          <select
+            value={selectedLevel}
+            onChange={(e) => setSelectedLevel(e.target.value)}
+          >
+            <option value="all">Tous les niveaux</option>
+            {levels.map((level) => (
+              <option key={level} value={level}>
+                {level}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
 
-      {filteredStudents.length === 0 && (
-        <div className="no-results">
-          <p>Aucun étudiant trouvé avec les critères sélectionnés.</p>
-        </div>
-      )}
-    </div>
+      <div className="director-students-grid">
+        {filteredStudents.map((student) => (
+          <motion.div
+            key={student.id}
+            className={`director-student-card status-${student.status}`}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: student.id * 0.1 }}
+            whileHover={{ y: -4 }}
+          >
+            <div className="director-student-header">
+              <div className="director-student-avatar">
+                {student.name
+                  .split(" ")
+                  .map((n) => n[0])
+                  .join("")
+                  .toUpperCase()}
+              </div>
+              <div className="director-student-info">
+                <h4>{student.name}</h4>
+                <p>{student.email}</p>
+                <span className="director-student-course">
+                  {student.course}
+                </span>
+              </div>
+            </div>
+
+            <div className="director-student-teacher">
+              <IoPersonOutline className="director-student-teacher-icon" />
+              {student.teacher}
+            </div>
+
+            <div className="director-student-stats">
+              <div className="director-student-stat">
+                <div className="director-student-stat-value">
+                  {student.progress}%
+                </div>
+                <div className="director-student-stat-label">Progrès</div>
+              </div>
+              <div className="director-student-stat">
+                <div className="director-student-stat-value">
+                  {student.attendance}%
+                </div>
+                <div className="director-student-stat-label">Assiduité</div>
+              </div>
+              <div className="director-student-stat">
+                <div className="director-student-stat-value">
+                  {student.grade}/20
+                </div>
+                <div className="director-student-stat-label">Note</div>
+              </div>
+            </div>
+
+            <div className="director-student-actions">
+              <button className="director-student-action-btn primary">
+                <IoStatsChartOutline size={14} />
+                Détails
+              </button>
+              <button className="director-student-action-btn secondary">
+                <IoBookOutline size={14} />
+                Cours
+              </button>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+    </motion.div>
   );
 };
 

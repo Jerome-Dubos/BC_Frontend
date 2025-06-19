@@ -214,9 +214,9 @@ const Overview = ({ user, getBadgesForRole }) => {
     const badges = getBadgesForRole(user?.role || "student");
 
     return (
-      <div className="achievements-section">
+      <div className="overview-badges-section">
         <div className="section-header">
-          <h3>
+          <h3 className="overview-section-title">
             {user?.role === "student"
               ? "🎖️ Badges obtenus"
               : user?.role === "teacher"
@@ -227,13 +227,13 @@ const Overview = ({ user, getBadgesForRole }) => {
             {badges.filter((b) => b.earned).length}/{badges.length}
           </span>
         </div>
-        <div className="badges-container">
+        <div className="overview-badges-grid">
           {badges.map((badge) => {
             const IconComponent = badge.icon;
             return (
               <div
                 key={badge.id}
-                className={`achievement-badge ${
+                className={`overview-achievement-badge ${
                   badge.earned ? "earned" : "locked"
                 }`}
                 title={
@@ -242,7 +242,7 @@ const Overview = ({ user, getBadgesForRole }) => {
                     : `Badge "${badge.name}" à débloquer`
                 }
               >
-                <div className="badge-icon-wrapper">
+                <div className="overview-badge-icon-wrapper">
                   <IconComponent
                     size={28}
                     style={{
@@ -259,7 +259,7 @@ const Overview = ({ user, getBadgesForRole }) => {
                   )}
                   {badge.earned && <div className="badge-glow" />}
                 </div>
-                <span className="badge-title">{badge.name}</span>
+                <span className="overview-badge-title">{badge.name}</span>
                 {badge.earned && (
                   <div className="badge-earned-indicator">✨</div>
                 )}
@@ -274,60 +274,54 @@ const Overview = ({ user, getBadgesForRole }) => {
   return (
     <div className="overview-section">
       {/* Statistiques améliorées */}
-      <div className="stats-grid">
+      <div className="overview-stats-grid">
         {profileData.stats.map((stat, index) => (
-          <div key={index} className="stat-card enhanced">
-            <div className="stat-icon-enhanced">
-              <span className="icon-emoji">{stat.icon}</span>
-              <div className="icon-pulse" />
+          <div key={index} className="overview-stat-card">
+            <div className="overview-stat-header">
+              <span className="overview-stat-icon">{stat.icon}</span>
+              <div
+                className="overview-stat-trend"
+                style={{ color: stat.color }}
+              >
+                <IoTrendingUpOutline size={14} />
+                <span>{stat.trend}</span>
+              </div>
             </div>
-            <div className="stat-content">
-              <div className="stat-value-container">
-                <h3>{stat.value}</h3>
-                <div className="stat-trend" style={{ color: stat.color }}>
-                  <IoTrendingUpOutline size={14} />
-                  <span>{stat.trend}</span>
-                </div>
-              </div>
-              <p>{stat.label}</p>
-              <div className="stat-detail">
-                <span className="trend-percent" style={{ color: stat.color }}>
-                  {stat.trendPercent}
-                </span>
-                <span className="detail-text">{stat.detail}</span>
-              </div>
+            <div className="overview-stat-value">{stat.value}</div>
+            <div className="overview-stat-label">{stat.label}</div>
+            <div className="overview-stat-detail">
+              <span className="trend-percent" style={{ color: stat.color }}>
+                {stat.trendPercent}
+              </span>
+              <span> • {stat.detail}</span>
             </div>
           </div>
         ))}
       </div>
 
-      {/* Activité récente améliorée */}
-      <div className="recent-activity enhanced">
-        <div className="section-header">
-          <h3>📈 Activité récente</h3>
-          <span className="activity-count">
-            {profileData.activities.length} événements
-          </span>
-        </div>
-        <div className="activity-list">
-          {profileData.activities.map((activity, index) => (
-            <div
-              key={index}
-              className={`activity-item enhanced ${activity.type}`}
-            >
-              <div className="activity-icon enhanced">{activity.icon}</div>
-              <div className="activity-content">
-                <span className="activity-text">{activity.text}</span>
-                <span className="activity-time">{activity.time}</span>
+      <div className="overview-main-content">
+        {/* Activité récente améliorée */}
+        <div className="overview-recent-activity">
+          <h3 className="overview-section-title">📈 Activité récente</h3>
+          <div className="overview-activity-list">
+            {profileData.activities.map((activity, index) => (
+              <div
+                key={index}
+                className={`overview-activity-item overview-activity-type-${activity.type}`}
+              >
+                <div className="overview-activity-icon">{activity.icon}</div>
+                <div className="overview-activity-content">
+                  <div className="overview-activity-text">{activity.text}</div>
+                  <div className="overview-activity-time">{activity.time}</div>
+                </div>
               </div>
-              <div className="activity-status">✓</div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
 
-      {/* Badges */}
-      {renderBadges()}
+        {/* Badges */}
+        {renderBadges()}
+      </div>
     </div>
   );
 };

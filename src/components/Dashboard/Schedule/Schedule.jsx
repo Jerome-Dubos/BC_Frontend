@@ -1,5 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import {
   IoCallOutline,
   IoCheckmarkCircleOutline,
@@ -16,7 +17,13 @@ import {
 } from "react-icons/io5";
 import "./Schedule.css";
 
-const Schedule = ({ setShowClassInfoModal, setSelectedClass }) => {
+// Portal pour afficher les modales en pleine page
+const ModalPortal = ({ children, isOpen }) => {
+  if (!isOpen) return null;
+  return createPortal(children, document.body);
+};
+
+const Schedule = () => {
   const [currentWeek, setCurrentWeek] = useState(new Date());
   const [showVideoModal, setShowVideoModalLocal] = useState(false);
   const [selectedClassLocal, setSelectedClassLocal] = useState(null);
@@ -31,6 +38,26 @@ const Schedule = ({ setShowClassInfoModal, setSelectedClass }) => {
   const [showNotification, setShowNotification] = useState(false);
   const [notification, setNotification] = useState({ type: "", message: "" });
   const [isLoading, setIsLoading] = useState(false);
+
+  // Gestion de la fermeture des modales avec Échap
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        if (showVideoModal) setShowVideoModalLocal(false);
+        else if (showLocationModal) setShowLocationModal(false);
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [showVideoModal, showLocationModal]);
+
+  // Fonction pour gérer le clic en dehors de la modale
+  const handleOverlayClick = (e, closeFunction) => {
+    if (e.target === e.currentTarget) {
+      closeFunction();
+    }
+  };
 
   // Fonction pour afficher une notification flottante
   const showFloatingNotification = (type, message) => {
@@ -272,24 +299,20 @@ const Schedule = ({ setShowClassInfoModal, setSelectedClass }) => {
   };
 
   const handleClassClick = (event) => {
-    simulateLoading(1000);
-    setSelectedClass && setSelectedClass(event);
-    setShowClassInfoModal && setShowClassInfoModal(true);
+    // Utiliser la même logique que pour rejoindre un cours
+    handleJoinClass(event);
   };
 
   // Fonction pour rejoindre un cours
   const handleJoinClass = (classInfo) => {
     if (classInfo.mode === "online") {
-      // Cours en visio - simuler connexion puis ouvrir la modale vidéo
-      simulateLoading(3000);
-      setTimeout(() => {
-        setSelectedClassLocal(classInfo);
-        setShowVideoModalLocal(true);
-        showFloatingNotification(
-          "success",
-          `Connexion établie au cours "${classInfo.title}"`
-        );
-      }, 3000);
+      // Cours en visio - ouvrir directement la modale vidéo
+      setSelectedClassLocal(classInfo);
+      setShowVideoModalLocal(true);
+      showFloatingNotification(
+        "success",
+        `Connexion au cours "${classInfo.title}"`
+      );
     } else {
       // Cours en présentiel - afficher la modale de localisation
       setLocationInfo(classInfo);
@@ -297,12 +320,8 @@ const Schedule = ({ setShowClassInfoModal, setSelectedClass }) => {
     }
   };
 
-  // Fonction pour voir les infos d'un cours
-  const handleViewInfo = (classInfo) => {
-    simulateLoading(800);
-    setSelectedClass && setSelectedClass(classInfo);
-    setShowClassInfoModal && setShowClassInfoModal(true);
-  };
+  // Fonction pour voir les infos d'un cours - SUPPRIMÉE car redondante
+  // Les infos sont déjà dans les modales de rejoindre/localiser
 
   // Contrôles vidéo
   const toggleMic = () => {
@@ -330,6 +349,26 @@ const Schedule = ({ setShowClassInfoModal, setSelectedClass }) => {
     }, 1000);
   };
 
+  // Fonction pour ouvrir Google Maps avec l'itinéraire
+  const openGoogleMaps = (locationInfo) => {
+    if (!locationInfo || !locationInfo.address) {
+      showFloatingNotification("error", "Adresse non disponible");
+      return;
+    }
+
+    // Construire l'URL Google Maps pour l'itinéraire
+    const destination = encodeURIComponent(`${locationInfo.address}`);
+    const schoolName = encodeURIComponent("Bon Cours - École de langues");
+    const googleMapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${destination}&destination_place_id=${schoolName}`;
+
+    // Ouvrir dans un nouvel onglet
+    window.open(googleMapsUrl, "_blank", "noopener,noreferrer");
+
+    // Fermer la modale et afficher une notification
+    setShowLocationModal(false);
+    showFloatingNotification("success", "Itinéraire ouvert dans Google Maps");
+  };
+
   return (
     <>
       <motion.div
@@ -342,9 +381,10 @@ const Schedule = ({ setShowClassInfoModal, setSelectedClass }) => {
         <div className={`loading-bar ${isLoading ? "active" : ""}`}></div>
 
         <div className="schedule-header">
-          <h3>Planning de la semaine</h3>
-          <div className="week-navigation">
+          <h3 className="schedule-title">Planning de la semaine</h3>
+          <div className="schedule-week-navigation">
             <motion.button
+              className="schedule-nav-btn"
               onClick={() => navigateWeek(-1)}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
@@ -352,7 +392,7 @@ const Schedule = ({ setShowClassInfoModal, setSelectedClass }) => {
             >
               ‹
             </motion.button>
-            <span>
+            <span className="schedule-week-range">
               {weekDays[0].toLocaleDateString("fr-FR", {
                 day: "numeric",
                 month: "long",
@@ -365,6 +405,7 @@ const Schedule = ({ setShowClassInfoModal, setSelectedClass }) => {
               })}
             </span>
             <motion.button
+              className="schedule-nav-btn"
               onClick={() => navigateWeek(1)}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
@@ -375,52 +416,61 @@ const Schedule = ({ setShowClassInfoModal, setSelectedClass }) => {
           </div>
         </div>
 
-        <div className="calendar-container">
-          <div className="calendar-header">
-            {["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"].map(
-              (day, index) => (
-                <div key={day} className="day-header">
-                  <span className="day-name">{day}</span>
-                  <span className="day-number">
-                    {weekDays[index].getDate()}
-                  </span>
-                </div>
-              )
-            )}
-          </div>
-
-          <div className="calendar-grid">
+        <div className="schedule-calendar-container">
+          <div className="schedule-calendar-grid">
             {weekDays.map((day, index) => {
               const dateKey = formatDate(day);
               const dayEvents = events[dateKey] || [];
+              const dayNames = [
+                "Lun",
+                "Mar",
+                "Mer",
+                "Jeu",
+                "Ven",
+                "Sam",
+                "Dim",
+              ];
 
               return (
                 <div
                   key={index}
-                  className={`calendar-day ${isToday(day) ? "today" : ""}`}
+                  className={`schedule-calendar-day ${
+                    isToday(day) ? "today" : ""
+                  }`}
                 >
-                  {dayEvents.map((event) => (
-                    <motion.div
-                      key={event.id}
-                      className={`event ${event.type} ${event.status}`}
-                      onClick={() => handleClassClick(event)}
-                      whileHover={{ scale: 1.02, y: -2 }}
-                      whileTap={{ scale: 0.98 }}
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: event.id * 0.1 }}
-                    >
-                      <div className="event-time">{event.time}</div>
-                      <div className="event-title">{event.title}</div>
-                      <div className="event-teacher">{event.teacher}</div>
-                      <div className="event-students">
-                        {event.students} élèves
-                      </div>
-                      <div className={`event-mode ${event.mode}`}>
-                        {event.mode === "online" ? "VISIO" : "PRÉSENTIEL"}
-                      </div>
-                    </motion.div>
-                  ))}
+                  <div className="schedule-day-header-inline">
+                    <span className="schedule-day-name">{dayNames[index]}</span>
+                    <span className="schedule-day-number">{day.getDate()}</span>
+                  </div>
+
+                  <div className="schedule-day-events">
+                    {dayEvents.map((event) => (
+                      <motion.div
+                        key={event.id}
+                        className={`schedule-event ${event.type} ${event.status} ${event.mode}`}
+                        onClick={() => handleClassClick(event)}
+                        whileHover={{ scale: 1.02, y: -2 }}
+                        whileTap={{ scale: 0.98 }}
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: event.id * 0.1 }}
+                      >
+                        <div className="schedule-event-time">{event.time}</div>
+                        <div className="schedule-event-title">
+                          {event.title}
+                        </div>
+                        <div className="schedule-event-teacher">
+                          {event.teacher}
+                        </div>
+                        <div className="schedule-event-students">
+                          {event.students} élèves
+                        </div>
+                        <div className={`schedule-event-mode ${event.mode}`}>
+                          {event.mode === "online" ? "VISIO" : "PRÉSENTIEL"}
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
                 </div>
               );
             })}
@@ -428,52 +478,43 @@ const Schedule = ({ setShowClassInfoModal, setSelectedClass }) => {
         </div>
 
         <div className="schedule-bottom-section">
-          <div className="upcoming-classes">
-            <h4>Prochains cours</h4>
-            <div className="classes-list">
+          <div className="schedule-upcoming-classes">
+            <h4 className="schedule-upcoming-title">Prochains cours</h4>
+            <div className="schedule-classes-list">
               {upcomingClasses.map((classItem, index) => (
                 <motion.div
                   key={classItem.id}
-                  className="class-item"
+                  className="schedule-class-item"
                   whileHover={{ scale: 1.02, x: 5 }}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.1 }}
                 >
-                  <div className="class-info">
-                    <h5>{classItem.title}</h5>
-                    <p>{classItem.time}</p>
-                    <div className="class-details">
-                      <span className={`class-type ${classItem.type}`}>
+                  <div className="schedule-class-info">
+                    <h5 className="schedule-class-title">{classItem.title}</h5>
+                    <p className="schedule-class-time">{classItem.time}</p>
+                    <div className="schedule-class-details">
+                      <span className={`schedule-class-type ${classItem.type}`}>
                         {classItem.level}
                       </span>
-                      <span className="class-room">
+                      <span className="schedule-class-room">
                         {classItem.mode === "online" ? "💻" : "📍"}{" "}
                         {classItem.room}
                       </span>
-                      <span className={`class-mode ${classItem.mode}`}>
+                      <span className={`schedule-class-mode ${classItem.mode}`}>
                         {classItem.mode === "online" ? "VISIO" : "PRÉSENTIEL"}
                       </span>
                     </div>
                   </div>
-                  <div className="class-actions">
+                  <div className="schedule-class-actions">
                     <motion.button
                       onClick={() => handleJoinClass(classItem)}
-                      className="join-btn"
+                      className="schedule-join-btn"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       disabled={isLoading}
                     >
                       {classItem.mode === "online" ? "Rejoindre" : "Localiser"}
-                    </motion.button>
-                    <motion.button
-                      onClick={() => handleViewInfo(classItem)}
-                      className="info-btn"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      disabled={isLoading}
-                    >
-                      Infos
                     </motion.button>
                   </div>
                 </motion.div>
@@ -553,238 +594,239 @@ const Schedule = ({ setShowClassInfoModal, setSelectedClass }) => {
         )}
       </AnimatePresence>
 
-      {/* Modale de localisation pour cours en présentiel */}
-      <AnimatePresence>
-        {showLocationModal && locationInfo && (
-          <motion.div
-            className="modal-overlay"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={(e) =>
-              e.target === e.currentTarget && setShowLocationModal(false)
-            }
-          >
+      {/* Modale de localisation pour cours en présentiel - PORTAL PLEINE PAGE */}
+      <ModalPortal isOpen={showLocationModal && locationInfo}>
+        <AnimatePresence>
+          {showLocationModal && locationInfo && (
             <motion.div
-              className="location-modal"
-              initial={{ opacity: 0, scale: 0.9, y: -50 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: -50 }}
-              transition={{ duration: 0.3 }}
+              className="modal-overlay"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={(e) =>
+                handleOverlayClick(e, () => setShowLocationModal(false))
+              }
             >
-              <div className="modal-header">
-                <h3>📍 Localisation du cours</h3>
-                <button
-                  className="modal-close"
-                  onClick={() => setShowLocationModal(false)}
-                >
-                  <IoCloseOutline />
-                </button>
-              </div>
+              <motion.div
+                className="location-modal"
+                initial={{ opacity: 0, scale: 0.9, y: -50 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.9, y: -50 }}
+                transition={{ duration: 0.3 }}
+              >
+                <div className="modal-header">
+                  <h3>📍 Localisation du cours</h3>
+                  <button
+                    className="modal-close"
+                    onClick={() => setShowLocationModal(false)}
+                  >
+                    <IoCloseOutline />
+                  </button>
+                </div>
 
-              <div className="modal-content">
-                <div className="location-info">
-                  <h4>{locationInfo.title}</h4>
-                  <p className="course-time">⏰ {locationInfo.time}</p>
-                  <p className="course-teacher">👨‍🏫 {locationInfo.teacher}</p>
+                <div className="modal-content">
+                  <div className="location-info">
+                    <h4>{locationInfo.title}</h4>
+                    <p className="course-time">⏰ {locationInfo.time}</p>
+                    <p className="course-teacher">👨‍🏫 {locationInfo.teacher}</p>
 
-                  <div className="location-details">
-                    <div className="location-item">
-                      <IoLocationOutline className="location-icon" />
-                      <div>
-                        <strong>{locationInfo.room}</strong>
-                        <p>{locationInfo.building}</p>
-                        <p>{locationInfo.address}</p>
+                    <div className="location-details">
+                      <div className="location-item">
+                        <IoLocationOutline className="location-icon" />
+                        <div>
+                          <strong>{locationInfo.room}</strong>
+                          <p>{locationInfo.building}</p>
+                          <p>{locationInfo.address}</p>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
 
-              <div className="modal-actions">
-                <motion.button
-                  className="primary-btn"
-                  onClick={() => {
-                    setShowLocationModal(false);
-                    showFloatingNotification(
-                      "success",
-                      "Itinéraire copié dans le presse-papiers"
-                    );
-                  }}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  Obtenir l'itinéraire
-                </motion.button>
-                <motion.button
-                  className="secondary-btn"
-                  onClick={() => setShowLocationModal(false)}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  Fermer
-                </motion.button>
-              </div>
+                <div className="modal-actions">
+                  <motion.button
+                    className="primary-btn"
+                    onClick={() => openGoogleMaps(locationInfo)}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    Obtenir l'itinéraire
+                  </motion.button>
+                  <motion.button
+                    className="secondary-btn"
+                    onClick={() => setShowLocationModal(false)}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    Fermer
+                  </motion.button>
+                </div>
+              </motion.div>
             </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          )}
+        </AnimatePresence>
+      </ModalPortal>
 
-      {/* Modale Vidéo */}
-      <AnimatePresence>
-        {showVideoModal && selectedClassLocal && (
-          <motion.div
-            className="video-modal-overlay"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={(e) =>
-              e.target === e.currentTarget && setShowVideoModalLocal(false)
-            }
-          >
+      {/* Modale Vidéo - PORTAL PLEINE PAGE */}
+      <ModalPortal isOpen={showVideoModal && selectedClassLocal}>
+        <AnimatePresence>
+          {showVideoModal && selectedClassLocal && (
             <motion.div
-              className="video-modal"
-              initial={{ opacity: 0, scale: 0.9, y: -50 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: -50 }}
-              transition={{ duration: 0.3 }}
+              className="video-modal-overlay"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={(e) =>
+                handleOverlayClick(e, () => setShowVideoModalLocal(false))
+              }
             >
-              <div className="video-modal-header">
-                <h3>{selectedClassLocal.title}</h3>
-                <button
-                  className="video-modal-close"
-                  onClick={() => setShowVideoModalLocal(false)}
-                >
-                  <IoCloseOutline />
-                </button>
-              </div>
-
-              <div className="video-modal-content">
-                <div className="video-main-area">
-                  <div className="teacher-video-container">
-                    <div className="video-placeholder">
-                      <div className="teacher-avatar">
-                        {selectedClassLocal.teacher
-                          .split(" ")
-                          .map((n) => n[0])
-                          .join("")}
-                      </div>
-                      <h4>{selectedClassLocal.teacher}</h4>
-                      <p>Cours en direct</p>
-                    </div>
-                  </div>
-
-                  <div className="video-controls">
-                    <motion.button
-                      className={`video-control-btn ${
-                        videoControls.mic ? "active" : ""
-                      }`}
-                      onClick={toggleMic}
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                    >
-                      {videoControls.mic ? (
-                        <IoMicOutline />
-                      ) : (
-                        <IoMicOffOutline />
-                      )}
-                    </motion.button>
-
-                    <motion.button
-                      className={`video-control-btn ${
-                        videoControls.camera ? "active" : ""
-                      }`}
-                      onClick={toggleCamera}
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                    >
-                      {videoControls.camera ? (
-                        <IoVideocamOutline />
-                      ) : (
-                        <IoVideocamOffOutline />
-                      )}
-                    </motion.button>
-
-                    <motion.button
-                      className="video-control-btn leave"
-                      onClick={leaveCall}
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                    >
-                      <IoCallOutline />
-                    </motion.button>
-                  </div>
+              <motion.div
+                className="video-modal"
+                initial={{ opacity: 0, scale: 0.9, y: -50 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.9, y: -50 }}
+                transition={{ duration: 0.3 }}
+              >
+                <div className="video-modal-header">
+                  <h3>📹 {selectedClassLocal.title}</h3>
+                  <button
+                    className="video-modal-close"
+                    onClick={() => setShowVideoModalLocal(false)}
+                  >
+                    <IoCloseOutline />
+                  </button>
                 </div>
 
-                <div className="video-sidebar">
-                  <div className="class-info-section">
-                    <h4>Informations du cours</h4>
-
-                    <div className="class-info-item">
-                      <div className="class-info-icon">
-                        <IoTimeOutline />
-                      </div>
-                      <div className="class-info-text">
-                        <p>Horaire</p>
-                        <span>{selectedClassLocal.time}</span>
-                      </div>
-                    </div>
-
-                    <div className="class-info-item">
-                      <div className="class-info-icon">
-                        <IoPersonOutline />
-                      </div>
-                      <div className="class-info-text">
-                        <p>Professeur</p>
-                        <span>{selectedClassLocal.teacher}</span>
+                <div className="video-modal-content">
+                  <div className="video-main-area">
+                    <div className="teacher-video-container">
+                      <div className="video-placeholder">
+                        <div className="teacher-avatar">
+                          {selectedClassLocal.teacher
+                            .split(" ")
+                            .map((n) => n[0])
+                            .join("")}
+                        </div>
+                        <h4>{selectedClassLocal.teacher}</h4>
+                        <p>Cours en direct</p>
                       </div>
                     </div>
 
-                    <div className="class-info-item">
-                      <div className="class-info-icon">
-                        <IoGlobeOutline />
-                      </div>
-                      <div className="class-info-text">
-                        <p>Plateforme</p>
-                        <span>{selectedClassLocal.room}</span>
-                      </div>
-                    </div>
+                    <div className="video-controls">
+                      <motion.button
+                        className={`video-control-btn ${
+                          videoControls.mic ? "active" : ""
+                        }`}
+                        onClick={toggleMic}
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                      >
+                        {videoControls.mic ? (
+                          <IoMicOutline />
+                        ) : (
+                          <IoMicOffOutline />
+                        )}
+                      </motion.button>
 
-                    {selectedClassLocal.meetingId && (
+                      <motion.button
+                        className={`video-control-btn ${
+                          videoControls.camera ? "active" : ""
+                        }`}
+                        onClick={toggleCamera}
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                      >
+                        {videoControls.camera ? (
+                          <IoVideocamOutline />
+                        ) : (
+                          <IoVideocamOffOutline />
+                        )}
+                      </motion.button>
+
+                      <motion.button
+                        className="video-control-btn leave"
+                        onClick={leaveCall}
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                      >
+                        <IoCallOutline />
+                      </motion.button>
+                    </div>
+                  </div>
+
+                  <div className="video-sidebar">
+                    <div className="class-info-section">
+                      <h4>Informations du cours</h4>
+
                       <div className="class-info-item">
                         <div className="class-info-icon">
-                          <IoInformationCircleOutline />
+                          <IoTimeOutline />
                         </div>
                         <div className="class-info-text">
-                          <p>ID de réunion</p>
-                          <span>{selectedClassLocal.meetingId}</span>
+                          <p>Horaire</p>
+                          <span>{selectedClassLocal.time}</span>
                         </div>
                       </div>
-                    )}
-                  </div>
 
-                  <div className="class-info-section">
-                    <h4>Participants ({participants.length})</h4>
-                    <div className="participants-list">
-                      {participants.map((participant) => (
-                        <div key={participant.id} className="participant-item">
-                          <div className="participant-avatar">
-                            {participant.avatar}
-                          </div>
-                          <div className="participant-name">
-                            {participant.name}
-                          </div>
-                          <div className="participant-status"></div>
+                      <div className="class-info-item">
+                        <div className="class-info-icon">
+                          <IoPersonOutline />
                         </div>
-                      ))}
+                        <div className="class-info-text">
+                          <p>Professeur</p>
+                          <span>{selectedClassLocal.teacher}</span>
+                        </div>
+                      </div>
+
+                      <div className="class-info-item">
+                        <div className="class-info-icon">
+                          <IoGlobeOutline />
+                        </div>
+                        <div className="class-info-text">
+                          <p>Plateforme</p>
+                          <span>{selectedClassLocal.room}</span>
+                        </div>
+                      </div>
+
+                      {selectedClassLocal.meetingId && (
+                        <div className="class-info-item">
+                          <div className="class-info-icon">
+                            <IoInformationCircleOutline />
+                          </div>
+                          <div className="class-info-text">
+                            <p>ID de réunion</p>
+                            <span>{selectedClassLocal.meetingId}</span>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="class-info-section">
+                      <h4>Participants ({participants.length})</h4>
+                      <div className="participants-list">
+                        {participants.map((participant) => (
+                          <div
+                            key={participant.id}
+                            className="participant-item"
+                          >
+                            <div className="participant-avatar">
+                              {participant.avatar}
+                            </div>
+                            <div className="participant-name">
+                              {participant.name}
+                            </div>
+                            <div className="participant-status"></div>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          )}
+        </AnimatePresence>
+      </ModalPortal>
     </>
   );
 };

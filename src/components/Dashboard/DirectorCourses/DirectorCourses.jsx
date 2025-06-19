@@ -1,14 +1,14 @@
+import { motion } from "framer-motion";
 import React, { useState } from "react";
 import {
-  IoAddOutline,
+  IoBookOutline,
   IoCalendarOutline,
-  IoEyeOutline,
+  IoCloudDownloadOutline,
   IoPencilOutline,
-  IoPeopleOutline,
   IoPersonOutline,
-  IoSearchOutline,
   IoTimeOutline,
   IoTrashOutline,
+  IoTrendingUpOutline,
 } from "react-icons/io5";
 import "./DirectorCourses.css";
 
@@ -123,163 +123,175 @@ const DirectorCourses = () => {
     }
   };
 
+  const getLevelColor = (level) => {
+    const colors = {
+      A1: { bg: "rgba(34, 197, 94, 0.2)", color: "#22C55E" },
+      A2: { bg: "rgba(59, 130, 246, 0.2)", color: "#3B82F6" },
+      B1: { bg: "rgba(245, 158, 11, 0.2)", color: "#F59E0B" },
+      B2: { bg: "rgba(239, 68, 68, 0.2)", color: "#EF4444" },
+      C1: { bg: "rgba(139, 92, 246, 0.2)", color: "#8B5CF6" },
+      C2: { bg: "rgba(236, 72, 153, 0.2)", color: "#EC4899" },
+    };
+    return colors[level] || colors.A1;
+  };
+
+  const handleGoogleDriveImport = () => {
+    // TODO: Implémenter l'intégration Google Drive API
+    console.log("Import depuis Google Drive...");
+    // Placeholder pour la logique d'import
+    alert("Fonctionnalité d'import Google Drive en cours de développement !");
+  };
+
   return (
-    <div className="director-courses">
-      <div className="courses-header">
-        <h3>📚 Gestion des cours</h3>
-        <button className="primary-btn">
-          <IoAddOutline size={20} />
-          Nouveau cours
-        </button>
-      </div>
-
-      <div className="courses-stats">
-        <div className="stat-card">
-          <div className="stat-icon">📚</div>
-          <div className="stat-info">
-            <h4>25</h4>
-            <p>Cours actifs</p>
+    <motion.div
+      className="director-courses-section"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      <div className="director-courses-header">
+        <div className="director-courses-header-content">
+          <div className="director-courses-title-section">
+            <h3 className="director-courses-title">Gestion des Cours</h3>
+            <p>Vue d'ensemble de tous les cours de l'école</p>
           </div>
-        </div>
-        <div className="stat-card">
-          <div className="stat-icon">👨‍🏫</div>
-          <div className="stat-info">
-            <h4>18</h4>
-            <p>Professeurs</p>
-          </div>
-        </div>
-        <div className="stat-card">
-          <div className="stat-icon">👥</div>
-          <div className="stat-info">
-            <h4>324</h4>
-            <p>Étudiants inscrits</p>
-          </div>
-        </div>
-        <div className="stat-card">
-          <div className="stat-icon">⭐</div>
-          <div className="stat-info">
-            <h4>4.8</h4>
-            <p>Note moyenne</p>
-          </div>
+          <button
+            className="director-courses-import-btn"
+            onClick={handleGoogleDriveImport}
+          >
+            <IoCloudDownloadOutline size={20} />
+            Importer depuis Google Drive
+          </button>
         </div>
       </div>
 
-      <div className="courses-filters">
-        <div className="filter-group">
-          <label>Niveau :</label>
-          <select
-            value={selectedLevel}
-            onChange={(e) => setSelectedLevel(e.target.value)}
-          >
-            <option value="">Tous les niveaux</option>
-            <option value="A1">A1 - Débutant</option>
-            <option value="A2">A2 - Élémentaire</option>
-            <option value="B1">B1 - Intermédiaire</option>
-            <option value="B2">B2 - Intermédiaire avancé</option>
-            <option value="C1">C1 - Avancé</option>
-            <option value="C2">C2 - Maîtrise</option>
-          </select>
+      <div className="director-courses-stats">
+        <div className="director-courses-stat-card">
+          <div className="director-courses-stat-value">
+            {filteredCourses.length}
+          </div>
+          <div className="director-courses-stat-label">Cours Total</div>
         </div>
-        <div className="filter-group">
-          <label>Langue :</label>
-          <select
-            value={selectedLanguage}
-            onChange={(e) => setSelectedLanguage(e.target.value)}
-          >
-            <option value="">Toutes les langues</option>
-            <option value="Anglais">Anglais</option>
-            <option value="Français">Français</option>
-            <option value="Espagnol">Espagnol</option>
-            <option value="Allemand">Allemand</option>
-            <option value="Italien">Italien</option>
-          </select>
+        <div className="director-courses-stat-card">
+          <div className="director-courses-stat-value">
+            {
+              filteredCourses.filter((course) => course.status === "active")
+                .length
+            }
+          </div>
+          <div className="director-courses-stat-label">Cours Actifs</div>
         </div>
-        <div className="filter-group">
-          <label>Statut :</label>
-          <select
-            value={selectedStatus}
-            onChange={(e) => setSelectedStatus(e.target.value)}
-          >
-            <option value="">Tous les statuts</option>
-            <option value="active">Actif</option>
-            <option value="completed">Terminé</option>
-            <option value="scheduled">Programmé</option>
-          </select>
+        <div className="director-courses-stat-card">
+          <div className="director-courses-stat-value">
+            {filteredCourses.reduce((sum, course) => sum + course.students, 0)}
+          </div>
+          <div className="director-courses-stat-label">Étudiants Inscrits</div>
         </div>
-        <div className="search-group">
-          <input
-            type="text"
-            placeholder="Rechercher un cours ou professeur..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-          <IoSearchOutline />
+        <div className="director-courses-stat-card">
+          <div className="director-courses-stat-value">
+            {Math.round(
+              filteredCourses.reduce(
+                (sum, course) => sum + course.progress,
+                0
+              ) / filteredCourses.length
+            )}
+            %
+          </div>
+          <div className="director-courses-stat-label">Taux Occupation</div>
         </div>
       </div>
 
-      <div className="courses-grid">
-        {filteredCourses.map((course) => (
-          <div key={course.id} className="course-card">
-            <div className="course-header">
-              <div className="course-title">
-                <h4>{course.title}</h4>
-                <div className="course-tags">
-                  <span className={`level-badge ${course.level.toLowerCase()}`}>
+      <div className="director-courses-grid">
+        {filteredCourses.map((course) => {
+          const levelStyle = getLevelColor(course.level);
+          return (
+            <motion.div
+              key={course.id}
+              className={`director-course-card ${
+                course.status === "full"
+                  ? "status-full"
+                  : course.status === "low"
+                  ? "status-low"
+                  : ""
+              }`}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: course.id * 0.1 }}
+              whileHover={{ y: -4 }}
+            >
+              <div className="director-course-header">
+                <div className="director-course-info">
+                  <h3>{course.title}</h3>
+                  <span
+                    className="director-course-level"
+                    style={{
+                      background: levelStyle.bg,
+                      color: levelStyle.color,
+                    }}
+                  >
                     {course.level}
-                  </span>
-                  <span className={`status-badge ${course.status}`}>
-                    {getStatusText(course.status)}
                   </span>
                 </div>
               </div>
-              <div className="course-actions">
-                <button className="action-btn view" title="Voir détails">
-                  <IoEyeOutline />
-                </button>
-                <button className="action-btn edit" title="Modifier">
-                  <IoPencilOutline />
-                </button>
-                <button className="action-btn delete" title="Supprimer">
-                  <IoTrashOutline />
-                </button>
-              </div>
-            </div>
 
-            <div className="course-info">
-              <div className="info-item">
-                <IoPersonOutline />
-                <span>Prof : {course.teacher}</span>
+              <div className="director-course-teacher">
+                <IoPersonOutline className="director-course-teacher-icon" />
+                {course.teacher}
               </div>
-              <div className="info-item">
-                <IoPeopleOutline />
-                <span>{course.students} étudiants</span>
-              </div>
-              <div className="info-item">
-                <IoTimeOutline />
-                <span>{course.schedule}</span>
-              </div>
-              <div className="info-item">
-                <IoCalendarOutline />
-                <span>
-                  {course.startDate} → {course.endDate}
-                </span>
-              </div>
-            </div>
 
-            <div className="course-progress">
-              <div className="progress-header">
-                <span>Progression</span>
-                <span>{course.progress}%</span>
+              <div className="director-course-details">
+                <div className="director-course-detail-item">
+                  <IoTimeOutline className="director-course-detail-icon" />
+                  <span>{course.schedule}</span>
+                </div>
+                <div className="director-course-detail-item">
+                  <IoCalendarOutline className="director-course-detail-icon" />
+                  <span>
+                    {course.startDate} → {course.endDate}
+                  </span>
+                </div>
+                <div className="director-course-detail-item">
+                  <IoBookOutline className="director-course-detail-icon" />
+                  <span>{course.students} étudiants</span>
+                </div>
+                <div className="director-course-detail-item">
+                  <IoTrendingUpOutline className="director-course-detail-icon" />
+                  <span>{course.progress}%</span>
+                </div>
               </div>
-              <div className="progress-bar">
-                <div
-                  className="progress-fill"
-                  style={{ width: `${course.progress}%` }}
-                ></div>
+
+              <div className="director-course-progress">
+                <div className="director-course-progress-header">
+                  <span className="director-course-progress-label">
+                    Occupation
+                  </span>
+                  <span className="director-course-progress-value">
+                    {Math.round((course.students / course.maxStudents) * 100)}%
+                  </span>
+                </div>
+                <div className="director-course-progress-bar">
+                  <div
+                    className="director-course-progress-fill"
+                    style={{
+                      width: `${(course.students / course.maxStudents) * 100}%`,
+                    }}
+                  />
+                </div>
               </div>
-            </div>
-          </div>
-        ))}
+
+              <div className="director-course-actions">
+                <button className="director-course-action-btn secondary">
+                  <IoPencilOutline size={16} />
+                  Modifier
+                </button>
+                <button className="director-course-action-btn delete">
+                  <IoTrashOutline size={16} />
+                  Supprimer
+                </button>
+              </div>
+            </motion.div>
+          );
+        })}
       </div>
 
       {filteredCourses.length === 0 && (
@@ -287,7 +299,7 @@ const DirectorCourses = () => {
           <p>Aucun cours trouvé avec les critères sélectionnés.</p>
         </div>
       )}
-    </div>
+    </motion.div>
   );
 };
 

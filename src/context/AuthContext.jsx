@@ -34,6 +34,7 @@ const DEMO_USERS = [
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
   const navigate = useNavigate();
 
   // Vérifier si l'utilisateur est déjà connecté au chargement
@@ -99,9 +100,30 @@ export const AuthProvider = ({ children }) => {
 
   // Fonction de déconnexion
   const logout = () => {
-    localStorage.removeItem("boncours_user");
-    setUser(null);
-    navigate("/");
+    console.log("🔄 Début de la déconnexion...");
+    setIsLoggingOut(true);
+
+    // Délai plus long pour une transition complètement fluide
+    setTimeout(() => {
+      localStorage.removeItem("boncours_user");
+      setUser(null);
+
+      // Délai supplémentaire avant navigation pour éviter tout flash
+      setTimeout(() => {
+        console.log("✅ Redirection vers l'accueil");
+
+        // Option 1: Navigation React Router (plus fluide)
+        navigate("/");
+
+        // Option 2: Si le flash persiste, décommenter la ligne suivante pour forcer un rechargement
+        // window.location.href = "/";
+
+        // Reset de l'état après navigation
+        setTimeout(() => {
+          setIsLoggingOut(false);
+        }, 100);
+      }, 200);
+    }, 150);
   };
 
   // Fonction d'inscription simulée (pour extension future)
@@ -124,6 +146,7 @@ export const AuthProvider = ({ children }) => {
   const value = {
     user,
     loading,
+    isLoggingOut,
     login,
     logout,
     register,
@@ -134,19 +157,49 @@ export const AuthProvider = ({ children }) => {
     isDirector: user?.role === "director",
   };
 
-  if (loading) {
+  if (loading || isLoggingOut) {
     return (
       <div
         style={{
           display: "flex",
+          flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
           height: "100vh",
           fontSize: "18px",
-          color: "#364252",
+          color: "#ffffff",
+          background:
+            "linear-gradient(135deg, var(--primary-blue-dark) 0%, var(--primary-blue) 100%)",
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          zIndex: 9999,
         }}
       >
-        Chargement...
+        <div
+          style={{
+            width: "40px",
+            height: "40px",
+            border: "4px solid rgba(255, 255, 255, 0.3)",
+            borderTop: "4px solid #ffffff",
+            borderRadius: "50%",
+            animation: "spin 1s linear infinite",
+            marginBottom: "20px",
+          }}
+        />
+        <div style={{ fontSize: "16px", opacity: 0.9 }}>
+          {isLoggingOut ? "Déconnexion en cours..." : "Chargement..."}
+        </div>
+        <style>
+          {`
+            @keyframes spin {
+              0% { transform: rotate(0deg); }
+              100% { transform: rotate(360deg); }
+            }
+          `}
+        </style>
       </div>
     );
   }
