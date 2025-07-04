@@ -6,14 +6,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Bon Cours - Plateforme d'apprentissage des langues moderne et intuitive. Version de démonstration."
+      content="Bon Cours - Plateforme d'apprentissage des langues"
     />
-    <meta name="author" content="Bon Cours Team" />
-    <meta name="theme-color" content="#364252" />
-    <title>Bon Cours - Apprenez les langues avec plaisir</title>
+    <meta name="theme-color" content="#2563eb" />
+
+    <!-- Preconnect pour les polices -->
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin="anonymous"
+    />
+
+    <!-- Manifest et icônes -->
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
+
+    <!-- Styles critiques -->
+    <link rel="stylesheet" href="/src/index.css" />
+
+    <!-- Scripts -->
+    <link
+      rel="modulepreload"
+      href="/src/main.jsx"
+      as="script"
+      crossorigin="anonymous"
+    />
+
+    <!-- Meta tags pour SEO -->
+    <meta property="og:title" content="Bon Cours" />
+    <meta
+      property="og:description"
+      content="Plateforme d'apprentissage des langues"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://boncours.fr" />
+    <meta property="og:image" content="/icons/icon-512x512.png" />
+
+    <title>Bon Cours</title>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+    <noscript>
+      <div style="text-align: center; padding: 2rem">
+        JavaScript est nécessaire pour utiliser cette application.
+      </div>
+    </noscript>
   </body>
 </html>

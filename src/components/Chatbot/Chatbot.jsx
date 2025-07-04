@@ -30,8 +30,14 @@ const Chatbot = () => {
     bonjour: "Bonjour ! Comment allez-vous ? En quoi puis-je vous aider ?",
     cours:
       "Nous proposons des cours de français, anglais, espagnol et allemand. Tous les niveaux sont acceptés, du débutant (A1) au niveau maîtrise (C2). Souhaitez-vous plus d'informations sur une langue en particulier ?",
-    tarif:
-      "Nos tarifs varient selon le format : 40€/h pour les cours particuliers, 299€/trimestre pour les cours en groupe, 450€ pour les stages intensifs de 2 semaines. Voulez-vous plus de détails ?",
+    tarif_initial:
+      "Voici nos différentes formules :\n- Cours particuliers : 40€/h\n- Cours en groupe (max 8 personnes) : 299€/trimestre\n- Stages intensifs (2 semaines) : 450€\n\nQuelle formule vous intéresse le plus ?",
+    tarif_particulier:
+      "Les cours particuliers sont à 40€/h. Nous proposons des forfaits avantageux :\n- 10h : 380€ (5% de réduction)\n- 20h : 720€ (10% de réduction)\n- 30h : 1020€ (15% de réduction)",
+    tarif_groupe:
+      "Les cours en groupe sont à 299€/trimestre, soit environ 8€/h. Cela inclut :\n- 2h de cours par semaine\n- Supports pédagogiques\n- Accès à notre plateforme en ligne\n- Groupes de 8 personnes maximum",
+    tarif_intensif:
+      "Les stages intensifs de 2 semaines sont à 450€. Le programme comprend :\n- 30h de cours\n- Ateliers de conversation\n- Supports pédagogiques\n- Certificat de niveau\n- Groupes de 6 personnes maximum",
     horaire:
       "Nous sommes ouverts du lundi au vendredi de 8h à 20h, et le samedi de 9h à 17h. Nos cours ont lieu en journée et en soirée pour s'adapter à vos disponibilités.",
     inscription:
@@ -72,14 +78,26 @@ const Chatbot = () => {
     ) {
       return botResponses.cours;
     }
+
+    // Logique améliorée pour les tarifs
     if (
       message.includes("prix") ||
       message.includes("tarif") ||
       message.includes("coût") ||
       message.includes("combien")
     ) {
-      return botResponses.tarif;
+      if (message.includes("particulier") || message.includes("individuel")) {
+        return botResponses.tarif_particulier;
+      }
+      if (message.includes("groupe") || message.includes("collectif")) {
+        return botResponses.tarif_groupe;
+      }
+      if (message.includes("intensif") || message.includes("stage")) {
+        return botResponses.tarif_intensif;
+      }
+      return botResponses.tarif_initial;
     }
+
     if (
       message.includes("horaire") ||
       message.includes("heure") ||

@@ -5,8 +5,7 @@
   border-radius: 8px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease-in-out;
-  border: none;
+  border: 2px solid transparent;
   outline: none;
   font-family: inherit;
 }
@@ -41,14 +40,9 @@
   color: white;
 }
 
-.btn-text {
-  background-color: transparent;
-  color: var(--primary-color);
-  padding: 0;
-}
-
-.btn-text:hover {
-  text-decoration: underline;
+/* Focus state - No effects */
+.btn:focus {
+  outline: none;
 }
 
 /* Sizes */
@@ -76,11 +70,6 @@
 .btn:disabled {
   opacity: 0.6;
   cursor: not-allowed;
-}
-
-/* Focus state */
-.btn:focus {
-  box-shadow: 0 0 0 3px var(--primary-color-light);
 }
 
 /* Dark theme adjustments */

@@ -6,25 +6,18 @@
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  border: none;
+  border: 2px solid transparent;
   background: linear-gradient(135deg, var(--secondary-gold), #d4a574);
   color: white;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 20px rgba(234, 189, 131, 0.4);
   z-index: 1000;
-  transition: all 0.3s ease;
 }
 
 .chatbot-toggle:hover {
-  transform: scale(1.1);
-  box-shadow: 0 6px 25px rgba(234, 189, 131, 0.6);
-}
-
-.chatbot-toggle:active {
-  transform: scale(0.95);
+  border-color: var(--secondary-gold);
 }
 
 .notification-dot {
@@ -52,6 +45,7 @@
   overflow: hidden;
   z-index: 999;
   border: 1px solid rgba(54, 66, 82, 0.1);
+  animation: none;
 }
 
 /* === HEADER === */
@@ -445,32 +439,13 @@
 /* === Animation d'apparition === */
 @keyframes slideInUp {
   from {
-    opacity: 0;
-    transform: translateY(20px) scale(0.9);
+    transform: none;
   }
   to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: none;
   }
 }
 
 .chatbot-window {
-  animation: slideInUp 0.3s ease-out;
-}
-
-/* === Effet de pulsation pour le bouton === */
-@keyframes pulse {
-  0% {
-    box-shadow: 0 4px 20px rgba(234, 189, 131, 0.4);
-  }
-  50% {
-    box-shadow: 0 4px 20px rgba(234, 189, 131, 0.7);
-  }
-  100% {
-    box-shadow: 0 4px 20px rgba(234, 189, 131, 0.4);
-  }
-}
-
-.chatbot-toggle:not(:hover) {
-  animation: pulse 2s infinite;
+  animation: none;
 }

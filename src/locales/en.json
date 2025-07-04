@@ -43,7 +43,18 @@
     "cta_learn_more": "Learn more",
     "testimonial_1": "Amazing school! I improved quickly thanks to their innovative methods.",
     "testimonial_2": "Highly skilled teachers and a friendly atmosphere—I totally recommend it!",
-    "testimonial_3": "Top-quality training with outstanding personalised support."
+    "testimonial_3": "Top-quality training with outstanding personalised support.",
+    "schedule": {
+      "title": "Available In-Person Classes",
+      "description": "Discover our in-person classes and their availability",
+      "interestedButton": "I'm interested",
+      "fullCourse": "Class full",
+      "noEvents": "No classes today",
+      "interestModal": {
+        "title": "I'm interested",
+        "submit": "Send my request"
+      }
+    }
   },
   "about": {
     "history_title": "Our story",
@@ -247,17 +258,105 @@
   },
   "test": {
     "title": "Level Test",
-    "subtitle": "Assess your language skills",
+    "subtitle": "Evaluate your language skills",
     "description": "Choose a language and discover your current level with our adaptive test.",
     "chooseLanguage": "Choose your language",
-    "startTest": "Start test",
+    "startTest": "Start the test",
     "backToHome": "Back to home",
     "languages": {
-      "english": "English",
-      "french": "French",
-      "german": "German",
-      "spanish": "Spanish"
-    }
+      "english": {
+        "name": "English",
+        "description": "Evaluate your English level with our comprehensive test"
+      },
+      "french": {
+        "name": "French",
+        "description": "Test your French skills"
+      },
+      "german": {
+        "name": "German",
+        "description": "Discover your German level"
+      },
+      "spanish": {
+        "name": "Spanish",
+        "description": "Evaluate your Spanish proficiency"
+      }
+    },
+    "levels": {
+      "A1": {
+        "name": "Beginner (A1)",
+        "description": "Beginner level - Understand and use familiar everyday expressions"
+      },
+      "A2": {
+        "name": "Elementary (A2)",
+        "description": "Elementary level - Communicate in simple and routine tasks"
+      },
+      "B1": {
+        "name": "Intermediate (B1)",
+        "description": "Intermediate level - Deal with most situations encountered while traveling"
+      },
+      "B2": {
+        "name": "Upper Intermediate (B2)",
+        "description": "Upper intermediate level - Express yourself clearly on complex subjects"
+      },
+      "C1": {
+        "name": "Advanced (C1)",
+        "description": "Advanced level - Understand a wide range of demanding, longer texts"
+      },
+      "C2": {
+        "name": "Mastery (C2)",
+        "description": "Mastery level - Understand with ease virtually everything heard or read"
+      }
+    },
+    "email": {
+      "title": "Your email",
+      "description": "Enter your email to receive your results",
+      "placeholder": "example@email.com",
+      "submit": "Continue",
+      "validation": {
+        "required": "Email is required",
+        "invalid": "Please enter a valid email"
+      }
+    },
+    "progress": {
+      "question": "Question {{current}}/{{total}}",
+      "timeLeft": "Time left: {{time}}",
+      "next": "Next question"
+    },
+    "results": {
+      "title": "Your results",
+      "subtitle": "{{language}} test",
+      "level": "Your level: {{level}}",
+      "score": "Score: {{score}}%",
+      "correct": "Correct answers: {{correct}}/{{total}}",
+      "emailSent": "Detailed results have been sent to {{email}}",
+      "restart": "Take the test again",
+      "contact": "Contact us"
+    },
+    "language_selection_desc": "Select the language you want to evaluate",
+    "test_of": "Test of",
+    "evaluation_desc": "Evaluate your level and receive a detailed analysis of your skills",
+    "change_language": "Change language",
+    "before_start": "Before starting",
+    "email_instruction": "Enter your email to receive your detailed results",
+    "email_label": "Your email address",
+    "email_placeholder": "example@email.com",
+    "duration": "Duration: 15-20 minutes",
+    "questions_count": "30 adaptive questions",
+    "level_cecrl": "CEFR Assessment (A1-C2)",
+    "change_language_warning": "Are you sure you want to change language? Your progress will be lost.",
+    "question_of": "Question",
+    "of": "of",
+    "level": "Level",
+    "congratulations": "Congratulations!",
+    "test_completed": "Your test of",
+    "is_completed": "is completed",
+    "correct_answers": "Correct answers",
+    "percentage": "Percentage",
+    "cecrl_level": "CEFR Level",
+    "email_sent": "Detailed results have been sent to",
+    "contact_info": "Our team will contact you soon to discuss your learning journey",
+    "test_another_language": "Test another language",
+    "contact_us": "Contact us"
   },
   "login": {
     "loading": "Loading...",
@@ -836,5 +935,11 @@
       "title": "No students found",
       "message": "Try modifying your search criteria"
     }
+  },
+  "common": {
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "message": "Message"
   }
 }

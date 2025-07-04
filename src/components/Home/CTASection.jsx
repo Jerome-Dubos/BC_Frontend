@@ -19,7 +19,7 @@ const CTASection = () => {
         <h2>{t("home.cta_section_title")}</h2>
         <p>{t("home.cta_section_desc")}</p>
         <div className="cta-buttons">
-          <Link to="/test" className="btn btn-primary pulse-strong">
+          <Link to="/test" className="btn btn-primary">
             <IoPlayCircleOutline size={20} />
             {t("home.cta_free_test")}
           </Link>

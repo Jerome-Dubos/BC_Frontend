@@ -1,81 +1,278 @@
-import { AnimatePresence, motion } from "framer-motion";
-import React, { useEffect, useState } from "react";
-import { createPortal } from "react-dom";
+import { AnimatePresence } from "framer-motion";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
-  IoCallOutline,
-  IoCheckmarkCircleOutline,
+  IoAddCircleOutline,
+  IoArrowBack,
+  IoArrowForward,
+  IoCalendarOutline,
+  IoCheckmarkCircle,
   IoCloseOutline,
-  IoGlobeOutline,
-  IoInformationCircleOutline,
   IoLocationOutline,
-  IoMicOffOutline,
-  IoMicOutline,
   IoPersonOutline,
+  IoSchoolOutline,
   IoTimeOutline,
-  IoVideocamOffOutline,
-  IoVideocamOutline,
 } from "react-icons/io5";
 import "./Schedule.css";
-
-// Portal pour afficher les modales en pleine page
-const ModalPortal = ({ children, isOpen }) => {
-  if (!isOpen) return null;
-  return createPortal(children, document.body);
-};
 
 const Schedule = () => {
   const { t } = useTranslation();
   const [currentWeek, setCurrentWeek] = useState(new Date());
-  const [showVideoModal, setShowVideoModalLocal] = useState(false);
-  const [selectedClassLocal, setSelectedClassLocal] = useState(null);
-  const [videoControls, setVideoControls] = useState({
-    mic: true,
-    camera: true,
-  });
-
-  // États pour les modales et notifications
-  const [showLocationModal, setShowLocationModal] = useState(false);
-  const [locationInfo, setLocationInfo] = useState(null);
+  const [showCreateModal, setShowCreateModal] = useState(false);
   const [showNotification, setShowNotification] = useState(false);
   const [notification, setNotification] = useState({ type: "", message: "" });
-  const [isLoading, setIsLoading] = useState(false);
+  const [newCourse, setNewCourse] = useState({
+    title: "",
+    language: "english",
+    level: "A1",
+    date: "",
+    time: "",
+    maxStudents: 10,
+    room: "",
+    mode: "offline",
+  });
 
-  // Gestion de la fermeture des modales avec Échap
-  useEffect(() => {
-    const handleKeyDown = (event) => {
-      if (event.key === "Escape") {
-        if (showVideoModal) setShowVideoModalLocal(false);
-        else if (showLocationModal) setShowLocationModal(false);
-      }
+  // Données de démonstration enrichies
+  const [courses, setCourses] = useState({
+    "2024-01-15": [
+      {
+        id: 1,
+        title: "Anglais - Conversation B1",
+        language: "english",
+        level: "B1",
+        time: "14:00",
+        teacher: "Prof. Smith",
+        maxStudents: 12,
+        enrolledStudents: 8,
+        room: "Salle 101",
+        mode: "offline",
+        enrolled: false,
+      },
+      {
+        id: 2,
+        title: "Français - Grammaire A2",
+        language: "french",
+        level: "A2",
+        time: "10:00",
+        teacher: "Prof. Dubois",
+        maxStudents: 10,
+        enrolledStudents: 5,
+        room: "Salle 202",
+        mode: "offline",
+        enrolled: true,
+      },
+    ],
+    "2024-01-16": [
+      {
+        id: 3,
+        title: "Espagnol - Conversation B2",
+        language: "spanish",
+        level: "B2",
+        time: "16:00",
+        teacher: "Prof. Garcia",
+        maxStudents: 8,
+        enrolledStudents: 7,
+        room: "Salle 103",
+        mode: "offline",
+        enrolled: false,
+      },
+      {
+        id: 4,
+        title: "Allemand - Débutant A1",
+        language: "german",
+        level: "A1",
+        time: "11:00",
+        teacher: "Prof. Schmidt",
+        maxStudents: 10,
+        enrolledStudents: 3,
+        room: "Salle 104",
+        mode: "offline",
+        enrolled: false,
+      },
+    ],
+    "2024-01-17": [
+      {
+        id: 5,
+        title: "Anglais - Business B2",
+        language: "english",
+        level: "B2",
+        time: "09:00",
+        teacher: "Prof. Johnson",
+        maxStudents: 8,
+        enrolledStudents: 6,
+        room: "Salle 201",
+        mode: "offline",
+        enrolled: true,
+      },
+    ],
+    "2024-01-18": [
+      {
+        id: 6,
+        title: "Français - Culture C1",
+        language: "french",
+        level: "C1",
+        time: "15:00",
+        teacher: "Prof. Martin",
+        maxStudents: 6,
+        enrolledStudents: 4,
+        room: "Salle 301",
+        mode: "offline",
+        enrolled: false,
+      },
+      {
+        id: 7,
+        title: "Espagnol - Débutant A1",
+        language: "spanish",
+        level: "A1",
+        time: "18:00",
+        teacher: "Prof. Rodriguez",
+        maxStudents: 12,
+        enrolledStudents: 5,
+        room: "Salle 102",
+        mode: "offline",
+        enrolled: false,
+      },
+    ],
+    "2024-01-19": [
+      {
+        id: 8,
+        title: "Allemand - Culture B1",
+        language: "german",
+        level: "B1",
+        time: "13:00",
+        teacher: "Prof. Weber",
+        maxStudents: 8,
+        enrolledStudents: 7,
+        room: "Salle 203",
+        mode: "offline",
+        enrolled: true,
+      },
+    ],
+    "2024-01-20": [
+      {
+        id: 9,
+        title: "Anglais - TOEIC Prep",
+        language: "english",
+        level: "B2",
+        time: "10:00",
+        teacher: "Prof. Wilson",
+        maxStudents: 15,
+        enrolledStudents: 12,
+        room: "Salle 401",
+        mode: "offline",
+        enrolled: false,
+      },
+    ],
+    "2024-01-21": [
+      {
+        id: 10,
+        title: "Français - Conversation C2",
+        language: "french",
+        level: "C2",
+        time: "14:00",
+        teacher: "Prof. Petit",
+        maxStudents: 6,
+        enrolledStudents: 3,
+        room: "Salle 302",
+        mode: "offline",
+        enrolled: false,
+      },
+      {
+        id: 11,
+        title: "Espagnol - Business B2",
+        language: "spanish",
+        level: "B2",
+        time: "16:00",
+        teacher: "Prof. Lopez",
+        maxStudents: 8,
+        enrolledStudents: 6,
+        room: "Salle 204",
+        mode: "offline",
+        enrolled: true,
+      },
+    ],
+  });
+
+  const handleCreateCourse = () => {
+    const dateStr = newCourse.date;
+    const newId =
+      Math.max(
+        ...Object.values(courses)
+          .flat()
+          .map((c) => c.id),
+        0
+      ) + 1;
+
+    const courseToAdd = {
+      ...newCourse,
+      id: newId,
+      enrolledStudents: 0,
+      teacher: "Prof. Smith", // À remplacer par le prof connecté
+      enrolled: false,
     };
 
-    document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [showVideoModal, showLocationModal]);
+    setCourses((prev) => ({
+      ...prev,
+      [dateStr]: [...(prev[dateStr] || []), courseToAdd],
+    }));
 
-  // Fonction pour gérer le clic en dehors de la modale
-  const handleOverlayClick = (e, closeFunction) => {
-    if (e.target === e.currentTarget) {
-      closeFunction();
-    }
+    setShowCreateModal(false);
+    showFloatingNotification(
+      "success",
+      t("schedule.notifications.courseCreated")
+    );
+    setNewCourse({
+      title: "",
+      language: "english",
+      level: "A1",
+      date: "",
+      time: "",
+      maxStudents: 10,
+      room: "",
+      mode: "offline",
+    });
   };
 
-  // Fonction pour afficher une notification flottante
+  const handleEnrollment = (courseId, dateStr) => {
+    setCourses((prev) => {
+      const updatedCourses = { ...prev };
+      const courseIndex = updatedCourses[dateStr].findIndex(
+        (c) => c.id === courseId
+      );
+
+      if (courseIndex !== -1) {
+        const course = updatedCourses[dateStr][courseIndex];
+
+        if (!course.enrolled && course.enrolledStudents < course.maxStudents) {
+          course.enrolledStudents += 1;
+          course.enrolled = true;
+          showFloatingNotification(
+            "success",
+            t("schedule.notifications.enrolled")
+          );
+        } else if (course.enrolled) {
+          course.enrolledStudents -= 1;
+          course.enrolled = false;
+          showFloatingNotification(
+            "info",
+            t("schedule.notifications.unenrolled")
+          );
+        } else {
+          showFloatingNotification("error", t("schedule.notifications.full"));
+          return prev;
+        }
+      }
+
+      return updatedCourses;
+    });
+  };
+
   const showFloatingNotification = (type, message) => {
     setNotification({ type, message });
     setShowNotification(true);
     setTimeout(() => {
       setShowNotification(false);
     }, 4000);
-  };
-
-  // Fonction pour simuler le chargement
-  const simulateLoading = (duration = 2000) => {
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, duration);
   };
 
   const getWeekDays = (date) => {
@@ -93,767 +290,279 @@ const Schedule = () => {
     return week;
   };
 
-  const weekDays = getWeekDays(currentWeek);
-  const today = new Date();
-
-  // Données de démonstration enrichies avec mode présentiel/visio
-  const events = {
-    "2024-01-15": [
-      {
-        id: 1,
-        title: "Grammaire B1",
-        time: "09:00",
-        type: "grammar",
-        teacher: "Prof. Martin",
-        students: 12,
-        status: "confirmed",
-        mode: "offline", // présentiel
-        room: "Salle 101",
-        building: "Bâtiment A - 1er étage",
-        address: "15 Rue de la Paix, 75001 Paris",
-      },
-      {
-        id: 2,
-        title: "Conversation A2",
-        time: "14:00",
-        type: "conversation",
-        teacher: "Prof. Dubois",
-        students: 8,
-        status: "confirmed",
-        mode: "online", // visio
-        room: "Zoom",
-        meetingId: "123-456-789",
-        password: "BonCours2024",
-      },
-    ],
-    "2024-01-16": [
-      {
-        id: 3,
-        title: "Vocabulaire B2",
-        time: "10:30",
-        type: "vocabulary",
-        teacher: "Prof. Leroy",
-        students: 15,
-        status: "confirmed",
-        mode: "offline",
-        room: "Salle 203",
-        building: "Bâtiment B - 2ème étage",
-        address: "15 Rue de la Paix, 75001 Paris",
-      },
-      {
-        id: 4,
-        title: "Écoute B2",
-        time: "16:00",
-        type: "listening",
-        teacher: "Prof. Bernard",
-        students: 10,
-        status: "pending",
-        mode: "online",
-        room: "Teams",
-        meetingId: "987-654-321",
-        password: "Ecoute2024",
-      },
-    ],
-    "2024-01-17": [
-      {
-        id: 5,
-        title: "Expression Orale",
-        time: "09:30",
-        type: "speaking",
-        teacher: "Prof. Moreau",
-        students: 6,
-        status: "confirmed",
-        mode: "online",
-        room: "Google Meet",
-        meetingId: "abc-def-ghi",
-        password: "Expression2024",
-      },
-      {
-        id: 6,
-        title: "Atelier Écriture",
-        time: "15:00",
-        type: "writing",
-        teacher: "Prof. Rousseau",
-        students: 12,
-        status: "confirmed",
-        mode: "offline",
-        room: "Salle 105",
-        building: "Bâtiment A - 1er étage",
-        address: "15 Rue de la Paix, 75001 Paris",
-      },
-    ],
-    "2024-01-18": [
-      {
-        id: 7,
-        title: "Préparation DELF",
-        time: "11:00",
-        type: "exam",
-        teacher: "Prof. Laurent",
-        students: 8,
-        status: "confirmed",
-        mode: "offline",
-        room: "Salle d'examen",
-        building: "Bâtiment C - Rez-de-chaussée",
-        address: "15 Rue de la Paix, 75001 Paris",
-      },
-    ],
-    "2024-01-19": [
-      {
-        id: 8,
-        title: "Culture Française",
-        time: "13:30",
-        type: "culture",
-        teacher: "Prof. Petit",
-        students: 20,
-        status: "confirmed",
-        mode: "online",
-        room: "Webex",
-        meetingId: "456-789-123",
-        password: "Culture2024",
-      },
-      {
-        id: 9,
-        title: "Phonétique",
-        time: "17:00",
-        type: "pronunciation",
-        teacher: "Prof. Blanc",
-        students: 10,
-        status: "pending",
-        mode: "offline",
-        room: "Lab Audio",
-        building: "Bâtiment B - Sous-sol",
-        address: "15 Rue de la Paix, 75001 Paris",
-      },
-    ],
-  };
-
-  // Prochains cours avec mode présentiel/visio
-  const upcomingClasses = [
-    {
-      id: 1,
-      title: t("schedule.courses.grammaireAvancee"),
-      time: t("schedule.timeRelative.tomorrow", { time: "14:00" }),
-      type: "grammar",
-      teacher: "Prof. Martin",
-      students: 12,
-      level: "B2",
-      room: "Salle 101",
-      mode: "offline",
-      building: "Bâtiment A - 1er étage",
-      address: "15 Rue de la Paix, 75001 Paris",
-    },
-    {
-      id: 2,
-      title: t("schedule.courses.conversationLibre"),
-      time: t("schedule.timeRelative.today", { time: "16:30" }),
-      type: "conversation",
-      teacher: "Prof. Dubois",
-      students: 8,
-      level: "B1",
-      room: "Zoom",
-      mode: "online",
-      meetingId: "555-666-777",
-      password: "Conversation2024",
-    },
-    {
-      id: 3,
-      title: t("schedule.courses.atelierPrononciation"),
-      time: t("schedule.timeRelative.friday", { time: "10:00" }),
-      type: "pronunciation",
-      teacher: "Prof. Blanc",
-      students: 6,
-      level: "A2",
-      room: "Google Meet",
-      mode: "online",
-      meetingId: "111-222-333",
-      password: "Prononciation2024",
-    },
-  ];
-
-  // Participants simulés pour la modale vidéo
-  const participants = [
-    { id: 1, name: "Marie Dupont", avatar: "MD", status: "online" },
-    { id: 2, name: "Jean Martin", avatar: "JM", status: "online" },
-    { id: 3, name: "Sophie Laurent", avatar: "SL", status: "online" },
-    { id: 4, name: "Pierre Dubois", avatar: "PD", status: "online" },
-    { id: 5, name: "Emma Wilson", avatar: "EW", status: "online" },
-  ];
-
   const formatDate = (date) => {
     return date.toISOString().split("T")[0];
   };
 
-  const isToday = (date) => {
-    return formatDate(date) === formatDate(today);
-  };
-
   const navigateWeek = (direction) => {
-    simulateLoading(1500);
     const newDate = new Date(currentWeek);
-    newDate.setDate(currentWeek.getDate() + direction * 7);
+    newDate.setDate(newDate.getDate() + direction * 7);
     setCurrentWeek(newDate);
-    showFloatingNotification(
-      "info",
-      t("schedule.ui.scheduleUpdated", {
-        date: newDate.toLocaleDateString("fr-FR"),
-      })
-    );
   };
 
-  const handleClassClick = (event) => {
-    // Utiliser la même logique que pour rejoindre un cours
-    handleJoinClass(event);
-  };
-
-  // Fonction pour rejoindre un cours
-  const handleJoinClass = (classInfo) => {
-    if (classInfo.mode === "online") {
-      // Cours en visio - ouvrir directement la modale vidéo
-      setSelectedClassLocal(classInfo);
-      setShowVideoModalLocal(true);
-      showFloatingNotification(
-        "success",
-        t("schedule.notifications.connectionSuccess", {
-          className: classInfo.title,
-        })
-      );
-    } else {
-      // Cours en présentiel - afficher la modale de localisation
-      setLocationInfo(classInfo);
-      setShowLocationModal(true);
-    }
-  };
-
-  // Fonction pour voir les infos d'un cours - SUPPRIMÉE car redondante
-  // Les infos sont déjà dans les modales de rejoindre/localiser
-
-  // Contrôles vidéo
-  const toggleMic = () => {
-    setVideoControls((prev) => ({ ...prev, mic: !prev.mic }));
-    showFloatingNotification(
-      videoControls.mic ? "info" : "success",
-      videoControls.mic
-        ? t("schedule.notifications.micDisabled")
-        : t("schedule.notifications.micEnabled")
-    );
-  };
-
-  const toggleCamera = () => {
-    setVideoControls((prev) => ({ ...prev, camera: !prev.camera }));
-    showFloatingNotification(
-      videoControls.camera ? "info" : "success",
-      videoControls.camera
-        ? t("schedule.notifications.cameraDisabled")
-        : t("schedule.notifications.cameraEnabled")
-    );
-  };
-
-  const leaveCall = () => {
-    simulateLoading(1000);
-    setTimeout(() => {
-      setShowVideoModalLocal(false);
-      setSelectedClassLocal(null);
-      showFloatingNotification("info", t("schedule.notifications.leftClass"));
-    }, 1000);
-  };
-
-  // Fonction pour ouvrir Google Maps avec l'itinéraire
-  const openGoogleMaps = (locationInfo) => {
-    if (!locationInfo || !locationInfo.address) {
-      showFloatingNotification(
-        "error",
-        t("schedule.notifications.addressNotAvailable")
-      );
-      return;
-    }
-
-    // Construire l'URL Google Maps pour l'itinéraire
-    const destination = encodeURIComponent(`${locationInfo.address}`);
-    const schoolName = encodeURIComponent("Bon Cours - École de langues");
-    const googleMapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${destination}&destination_place_id=${schoolName}`;
-
-    // Ouvrir dans un nouvel onglet
-    window.open(googleMapsUrl, "_blank", "noopener,noreferrer");
-
-    // Fermer la modale et afficher une notification
-    setShowLocationModal(false);
-    showFloatingNotification(
-      "success",
-      t("schedule.notifications.routeOpened")
-    );
-  };
+  const weekDays = getWeekDays(currentWeek);
 
   return (
-    <>
-      <motion.div
-        className="schedule-section"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        {/* Barre de chargement */}
-        <div className={`loading-bar ${isLoading ? "active" : ""}`}></div>
-
-        <div className="schedule-header">
-          <h3 className="schedule-title">{t("schedule.ui.weeklySchedule")}</h3>
-          <div className="schedule-week-navigation">
-            <motion.button
-              className="schedule-nav-btn"
-              onClick={() => navigateWeek(-1)}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-              disabled={isLoading}
-            >
-              ‹
-            </motion.button>
-            <span className="schedule-week-range">
+    <div className="schedule-dashboard">
+      <div className="schedule-header">
+        <h2 className="schedule-title">
+          <IoCalendarOutline />
+          {t("schedule.title")}
+        </h2>
+        <div className="schedule-navigation">
+          <div className="week-selector">
+            <button className="nav-button" onClick={() => navigateWeek(-1)}>
+              <IoArrowBack />
+            </button>
+            <span>
               {weekDays[0].toLocaleDateString("fr-FR", {
                 day: "numeric",
                 month: "long",
-              })}{" "}
-              -{" "}
+              })}
+              {" - "}
               {weekDays[6].toLocaleDateString("fr-FR", {
                 day: "numeric",
                 month: "long",
-                year: "numeric",
               })}
             </span>
-            <motion.button
-              className="schedule-nav-btn"
-              onClick={() => navigateWeek(1)}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-              disabled={isLoading}
-            >
-              ›
-            </motion.button>
+            <button className="nav-button" onClick={() => navigateWeek(1)}>
+              <IoArrowForward />
+            </button>
           </div>
-        </div>
-
-        <div className="schedule-calendar-container">
-          <div className="schedule-calendar-grid">
-            {weekDays.map((day, index) => {
-              const dateKey = formatDate(day);
-              const dayEvents = events[dateKey] || [];
-              const dayNames = [
-                t("schedule.days.monday").slice(0, 3),
-                t("schedule.days.tuesday").slice(0, 3),
-                t("schedule.days.wednesday").slice(0, 3),
-                t("schedule.days.thursday").slice(0, 3),
-                t("schedule.days.friday").slice(0, 3),
-                t("schedule.days.saturday").slice(0, 3),
-                t("schedule.days.sunday").slice(0, 3),
-              ];
-
-              return (
-                <div
-                  key={index}
-                  className={`schedule-calendar-day ${
-                    isToday(day) ? "today" : ""
-                  }`}
-                >
-                  <div className="schedule-day-header-inline">
-                    <span className="schedule-day-name">{dayNames[index]}</span>
-                    <span className="schedule-day-number">{day.getDate()}</span>
-                  </div>
-
-                  <div className="schedule-day-events">
-                    {dayEvents.map((event) => (
-                      <motion.div
-                        key={event.id}
-                        className={`schedule-event ${event.type} ${event.status} ${event.mode}`}
-                        onClick={() => handleClassClick(event)}
-                        whileHover={{ scale: 1.02, y: -2 }}
-                        whileTap={{ scale: 0.98 }}
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: event.id * 0.1 }}
-                      >
-                        <div className="schedule-event-time">{event.time}</div>
-                        <div className="schedule-event-title">
-                          {event.title}
-                        </div>
-                        <div className="schedule-event-teacher">
-                          {event.teacher}
-                        </div>
-                        <div className="schedule-event-students">
-                          {t("schedule.ui.students", { count: event.students })}
-                        </div>
-                        <div className={`schedule-event-mode ${event.mode}`}>
-                          {event.mode === "online"
-                            ? t("schedule.ui.online")
-                            : t("schedule.ui.offline")}
-                        </div>
-                      </motion.div>
-                    ))}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        <div className="schedule-bottom-section">
-          <div className="schedule-upcoming-classes">
-            <h4 className="schedule-upcoming-title">
-              {t("schedule.ui.upcomingClasses")}
-            </h4>
-            <div className="schedule-classes-list">
-              {upcomingClasses.map((classItem, index) => (
-                <motion.div
-                  key={classItem.id}
-                  className="schedule-class-item"
-                  whileHover={{ scale: 1.02, x: 5 }}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                >
-                  <div className="schedule-class-info">
-                    <h5 className="schedule-class-title">{classItem.title}</h5>
-                    <p className="schedule-class-time">{classItem.time}</p>
-                    <div className="schedule-class-details">
-                      <span className={`schedule-class-type ${classItem.type}`}>
-                        {classItem.level}
-                      </span>
-                      <span className="schedule-class-room">
-                        {classItem.mode === "online" ? "💻" : "📍"}{" "}
-                        {classItem.room}
-                      </span>
-                      <span className={`schedule-class-mode ${classItem.mode}`}>
-                        {classItem.mode === "online"
-                          ? t("schedule.ui.online")
-                          : t("schedule.ui.offline")}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="schedule-class-actions">
-                    <motion.button
-                      onClick={() => handleJoinClass(classItem)}
-                      className="schedule-join-btn"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      disabled={isLoading}
-                    >
-                      {classItem.mode === "online"
-                        ? t("schedule.ui.join")
-                        : t("schedule.ui.locate")}
-                    </motion.button>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-
-          <motion.div
-            className="study-reminders"
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.3 }}
+          <button
+            className="add-course-btn"
+            onClick={() => setShowCreateModal(true)}
           >
-            <h4>{t("schedule.ui.studyReminders")}</h4>
-            <div className="reminders-list">
-              <motion.div
-                className="reminder-item"
-                whileHover={{ x: 5, scale: 1.02 }}
-              >
-                <div className="reminder-icon">📚</div>
-                <div className="reminder-content">
-                  <p>{t("schedule.reminders.vocabularyReview")}</p>
-                  <span>
-                    {t("schedule.timeRelative.inHours", { count: 2 })}
-                  </span>
-                </div>
-              </motion.div>
-              <motion.div
-                className="reminder-item"
-                whileHover={{ x: 5, scale: 1.02 }}
-              >
-                <div className="reminder-icon">🎧</div>
-                <div className="reminder-content">
-                  <p>{t("schedule.reminders.audioLesson")}</p>
-                  <span>
-                    {t("schedule.timeRelative.tomorrowAt", { time: "14:00" })}
-                  </span>
-                </div>
-              </motion.div>
-              <motion.div
-                className="reminder-item"
-                whileHover={{ x: 5, scale: 1.02 }}
-              >
-                <div className="reminder-icon">✍️</div>
-                <div className="reminder-content">
-                  <p>{t("schedule.reminders.presentPerfectExercises")}</p>
-                  <span>{t("schedule.timeRelative.beforeFriday")}</span>
-                </div>
-              </motion.div>
-              <motion.div
-                className="reminder-item"
-                whileHover={{ x: 5, scale: 1.02 }}
-              >
-                <div className="reminder-icon">🗣️</div>
-                <div className="reminder-content">
-                  <p>{t("schedule.reminders.conversationPractice")}</p>
-                  <span>{t("schedule.timeRelative.thisWeekend")}</span>
-                </div>
-              </motion.div>
-            </div>
-          </motion.div>
+            <IoAddCircleOutline />
+            {t("schedule.addCourse")}
+          </button>
         </div>
-      </motion.div>
+      </div>
 
-      {/* Notification flottante */}
+      <div className="schedule-container">
+        <div className="schedule-grid">
+          {weekDays.map((day) => {
+            const dateStr = formatDate(day);
+            const dayEvents = courses[dateStr] || [];
+
+            return (
+              <div key={dateStr} className="schedule-day">
+                <h3 className="day-header">
+                  {day.toLocaleDateString("fr-FR", {
+                    weekday: "long",
+                    day: "numeric",
+                  })}
+                </h3>
+                <div className="day-events">
+                  {dayEvents.length > 0 ? (
+                    dayEvents.map((course) => (
+                      <div key={course.id} className="course-card">
+                        <div className="course-header">
+                          <h4 className="course-title">{course.title}</h4>
+                          <span className="course-level">{course.level}</span>
+                        </div>
+                        <div className="course-info">
+                          <p className="info-item">
+                            <IoTimeOutline />
+                            {course.time}
+                          </p>
+                          <p className="info-item">
+                            <IoLocationOutline />
+                            {course.room}
+                          </p>
+                          <p className="info-item">
+                            <IoPersonOutline />
+                            {course.enrolledStudents}/{course.maxStudents}
+                          </p>
+                          <p className="info-item">
+                            <IoSchoolOutline />
+                            {course.teacher}
+                          </p>
+                        </div>
+                        <div className="course-actions">
+                          {course.enrolled ? (
+                            <button
+                              className="action-button btn-enrolled"
+                              onClick={() =>
+                                handleEnrollment(course.id, dateStr)
+                              }
+                            >
+                              <IoCheckmarkCircle />
+                              {t("schedule.enrolled")}
+                            </button>
+                          ) : course.enrolledStudents >= course.maxStudents ? (
+                            <button className="action-button btn-full" disabled>
+                              {t("schedule.full")}
+                            </button>
+                          ) : (
+                            <button
+                              className="action-button btn-enroll"
+                              onClick={() =>
+                                handleEnrollment(course.id, dateStr)
+                              }
+                            >
+                              {t("schedule.enroll")}
+                            </button>
+                          )}
+                        </div>
+                      </div>
+                    ))
+                  ) : (
+                    <p className="no-events">{t("schedule.noEvents")}</p>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {showCreateModal && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h3 className="modal-title">{t("schedule.createCourse")}</h3>
+              <button
+                className="modal-close"
+                onClick={() => setShowCreateModal(false)}
+              >
+                <IoCloseOutline />
+              </button>
+            </div>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleCreateCourse();
+              }}
+            >
+              <div className="form-group">
+                <label htmlFor="title">{t("schedule.form.title")}</label>
+                <input
+                  type="text"
+                  id="title"
+                  value={newCourse.title}
+                  onChange={(e) =>
+                    setNewCourse({ ...newCourse, title: e.target.value })
+                  }
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="language">{t("schedule.form.language")}</label>
+                <select
+                  id="language"
+                  value={newCourse.language}
+                  onChange={(e) =>
+                    setNewCourse({ ...newCourse, language: e.target.value })
+                  }
+                >
+                  <option value="english">English</option>
+                  <option value="french">Français</option>
+                  <option value="spanish">Español</option>
+                </select>
+              </div>
+              <div className="form-group">
+                <label htmlFor="level">{t("schedule.form.level")}</label>
+                <select
+                  id="level"
+                  value={newCourse.level}
+                  onChange={(e) =>
+                    setNewCourse({ ...newCourse, level: e.target.value })
+                  }
+                >
+                  <option value="A1">A1</option>
+                  <option value="A2">A2</option>
+                  <option value="B1">B1</option>
+                  <option value="B2">B2</option>
+                  <option value="C1">C1</option>
+                  <option value="C2">C2</option>
+                </select>
+              </div>
+              <div className="form-group">
+                <label htmlFor="date">{t("schedule.form.date")}</label>
+                <input
+                  type="date"
+                  id="date"
+                  value={newCourse.date}
+                  onChange={(e) =>
+                    setNewCourse({ ...newCourse, date: e.target.value })
+                  }
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="time">{t("schedule.form.time")}</label>
+                <input
+                  type="time"
+                  id="time"
+                  value={newCourse.time}
+                  onChange={(e) =>
+                    setNewCourse({ ...newCourse, time: e.target.value })
+                  }
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="maxStudents">
+                  {t("schedule.form.maxStudents")}
+                </label>
+                <input
+                  type="number"
+                  id="maxStudents"
+                  min="1"
+                  max="20"
+                  value={newCourse.maxStudents}
+                  onChange={(e) =>
+                    setNewCourse({
+                      ...newCourse,
+                      maxStudents: parseInt(e.target.value),
+                    })
+                  }
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="room">{t("schedule.form.room")}</label>
+                <input
+                  type="text"
+                  id="room"
+                  value={newCourse.room}
+                  onChange={(e) =>
+                    setNewCourse({ ...newCourse, room: e.target.value })
+                  }
+                  required
+                />
+              </div>
+              <div className="form-actions">
+                <button
+                  type="button"
+                  className="btn-cancel"
+                  onClick={() => setShowCreateModal(false)}
+                >
+                  {t("common.cancel")}
+                </button>
+                <button type="submit" className="btn-submit">
+                  {t("common.create")}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
       <AnimatePresence>
         {showNotification && (
           <motion.div
-            className={`floating-notification ${notification.type}`}
-            initial={{ opacity: 0, y: -100, scale: 0.8 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -100, scale: 0.8 }}
-            transition={{ duration: 0.3 }}
+            className={`notification ${notification.type}`}
+            initial={{ x: 100, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: 100, opacity: 0 }}
           >
-            <div className="notification-icon">
-              {notification.type === "success" && <IoCheckmarkCircleOutline />}
-              {notification.type === "info" && <IoInformationCircleOutline />}
-            </div>
-            <span>{notification.message}</span>
+            {notification.message}
           </motion.div>
         )}
       </AnimatePresence>
-
-      {/* Modale de localisation pour cours en présentiel - PORTAL PLEINE PAGE */}
-      <ModalPortal isOpen={showLocationModal && locationInfo}>
-        <AnimatePresence>
-          {showLocationModal && locationInfo && (
-            <motion.div
-              className="modal-overlay"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={(e) =>
-                handleOverlayClick(e, () => setShowLocationModal(false))
-              }
-            >
-              <motion.div
-                className="location-modal"
-                initial={{ opacity: 0, scale: 0.9, y: -50 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.9, y: -50 }}
-                transition={{ duration: 0.3 }}
-              >
-                <div className="modal-header">
-                  <h3>📍 {t("schedule.ui.locationTitle")}</h3>
-                  <button
-                    className="modal-close"
-                    onClick={() => setShowLocationModal(false)}
-                  >
-                    <IoCloseOutline />
-                  </button>
-                </div>
-
-                <div className="modal-content">
-                  <div className="location-info">
-                    <h4>{locationInfo.title}</h4>
-                    <p className="course-time">⏰ {locationInfo.time}</p>
-                    <p className="course-teacher">👨‍🏫 {locationInfo.teacher}</p>
-
-                    <div className="location-details">
-                      <div className="location-item">
-                        <IoLocationOutline className="location-icon" />
-                        <div>
-                          <strong>{locationInfo.room}</strong>
-                          <p>{locationInfo.building}</p>
-                          <p>{locationInfo.address}</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="modal-actions">
-                  <motion.button
-                    className="primary-btn"
-                    onClick={() => openGoogleMaps(locationInfo)}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    {t("schedule.ui.getDirections")}
-                  </motion.button>
-                  <motion.button
-                    className="secondary-btn"
-                    onClick={() => setShowLocationModal(false)}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    {t("schedule.ui.close")}
-                  </motion.button>
-                </div>
-              </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </ModalPortal>
-
-      {/* Modale Vidéo - PORTAL PLEINE PAGE */}
-      <ModalPortal isOpen={showVideoModal && selectedClassLocal}>
-        <AnimatePresence>
-          {showVideoModal && selectedClassLocal && (
-            <motion.div
-              className="video-modal-overlay"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={(e) =>
-                handleOverlayClick(e, () => setShowVideoModalLocal(false))
-              }
-            >
-              <motion.div
-                className="video-modal"
-                initial={{ opacity: 0, scale: 0.9, y: -50 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.9, y: -50 }}
-                transition={{ duration: 0.3 }}
-              >
-                <div className="video-modal-header">
-                  <h3>📹 {selectedClassLocal.title}</h3>
-                  <button
-                    className="video-modal-close"
-                    onClick={() => setShowVideoModalLocal(false)}
-                  >
-                    <IoCloseOutline />
-                  </button>
-                </div>
-
-                <div className="video-modal-content">
-                  <div className="video-main-area">
-                    <div className="teacher-video-container">
-                      <div className="video-placeholder">
-                        <div className="teacher-avatar">
-                          {selectedClassLocal.teacher
-                            .split(" ")
-                            .map((n) => n[0])
-                            .join("")}
-                        </div>
-                        <h4>{selectedClassLocal.teacher}</h4>
-                        <p>Cours en direct</p>
-                      </div>
-                    </div>
-
-                    <div className="video-controls">
-                      <motion.button
-                        className={`video-control-btn ${
-                          videoControls.mic ? "active" : ""
-                        }`}
-                        onClick={toggleMic}
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}
-                      >
-                        {videoControls.mic ? (
-                          <IoMicOutline />
-                        ) : (
-                          <IoMicOffOutline />
-                        )}
-                      </motion.button>
-
-                      <motion.button
-                        className={`video-control-btn ${
-                          videoControls.camera ? "active" : ""
-                        }`}
-                        onClick={toggleCamera}
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}
-                      >
-                        {videoControls.camera ? (
-                          <IoVideocamOutline />
-                        ) : (
-                          <IoVideocamOffOutline />
-                        )}
-                      </motion.button>
-
-                      <motion.button
-                        className="video-control-btn leave"
-                        onClick={leaveCall}
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}
-                      >
-                        <IoCallOutline />
-                      </motion.button>
-                    </div>
-                  </div>
-
-                  <div className="video-sidebar">
-                    <div className="class-info-section">
-                      <h4>Informations du cours</h4>
-
-                      <div className="class-info-item">
-                        <div className="class-info-icon">
-                          <IoTimeOutline />
-                        </div>
-                        <div className="class-info-text">
-                          <p>Horaire</p>
-                          <span>{selectedClassLocal.time}</span>
-                        </div>
-                      </div>
-
-                      <div className="class-info-item">
-                        <div className="class-info-icon">
-                          <IoPersonOutline />
-                        </div>
-                        <div className="class-info-text">
-                          <p>Professeur</p>
-                          <span>{selectedClassLocal.teacher}</span>
-                        </div>
-                      </div>
-
-                      <div className="class-info-item">
-                        <div className="class-info-icon">
-                          <IoGlobeOutline />
-                        </div>
-                        <div className="class-info-text">
-                          <p>Plateforme</p>
-                          <span>{selectedClassLocal.room}</span>
-                        </div>
-                      </div>
-
-                      {selectedClassLocal.meetingId && (
-                        <div className="class-info-item">
-                          <div className="class-info-icon">
-                            <IoInformationCircleOutline />
-                          </div>
-                          <div className="class-info-text">
-                            <p>ID de réunion</p>
-                            <span>{selectedClassLocal.meetingId}</span>
-                          </div>
-                        </div>
-                      )}
-                    </div>
-
-                    <div className="class-info-section">
-                      <h4>Participants ({participants.length})</h4>
-                      <div className="participants-list">
-                        {participants.map((participant) => (
-                          <div
-                            key={participant.id}
-                            className="participant-item"
-                          >
-                            <div className="participant-avatar">
-                              {participant.avatar}
-                            </div>
-                            <div className="participant-name">
-                              {participant.name}
-                            </div>
-                            <div className="participant-status"></div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </ModalPortal>
-    </>
+    </div>
   );
 };
 

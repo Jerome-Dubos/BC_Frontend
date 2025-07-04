@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import {
   IoLanguageOutline,
@@ -39,37 +37,18 @@ const FeaturesSection = () => {
 
   return (
     <section className="features">
-      <motion.h2
-        initial={{ y: 20, opacity: 0 }}
-        whileInView={{ y: 0, opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-      >
-        {t("home.why_choose")}
-      </motion.h2>
+      <h2>{t("home.why_choose")}</h2>
       <div className="features-grid">
         {features.map((feature, index) => (
-          <motion.div
+          <div
             key={index}
             className="feature-card"
-            initial={{ y: 50, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: index * 0.2 }}
-            whileHover={{ y: -10, scale: 1.05, transition: { duration: 0.3 } }}
             style={{ "--accent-color": feature.color }}
           >
-            <motion.div
-              className="feature-icon"
-              whileHover={{ rotate: 360, scale: 1.2 }}
-              transition={{ duration: 0.5 }}
-            >
-              {feature.icon}
-            </motion.div>
+            <div className="feature-icon">{feature.icon}</div>
             <h3>{feature.title}</h3>
             <p>{feature.description}</p>
-            <div className="feature-glow" />
-          </motion.div>
+          </div>
         ))}
       </div>
     </section>

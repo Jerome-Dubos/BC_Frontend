@@ -43,7 +43,18 @@
     "cta_learn_more": "En savoir plus",
     "testimonial_1": "Excellente école ! J'ai progressé rapidement grâce aux méthodes innovantes.",
     "testimonial_2": "Professeurs très compétents et ambiance conviviale. Je recommande !",
-    "testimonial_3": "Formation de qualité avec un suivi personnalisé exceptionnel."
+    "testimonial_3": "Formation de qualité avec un suivi personnalisé exceptionnel.",
+    "schedule": {
+      "title": "Cours en présentiel disponibles",
+      "description": "Découvrez nos cours en présentiel et leurs disponibilités",
+      "interestedButton": "Je suis intéressé(e)",
+      "fullCourse": "Cours complet",
+      "noEvents": "Pas de cours ce jour",
+      "interestModal": {
+        "title": "Je suis intéressé(e)",
+        "submit": "Envoyer ma demande"
+      }
+    }
   },
   "about": {
     "history_title": "Notre histoire",
@@ -253,11 +264,99 @@
     "startTest": "Commencer le test",
     "backToHome": "Retour à l'accueil",
     "languages": {
-      "english": "Anglais",
-      "french": "Français",
-      "german": "Allemand",
-      "spanish": "Espagnol"
-    }
+      "english": {
+        "name": "Anglais",
+        "description": "Évaluez votre niveau d'anglais avec notre test complet"
+      },
+      "french": {
+        "name": "Français",
+        "description": "Testez vos compétences en français"
+      },
+      "german": {
+        "name": "Allemand",
+        "description": "Découvrez votre niveau d'allemand"
+      },
+      "spanish": {
+        "name": "Espagnol",
+        "description": "Évaluez votre maîtrise de l'espagnol"
+      }
+    },
+    "levels": {
+      "A1": {
+        "name": "Débutant (A1)",
+        "description": "Niveau débutant - Comprendre et utiliser des expressions familières et quotidiennes"
+      },
+      "A2": {
+        "name": "Élémentaire (A2)",
+        "description": "Niveau élémentaire - Communiquer lors de tâches simples et habituelles"
+      },
+      "B1": {
+        "name": "Intermédiaire (B1)",
+        "description": "Niveau intermédiaire - Se débrouiller dans la plupart des situations rencontrées en voyage"
+      },
+      "B2": {
+        "name": "Intermédiaire avancé (B2)",
+        "description": "Niveau intermédiaire avancé - S'exprimer de façon claire sur des sujets complexes"
+      },
+      "C1": {
+        "name": "Avancé (C1)",
+        "description": "Niveau avancé - Comprendre une grande gamme de textes longs et exigeants"
+      },
+      "C2": {
+        "name": "Maîtrise (C2)",
+        "description": "Niveau maîtrise - Comprendre sans effort pratiquement tout ce qui est lu ou entendu"
+      }
+    },
+    "email": {
+      "title": "Votre email",
+      "description": "Entrez votre email pour recevoir vos résultats",
+      "placeholder": "exemple@email.com",
+      "submit": "Continuer",
+      "validation": {
+        "required": "L'email est requis",
+        "invalid": "Veuillez entrer un email valide"
+      }
+    },
+    "progress": {
+      "question": "Question {{current}}/{{total}}",
+      "timeLeft": "Temps restant : {{time}}",
+      "next": "Question suivante"
+    },
+    "results": {
+      "title": "Vos résultats",
+      "subtitle": "Test de {{language}}",
+      "level": "Votre niveau : {{level}}",
+      "score": "Score : {{score}}%",
+      "correct": "Réponses correctes : {{correct}}/{{total}}",
+      "emailSent": "Les résultats détaillés ont été envoyés à {{email}}",
+      "restart": "Refaire le test",
+      "contact": "Nous contacter"
+    },
+    "language_selection_desc": "Sélectionnez la langue que vous souhaitez évaluer",
+    "test_of": "Test de",
+    "evaluation_desc": "Évaluez votre niveau et recevez une analyse détaillée de vos compétences",
+    "change_language": "Changer de langue",
+    "before_start": "Avant de commencer",
+    "email_instruction": "Entrez votre email pour recevoir vos résultats détaillés",
+    "email_label": "Votre adresse email",
+    "email_placeholder": "exemple@email.com",
+    "duration": "Durée : 15-20 minutes",
+    "questions_count": "30 questions adaptatives",
+    "level_cecrl": "Évaluation CECRL (A1-C2)",
+    "change_language_warning": "Êtes-vous sûr de vouloir changer de langue ? Votre progression sera perdue.",
+    "question_of": "Question",
+    "of": "sur",
+    "level": "Niveau",
+    "congratulations": "Félicitations !",
+    "test_completed": "Votre test de",
+    "is_completed": "est terminé",
+    "correct_answers": "Réponses correctes",
+    "percentage": "Pourcentage",
+    "cecrl_level": "Niveau CECRL",
+    "email_sent": "Les résultats détaillés ont été envoyés à",
+    "contact_info": "Notre équipe vous contactera bientôt pour discuter de votre parcours d'apprentissage",
+    "test_another_language": "Tester une autre langue",
+    "contact_us": "Nous contacter"
   },
   "login": {
     "loading": "Chargement...",
@@ -839,5 +938,11 @@
       "title": "Aucun étudiant trouvé",
       "message": "Essayez de modifier vos critères de recherche"
     }
+  },
+  "common": {
+    "name": "Nom",
+    "email": "Email",
+    "phone": "Téléphone",
+    "message": "Message"
   }
 }

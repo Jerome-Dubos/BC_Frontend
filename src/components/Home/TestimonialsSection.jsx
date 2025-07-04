@@ -1,6 +1,3 @@
-/* eslint-disable no-unused-vars */
-
-import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { IoStarOutline } from "react-icons/io5";
@@ -39,61 +36,39 @@ const TestimonialsSection = () => {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
-    }, 5000);
+    }, 8000);
     return () => clearInterval(timer);
   }, [testimonials.length]);
 
   return (
     <section className="testimonials">
-      <motion.h2
-        initial={{ y: 20, opacity: 0 }}
-        whileInView={{ y: 0, opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-      >
-        {t("home.testimonials_title")}
-      </motion.h2>
+      <h2>{t("home.testimonials_title")}</h2>
 
       <div className="testimonials-carousel">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentTestimonial}
-            className="testimonial-card active"
-            initial={{ opacity: 0, x: 100 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -100 }}
-            transition={{ duration: 0.5 }}
-          >
-            <div className="testimonial-avatar">
-              <img
-                src={testimonials[currentTestimonial].avatar}
-                alt={testimonials[currentTestimonial].name}
-                onError={(e) => {
-                  e.target.src = `https://ui-avatars.com/api/?name=${testimonials[currentTestimonial].name}&background=eabd83&color=364252&size=150`;
-                }}
-              />
-            </div>
-            <div className="testimonial-rating">
-              {[...Array(testimonials[currentTestimonial].rating)].map(
-                (_, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ delay: i * 0.1 }}
-                  >
-                    <IoStarOutline size={20} />
-                  </motion.div>
-                )
-              )}
-            </div>
-            <p>"{testimonials[currentTestimonial].text}"</p>
-            <div className="testimonial-author">
-              <strong>{testimonials[currentTestimonial].name}</strong>
-              <span>{testimonials[currentTestimonial].course}</span>
-            </div>
-          </motion.div>
-        </AnimatePresence>
+        <div className="testimonial-card">
+          <div className="testimonial-avatar">
+            <img
+              src={testimonials[currentTestimonial].avatar}
+              alt={testimonials[currentTestimonial].name}
+              loading="lazy"
+              onError={(e) => {
+                e.target.src = `https://ui-avatars.com/api/?name=${testimonials[currentTestimonial].name}&background=eabd83&color=364252&size=150`;
+              }}
+            />
+          </div>
+          <div className="testimonial-rating">
+            {[...Array(testimonials[currentTestimonial].rating)].map((_, i) => (
+              <div key={i}>
+                <IoStarOutline size={20} />
+              </div>
+            ))}
+          </div>
+          <p>"{testimonials[currentTestimonial].text}"</p>
+          <div className="testimonial-author">
+            <strong>{testimonials[currentTestimonial].name}</strong>
+            <span>{testimonials[currentTestimonial].course}</span>
+          </div>
+        </div>
 
         <div className="testimonial-dots">
           {testimonials.map((_, index) => (

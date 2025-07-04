@@ -4,6 +4,7 @@ import CTASection from "../../components/Home/CTASection";
 import FeaturesSection from "../../components/Home/FeaturesSection";
 import HeroSection from "../../components/Home/HeroSection";
 import LanguagesSection from "../../components/Home/LanguagesSection";
+import ScheduleSection from "../../components/Home/ScheduleSection";
 import TestimonialsSection from "../../components/Home/TestimonialsSection";
 import "./Home.css";
 
@@ -17,6 +18,7 @@ const Home = () => (
     <HeroSection />
     <FeaturesSection />
     <LanguagesSection />
+    <ScheduleSection />
     <TestimonialsSection />
     <CTASection />
   </motion.div>
