@@ -1,84 +1,189 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { IoStarOutline } from "react-icons/io5";
+import { IoStar, IoStarOutline, IoChevronBack, IoChevronForward } from "react-icons/io5";
 import "./TestimonialsSection.css";
 
 const TestimonialsSection = () => {
-  const [currentTestimonial, setCurrentTestimonial] = useState(0);
+  const [testimonials, setTestimonials] = useState([]);
+  const [filteredTestimonials, setFilteredTestimonials] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [selectedLanguage, setSelectedLanguage] = useState("Toutes");
+  const [isLoading, setIsLoading] = useState(true);
   const { t } = useTranslation();
 
-  const testimonials = [
-    {
-      name: "Marie L.",
-      course: "B2 English",
-      text: t("home.testimonial_1"),
-      rating: 5,
-      avatar:
-        "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face",
-    },
-    {
-      name: "Pierre M.",
-      course: "A2 Spanish",
-      text: t("home.testimonial_2"),
-      rating: 5,
-      avatar:
-        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
-    },
-    {
-      name: "Sophie D.",
-      course: "B1 German",
-      text: t("home.testimonial_3"),
-      rating: 5,
-      avatar:
-        "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face",
-    },
-  ];
-
+  // Charger les témoignages depuis le JSON
   useEffect(() => {
+    const loadTestimonials = async () => {
+      try {
+        const response = await fetch("/data/testimonials.json");
+        const data = await response.json();
+        setTestimonials(data.testimonials);
+        setFilteredTestimonials(data.testimonials);
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Erreur lors du chargement des témoignages:", error);
+        setIsLoading(false);
+      }
+    };
+
+    loadTestimonials();
+  }, []);
+
+  // Obtenir les langues uniques
+  const languages = ["Toutes", ...new Set(testimonials.map(t => t.language))];
+
+  // Filtrer par langue
+  const handleLanguageFilter = (language) => {
+    setSelectedLanguage(language);
+    if (language === "Toutes") {
+      setFilteredTestimonials(testimonials);
+    } else {
+      setFilteredTestimonials(testimonials.filter(t => t.language === language));
+    }
+    setCurrentIndex(0);
+  };
+
+  // Navigation du carousel
+  const nextTestimonial = () => {
+    setCurrentIndex((prev) => 
+      prev === filteredTestimonials.length - 1 ? 0 : prev + 1
+    );
+  };
+
+  const prevTestimonial = () => {
+    setCurrentIndex((prev) => 
+      prev === 0 ? filteredTestimonials.length - 1 : prev - 1
+    );
+  };
+
+  const goToTestimonial = (index) => {
+    setCurrentIndex(index);
+  };
+
+  // Auto-play du carousel
+  useEffect(() => {
+    if (filteredTestimonials.length <= 1) return;
+
     const timer = setInterval(() => {
-      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
-    }, 8000);
+      nextTestimonial();
+    }, 6000);
+
     return () => clearInterval(timer);
-  }, [testimonials.length]);
+  }, [filteredTestimonials.length, currentIndex]);
+
+  // Rendu des étoiles
+  const renderStars = (rating) => {
+    return Array.from({ length: 5 }, (_, index) => (
+      <span key={index} className="star">
+        {index < rating ? (
+          <IoStar size={20} />
+        ) : (
+          <IoStarOutline size={20} />
+        )}
+      </span>
+    ));
+  };
+
+  if (isLoading) {
+    return (
+      <section className="testimonials">
+        <div className="testimonials-loading">
+          <div className="loading-spinner"></div>
+        </div>
+      </section>
+    );
+  }
+
+  if (filteredTestimonials.length === 0) {
+    return (
+      <section className="testimonials">
+        <div className="testimonials-empty">
+          <h2>{t("home.testimonials_title")}</h2>
+          <p>Aucun témoignage disponible pour cette langue.</p>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="testimonials">
-      <h2>{t("home.testimonials_title")}</h2>
-
-      <div className="testimonials-carousel">
-        <div className="testimonial-card">
-          <div className="testimonial-avatar">
-            <img
-              src={testimonials[currentTestimonial].avatar}
-              alt={testimonials[currentTestimonial].name}
-              loading="lazy"
-              onError={(e) => {
-                e.target.src = `https://ui-avatars.com/api/?name=${testimonials[currentTestimonial].name}&background=eabd83&color=364252&size=150`;
-              }}
-            />
-          </div>
-          <div className="testimonial-rating">
-            {[...Array(testimonials[currentTestimonial].rating)].map((_, i) => (
-              <div key={i}>
-                <IoStarOutline size={20} />
-              </div>
-            ))}
-          </div>
-          <p>"{testimonials[currentTestimonial].text}"</p>
-          <div className="testimonial-author">
-            <strong>{testimonials[currentTestimonial].name}</strong>
-            <span>{testimonials[currentTestimonial].course}</span>
-          </div>
+      <div className="testimonials-container">
+        <h2>{t("home.testimonials_title")}</h2>
+        
+        {/* Filtres par langue */}
+        <div className="testimonials-filters">
+          {languages.map((language) => (
+            <button
+              key={language}
+              className={`filter-btn ${selectedLanguage === language ? "active" : ""}`}
+              onClick={() => handleLanguageFilter(language)}
+            >
+              {language}
+            </button>
+          ))}
         </div>
 
-        <div className="testimonial-dots">
-          {testimonials.map((_, index) => (
-            <button
-              key={index}
-              className={`dot ${index === currentTestimonial ? "active" : ""}`}
-              onClick={() => setCurrentTestimonial(index)}
-            />
-          ))}
+        {/* Carousel */}
+        <div className="testimonials-carousel">
+          {/* Boutons de navigation */}
+          {filteredTestimonials.length > 1 && (
+            <>
+              <button 
+                className="carousel-nav prev" 
+                onClick={prevTestimonial}
+                aria-label="Témoignage précédent"
+              >
+                <IoChevronBack size={24} />
+              </button>
+              <button 
+                className="carousel-nav next" 
+                onClick={nextTestimonial}
+                aria-label="Témoignage suivant"
+              >
+                <IoChevronForward size={24} />
+              </button>
+            </>
+          )}
+
+          {/* Témoignage actuel */}
+          <div className="testimonial-card">
+            <div className="testimonial-header">
+              <div className="testimonial-info">
+                <h3 className="testimonial-name">
+                  {filteredTestimonials[currentIndex]?.name}
+                </h3>
+                <p className="testimonial-course">
+                  {filteredTestimonials[currentIndex]?.language} - {filteredTestimonials[currentIndex]?.courseType}
+                </p>
+              </div>
+              <div className="testimonial-rating">
+                {renderStars(filteredTestimonials[currentIndex]?.rating)}
+              </div>
+            </div>
+            
+            <blockquote className="testimonial-text">
+              "{filteredTestimonials[currentIndex]?.text}"
+            </blockquote>
+          </div>
+
+          {/* Indicateurs */}
+          {filteredTestimonials.length > 1 && (
+            <div className="testimonial-indicators">
+              {filteredTestimonials.map((_, index) => (
+                <button
+                  key={index}
+                  className={`indicator ${index === currentIndex ? "active" : ""}`}
+                  onClick={() => goToTestimonial(index)}
+                  aria-label={`Aller au témoignage ${index + 1}`}
+                />
+              ))}
+            </div>
+          )}
+
+          {/* Compteur */}
+          <div className="testimonial-counter">
+            {currentIndex + 1} / {filteredTestimonials.length}
+          </div>
         </div>
       </div>
     </section>

@@ -1,4 +1,12 @@
 {
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "message": "Message"
+  },
   "nav": {
     "home": "Home",
     "about": "About",
@@ -46,11 +54,16 @@
     "testimonial_2": "Highly skilled teachers and a friendly atmosphere—I totally recommend it!",
     "testimonial_3": "Top-quality training with outstanding personalised support.",
     "schedule": {
-      "title": "Available In-Person Classes",
-      "description": "Discover our in-person classes and their availability",
+      "title": "Class Schedule",
+      "description": "Discover our available classes both in-person and online",
+      "tabs": {
+        "presentiel": "In-Person",
+        "visio": "Online"
+      },
       "interestedButton": "I'm interested",
       "fullCourse": "Class full",
       "noEvents": "No classes today",
+      "error": "Error loading data:",
       "interestModal": {
         "title": "I'm interested",
         "submit": "Send my request"

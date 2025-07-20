@@ -6,12 +6,12 @@
 }
 
 /* Sections communes */
-.home section {
+.home section:not(.testimonials) {
   padding: var(--spacing-xxl) var(--spacing-lg);
 }
 
 @media (max-width: 768px) {
-  .home section {
+  .home section:not(.testimonials) {
     padding: var(--spacing-xl) var(--spacing-md);
   }
 }

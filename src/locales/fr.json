@@ -1,4 +1,12 @@
 {
+  "common": {
+    "loading": "Chargement en cours...",
+    "error": "Erreur",
+    "name": "Nom",
+    "email": "Email",
+    "phone": "Téléphone",
+    "message": "Message"
+  },
   "nav": {
     "home": "Accueil",
     "about": "À propos",
@@ -46,11 +54,16 @@
     "testimonial_2": "Professeurs très compétents et ambiance conviviale. Je recommande !",
     "testimonial_3": "Formation de qualité avec un suivi personnalisé exceptionnel.",
     "schedule": {
-      "title": "Cours en présentiel disponibles",
-      "description": "Découvrez nos cours en présentiel et leurs disponibilités",
+      "title": "Planning des cours",
+      "description": "Découvrez nos cours disponibles en présentiel et en visioconférence",
+      "tabs": {
+        "presentiel": "Présentiel",
+        "visio": "Visioconférence"
+      },
       "interestedButton": "Je suis intéressé(e)",
       "fullCourse": "Cours complet",
       "noEvents": "Pas de cours ce jour",
+      "error": "Erreur lors du chargement des données :",
       "interestModal": {
         "title": "Je suis intéressé(e)",
         "submit": "Envoyer ma demande"

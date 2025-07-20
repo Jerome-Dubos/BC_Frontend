@@ -1,0 +1,1602 @@
+{
+  "presentiel": {
+    "2025-07-14": [
+      {
+        "id": 1,
+        "language": "Anglais",
+        "level": "adulte",
+        "startTime": "14:00",
+        "endTime": "15:30",
+        "duration": "1h30",
+        "teacher": "Prof. Smith",
+        "maxStudents": 12,
+        "enrolledStudents": 8,
+        "type": "presentiel",
+        "date": "2025-07-14"
+      }
+    ],
+    "2025-07-16": [
+      {
+        "id": 2,
+        "language": "Français",
+        "level": "enfant",
+        "startTime": "10:00",
+        "endTime": "11:00",
+        "duration": "1h",
+        "teacher": "Prof. Dubois",
+        "maxStudents": 8,
+        "enrolledStudents": 6,
+        "type": "presentiel",
+        "date": "2025-07-16"
+      },
+      {
+        "id": 3,
+        "language": "Espagnol",
+        "level": "adulte",
+        "startTime": "14:00",
+        "endTime": "15:30",
+        "duration": "1h30",
+        "teacher": "Prof. Garcia",
+        "maxStudents": 10,
+        "enrolledStudents": 7,
+        "type": "presentiel",
+        "date": "2025-07-16"
+      },
+      {
+        "id": 4,
+        "language": "Allemand",
+        "level": "adulte",
+        "startTime": "16:00",
+        "endTime": "17:30",
+        "duration": "1h30",
+        "teacher": "Prof. Mueller",
+        "maxStudents": 12,
+        "enrolledStudents": 9,
+        "type": "presentiel",
+        "date": "2025-07-16"
+      }
+    ],
+    "2025-07-17": [
+      {
+        "id": 5,
+        "language": "Italien",
+        "level": "enfant",
+        "startTime": "15:00",
+        "endTime": "16:00",
+        "duration": "1h",
+        "teacher": "Prof. Rossi",
+        "maxStudents": 8,
+        "enrolledStudents": 5,
+        "type": "presentiel",
+        "date": "2025-07-17"
+      },
+      {
+        "id": 6,
+        "language": "Anglais",
+        "level": "adulte",
+        "startTime": "17:00",
+        "endTime": "18:30",
+        "duration": "1h30",
+        "teacher": "Prof. Smith",
+        "maxStudents": 15,
+        "enrolledStudents": 12,
+        "type": "presentiel",
+        "date": "2025-07-17"
+      }
+    ],
+    "2025-07-19": [
+      {
+        "id": 7,
+        "language": "Français",
+        "level": "adulte",
+        "startTime": "10:00",
+        "endTime": "11:30",
+        "duration": "1h30",
+        "teacher": "Prof. Dubois",
+        "maxStudents": 12,
+        "enrolledStudents": 10,
+        "type": "presentiel",
+        "date": "2025-07-19"
+      }
+    ],
+    "2025-07-20": [
+      {
+        "id": 8,
+        "language": "Espagnol",
+        "level": "enfant",
+        "startTime": "11:00",
+        "endTime": "12:00",
+        "duration": "1h",
+        "teacher": "Prof. Garcia",
+        "maxStudents": 8,
+        "enrolledStudents": 7,
+        "type": "presentiel",
+        "date": "2025-07-20"
+      }
+    ],
+    "2025-07-21": [
+      {
+        "id": 9,
+        "language": "Allemand",
+        "level": "adulte",
+        "startTime": "14:00",
+        "endTime": "15:30",
+        "duration": "1h30",
+        "teacher": "Prof. Mueller",
+        "maxStudents": 10,
+        "enrolledStudents": 8,
+        "type": "presentiel",
+        "date": "2025-07-21"
+      }
+    ],
+    "2025-07-23": [
+      {
+        "id": 10,
+        "language": "Italien",
+        "level": "enfant",
+        "startTime": "10:00",
+        "endTime": "11:00",
+        "duration": "1h",
+        "teacher": "Prof. Rossi",
+        "maxStudents": 8,
+        "enrolledStudents": 6,
+        "type": "presentiel",
+        "date": "2025-07-23"
+      },
+      {
+        "id": 11,
+        "language": "Anglais",
+        "level": "adulte",
+        "startTime": "14:00",
+        "endTime": "15:30",
+        "duration": "1h30",
+        "teacher": "Prof. Smith",
+        "maxStudents": 12,
+        "enrolledStudents": 9,
+        "type": "presentiel",
+        "date": "2025-07-23"
+      },
+      {
+        "id": 12,
+        "language": "Français",
+        "level": "adulte",
+        "startTime": "16:00",
+        "endTime": "17:30",
+        "duration": "1h30",
+        "teacher": "Prof. Dubois",
+        "maxStudents": 15,
+        "enrolledStudents": 11,
+        "type": "presentiel",
+        "date": "2025-07-23"
+      }
+    ],
+    "2025-07-24": [
+      {
+        "id": 13,
+        "language": "Espagnol",
+        "level": "enfant",
+        "startTime": "15:00",
+        "endTime": "16:00",
+        "duration": "1h",
+        "teacher": "Prof. Garcia",
+        "maxStudents": 8,
+        "enrolledStudents": 5,
+        "type": "presentiel",
+        "date": "2025-07-24"
+      },
+      {
+        "id": 14,
+        "language": "Allemand",
+        "level": "adulte",
+        "startTime": "17:00",
+        "endTime": "18:30",
+        "duration": "1h30",
+        "teacher": "Prof. Mueller",
+        "maxStudents": 12,
+        "enrolledStudents": 10,
+        "type": "presentiel",
+        "date": "2025-07-24"
+      }
+    ],
+    "2025-07-26": [
+      {
+        "id": 15,
+        "language": "Italien",
+        "level": "adulte",
+        "startTime": "10:00",
+        "endTime": "11:30",
+        "duration": "1h30",
+        "teacher": "Prof. Rossi",
+        "maxStudents": 10,
+        "enrolledStudents": 8,
+        "type": "presentiel",
+        "date": "2025-07-26"
+      }
+    ],
+    "2025-07-27": [
+      {
+        "id": 16,
+        "language": "Anglais",
+        "level": "enfant",
+        "startTime": "11:00",
+        "endTime": "12:00",
+        "duration": "1h",
+        "teacher": "Prof. Smith",
+        "maxStudents": 8,
+        "enrolledStudents": 7,
+        "type": "presentiel",
+        "date": "2025-07-27"
+      }
+    ],
+    "2025-07-28": [
+      {
+        "id": 17,
+        "language": "Français",
+        "level": "adulte",
+        "startTime": "14:00",
+        "endTime": "15:30",
+        "duration": "1h30",
+        "teacher": "Prof. Dubois",
+        "maxStudents": 12,
+        "enrolledStudents": 9,
+        "type": "presentiel",
+        "date": "2025-07-28"
+      }
+    ],
+    "2025-07-30": [
+      {
+        "id": 18,
+        "language": "Espagnol",
+        "level": "enfant",
+        "startTime": "10:00",
+        "endTime": "11:00",
+        "duration": "1h",
+        "teacher": "Prof. Garcia",
+        "maxStudents": 8,
+        "enrolledStudents": 6,
+        "type": "presentiel",
+        "date": "2025-07-30"
+      },
+      {
+        "id": 19,
+        "language": "Allemand",
+        "level": "adulte",
+        "startTime": "14:00",
+        "endTime": "15:30",
+        "duration": "1h30",
+        "teacher": "Prof. Mueller",
+        "maxStudents": 10,
+        "enrolledStudents": 7,
+        "type": "presentiel",
+        "date": "2025-07-30"
+      },
+      {
+        "id": 20,
+        "language": "Italien",
+        "level": "adulte",
+        "startTime": "16:00",
+        "endTime": "17:30",
+        "duration": "1h30",
+        "teacher": "Prof. Rossi",
+        "maxStudents": 12,
+        "enrolledStudents": 8,
+        "type": "presentiel",
+        "date": "2025-07-30"
+      }
+    ],
+    "2025-07-31": [
+      {
+        "id": 21,
+        "language": "Anglais",
+        "level": "enfant",
+        "startTime": "15:00",
+        "endTime": "16:00",
+        "duration": "1h",
+        "teacher": "Prof. Smith",
+        "maxStudents": 8,
+        "enrolledStudents": 5,
+        "type": "presentiel",
+        "date": "2025-07-31"
+      },
+      {
+        "id": 22,
+        "language": "Français",
+        "level": "adulte",
+        "startTime": "17:00",
+        "endTime": "18:30",
+        "duration": "1h30",
+        "teacher": "Prof. Dubois",
+        "maxStudents": 15,
+        "enrolledStudents": 12,
+        "type": "presentiel",
+        "date": "2025-07-31"
+      }
+    ],
+    "2025-08-02": [
+      {
+        "id": 23,
+        "language": "Espagnol",
+        "level": "adulte",
+        "startTime": "10:00",
+        "endTime": "11:30",
+        "duration": "1h30",
+        "teacher": "Prof. Garcia",
+        "maxStudents": 12,
+        "enrolledStudents": 10,
+        "type": "presentiel",
+        "date": "2025-08-02"
+      }
+    ],
+    "2025-08-03": [
+      {
+        "id": 24,
+        "language": "Allemand",
+        "level": "enfant",
+        "startTime": "11:00",
+        "endTime": "12:00",
+        "duration": "1h",
+        "teacher": "Prof. Mueller",
+        "maxStudents": 8,
+        "enrolledStudents": 6,
+        "type": "presentiel",
+        "date": "2025-08-03"
+      }
+    ],
+    "2025-08-04": [
+      {
+        "id": 25,
+        "language": "Italien",
+        "level": "adulte",
+        "startTime": "14:00",
+        "endTime": "15:30",
+        "duration": "1h30",
+        "teacher": "Prof. Rossi",
+        "maxStudents": 10,
+        "enrolledStudents": 8,
+        "type": "presentiel",
+        "date": "2025-08-04"
+      }
+    ],
+    "2025-08-06": [
+      {
+        "id": 26,
+        "language": "Anglais",
+        "level": "enfant",
+        "startTime": "10:00",
+        "endTime": "11:00",
+        "duration": "1h",
+        "teacher": "Prof. Smith",
+        "maxStudents": 8,
+        "enrolledStudents": 7,
+        "type": "presentiel",
+        "date": "2025-08-06"
+      },
+      {
+        "id": 27,
+        "language": "Français",
+        "level": "adulte",
+        "startTime": "14:00",
+        "endTime": "15:30",
+        "duration": "1h30",
+        "teacher": "Prof. Dubois",
+        "maxStudents": 12,
+        "enrolledStudents": 9,
+        "type": "presentiel",
+        "date": "2025-08-06"
+      },
+      {
+        "id": 28,
+        "language": "Espagnol",
+        "level": "adulte",
+        "startTime": "16:00",
+        "endTime": "17:30",
+        "duration": "1h30",
+        "teacher": "Prof. Garcia",
+        "maxStudents": 15,
+        "enrolledStudents": 11,
+        "type": "presentiel",
+        "date": "2025-08-06"
+      }
+    ],
+    "2025-08-07": [
+      {
+        "id": 29,
+        "language": "Allemand",
+        "level": "enfant",
+        "startTime": "15:00",
+        "endTime": "16:00",
+        "duration": "1h",
+        "teacher": "Prof. Mueller",
+        "maxStudents": 8,
+        "enrolledStudents": 6,
+        "type": "presentiel",
+        "date": "2025-08-07"
+      },
+      {
+        "id": 30,
+        "language": "Italien",
+        "level": "adulte",
+        "startTime": "17:00",
+        "endTime": "18:30",
+        "duration": "1h30",
+        "teacher": "Prof. Rossi",
+        "maxStudents": 12,
+        "enrolledStudents": 8,
+        "type": "presentiel",
+        "date": "2025-08-07"
+      }
+    ],
+    "2025-08-09": [
+      {
+        "id": 31,
+        "language": "Anglais",
+        "level": "adulte",
+        "startTime": "10:00",
+        "endTime": "11:30",
+        "duration": "1h30",
+        "teacher": "Prof. Smith",
+        "maxStudents": 10,
+        "enrolledStudents": 7,
+        "type": "presentiel",
+        "date": "2025-08-09"
+      }
+    ],
+    "2025-08-10": [
+      {
+        "id": 32,
+        "language": "Français",
+        "level": "enfant",
+        "startTime": "11:00",
+        "endTime": "12:00",
+        "duration": "1h",
+        "teacher": "Prof. Dubois",
+        "maxStudents": 8,
+        "enrolledStudents": 5,
+        "type": "presentiel",
+        "date": "2025-08-10"
+      }
+    ],
+    "2025-08-11": [
+      {
+        "id": 33,
+        "language": "Espagnol",
+        "level": "adulte",
+        "startTime": "14:00",
+        "endTime": "15:30",
+        "duration": "1h30",
+        "teacher": "Prof. Garcia",
+        "maxStudents": 12,
+        "enrolledStudents": 9,
+        "type": "presentiel",
+        "date": "2025-08-11"
+      }
+    ],
+    "2025-08-13": [
+      {
+        "id": 34,
+        "language": "Allemand",
+        "level": "enfant",
+        "startTime": "10:00",
+        "endTime": "11:00",
+        "duration": "1h",
+        "teacher": "Prof. Mueller",
+        "maxStudents": 8,
+        "enrolledStudents": 6,
+        "type": "presentiel",
+        "date": "2025-08-13"
+      },
+      {
+        "id": 35,
+        "language": "Italien",
+        "level": "adulte",
+        "startTime": "14:00",
+        "endTime": "15:30",
+        "duration": "1h30",
+        "teacher": "Prof. Rossi",
+        "maxStudents": 10,
+        "enrolledStudents": 8,
+        "type": "presentiel",
+        "date": "2025-08-13"
+      },
+      {
+        "id": 36,
+        "language": "Anglais",
+        "level": "adulte",
+        "startTime": "16:00",
+        "endTime": "17:30",
+        "duration": "1h30",
+        "teacher": "Prof. Smith",
+        "maxStudents": 12,
+        "enrolledStudents": 10,
+        "type": "presentiel",
+        "date": "2025-08-13"
+      }
+    ],
+    "2025-08-14": [
+      {
+        "id": 37,
+        "language": "Français",
+        "level": "enfant",
+        "startTime": "15:00",
+        "endTime": "16:00",
+        "duration": "1h",
+        "teacher": "Prof. Dubois",
+        "maxStudents": 8,
+        "enrolledStudents": 7,
+        "type": "presentiel",
+        "date": "2025-08-14"
+      },
+      {
+        "id": 38,
+        "language": "Espagnol",
+        "level": "adulte",
+        "startTime": "17:00",
+        "endTime": "18:30",
+        "duration": "1h30",
+        "teacher": "Prof. Garcia",
+        "maxStudents": 15,
+        "enrolledStudents": 12,
+        "type": "presentiel",
+        "date": "2025-08-14"
+      }
+    ],
+    "2025-08-16": [
+      {
+        "id": 39,
+        "language": "Allemand",
+        "level": "adulte",
+        "startTime": "10:00",
+        "endTime": "11:30",
+        "duration": "1h30",
+        "teacher": "Prof. Schmidt",
+        "maxStudents": 12,
+        "enrolledStudents": 9,
+        "type": "presentiel",
+        "date": "2025-08-16"
+      }
+    ],
+    "2025-08-17": [
+      {
+        "id": 40,
+        "language": "Italien",
+        "level": "enfant",
+        "startTime": "11:00",
+        "endTime": "12:00",
+        "duration": "1h",
+        "teacher": "Prof. Rossi",
+        "maxStudents": 8,
+        "enrolledStudents": 6,
+        "type": "presentiel",
+        "date": "2025-08-17"
+      }
+    ],
+    "2025-08-18": [
+      {
+        "id": 41,
+        "language": "Anglais",
+        "level": "adulte",
+        "startTime": "14:00",
+        "endTime": "15:30",
+        "duration": "1h30",
+        "teacher": "Prof. Smith",
+        "maxStudents": 10,
+        "enrolledStudents": 8,
+        "type": "presentiel",
+        "date": "2025-08-18"
+      }
+    ],
+    "2025-08-20": [
+      {
+        "id": 42,
+        "language": "Français",
+        "level": "enfant",
+        "startTime": "10:00",
+        "endTime": "11:00",
+        "duration": "1h",
+        "teacher": "Prof. Dubois",
+        "maxStudents": 8,
+        "enrolledStudents": 5,
+        "type": "presentiel",
+        "date": "2025-08-20"
+      },
+      {
+        "id": 43,
+        "language": "Espagnol",
+        "level": "adulte",
+        "startTime": "14:00",
+        "endTime": "15:30",
+        "duration": "1h30",
+        "teacher": "Prof. Garcia",
+        "maxStudents": 12,
+        "enrolledStudents": 10,
+        "type": "presentiel",
+        "date": "2025-08-20"
+      },
+      {
+        "id": 44,
+        "language": "Allemand",
+        "level": "adulte",
+        "startTime": "16:00",
+        "endTime": "17:30",
+        "duration": "1h30",
+        "teacher": "Prof. Mueller",
+        "maxStudents": 15,
+        "enrolledStudents": 11,
+        "type": "presentiel",
+        "date": "2025-08-20"
+      }
+    ],
+    "2025-08-21": [
+      {
+        "id": 45,
+        "language": "Italien",
+        "level": "enfant",
+        "startTime": "15:00",
+        "endTime": "16:00",
+        "duration": "1h",
+        "teacher": "Prof. Rossi",
+        "maxStudents": 8,
+        "enrolledStudents": 7,
+        "type": "presentiel",
+        "date": "2025-08-21"
+      },
+      {
+        "id": 46,
+        "language": "Anglais",
+        "level": "adulte",
+        "startTime": "17:00",
+        "endTime": "18:30",
+        "duration": "1h30",
+        "teacher": "Prof. Smith",
+        "maxStudents": 12,
+        "enrolledStudents": 9,
+        "type": "presentiel",
+        "date": "2025-08-21"
+      }
+    ],
+    "2025-08-23": [
+      {
+        "id": 47,
+        "language": "Français",
+        "level": "adulte",
+        "startTime": "10:00",
+        "endTime": "11:30",
+        "duration": "1h30",
+        "teacher": "Prof. Martin",
+        "maxStudents": 10,
+        "enrolledStudents": 8,
+        "type": "presentiel",
+        "date": "2025-08-23"
+      }
+    ],
+    "2025-08-24": [
+      {
+        "id": 48,
+        "language": "Espagnol",
+        "level": "enfant",
+        "startTime": "11:00",
+        "endTime": "12:00",
+        "duration": "1h",
+        "teacher": "Prof. Rodriguez",
+        "maxStudents": 8,
+        "enrolledStudents": 6,
+        "type": "presentiel",
+        "date": "2025-08-24"
+      }
+    ],
+    "2025-08-25": [
+      {
+        "id": 49,
+        "language": "Allemand",
+        "level": "adulte",
+        "startTime": "14:00",
+        "endTime": "15:30",
+        "duration": "1h30",
+        "teacher": "Prof. Schmidt",
+        "maxStudents": 12,
+        "enrolledStudents": 10,
+        "type": "presentiel",
+        "date": "2025-08-25"
+      }
+    ],
+    "2025-08-27": [
+      {
+        "id": 50,
+        "language": "Italien",
+        "level": "enfant",
+        "startTime": "10:00",
+        "endTime": "11:00",
+        "duration": "1h",
+        "teacher": "Prof. Rossi",
+        "maxStudents": 8,
+        "enrolledStudents": 7,
+        "type": "presentiel",
+        "date": "2025-08-27"
+      },
+      {
+        "id": 51,
+        "language": "Anglais",
+        "level": "adulte",
+        "startTime": "14:00",
+        "endTime": "15:30",
+        "duration": "1h30",
+        "teacher": "Prof. Smith",
+        "maxStudents": 10,
+        "enrolledStudents": 8,
+        "type": "presentiel",
+        "date": "2025-08-27"
+      },
+      {
+        "id": 52,
+        "language": "Français",
+        "level": "adulte",
+        "startTime": "16:00",
+        "endTime": "17:30",
+        "duration": "1h30",
+        "teacher": "Prof. Dubois",
+        "maxStudents": 12,
+        "enrolledStudents": 9,
+        "type": "presentiel",
+        "date": "2025-08-27"
+      }
+    ],
+    "2025-08-28": [
+      {
+        "id": 53,
+        "language": "Espagnol",
+        "level": "enfant",
+        "startTime": "15:00",
+        "endTime": "16:00",
+        "duration": "1h",
+        "teacher": "Prof. Garcia",
+        "maxStudents": 8,
+        "enrolledStudents": 6,
+        "type": "presentiel",
+        "date": "2025-08-28"
+      },
+      {
+        "id": 54,
+        "language": "Allemand",
+        "level": "adulte",
+        "startTime": "17:00",
+        "endTime": "18:30",
+        "duration": "1h30",
+        "teacher": "Prof. Mueller",
+        "maxStudents": 15,
+        "enrolledStudents": 12,
+        "type": "presentiel",
+        "date": "2025-08-28"
+      }
+    ],
+    "2025-08-30": [
+      {
+        "id": 55,
+        "language": "Italien",
+        "level": "adulte",
+        "startTime": "10:00",
+        "endTime": "11:30",
+        "duration": "1h30",
+        "teacher": "Prof. Rossi",
+        "maxStudents": 12,
+        "enrolledStudents": 10,
+        "type": "presentiel",
+        "date": "2025-08-30"
+      }
+    ],
+    "2025-08-31": [
+      {
+        "id": 56,
+        "language": "Anglais",
+        "level": "enfant",
+        "startTime": "11:00",
+        "endTime": "12:00",
+        "duration": "1h",
+        "teacher": "Prof. Smith",
+        "maxStudents": 8,
+        "enrolledStudents": 7,
+        "type": "presentiel",
+        "date": "2025-08-31"
+      }
+    ]
+  },
+  "visio": {
+    "2025-07-14": [
+      {
+        "id": 57,
+        "language": "Anglais",
+        "level": "adulte",
+        "startTime": "18:00",
+        "endTime": "19:30",
+        "duration": "1h30",
+        "teacher": "Prof. Johnson",
+        "maxStudents": 15,
+        "enrolledStudents": 12,
+        "type": "visio",
+        "date": "2025-07-14"
+      }
+    ],
+    "2025-07-16": [
+      {
+        "id": 58,
+        "language": "Français",
+        "level": "enfant",
+        "startTime": "17:00",
+        "endTime": "18:00",
+        "duration": "1h",
+        "teacher": "Prof. Martin",
+        "maxStudents": 10,
+        "enrolledStudents": 8,
+        "type": "visio",
+        "date": "2025-07-16"
+      },
+      {
+        "id": 59,
+        "language": "Espagnol",
+        "level": "adulte",
+        "startTime": "19:00",
+        "endTime": "20:30",
+        "duration": "1h30",
+        "teacher": "Prof. Rodriguez",
+        "maxStudents": 12,
+        "enrolledStudents": 9,
+        "type": "visio",
+        "date": "2025-07-16"
+      },
+      {
+        "id": 60,
+        "language": "Allemand",
+        "level": "adulte",
+        "startTime": "20:30",
+        "endTime": "22:00",
+        "duration": "1h30",
+        "teacher": "Prof. Schmidt",
+        "maxStudents": 8,
+        "enrolledStudents": 6,
+        "type": "visio",
+        "date": "2025-07-16"
+      }
+    ],
+    "2025-07-17": [
+      {
+        "id": 61,
+        "language": "Italien",
+        "level": "enfant",
+        "startTime": "18:00",
+        "endTime": "19:00",
+        "duration": "1h",
+        "teacher": "Prof. Benedetti",
+        "maxStudents": 8,
+        "enrolledStudents": 7,
+        "type": "visio",
+        "date": "2025-07-17"
+      },
+      {
+        "id": 62,
+        "language": "Anglais",
+        "level": "adulte",
+        "startTime": "19:30",
+        "endTime": "21:00",
+        "duration": "1h30",
+        "teacher": "Prof. Johnson",
+        "maxStudents": 15,
+        "enrolledStudents": 11,
+        "type": "visio",
+        "date": "2025-07-17"
+      }
+    ],
+    "2025-07-19": [
+      {
+        "id": 63,
+        "language": "Français",
+        "level": "adulte",
+        "startTime": "18:00",
+        "endTime": "19:30",
+        "duration": "1h30",
+        "teacher": "Prof. Martin",
+        "maxStudents": 12,
+        "enrolledStudents": 10,
+        "type": "visio",
+        "date": "2025-07-19"
+      }
+    ],
+    "2025-07-20": [
+      {
+        "id": 64,
+        "language": "Espagnol",
+        "level": "enfant",
+        "startTime": "17:00",
+        "endTime": "18:00",
+        "duration": "1h",
+        "teacher": "Prof. Rodriguez",
+        "maxStudents": 8,
+        "enrolledStudents": 6,
+        "type": "visio",
+        "date": "2025-07-20"
+      }
+    ],
+    "2025-07-21": [
+      {
+        "id": 65,
+        "language": "Allemand",
+        "level": "adulte",
+        "startTime": "19:00",
+        "endTime": "20:30",
+        "duration": "1h30",
+        "teacher": "Prof. Schmidt",
+        "maxStudents": 10,
+        "enrolledStudents": 8,
+        "type": "visio",
+        "date": "2025-07-21"
+      }
+    ],
+    "2025-07-23": [
+      {
+        "id": 66,
+        "language": "Italien",
+        "level": "enfant",
+        "startTime": "17:00",
+        "endTime": "18:00",
+        "duration": "1h",
+        "teacher": "Prof. Benedetti",
+        "maxStudents": 8,
+        "enrolledStudents": 7,
+        "type": "visio",
+        "date": "2025-07-23"
+      },
+      {
+        "id": 67,
+        "language": "Anglais",
+        "level": "adulte",
+        "startTime": "18:30",
+        "endTime": "20:00",
+        "duration": "1h30",
+        "teacher": "Prof. Johnson",
+        "maxStudents": 12,
+        "enrolledStudents": 9,
+        "type": "visio",
+        "date": "2025-07-23"
+      },
+      {
+        "id": 68,
+        "language": "Français",
+        "level": "adulte",
+        "startTime": "20:00",
+        "endTime": "21:30",
+        "duration": "1h30",
+        "teacher": "Prof. Martin",
+        "maxStudents": 15,
+        "enrolledStudents": 12,
+        "type": "visio",
+        "date": "2025-07-23"
+      }
+    ],
+    "2025-07-24": [
+      {
+        "id": 69,
+        "language": "Espagnol",
+        "level": "enfant",
+        "startTime": "18:00",
+        "endTime": "19:00",
+        "duration": "1h",
+        "teacher": "Prof. Rodriguez",
+        "maxStudents": 8,
+        "enrolledStudents": 6,
+        "type": "visio",
+        "date": "2025-07-24"
+      },
+      {
+        "id": 70,
+        "language": "Allemand",
+        "level": "adulte",
+        "startTime": "19:30",
+        "endTime": "21:00",
+        "duration": "1h30",
+        "teacher": "Prof. Schmidt",
+        "maxStudents": 12,
+        "enrolledStudents": 10,
+        "type": "visio",
+        "date": "2025-07-24"
+      }
+    ],
+    "2025-07-26": [
+      {
+        "id": 71,
+        "language": "Italien",
+        "level": "adulte",
+        "startTime": "18:00",
+        "endTime": "19:30",
+        "duration": "1h30",
+        "teacher": "Prof. Benedetti",
+        "maxStudents": 10,
+        "enrolledStudents": 8,
+        "type": "visio",
+        "date": "2025-07-26"
+      }
+    ],
+    "2025-07-27": [
+      {
+        "id": 72,
+        "language": "Anglais",
+        "level": "enfant",
+        "startTime": "17:00",
+        "endTime": "18:00",
+        "duration": "1h",
+        "teacher": "Prof. Johnson",
+        "maxStudents": 8,
+        "enrolledStudents": 7,
+        "type": "visio",
+        "date": "2025-07-27"
+      }
+    ],
+    "2025-07-28": [
+      {
+        "id": 73,
+        "language": "Français",
+        "level": "adulte",
+        "startTime": "19:00",
+        "endTime": "20:30",
+        "duration": "1h30",
+        "teacher": "Prof. Martin",
+        "maxStudents": 12,
+        "enrolledStudents": 9,
+        "type": "visio",
+        "date": "2025-07-28"
+      }
+    ],
+    "2025-07-30": [
+      {
+        "id": 74,
+        "language": "Espagnol",
+        "level": "enfant",
+        "startTime": "17:00",
+        "endTime": "18:00",
+        "duration": "1h",
+        "teacher": "Prof. Rodriguez",
+        "maxStudents": 8,
+        "enrolledStudents": 6,
+        "type": "visio",
+        "date": "2025-07-30"
+      },
+      {
+        "id": 75,
+        "language": "Allemand",
+        "level": "adulte",
+        "startTime": "18:30",
+        "endTime": "20:00",
+        "duration": "1h30",
+        "teacher": "Prof. Schmidt",
+        "maxStudents": 10,
+        "enrolledStudents": 8,
+        "type": "visio",
+        "date": "2025-07-30"
+      },
+      {
+        "id": 76,
+        "language": "Italien",
+        "level": "adulte",
+        "startTime": "20:00",
+        "endTime": "21:30",
+        "duration": "1h30",
+        "teacher": "Prof. Benedetti",
+        "maxStudents": 12,
+        "enrolledStudents": 10,
+        "type": "visio",
+        "date": "2025-07-30"
+      }
+    ],
+    "2025-07-31": [
+      {
+        "id": 77,
+        "language": "Anglais",
+        "level": "enfant",
+        "startTime": "18:00",
+        "endTime": "19:00",
+        "duration": "1h",
+        "teacher": "Prof. Johnson",
+        "maxStudents": 8,
+        "enrolledStudents": 7,
+        "type": "visio",
+        "date": "2025-07-31"
+      },
+      {
+        "id": 78,
+        "language": "Français",
+        "level": "adulte",
+        "startTime": "19:30",
+        "endTime": "21:00",
+        "duration": "1h30",
+        "teacher": "Prof. Martin",
+        "maxStudents": 15,
+        "enrolledStudents": 12,
+        "type": "visio",
+        "date": "2025-07-31"
+      }
+    ],
+    "2025-08-02": [
+      {
+        "id": 79,
+        "language": "Espagnol",
+        "level": "adulte",
+        "startTime": "18:00",
+        "endTime": "19:30",
+        "duration": "1h30",
+        "teacher": "Prof. Rodriguez",
+        "maxStudents": 12,
+        "enrolledStudents": 10,
+        "type": "visio",
+        "date": "2025-08-02"
+      }
+    ],
+    "2025-08-03": [
+      {
+        "id": 80,
+        "language": "Allemand",
+        "level": "enfant",
+        "startTime": "17:00",
+        "endTime": "18:00",
+        "duration": "1h",
+        "teacher": "Prof. Schmidt",
+        "maxStudents": 8,
+        "enrolledStudents": 6,
+        "type": "visio",
+        "date": "2025-08-03"
+      }
+    ],
+    "2025-08-04": [
+      {
+        "id": 81,
+        "language": "Italien",
+        "level": "adulte",
+        "startTime": "19:00",
+        "endTime": "20:30",
+        "duration": "1h30",
+        "teacher": "Prof. Benedetti",
+        "maxStudents": 10,
+        "enrolledStudents": 8,
+        "type": "visio",
+        "date": "2025-08-04"
+      }
+    ],
+    "2025-08-06": [
+      {
+        "id": 82,
+        "language": "Anglais",
+        "level": "enfant",
+        "startTime": "17:00",
+        "endTime": "18:00",
+        "duration": "1h",
+        "teacher": "Prof. Johnson",
+        "maxStudents": 8,
+        "enrolledStudents": 7,
+        "type": "visio",
+        "date": "2025-08-06"
+      },
+      {
+        "id": 83,
+        "language": "Français",
+        "level": "adulte",
+        "startTime": "18:30",
+        "endTime": "20:00",
+        "duration": "1h30",
+        "teacher": "Prof. Martin",
+        "maxStudents": 12,
+        "enrolledStudents": 9,
+        "type": "visio",
+        "date": "2025-08-06"
+      },
+      {
+        "id": 84,
+        "language": "Espagnol",
+        "level": "adulte",
+        "startTime": "20:00",
+        "endTime": "21:30",
+        "duration": "1h30",
+        "teacher": "Prof. Rodriguez",
+        "maxStudents": 15,
+        "enrolledStudents": 11,
+        "type": "visio",
+        "date": "2025-08-06"
+      }
+    ],
+    "2025-08-07": [
+      {
+        "id": 85,
+        "language": "Allemand",
+        "level": "enfant",
+        "startTime": "18:00",
+        "endTime": "19:00",
+        "duration": "1h",
+        "teacher": "Prof. Schmidt",
+        "maxStudents": 8,
+        "enrolledStudents": 6,
+        "type": "visio",
+        "date": "2025-08-07"
+      },
+      {
+        "id": 86,
+        "language": "Italien",
+        "level": "adulte",
+        "startTime": "19:30",
+        "endTime": "21:00",
+        "duration": "1h30",
+        "teacher": "Prof. Benedetti",
+        "maxStudents": 12,
+        "enrolledStudents": 8,
+        "type": "visio",
+        "date": "2025-08-07"
+      }
+    ],
+    "2025-08-09": [
+      {
+        "id": 87,
+        "language": "Anglais",
+        "level": "adulte",
+        "startTime": "18:00",
+        "endTime": "19:30",
+        "duration": "1h30",
+        "teacher": "Prof. Johnson",
+        "maxStudents": 10,
+        "enrolledStudents": 7,
+        "type": "visio",
+        "date": "2025-08-09"
+      }
+    ],
+    "2025-08-10": [
+      {
+        "id": 88,
+        "language": "Français",
+        "level": "enfant",
+        "startTime": "17:00",
+        "endTime": "18:00",
+        "duration": "1h",
+        "teacher": "Prof. Martin",
+        "maxStudents": 8,
+        "enrolledStudents": 5,
+        "type": "visio",
+        "date": "2025-08-10"
+      }
+    ],
+    "2025-08-11": [
+      {
+        "id": 89,
+        "language": "Espagnol",
+        "level": "adulte",
+        "startTime": "19:00",
+        "endTime": "20:30",
+        "duration": "1h30",
+        "teacher": "Prof. Rodriguez",
+        "maxStudents": 12,
+        "enrolledStudents": 9,
+        "type": "visio",
+        "date": "2025-08-11"
+      }
+    ],
+    "2025-08-13": [
+      {
+        "id": 90,
+        "language": "Allemand",
+        "level": "enfant",
+        "startTime": "17:00",
+        "endTime": "18:00",
+        "duration": "1h",
+        "teacher": "Prof. Schmidt",
+        "maxStudents": 8,
+        "enrolledStudents": 6,
+        "type": "visio",
+        "date": "2025-08-13"
+      },
+      {
+        "id": 91,
+        "language": "Italien",
+        "level": "adulte",
+        "startTime": "18:30",
+        "endTime": "20:00",
+        "duration": "1h30",
+        "teacher": "Prof. Benedetti",
+        "maxStudents": 10,
+        "enrolledStudents": 8,
+        "type": "visio",
+        "date": "2025-08-13"
+      },
+      {
+        "id": 92,
+        "language": "Anglais",
+        "level": "adulte",
+        "startTime": "20:00",
+        "endTime": "21:30",
+        "duration": "1h30",
+        "teacher": "Prof. Johnson",
+        "maxStudents": 12,
+        "enrolledStudents": 10,
+        "type": "visio",
+        "date": "2025-08-13"
+      }
+    ],
+    "2025-08-14": [
+      {
+        "id": 93,
+        "language": "Français",
+        "level": "enfant",
+        "startTime": "18:00",
+        "endTime": "19:00",
+        "duration": "1h",
+        "teacher": "Prof. Martin",
+        "maxStudents": 8,
+        "enrolledStudents": 7,
+        "type": "visio",
+        "date": "2025-08-14"
+      },
+      {
+        "id": 94,
+        "language": "Espagnol",
+        "level": "adulte",
+        "startTime": "19:30",
+        "endTime": "21:00",
+        "duration": "1h30",
+        "teacher": "Prof. Rodriguez",
+        "maxStudents": 15,
+        "enrolledStudents": 12,
+        "type": "visio",
+        "date": "2025-08-14"
+      }
+    ],
+    "2025-08-16": [
+      {
+        "id": 95,
+        "language": "Allemand",
+        "level": "adulte",
+        "startTime": "18:00",
+        "endTime": "19:30",
+        "duration": "1h30",
+        "teacher": "Prof. Schmidt",
+        "maxStudents": 12,
+        "enrolledStudents": 9,
+        "type": "visio",
+        "date": "2025-08-16"
+      }
+    ],
+    "2025-08-17": [
+      {
+        "id": 96,
+        "language": "Italien",
+        "level": "enfant",
+        "startTime": "17:00",
+        "endTime": "18:00",
+        "duration": "1h",
+        "teacher": "Prof. Benedetti",
+        "maxStudents": 8,
+        "enrolledStudents": 6,
+        "type": "visio",
+        "date": "2025-08-17"
+      }
+    ],
+    "2025-08-18": [
+      {
+        "id": 97,
+        "language": "Anglais",
+        "level": "adulte",
+        "startTime": "19:00",
+        "endTime": "20:30",
+        "duration": "1h30",
+        "teacher": "Prof. Johnson",
+        "maxStudents": 10,
+        "enrolledStudents": 8,
+        "type": "visio",
+        "date": "2025-08-18"
+      }
+    ],
+    "2025-08-20": [
+      {
+        "id": 98,
+        "language": "Français",
+        "level": "enfant",
+        "startTime": "17:00",
+        "endTime": "18:00",
+        "duration": "1h",
+        "teacher": "Prof. Martin",
+        "maxStudents": 8,
+        "enrolledStudents": 5,
+        "type": "visio",
+        "date": "2025-08-20"
+      },
+      {
+        "id": 99,
+        "language": "Espagnol",
+        "level": "adulte",
+        "startTime": "18:30",
+        "endTime": "20:00",
+        "duration": "1h30",
+        "teacher": "Prof. Rodriguez",
+        "maxStudents": 12,
+        "enrolledStudents": 10,
+        "type": "visio",
+        "date": "2025-08-20"
+      },
+      {
+        "id": 100,
+        "language": "Allemand",
+        "level": "adulte",
+        "startTime": "20:00",
+        "endTime": "21:30",
+        "duration": "1h30",
+        "teacher": "Prof. Schmidt",
+        "maxStudents": 15,
+        "enrolledStudents": 11,
+        "type": "visio",
+        "date": "2025-08-20"
+      }
+    ],
+    "2025-08-21": [
+      {
+        "id": 101,
+        "language": "Italien",
+        "level": "enfant",
+        "startTime": "18:00",
+        "endTime": "19:00",
+        "duration": "1h",
+        "teacher": "Prof. Benedetti",
+        "maxStudents": 8,
+        "enrolledStudents": 7,
+        "type": "visio",
+        "date": "2025-08-21"
+      },
+      {
+        "id": 102,
+        "language": "Anglais",
+        "level": "adulte",
+        "startTime": "19:30",
+        "endTime": "21:00",
+        "duration": "1h30",
+        "teacher": "Prof. Johnson",
+        "maxStudents": 12,
+        "enrolledStudents": 9,
+        "type": "visio",
+        "date": "2025-08-21"
+      }
+    ],
+    "2025-08-23": [
+      {
+        "id": 103,
+        "language": "Français",
+        "level": "adulte",
+        "startTime": "18:00",
+        "endTime": "19:30",
+        "duration": "1h30",
+        "teacher": "Prof. Martin",
+        "maxStudents": 10,
+        "enrolledStudents": 8,
+        "type": "visio",
+        "date": "2025-08-23"
+      }
+    ],
+    "2025-08-24": [
+      {
+        "id": 104,
+        "language": "Espagnol",
+        "level": "enfant",
+        "startTime": "17:00",
+        "endTime": "18:00",
+        "duration": "1h",
+        "teacher": "Prof. Rodriguez",
+        "maxStudents": 8,
+        "enrolledStudents": 6,
+        "type": "visio",
+        "date": "2025-08-24"
+      }
+    ],
+    "2025-08-25": [
+      {
+        "id": 105,
+        "language": "Allemand",
+        "level": "adulte",
+        "startTime": "19:00",
+        "endTime": "20:30",
+        "duration": "1h30",
+        "teacher": "Prof. Schmidt",
+        "maxStudents": 12,
+        "enrolledStudents": 10,
+        "type": "visio",
+        "date": "2025-08-25"
+      }
+    ],
+    "2025-08-27": [
+      {
+        "id": 106,
+        "language": "Italien",
+        "level": "enfant",
+        "startTime": "17:00",
+        "endTime": "18:00",
+        "duration": "1h",
+        "teacher": "Prof. Benedetti",
+        "maxStudents": 8,
+        "enrolledStudents": 7,
+        "type": "visio",
+        "date": "2025-08-27"
+      },
+      {
+        "id": 107,
+        "language": "Anglais",
+        "level": "adulte",
+        "startTime": "18:30",
+        "endTime": "20:00",
+        "duration": "1h30",
+        "teacher": "Prof. Johnson",
+        "maxStudents": 10,
+        "enrolledStudents": 8,
+        "type": "visio",
+        "date": "2025-08-27"
+      },
+      {
+        "id": 108,
+        "language": "Français",
+        "level": "adulte",
+        "startTime": "20:00",
+        "endTime": "21:30",
+        "duration": "1h30",
+        "teacher": "Prof. Martin",
+        "maxStudents": 12,
+        "enrolledStudents": 9,
+        "type": "visio",
+        "date": "2025-08-27"
+      }
+    ],
+    "2025-08-28": [
+      {
+        "id": 109,
+        "language": "Espagnol",
+        "level": "enfant",
+        "startTime": "18:00",
+        "endTime": "19:00",
+        "duration": "1h",
+        "teacher": "Prof. Rodriguez",
+        "maxStudents": 8,
+        "enrolledStudents": 6,
+        "type": "visio",
+        "date": "2025-08-28"
+      },
+      {
+        "id": 110,
+        "language": "Allemand",
+        "level": "adulte",
+        "startTime": "19:30",
+        "endTime": "21:00",
+        "duration": "1h30",
+        "teacher": "Prof. Schmidt",
+        "maxStudents": 15,
+        "enrolledStudents": 12,
+        "type": "visio",
+        "date": "2025-08-28"
+      }
+    ],
+    "2025-08-30": [
+      {
+        "id": 111,
+        "language": "Italien",
+        "level": "adulte",
+        "startTime": "18:00",
+        "endTime": "19:30",
+        "duration": "1h30",
+        "teacher": "Prof. Benedetti",
+        "maxStudents": 12,
+        "enrolledStudents": 10,
+        "type": "visio",
+        "date": "2025-08-30"
+      }
+    ],
+    "2025-08-31": [
+      {
+        "id": 112,
+        "language": "Anglais",
+        "level": "enfant",
+        "startTime": "17:00",
+        "endTime": "18:00",
+        "duration": "1h",
+        "teacher": "Prof. Johnson",
+        "maxStudents": 8,
+        "enrolledStudents": 7,
+        "type": "visio",
+        "date": "2025-08-31"
+      }
+    ]
+  }
+} 

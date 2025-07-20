@@ -111,7 +111,7 @@
 }
 
 .hero-content h1 {
-  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-size: clamp(3.5rem, 7vw, 5rem);
   font-weight: 700;
   margin-bottom: var(--spacing-lg);
   color: var(--text-light);
@@ -138,8 +138,8 @@
 
 .language-card {
   position: relative;
-  width: 280px;
-  height: 90px;
+  width: 200px;
+  height: 120px;
   cursor: pointer;
   transition: transform var(--transition-normal);
 }
@@ -397,8 +397,8 @@
   }
 
   .language-card {
-    width: 180px;
-    height: 70px;
+    width: calc(100% - 40px);
+    height: 80px;
   }
 
   .language-card:hover {
@@ -448,7 +448,7 @@
   }
 
   .language-card {
-    width: 160px;
+    width: calc(100% - 30px);
     height: 70px;
     flex-shrink: 0;
   }
@@ -506,7 +506,7 @@
   }
 
   .hero-content h1 {
-    font-size: clamp(1.8rem, 5vw, 2.2rem);
+    font-size: clamp(3rem, 7vw, 4rem);
     margin-bottom: var(--spacing-md);
   }
 
@@ -519,7 +519,7 @@
   }
 
   .language-card {
-    width: 140px;
+    width: calc(100% - 20px);
     height: 60px;
     flex-shrink: 0;
   }
@@ -700,8 +700,8 @@
   }
 
   .language-card {
-    width: 240px;
-    height: 90px;
+    width: 120px;
+    height: 60px;
     flex-shrink: 0;
     /* Optimisations tactiles */
     touch-action: manipulation;
@@ -773,7 +773,7 @@
   }
 
   .hero-content h1 {
-    font-size: clamp(1.8rem, 5vw, 2.2rem);
+    font-size: clamp(3rem, 7vw, 4rem);
     margin-bottom: var(--spacing-md);
   }
 
@@ -786,8 +786,8 @@
   }
 
   .language-card {
-    width: 260px;
-    height: 85px;
+    width: calc(100% - 20px);
+    height: 60px;
     flex-shrink: 0;
   }
 
