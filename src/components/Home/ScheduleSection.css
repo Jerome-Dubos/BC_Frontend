@@ -1,6 +1,8 @@
+/* === SCHEDULE SECTION === */
 .schedule-section {
   padding: var(--spacing-xxl) var(--spacing-lg);
   background: var(--primary-blue-dark);
+  position: relative;
 }
 
 .schedule-container {
@@ -8,7 +10,7 @@
   margin: 0 auto;
 }
 
-.schedule-container h2 {
+.schedule-section h2 {
   text-align: center;
   font-size: clamp(2rem, 4vw, 2.8rem);
   font-weight: 700;
@@ -17,7 +19,7 @@
   position: relative;
 }
 
-.schedule-container h2::after {
+.schedule-section h2::after {
   content: "";
   position: absolute;
   bottom: -10px;
@@ -30,289 +32,242 @@
     var(--secondary-gold) 0%,
     var(--secondary-gold-light) 100%
   );
-  border-radius: 2px;
+  border-radius: var(--border-radius-sm);
 }
 
 .schedule-description {
   text-align: center;
-  color: var(--text-light);
-  opacity: 0.9;
-  margin-bottom: var(--spacing-xxl);
+  color: rgba(245, 245, 245, 0.9);
   font-size: 1.1rem;
   max-width: 600px;
-  margin: 0 auto var(--spacing-xl);
+  margin: 0 auto var(--spacing-xxl);
+  line-height: 1.6;
 }
 
 .schedule-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: var(--spacing-lg);
+  overflow-x: auto;
+  padding-bottom: var(--spacing-md);
 }
 
 .schedule-day {
-  background: var(--primary-blue);
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(234, 189, 131, 0.2);
   border-radius: var(--border-radius-lg);
   padding: var(--spacing-lg);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform var(--transition-normal);
-  border: 1px solid rgba(234, 189, 131, 0.1);
-}
-
-.schedule-day:hover {
-  transform: translateY(-4px);
+  min-height: 300px;
 }
 
 .day-header {
-  color: var(--text-light);
+  color: var(--secondary-gold);
   font-size: 1.2rem;
-  margin-bottom: var(--spacing-lg);
-  text-transform: capitalize;
+  font-weight: 600;
   text-align: center;
   padding-bottom: var(--spacing-sm);
-  border-bottom: 1px solid rgba(234, 189, 131, 0.1);
+  border-bottom: 2px solid var(--secondary-gold);
+  margin-bottom: var(--spacing-lg);
+  text-transform: capitalize;
+}
+
+.day-events {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
 }
 
 .course-card {
-  background: var(--primary-blue-light);
-  border-radius: var(--border-radius-lg);
-  padding: var(--spacing-lg);
-  margin-bottom: var(--spacing-md);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(234, 189, 131, 0.3);
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-md);
   transition: all var(--transition-normal);
-  border: 1px solid rgba(234, 189, 131, 0.1);
 }
 
 .course-card:hover {
-  transform: scale(1.02);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.12);
   border-color: var(--secondary-gold);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .course-card h4 {
   color: var(--text-light);
   font-size: 1.1rem;
-  margin-bottom: var(--spacing-md);
+  font-weight: 600;
+  margin-bottom: var(--spacing-sm);
 }
 
 .course-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
   margin-bottom: var(--spacing-md);
 }
 
 .course-info p {
   display: flex;
   align-items: center;
-  gap: var(--spacing-sm);
-  color: var(--text-light);
-  opacity: 0.8;
-  margin: var(--spacing-xs) 0;
+  gap: var(--spacing-xs);
+  color: rgba(245, 245, 245, 0.8);
   font-size: 0.9rem;
+  margin-bottom: 0;
 }
 
 .course-info svg {
   color: var(--secondary-gold);
+  font-size: 1rem;
+  flex-shrink: 0;
 }
 
 .btn-interest {
   width: 100%;
-  padding: var(--spacing-md);
+  padding: var(--spacing-sm) var(--spacing-md);
   background: var(--secondary-gold);
-  color: var(--primary-blue-dark);
+  color: var(--text-dark);
   border: none;
   border-radius: var(--border-radius-md);
   font-weight: 600;
+  font-size: 0.9rem;
   cursor: pointer;
   transition: all var(--transition-normal);
 }
 
-.btn-interest:hover:not(:disabled) {
+.btn-interest:hover {
   background: var(--secondary-gold-light);
-}
-
-.btn-interest:disabled {
-  background: var(--primary-blue-light);
-  color: var(--text-light);
-  opacity: 0.7;
-  cursor: not-allowed;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(234, 189, 131, 0.3);
 }
 
 .no-events {
-  color: var(--text-light);
   text-align: center;
-  padding: var(--spacing-md);
+  color: rgba(245, 245, 245, 0.6);
   font-style: italic;
-  opacity: 0.7;
+  padding: var(--spacing-lg);
+  font-size: 0.95rem;
 }
 
-/* Modal Styles */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(42, 54, 78, 0.9);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-  padding: var(--spacing-md);
-  backdrop-filter: blur(4px);
-}
-
-.modal-content {
-  background: var(--primary-blue);
-  border-radius: var(--border-radius-lg);
-  padding: var(--spacing-xl);
-  width: 100%;
-  max-width: 500px;
-  position: relative;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(234, 189, 131, 0.2);
-}
-
-.modal-close {
-  position: absolute;
-  top: var(--spacing-md);
-  right: var(--spacing-md);
-  background: none;
-  border: none;
-  color: var(--text-light);
-  padding: var(--spacing-xs);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: color var(--transition-normal);
-  cursor: pointer;
-}
-
-.modal-close:hover {
-  color: var(--secondary-gold);
-}
-
-.modal-close svg {
-  width: 24px;
-  height: 24px;
-}
-
-.modal-content h3 {
-  color: var(--text-light);
-  font-size: 1.5rem;
-  margin-bottom: var(--spacing-lg);
-}
-
-.course-summary {
-  background: var(--primary-blue-light);
-  padding: var(--spacing-md);
-  border-radius: var(--border-radius-md);
-  margin-bottom: var(--spacing-lg);
-  border: 1px solid rgba(234, 189, 131, 0.1);
-}
-
-.course-summary h4 {
-  color: var(--text-light);
-  margin-bottom: var(--spacing-sm);
-}
-
-.course-summary p {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-sm);
-  color: var(--text-light);
-  opacity: 0.8;
-  margin: var(--spacing-xs) 0;
-}
-
-.form-group {
-  margin-bottom: var(--spacing-md);
-}
-
-.form-group label {
-  display: block;
-  color: var(--text-light);
-  margin-bottom: var(--spacing-xs);
-  font-weight: 500;
-}
-
-.form-group input,
-.form-group textarea {
-  width: 100%;
-  padding: var(--spacing-sm);
-  border: 1px solid rgba(234, 189, 131, 0.2);
-  border-radius: var(--border-radius-md);
-  background: var(--primary-blue-light);
-  color: var(--text-light);
-  font-size: 1rem;
-  transition: border-color var(--transition-normal);
-}
-
-.form-group textarea {
-  min-height: 100px;
-  resize: vertical;
-}
-
-.form-group input:focus,
-.form-group textarea:focus {
-  outline: none;
-  border-color: var(--secondary-gold);
-}
-
-.btn-submit {
-  width: 100%;
-  padding: var(--spacing-md);
-  background: var(--secondary-gold);
-  color: var(--primary-blue-dark);
-  border: none;
-  border-radius: var(--border-radius-md);
-  font-weight: 600;
-  cursor: pointer;
-  transition: all var(--transition-normal);
-  margin-top: var(--spacing-md);
-}
-
-.btn-submit:hover {
-  background: var(--secondary-gold-light);
-}
-
-/* Responsive Design */
-@media (max-width: 1199px) {
-  .schedule-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--spacing-md);
-  }
-}
-
-@media (max-width: 1023px) {
-  .schedule-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
+/* Responsive */
+@media (max-width: 1024px) {
   .schedule-section {
     padding: var(--spacing-xl) var(--spacing-md);
   }
-}
 
-@media (max-width: 767px) {
   .schedule-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .schedule-container h2 {
-    font-size: 2rem;
-  }
-
-  .modal-content {
-    padding: var(--spacing-lg);
-    margin: var(--spacing-sm);
-  }
-
-  .modal-content h3 {
-    font-size: 1.25rem;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--spacing-md);
   }
 
   .schedule-day {
     padding: var(--spacing-md);
+    min-height: 250px;
+  }
+
+  .btn-interest {
+    min-height: 40px; /* Zone tactile adaptée */
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: rgba(234, 189, 131, 0.3);
+  }
+}
+
+@media (max-width: 768px) {
+  .schedule-section {
+    padding: var(--spacing-xl) var(--spacing-md);
+  }
+
+  .schedule-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-md);
+  }
+
+  .schedule-day {
+    padding: var(--spacing-md);
+    min-height: 220px;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: rgba(234, 189, 131, 0.1);
+  }
+
+  .day-header {
+    font-size: 1.1rem;
   }
 
   .course-card {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: rgba(234, 189, 131, 0.1);
+  }
+
+  .btn-interest {
+    min-height: 42px;
+    font-size: 0.9rem;
+    padding: var(--spacing-sm) var(--spacing-md);
+  }
+}
+
+@media (max-width: 480px) {
+  .schedule-section {
+    padding: var(--spacing-lg) var(--spacing-sm);
+  }
+
+  .schedule-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
+  }
+
+  .schedule-day {
+    min-height: auto;
     padding: var(--spacing-md);
+  }
+
+  .course-card h4 {
+    font-size: 1rem;
+  }
+
+  .course-info p {
+    font-size: 0.85rem;
+  }
+
+  .btn-interest {
+    min-height: 44px;
+    font-size: 0.9rem;
+    margin-top: var(--spacing-sm);
+  }
+}
+
+/* Optimisations pour écrans tactiles */
+@media (hover: none) and (pointer: coarse) {
+  .course-card:hover {
+    background: rgba(255, 255, 255, 0.06);
+    transform: none;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .course-card:active {
+    transform: scale(0.98);
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .btn-interest:hover {
+    background: var(--secondary-gold);
+    transform: none;
+    box-shadow: 0 2px 8px rgba(234, 189, 131, 0.2);
+  }
+
+  .btn-interest:active {
+    transform: scale(0.96);
+    background: var(--secondary-gold-dark);
+    box-shadow: 0 1px 4px rgba(234, 189, 131, 0.4);
+  }
+
+  /* Zones de touch plus généreuses */
+  .btn-interest {
+    min-height: 48px;
+    padding: var(--spacing-md);
+  }
+
+  .course-card {
+    min-height: 140px;
+    padding: var(--spacing-lg);
   }
 }

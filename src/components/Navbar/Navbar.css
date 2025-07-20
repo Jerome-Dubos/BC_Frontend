@@ -1149,13 +1149,13 @@
   color: var(--text-light);
   padding: var(--spacing-xs) var(--spacing-md) var(--spacing-xs)
     var(--spacing-sm);
-  padding-right: 2rem; /* place pour la flèche */
+  padding-right: 1.5rem; /* place pour la flèche */
   border-radius: var(--border-radius-sm);
   font-size: 0.9rem;
   outline: none;
   transition: background var(--transition-fast), border var(--transition-fast);
   cursor: pointer;
-  min-width: 80px;
+  min-width: 55px;
 }
 
 .language-select:hover {
@@ -1210,8 +1210,8 @@
   .language-select {
     font-size: 0.8rem;
     padding: 6px 8px;
-    padding-right: 1.5rem;
-    min-width: 70px;
+    padding-right: 1.2rem;
+    min-width: 45px;
     border-radius: 6px;
   }
 

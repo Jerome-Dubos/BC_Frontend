@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { IoPeopleOutline, IoPlayCircleOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
+import "./CTASection.css";
 
 const CTASection = () => {
   const { t } = useTranslation();

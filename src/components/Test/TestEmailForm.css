@@ -1,0 +1,198 @@
+/* === COMPOSANT TEST EMAIL FORM === */
+
+.test-step.email-form {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: var(--spacing-xxl);
+  text-align: center;
+}
+
+.email-form-container {
+  background: rgba(255, 255, 255, 0.08);
+  padding: var(--spacing-xxl);
+  border-radius: var(--border-radius-lg);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(234, 189, 131, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.email-form-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(234, 189, 131, 0.05) 0%,
+    transparent 50%,
+    rgba(234, 189, 131, 0.02) 100%
+  );
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.email-form-header {
+  margin-bottom: var(--spacing-xl);
+  position: relative;
+  z-index: 1;
+}
+
+.email-form-header h2 {
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  color: var(--text-light);
+  margin-bottom: var(--spacing-md);
+  font-weight: 700;
+}
+
+.email-form-header p {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: var(--text-light);
+  opacity: 0.9;
+  line-height: 1.6;
+}
+
+.email-form-content {
+  position: relative;
+  z-index: 1;
+}
+
+.form-group {
+  margin-bottom: var(--spacing-lg);
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: var(--spacing-sm);
+  color: var(--text-light);
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.form-group input {
+  width: 100%;
+  padding: var(--spacing-md);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(234, 189, 131, 0.3);
+  border-radius: var(--border-radius-md);
+  color: var(--text-light);
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--secondary-gold);
+  box-shadow: 0 0 0 3px rgba(234, 189, 131, 0.2);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.form-group input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.form-group input.error {
+  border-color: #ff6b6b;
+  box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.2);
+}
+
+.error-message {
+  color: #ff6b6b;
+  font-size: 0.85rem;
+  margin-top: var(--spacing-xs);
+  display: block;
+}
+
+.start-test-btn {
+  width: 100%;
+  padding: var(--spacing-lg);
+  background: linear-gradient(135deg, var(--secondary-gold) 0%, #f4d19b 100%);
+  border: none;
+  border-radius: var(--border-radius-md);
+  color: var(--primary-blue-dark);
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: var(--spacing-lg);
+  position: relative;
+  overflow: hidden;
+}
+
+.start-test-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s ease;
+}
+
+.start-test-btn:hover::before {
+  left: 100%;
+}
+
+.start-test-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(234, 189, 131, 0.4);
+}
+
+.start-test-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.start-test-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(234, 189, 131, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .test-step.email-form {
+    padding: var(--spacing-xl) var(--spacing-md);
+  }
+
+  .email-form-container {
+    padding: var(--spacing-lg);
+  }
+
+  .email-form-header h2 {
+    font-size: 1.6rem;
+  }
+
+  .email-form-header p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .test-step.email-form {
+    padding: var(--spacing-lg) var(--spacing-sm);
+  }
+
+  .email-form-container {
+    padding: var(--spacing-md);
+  }
+
+  .email-form-header h2 {
+    font-size: 1.4rem;
+  }
+
+  .email-form-header p {
+    font-size: 0.95rem;
+  }
+
+  .start-test-btn {
+    padding: var(--spacing-md);
+    font-size: 1rem;
+  }
+} 

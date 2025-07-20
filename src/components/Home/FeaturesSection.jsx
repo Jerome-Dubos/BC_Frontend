@@ -5,6 +5,7 @@ import {
   IoTimeOutline,
   IoTrophyOutline,
 } from "react-icons/io5";
+import "./FeaturesSection.css";
 
 const FeaturesSection = () => {
   const { t } = useTranslation();

@@ -1,0 +1,888 @@
+/* === HERO SECTION === */
+.hero {
+  min-height: 100vh;
+  padding: 0 var(--spacing-lg) var(--spacing-xxl);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(
+    135deg,
+    var(--primary-blue-dark) 0%,
+    var(--primary-blue) 50%,
+    var(--primary-blue-light) 100%
+  );
+  position: relative;
+  overflow: hidden;
+  padding-top: 80px;
+}
+
+/* Motif de fond subtil */
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="hexagon" width="50" height="43.4" patternUnits="userSpaceOnUse" patternTransform="scale(0.5)"><polygon points="25,0 50,14.4 50,28.9 25,43.4 0,28.9 0,14.4" fill="none" stroke="%23eabd83" stroke-width="0.5" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23hexagon)"/></svg>');
+  animation: drift 30s infinite linear;
+}
+
+@keyframes drift {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  100% {
+    transform: translate(30px, 30px) rotate(360deg);
+  }
+}
+
+/* Particules flottantes */
+.hero-particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: var(--secondary-gold);
+  border-radius: 50%;
+  opacity: 0.7;
+  animation: float 4s infinite ease-in-out;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translateY(-80px) scale(1.2);
+    opacity: 0.3;
+  }
+}
+
+/* Décorations flottantes */
+.floating-elements {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+}
+
+.floating-decoration {
+  position: absolute;
+  color: var(--secondary-gold);
+  opacity: 0.3;
+  font-size: 2rem;
+}
+
+.decoration-1 {
+  top: 20%;
+  left: 10%;
+}
+
+.decoration-2 {
+  top: 60%;
+  right: 15%;
+}
+
+.decoration-3 {
+  bottom: 25%;
+  left: 20%;
+}
+
+/* Contenu principal */
+.hero-content {
+  max-width: 900px;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-content h1 {
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-weight: 700;
+  margin-bottom: var(--spacing-lg);
+  color: var(--text-light);
+  line-height: 1.2;
+}
+
+.typed-text {
+  display: inline-block;
+}
+
+/* Section des langues avec cartes flip */
+.hero-languages {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin: var(--spacing-xl) 0;
+  flex-wrap: nowrap;
+  perspective: 1000px;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.language-card {
+  position: relative;
+  width: 280px;
+  height: 90px;
+  cursor: pointer;
+  transition: transform var(--transition-normal);
+}
+
+.language-card:hover {
+  transform: scale(1.03) translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.language-card-front,
+.language-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: var(--border-radius-sm);
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(234, 189, 131, 0.2);
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* Face avant - Drapeau qui prend toute la place */
+.language-card-front {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  overflow: hidden;
+}
+
+/* Face arrière - Design amélioré */
+.language-card-back {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-sm);
+  text-align: center;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(234, 189, 131, 0.1) 100%);
+}
+
+.language-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-xs);
+  margin-bottom: var(--spacing-xs);
+}
+
+.language-card-back h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-light);
+  margin: 0;
+  line-height: 1.1;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.student-count {
+  color: var(--secondary-gold);
+  font-weight: 600;
+  font-size: 0.75rem;
+  margin: 0;
+  background: rgba(234, 189, 131, 0.25);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--border-radius-md);
+  display: inline-block;
+  border: 1px solid rgba(234, 189, 131, 0.4);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+.student-count::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  transition: left 0.5s ease;
+}
+
+.student-count:hover {
+  background: var(--secondary-gold);
+  color: var(--text-dark);
+  border-color: var(--secondary-gold-light);
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 4px 12px rgba(234, 189, 131, 0.4);
+}
+
+.student-count:hover::before {
+  left: 100%;
+}
+
+.language-features {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  width: 100%;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-xs);
+  color: var(--text-light);
+  font-size: 0.7rem;
+  font-weight: 500;
+  background: rgba(255, 255, 255, 0.15);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--border-radius-md);
+  border: 1px solid rgba(234, 189, 131, 0.3);
+  transition: all var(--transition-normal);
+  width: 100%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  min-height: 20px;
+}
+
+.feature-item::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: radial-gradient(
+    circle,
+    rgba(234, 189, 131, 0.3) 0%,
+    transparent 70%
+  );
+  transform: translate(-50%, -50%);
+  transition: all 0.4s ease;
+  border-radius: 50%;
+}
+
+.feature-item:hover {
+  background: rgba(234, 189, 131, 0.25);
+  border-color: var(--secondary-gold);
+  color: var(--secondary-gold-light);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 3px 8px rgba(234, 189, 131, 0.3);
+}
+
+.feature-item:hover::before {
+  width: 100px;
+  height: 100px;
+}
+
+.feature-item svg {
+  color: var(--secondary-gold);
+  flex-shrink: 0;
+  font-size: 0.8rem;
+  transition: all var(--transition-normal);
+}
+
+.feature-item span {
+  font-size: 0.7rem;
+  text-align: center;
+}
+
+.feature-item:hover svg {
+  color: var(--secondary-gold-light);
+  transform: scale(1.1) rotate(5deg);
+}
+
+/* Description */
+.hero-description {
+  font-size: clamp(1.1rem, 2vw, 1.3rem);
+  color: rgba(245, 245, 245, 0.9);
+  margin: var(--spacing-xxl) 0;
+  max-width: 600px;
+  line-height: 1.6;
+}
+
+/* Boutons */
+.hero-buttons {
+  display: flex;
+  gap: var(--spacing-lg);
+  justify-content: center;
+  align-items: center;
+  margin-top: var(--spacing-xxl);
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md) var(--spacing-xl);
+  border-radius: var(--border-radius-lg);
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: all var(--transition-normal);
+  border: 2px solid transparent;
+  cursor: pointer;
+  min-width: 160px;
+  min-height: 48px;
+  justify-content: center;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(234, 189, 131, 0.2);
+}
+
+.btn-primary {
+  background: var(--secondary-gold);
+  color: var(--text-dark);
+  border-color: var(--secondary-gold);
+}
+
+.btn-primary:hover {
+  background: var(--secondary-gold-light);
+  border-color: var(--secondary-gold-light);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(234, 189, 131, 0.3);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--text-light);
+  border-color: var(--text-light);
+}
+
+.btn-secondary:hover {
+  background: var(--text-light);
+  color: var(--primary-blue-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(255, 255, 255, 0.2);
+}
+
+.btn svg {
+  font-size: 1.2rem;
+}
+
+/* Responsive pour les cartes langues */
+@media (max-width: 1024px) {
+  .hero-languages {
+    gap: var(--spacing-xs);
+    max-width: 100%;
+    padding: 0 var(--spacing-md);
+  }
+
+  .language-card {
+    width: 180px;
+    height: 70px;
+  }
+
+  .language-card:hover {
+    transform: scale(1.02) translateY(-1px);
+  }
+
+  .language-card-back h3 {
+    font-size: 1rem;
+  }
+
+  .student-count {
+    font-size: 0.7rem;
+    padding: var(--spacing-xs);
+    min-height: 28px; /* Zone de touch plus grande */
+  }
+
+  .feature-item {
+    font-size: 0.65rem;
+    padding: var(--spacing-xs);
+    min-height: 32px; /* Zone de touch adaptée */
+  }
+
+  .feature-item svg {
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding-top: 100px;
+    padding-left: var(--spacing-md);
+    padding-right: var(--spacing-md);
+  }
+
+  .hero-content {
+    margin-top: var(--spacing-xl);
+  }
+
+  .hero-languages {
+    gap: var(--spacing-xs);
+    max-width: 100%;
+    padding: 0;
+    margin: var(--spacing-lg) 0;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .language-card {
+    width: 160px;
+    height: 70px;
+    flex-shrink: 0;
+  }
+
+  .language-card:hover {
+    transform: scale(1.02) translateY(-1px);
+  }
+
+  .language-card-back {
+    padding: var(--spacing-xs);
+  }
+
+  .language-card-back h3 {
+    font-size: 0.85rem;
+  }
+
+  .student-count {
+    font-size: 0.65rem;
+    padding: var(--spacing-xs);
+    min-height: 28px;
+  }
+
+  .feature-item {
+    font-size: 0.6rem;
+    padding: var(--spacing-xs);
+    min-height: 28px;
+  }
+
+  .feature-item svg {
+    font-size: 0.7rem;
+  }
+
+  /* Optimisations tactiles */
+  .language-card {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: rgba(234, 189, 131, 0.2);
+  }
+
+  .student-count,
+  .feature-item {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: rgba(234, 189, 131, 0.3);
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    padding-top: 120px;
+    padding-left: var(--spacing-sm);
+    padding-right: var(--spacing-sm);
+  }
+
+  .hero-content {
+    margin-top: var(--spacing-lg);
+  }
+
+  .hero-content h1 {
+    font-size: clamp(1.8rem, 5vw, 2.2rem);
+    margin-bottom: var(--spacing-md);
+  }
+
+  .hero-languages {
+    gap: var(--spacing-xs);
+    margin: var(--spacing-md) 0;
+    justify-content: flex-start;
+    padding-left: var(--spacing-sm);
+    padding-right: var(--spacing-sm);
+  }
+
+  .language-card {
+    width: 140px;
+    height: 60px;
+    flex-shrink: 0;
+  }
+
+  .language-card:hover {
+    transform: scale(1.01) translateY(-1px);
+  }
+
+  .language-card-back {
+    padding: var(--spacing-xs);
+  }
+
+  .language-card-back h3 {
+    font-size: 0.8rem;
+  }
+
+  .student-count {
+    font-size: 0.6rem;
+    padding: 2px var(--spacing-xs);
+    min-height: 26px;
+  }
+
+  .feature-item {
+    font-size: 0.55rem;
+    padding: 2px var(--spacing-xs);
+    min-height: 26px;
+  }
+
+  .feature-item svg {
+    font-size: 0.65rem;
+  }
+
+  .language-features {
+    gap: var(--spacing-xs);
+  }
+
+  .hero-description {
+    font-size: clamp(1rem, 3vw, 1.2rem);
+    margin: var(--spacing-lg) 0;
+  }
+}
+
+/* Optimisations pour écrans tactiles */
+@media (hover: none) and (pointer: coarse) {
+  .language-card:hover {
+    transform: none;
+    box-shadow: none;
+  }
+
+  .language-card:active {
+    transform: scale(0.98);
+  }
+
+  .student-count:hover,
+  .feature-item:hover {
+    transform: none;
+    box-shadow: 0 2px 8px rgba(234, 189, 131, 0.3);
+  }
+
+  .student-count:active,
+  .feature-item:active {
+    transform: scale(0.95);
+    background: var(--secondary-gold);
+    color: var(--text-dark);
+  }
+
+  /* Zones de touch plus généreuses sur tactile */
+  .student-count {
+    min-height: 40px;
+    padding: var(--spacing-sm);
+  }
+
+  .feature-item {
+    min-height: 36px;
+    padding: var(--spacing-sm);
+  }
+} 
+
+/* Optimisations responsive pour les boutons */
+@media (max-width: 1024px) {
+  .hero-buttons {
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-xl);
+  }
+
+  .btn {
+    min-width: 180px;
+    min-height: 50px;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-buttons {
+    flex-direction: column;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-lg);
+  }
+
+  .btn {
+    width: 100%;
+    max-width: 280px;
+    min-height: 52px;
+    padding: var(--spacing-md) var(--spacing-xl);
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-buttons {
+    margin-top: var(--spacing-md);
+    gap: var(--spacing-lg);
+  }
+
+  .btn {
+    width: 100%;
+    max-width: none;
+    min-height: 48px;
+    padding: var(--spacing-md) var(--spacing-lg);
+    font-size: 0.95rem;
+  }
+}
+
+/* Optimisations pour écrans tactiles - Boutons Hero */
+@media (hover: none) and (pointer: coarse) {
+  .btn:hover {
+    transform: none;
+    box-shadow: 0 4px 15px rgba(234, 189, 131, 0.2);
+  }
+
+  .btn-primary:hover {
+    background: var(--secondary-gold);
+    border-color: var(--secondary-gold);
+  }
+
+  .btn-secondary:hover {
+    background: transparent;
+    color: var(--text-light);
+    border-color: var(--text-light);
+  }
+
+  .btn:active {
+    transform: scale(0.97);
+  }
+
+  .btn-primary:active {
+    background: var(--secondary-gold-dark);
+    box-shadow: 0 2px 10px rgba(234, 189, 131, 0.4);
+  }
+
+  .btn-secondary:active {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--secondary-gold);
+    border-color: var(--secondary-gold);
+  }
+
+  /* Zones de touch plus généreuses sur tactile */
+  .btn {
+    min-height: 56px;
+    padding: var(--spacing-lg) var(--spacing-xxl);
+  }
+} 
+
+/* === OPTIMISATIONS TACTILES MOBILES === */
+@media (max-width: 768px) {
+  .hero {
+    padding-top: 100px;
+    padding-left: var(--spacing-md);
+    padding-right: var(--spacing-md);
+  }
+
+  .hero-languages {
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-md);
+    max-width: 100%;
+    padding: 0 var(--spacing-sm);
+    margin: var(--spacing-lg) 0;
+  }
+
+  .language-card {
+    width: 240px;
+    height: 90px;
+    flex-shrink: 0;
+    /* Optimisations tactiles */
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: rgba(234, 189, 131, 0.3);
+    transition: all 0.2s ease;
+  }
+
+  .language-card:hover,
+  .language-card:active {
+    transform: scale(1.05) translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  }
+
+  .language-card-back {
+    padding: var(--spacing-sm);
+  }
+
+  .language-card-back h3 {
+    font-size: 0.95rem;
+    margin-bottom: var(--spacing-xs);
+  }
+
+  .student-count {
+    font-size: 0.75rem;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    min-height: 36px;
+    margin-bottom: var(--spacing-xs);
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: rgba(234, 189, 131, 0.4);
+    transition: all 0.2s ease;
+  }
+
+  .student-count:hover,
+  .student-count:active {
+    transform: scale(1.05);
+    background: rgba(234, 189, 131, 0.3);
+  }
+
+  .feature-item {
+    font-size: 0.7rem;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    min-height: 32px;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: rgba(234, 189, 131, 0.4);
+    transition: all 0.2s ease;
+  }
+
+  .feature-item:hover,
+  .feature-item:active {
+    transform: scale(1.05);
+    background: rgba(234, 189, 131, 0.2);
+  }
+
+  .feature-item svg {
+    font-size: 0.8rem;
+    margin-right: var(--spacing-xs);
+  }
+
+  .language-features {
+    gap: var(--spacing-xs);
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    padding-top: 120px;
+    padding-left: var(--spacing-sm);
+    padding-right: var(--spacing-sm);
+  }
+
+  .hero-content h1 {
+    font-size: clamp(1.8rem, 5vw, 2.2rem);
+    margin-bottom: var(--spacing-md);
+  }
+
+  .hero-languages {
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-lg);
+    margin: var(--spacing-md) 0;
+    padding: 0 var(--spacing-sm);
+  }
+
+  .language-card {
+    width: 260px;
+    height: 85px;
+    flex-shrink: 0;
+  }
+
+  .language-card:hover,
+  .language-card:active {
+    transform: scale(1.03) translateY(-1px);
+  }
+
+  .language-card-back {
+    padding: var(--spacing-sm);
+  }
+
+  .language-card-back h3 {
+    font-size: 0.9rem;
+    margin-bottom: var(--spacing-xs);
+  }
+
+  .student-count {
+    font-size: 0.7rem;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    min-height: 32px;
+    margin-bottom: var(--spacing-xs);
+  }
+
+  .feature-item {
+    font-size: 0.65rem;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    min-height: 30px;
+  }
+
+  .feature-item svg {
+    font-size: 0.75rem;
+  }
+
+  .language-features {
+    gap: var(--spacing-xs);
+  }
+
+  .hero-description {
+    font-size: clamp(1rem, 3vw, 1.2rem);
+    margin: var(--spacing-lg) 0;
+  }
+
+  /* Amélioration de l'accessibilité tactile */
+  .hero-cta-buttons {
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-lg);
+  }
+
+  .hero-cta-buttons .btn {
+    min-height: 48px;
+    padding: var(--spacing-md) var(--spacing-lg);
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: rgba(234, 189, 131, 0.3);
+  }
+}
+
+/* === INDICATEUR DE SCROLL TACTILE === */
+@media (max-width: 768px) {
+  .hero-languages::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 20px;
+    background: linear-gradient(
+      to left,
+      var(--primary-blue) 0%,
+      transparent 100%
+    );
+    pointer-events: none;
+    opacity: 0.7;
+  }
+
+  .hero-languages {
+    position: relative;
+  }
+}
+
+/* === FEEDBACK TACTILE AMÉLIORÉ === */
+@media (hover: none) and (pointer: coarse) {
+  .language-card:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
+  }
+
+  .student-count:active,
+  .feature-item:active {
+    transform: scale(0.95);
+    transition: transform 0.1s ease;
+  }
+
+  .btn:active {
+    transform: scale(0.97);
+    transition: transform 0.1s ease;
+  }
+} 

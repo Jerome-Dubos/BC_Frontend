@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
+  IoCallOutline,
   IoCloseOutline,
   IoFlaskOutline,
   IoHomeOutline,
@@ -50,9 +51,9 @@ const Navbar = () => {
     const baseLinks = [
       { path: "/", label: t("nav.home"), icon: <IoHomeOutline size={18} /> },
       {
-        path: "/about",
-        label: t("nav.about"),
-        icon: <IoInformationCircleOutline size={18} />,
+        path: "/test",
+        label: t("nav.test"),
+        icon: <IoFlaskOutline size={18} />,
       },
       {
         path: "/courses",
@@ -60,9 +61,14 @@ const Navbar = () => {
         icon: <IoSchoolOutline size={18} />,
       },
       {
-        path: "/test",
-        label: t("nav.test"),
-        icon: <IoFlaskOutline size={18} />,
+        path: "/contact",
+        label: t("nav.contact", "Contact"),
+        icon: <IoCallOutline size={18} />,
+      },
+      {
+        path: "/about",
+        label: t("nav.about"),
+        icon: <IoInformationCircleOutline size={18} />,
       },
     ];
 
@@ -115,8 +121,8 @@ const Navbar = () => {
             onChange={(e) => i18n.changeLanguage(e.target.value)}
             aria-label={t("nav.selectLanguage", "Choisir la langue")}
           >
-            <option value="fr">🇫🇷 FR</option>
-            <option value="en">🇬🇧 EN</option>
+            <option value="fr">🇫🇷</option>
+            <option value="en">🇬🇧</option>
           </select>
         </div>
 
@@ -190,8 +196,8 @@ const Navbar = () => {
             onChange={(e) => i18n.changeLanguage(e.target.value)}
             aria-label={t("nav.selectLanguage", "Choisir la langue")}
           >
-            <option value="fr">🇫🇷 FR</option>
-            <option value="en">🇬🇧 EN</option>
+            <option value="fr">🇫🇷</option>
+            <option value="en">🇬🇧</option>
           </select>
         </div>
       </motion.div>

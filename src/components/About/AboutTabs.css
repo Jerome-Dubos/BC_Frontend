@@ -1,0 +1,267 @@
+/* === COMPOSANT ABOUT TABS === */
+
+.about-tabs-section {
+  padding: var(--spacing-xxl) var(--spacing-lg);
+  background: var(--primary-blue);
+  position: relative;
+}
+
+.about-tabs-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23eabd83' fill-opacity='0.05'%3E%3Cpath d='M20,20 L20,20 C20,20 20,20 20,20 L20,20 Z M20,0 L20,20 L0,20 Z'/%3E%3C/g%3E%3C/svg%3E");
+  opacity: 0.3;
+}
+
+/* Navigation des onglets */
+.tabs-navigation {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-xxl);
+  position: relative;
+  z-index: 2;
+}
+
+.tab-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-lg) var(--spacing-xl);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(234, 189, 131, 0.2);
+  border-radius: var(--border-radius-lg);
+  color: var(--text-light);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(20px);
+  position: relative;
+  overflow: hidden;
+}
+
+.tab-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(234, 189, 131, 0.2),
+    transparent
+  );
+  transition: left 0.5s ease;
+}
+
+.tab-button:hover::before {
+  left: 100%;
+}
+
+.tab-button:hover {
+  transform: translateY(-5px);
+  border-color: var(--secondary-gold);
+  box-shadow: 0 10px 30px rgba(234, 189, 131, 0.3);
+}
+
+.tab-button.active {
+  background: rgba(234, 189, 131, 0.15);
+  border-color: var(--secondary-gold);
+  box-shadow: 0 8px 25px rgba(234, 189, 131, 0.4);
+}
+
+.tab-button.active::before {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(234, 189, 131, 0.4),
+    transparent
+  );
+}
+
+.tab-icon {
+  font-size: 2rem;
+  margin-bottom: var(--spacing-sm);
+}
+
+.tab-label {
+  font-weight: 600;
+  font-size: 1rem;
+  text-align: center;
+}
+
+/* Contenu des onglets */
+.tab-content {
+  position: relative;
+  z-index: 2;
+}
+
+.tab-panel {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.tab-title {
+  text-align: center;
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  margin-bottom: var(--spacing-xxl);
+  color: var(--text-light);
+  position: relative;
+}
+
+.tab-title::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--secondary-gold) 0%, #f4d19b 100%);
+  border-radius: 2px;
+}
+
+.tab-description {
+  font-size: clamp(1.1rem, 2vw, 1.3rem);
+  line-height: 1.8;
+  color: var(--text-light);
+  opacity: 0.9;
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto var(--spacing-xxl);
+}
+
+/* Grille des cartes */
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--spacing-xl);
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.about-card {
+  background: rgba(255, 255, 255, 0.08);
+  padding: var(--spacing-xl);
+  border-radius: var(--border-radius-lg);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(234, 189, 131, 0.2);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.about-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(234, 189, 131, 0.1) 0%,
+    transparent 50%,
+    rgba(234, 189, 131, 0.05) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.about-card:hover::before {
+  opacity: 1;
+}
+
+.about-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--secondary-gold);
+  box-shadow: 0 15px 40px rgba(234, 189, 131, 0.3);
+}
+
+.card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, var(--secondary-gold) 0%, #f4d19b 100%);
+  border-radius: 50%;
+  margin-bottom: var(--spacing-lg);
+  transition: all 0.3s ease;
+}
+
+.card-icon svg {
+  font-size: 1.8rem;
+  color: var(--primary-blue-dark);
+}
+
+.about-card:hover .card-icon {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.about-card h3 {
+  font-size: 1.4rem;
+  margin-bottom: var(--spacing-md);
+  color: var(--text-light);
+  font-weight: 600;
+}
+
+.about-card p {
+  color: var(--text-light);
+  opacity: 0.9;
+  line-height: 1.6;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .tabs-navigation {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
+  .tab-button {
+    flex-direction: row;
+    justify-content: center;
+    padding: var(--spacing-md) var(--spacing-lg);
+  }
+
+  .tab-content {
+    padding: 0 var(--spacing-md);
+  }
+
+  .tab-description {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-tabs-section {
+    padding: var(--spacing-xl) var(--spacing-md);
+  }
+
+  .tab-button {
+    padding: var(--spacing-sm) var(--spacing-md);
+  }
+
+  .tab-icon {
+    font-size: 1.5rem;
+    margin-bottom: 0;
+    margin-right: var(--spacing-sm);
+  }
+
+  .tab-label {
+    font-size: 0.9rem;
+  }
+
+  .tab-description {
+    font-size: 0.95rem;
+  }
+} 

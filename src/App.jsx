@@ -15,6 +15,7 @@ import Error from "./pages/Error/Error";
 import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
 import Test from "./pages/Test/Test";
+import Contact from "./pages/Contact/Contact";
 
 function App() {
   const location = useLocation();
@@ -28,6 +29,7 @@ function App() {
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
           <Route path="/courses" element={<Courses />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/login" element={<Login />} />
