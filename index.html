@@ -2,60 +2,39 @@
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="Bon Cours - Plateforme d'apprentissage des langues"
-    />
-    <meta name="theme-color" content="#2563eb" />
-
-    <!-- Preconnect pour les polices -->
-    <link
-      rel="preconnect"
-      href="https://fonts.googleapis.com"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="preconnect"
-      href="https://fonts.gstatic.com"
-      crossorigin="anonymous"
-    />
-
-    <!-- Manifest et icônes -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>Bon Cours - École de Langues</title>
+    <meta name="description" content="École de langues moderne proposant des cours d'anglais, français, espagnol et allemand avec des méthodes innovantes." />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <link rel="manifest" href="/manifest.json" />
-    <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
-
-    <!-- Styles critiques -->
-    <link rel="stylesheet" href="/src/index.css" />
-
-    <!-- Scripts -->
-    <link
-      rel="modulepreload"
-      href="/src/main.jsx"
-      as="script"
-      crossorigin="anonymous"
-    />
-
-    <!-- Meta tags pour SEO -->
-    <meta property="og:title" content="Bon Cours" />
-    <meta
-      property="og:description"
-      content="Plateforme d'apprentissage des langues"
-    />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://boncours.fr" />
-    <meta property="og:image" content="/icons/icon-512x512.png" />
-
-    <title>Bon Cours</title>
+    <style>
+      /* Loading spinner styles */
+      .loading-spinner {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      }
+      .spinner {
+        width: 50px;
+        height: 50px;
+        border: 4px solid rgba(255, 255, 255, 0.3);
+        border-top: 4px solid white;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+    </style>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
-    <noscript>
-      <div style="text-align: center; padding: 2rem">
-        JavaScript est nécessaire pour utiliser cette application.
-      </div>
-    </noscript>
   </body>
 </html>
