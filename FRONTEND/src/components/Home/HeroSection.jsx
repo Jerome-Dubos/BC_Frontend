@@ -1,283 +1,391 @@
 /* eslint-disable no-unused-vars */
-import { AnimatePresence, motion } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
-import { useTranslation } from "react-i18next";
-import ReactCountryFlag from "react-country-flag";
+import { motion } from "framer-motion";
+import React, { useEffect, useState } from "react";
+import { AiOutlineQuestionCircle } from "react-icons/ai";
 import {
-  IoCheckmarkCircleOutline,
-  IoGlobeOutline,
-  IoPlayCircleOutline,
-  IoRocketOutline,
-  IoSchoolOutline,
-  IoStarOutline,
-} from "react-icons/io5";
-import { Link } from "react-router-dom";
+  FaArrowRight,
+  FaCertificate,
+  FaChalkboardTeacher,
+  FaGlobe,
+  FaGraduationCap,
+  FaUsers,
+} from "react-icons/fa";
+import { MdSchool } from "react-icons/md";
 import "./HeroSection.css";
 
 const HeroSection = () => {
-  const { t, i18n } = useTranslation();
-  const fullText = t("home.hero_title");
-  const [typedText, setTypedText] = useState("");
-  const [flippedCards, setFlippedCards] = useState([]);
-  const lastClickTime = useRef(0);
-  const lastClickedIndex = useRef(null);
+  const [activeCard, setActiveCard] = useState(null);
+  const [isMobile, setIsMobile] = useState(false);
 
-  // Effet de typing optimisé
+  // Détection responsive
   useEffect(() => {
-    setTypedText(fullText);
-  }, [fullText]);
+    const checkScreenSize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
 
-  const toggleCard = (index) => {
-    const now = Date.now();
-    if (
-      lastClickedIndex.current === index &&
-      now - lastClickTime.current < 300
-    ) {
-      return;
-    }
-    lastClickTime.current = now;
-    lastClickedIndex.current = index;
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
 
-    setFlippedCards((prev) =>
-      prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]
-    );
-  };
-
-  const scrollToTestimonials = () => {
-    const testimonialsSection = document.querySelector('.testimonials');
-    if (testimonialsSection) {
-      const offsetTop = testimonialsSection.offsetTop - 100; // 100px d'offset vers le haut
-      window.scrollTo({
-        top: offsetTop,
-        behavior: 'smooth'
-      });
+  const handleCardClick = (language) => {
+    if (isMobile) {
+      // Sur mobile, navigation directe vers les cours
+      window.location.href = "/courses";
+    } else {
+      // Sur desktop, flip de la carte
+      setActiveCard(activeCard === language ? null : language);
     }
   };
 
-  const scrollToCourses = () => {
-    // Scroll vers la section des cours
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-    // Puis naviguer vers la page cours après un délai
-    setTimeout(() => {
-      window.location.href = '/courses';
-    }, 500);
-  };
+  const handleBadgeClick = (action, event) => {
+    event.stopPropagation();
+    setActiveCard(null);
 
-  const scrollToAbout = () => {
-    // Scroll vers la section des cours ou about pour les certifications
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-    // Puis naviguer vers la page à propos après un délai  
-    setTimeout(() => {
-      window.location.href = '/about';
-    }, 500);
+    switch (action) {
+      case "students": {
+        const testimonialsElement = document.getElementById("testimonials");
+        if (testimonialsElement) {
+          const offset = 100;
+          const elementPosition = testimonialsElement.offsetTop - offset;
+          window.scrollTo({
+            top: elementPosition,
+            behavior: "smooth",
+          });
+        }
+        break;
+      }
+      case "courses":
+        window.location.href = "/courses";
+        break;
+      case "about":
+        window.location.href = "/about";
+        break;
+      default:
+        break;
+    }
   };
 
   const languages = [
     {
       name: "Français",
-      flag: "FR",
-      students: "120+",
+      flag: "🇫🇷",
+      students: "150+",
       level: "Tous niveaux",
       certification: "Certification",
+      color: "#4CAF50",
+      bgColor: "rgba(76, 175, 80, 0.1)",
     },
     {
-      name: "Anglais", 
-      flag: "GB",
+      name: "Anglais",
+      flag: "🇬🇧",
       students: "200+",
       level: "Tous niveaux",
       certification: "Certification",
+      color: "#2196F3",
+      bgColor: "rgba(33, 150, 243, 0.1)",
     },
     {
       name: "Espagnol",
-      flag: "ES",
-      students: "85+",
+      flag: "🇪🇸",
+      students: "120+",
       level: "Tous niveaux",
       certification: "Certification",
+      color: "#FF9800",
+      bgColor: "rgba(255, 152, 0, 0.1)",
     },
     {
       name: "Allemand",
-      flag: "DE",
-      students: "65+",
+      flag: "🇩🇪",
+      students: "80+",
       level: "Tous niveaux",
       certification: "Certification",
+      color: "#9C27B0",
+      bgColor: "rgba(156, 39, 176, 0.1)",
+    },
+    {
+      name: "Soutien Scolaire",
+      icon: FaChalkboardTeacher,
+      students: "300+",
+      level: "De la primaire au lycée",
+      certification: "Professeurs diplômés",
+      color: "#E91E63",
+      bgColor: "rgba(233, 30, 99, 0.1)",
+      iconColor: "#FFFFFF",
     },
   ];
 
-  return (
-    <section className="hero">
-      {/* Particules simplifiées */}
-      <div className="hero-particles">
-        {[...Array(6)].map((_, i) => (
-          <div
-            key={i}
-            className="particle"
-            style={{
-              left: `${15 + i * 15}%`,
-              top: `${20 + i * 10}%`,
-              animationDelay: `${i * 0.8}s`,
-            }}
-          />
-        ))}
-      </div>
+  const cardVariants = {
+    initial: { scale: 1, y: 0 },
+    hover: { scale: 1.05, y: -5 },
+    active: { scale: 1.02, y: -2 },
+  };
 
-      {/* Décorations flottantes */}
-      <div className="floating-elements">
+  const flipVariants = {
+    initial: { rotateY: 0 },
+    flipped: { rotateY: 180 },
+  };
+
+  const backVariants = {
+    initial: { rotateY: 180 },
+    flipped: { rotateY: 360 },
+  };
+
+  // Rendu mobile simplifié
+  const renderMobileCard = (lang, index) => (
+    <motion.div
+      key={lang.name}
+      className="mobile-language-card"
+      onClick={() => handleCardClick(lang.name)}
+      variants={cardVariants}
+      initial="initial"
+      whileHover="hover"
+      whileTap="active"
+      transition={{
+        duration: 0.2,
+        ease: "easeOut",
+      }}
+      style={{ animationDelay: `${index * 0.05}s` }}
+    >
+      <div className="mobile-card-content">
+        <div className="mobile-flag-container">
+          {lang.flag ? (
+            <span
+              className="mobile-flag-emoji"
+              role="img"
+              aria-label={`Drapeau ${lang.name}`}
+            >
+              {lang.flag}
+            </span>
+          ) : (
+            <lang.icon
+              className="mobile-flag-icon"
+              aria-label={`Icône ${lang.name}`}
+              style={{ color: lang.iconColor || "var(--text-light)" }}
+            />
+          )}
+        </div>
+        <div className="mobile-card-text">
+          <h3>{lang.name}</h3>
+          <p className="mobile-card-subtitle">{lang.level}</p>
+        </div>
+        <div className="mobile-card-arrow">
+          <FaArrowRight />
+        </div>
+      </div>
+    </motion.div>
+  );
+
+  // Rendu desktop avec animations
+  const renderDesktopCard = (lang, index) => (
+    <motion.div
+      key={lang.name}
+      className="flag-card-container"
+      onClick={() => handleCardClick(lang.name)}
+      variants={cardVariants}
+      initial="initial"
+      whileHover="hover"
+      whileTap="active"
+      layout
+      transition={{
+        duration: 0.3,
+        ease: [0.4, 0, 0.2, 1],
+        layout: { duration: 0.4 },
+      }}
+      style={{ animationDelay: `${index * 0.1}s` }}
+    >
+      <div className="flag-card">
+        {/* Recto de la carte */}
         <motion.div
-          className="floating-decoration decoration-1"
-          animate={{ y: [-10, 10] }}
-          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+          className="flag-card-front"
+          variants={flipVariants}
+          animate={activeCard === lang.name ? "flipped" : "initial"}
+          transition={{ duration: 0.6, ease: "easeInOut" }}
+          style={{ backgroundColor: lang.bgColor }}
+          initial="initial"
         >
-          <IoGlobeOutline />
+          <div className="flag-container">
+            {lang.flag ? (
+              <span
+                className="flag-emoji"
+                role="img"
+                aria-label={`Drapeau ${lang.name}`}
+              >
+                {lang.flag}
+              </span>
+            ) : (
+              <lang.icon
+                className="flag-icon"
+                aria-label={`Icône ${lang.name}`}
+                style={{ color: lang.iconColor || "var(--text-light)" }}
+              />
+            )}
+          </div>
+          <div className="flag-card-content">
+            <h3>{lang.name}</h3>
+          </div>
         </motion.div>
+
+        {/* Verso de la carte */}
         <motion.div
-          className="floating-decoration decoration-2"
-          animate={{ y: [10, -10] }}
-          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+          className="flag-card-back"
+          variants={backVariants}
+          animate={activeCard === lang.name ? "flipped" : "initial"}
+          transition={{ duration: 0.6, ease: "easeInOut" }}
+          style={{ backgroundColor: lang.color }}
+          initial="initial"
         >
-          <IoRocketOutline />
-        </motion.div>
-        <motion.div
-          className="floating-decoration decoration-3"
-          animate={{ y: [-8, 8] }}
-          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-        >
-          <IoStarOutline />
+          <div className="card-back-content">
+            <div className="back-info">
+              <div className="back-badges">
+                <button
+                  className="back-badge"
+                  onClick={(e) => handleBadgeClick("students", e)}
+                  aria-label={`Voir les ${lang.students} élèves`}
+                >
+                  <FaUsers />
+                  <span>{lang.students} élèves</span>
+                </button>
+                <button
+                  className="back-badge"
+                  onClick={(e) => handleBadgeClick("courses", e)}
+                  aria-label={`Voir les cours ${lang.level}`}
+                >
+                  <MdSchool />
+                  <span>{lang.level}</span>
+                </button>
+                <button
+                  className="back-badge"
+                  onClick={(e) => handleBadgeClick("about", e)}
+                  aria-label={`En savoir plus sur ${lang.certification}`}
+                >
+                  <FaCertificate />
+                  <span>{lang.certification}</span>
+                </button>
+              </div>
+            </div>
+          </div>
         </motion.div>
       </div>
+    </motion.div>
+  );
+
+  return (
+    <section className="hero" id="home">
+      {/* Particules de fond - seulement sur desktop */}
+      {!isMobile && (
+        <div className="hero-particles">
+          {[...Array(12)].map((_, i) => (
+            <div
+              key={i}
+              className="particle"
+              style={{
+                left: `${Math.random() * 100}%`,
+                animationDelay: `${Math.random() * 5}s`,
+                animationDuration: `${3 + Math.random() * 4}s`,
+              }}
+            />
+          ))}
+        </div>
+      )}
+
+      {/* Éléments décoratifs - seulement sur desktop */}
+      {!isMobile && (
+        <div className="floating-elements">
+          <motion.div
+            className="floating-decoration decoration-1"
+            animate={{
+              y: [0, -20, 0],
+              rotate: [0, 5, 0],
+            }}
+            transition={{
+              duration: 6,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          >
+            <FaGlobe />
+          </motion.div>
+          <motion.div
+            className="floating-decoration decoration-2"
+            animate={{
+              y: [0, -15, 0],
+              rotate: [0, -3, 0],
+            }}
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 2,
+            }}
+          >
+            <FaGraduationCap />
+          </motion.div>
+          <motion.div
+            className="floating-decoration decoration-3"
+            animate={{
+              y: [0, -25, 0],
+              rotate: [0, 8, 0],
+            }}
+            transition={{
+              duration: 7,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 4,
+            }}
+          >
+            <MdSchool />
+          </motion.div>
+        </div>
+      )}
 
       <div className="hero-content">
-        <motion.h1
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.8 }}
-        >
-          <span className="typed-text">{typedText}</span>
-        </motion.h1>
+        <h1>
+          Apprenez les langues avec{" "}
+          <span className="typed-text">Bon Cours</span>
+        </h1>
 
-        {/* Section des langues intégrée avec flip */}
-        <motion.div 
-          className="hero-languages"
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-        >
-          {languages.map((language, index) => (
-            <motion.div
-              key={language.name}
-              className="language-card"
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.3 + index * 0.1 }}
-              onClick={(e) => {
-                e.stopPropagation();
-                e.preventDefault();
-                toggleCard(index);
-              }}
-              onPointerDown={(e) => e.stopPropagation()}
-              style={{ cursor: "pointer" }}
+        {/* Section des cartes de langues */}
+        <div className={isMobile ? "mobile-hero-flags" : "hero-flags"}>
+          {languages.map((lang, index) =>
+            isMobile
+              ? renderMobileCard(lang, index)
+              : renderDesktopCard(lang, index)
+          )}
+        </div>
+
+        <p className="hero-description">
+          Découvrez nos cours de langues personnalisés avec des professeurs
+          expérimentés
+        </p>
+
+        <div className="hero-buttons">
+          <button
+            className="btn btn-primary"
+            onClick={() => (window.location.href = "/test")}
+            aria-label="Commencer les cours maintenant"
+          >
+            Testez votre niveau
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              aria-hidden="true"
             >
-              <AnimatePresence mode="wait">
-                {!flippedCards.includes(index) ? (
-                  <motion.div
-                    key="front"
-                    className="language-card-front"
-                    initial={{ scale: 1.1, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    exit={{ scale: 0.9, opacity: 0 }}
-                    transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
-                  >
-                    <ReactCountryFlag
-                      countryCode={language.flag}
-                      svg
-                      style={{
-                        width: 'calc(100% - 10px)',
-                        height: 'calc(100% - 10px)',
-                        objectFit: 'cover',
-                        borderRadius: '8px',
-                        boxShadow: '0 4px 15px rgba(0, 0, 0, 0.3)'
-                      }}
-                    />
-                  </motion.div>
-                ) : (
-                  <motion.div
-                    key="back"
-                    className="language-card-back"
-                    initial={{ scale: 1.1, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    exit={{ scale: 0.9, opacity: 0 }}
-                    transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
-                  >
-                    <div className="language-header">
-                      <h3>{language.name}</h3>
-                      <p 
-                        className="student-count"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          scrollToTestimonials();
-                        }}
-                      >
-                        {language.students} étudiants
-                      </p>
-                    </div>
-                    <div className="language-features">
-                      <div 
-                        className="feature-item"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          scrollToCourses();
-                        }}
-                      >
-                        <IoCheckmarkCircleOutline />
-                        <span>{language.level}</span>
-                      </div>
-                      <div 
-                        className="feature-item"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          scrollToAbout();
-                        }}
-                      >
-                        <IoCheckmarkCircleOutline />
-                        <span>{language.certification}</span>
-                      </div>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </motion.div>
-          ))}
-        </motion.div>
-
-        <motion.p
-          className="hero-description"
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-        >
-          {t("home.hero_desc")}
-        </motion.p>
-
-        <motion.div 
-          className="hero-buttons"
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-        >
-          <Link to="/test" className="btn btn-primary">
-            <IoPlayCircleOutline />
-            {t("home.cta_test")}
-          </Link>
-          <Link to="/courses" className="btn btn-secondary">
-            <IoSchoolOutline />
-            {t("home.cta_courses")}
-          </Link>
-        </motion.div>
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </button>
+          <button
+            className="btn btn-secondary"
+            onClick={() => (window.location.href = "/about")}
+            aria-label="En savoir plus sur Bon Cours"
+          >
+            En savoir plus <AiOutlineQuestionCircle />
+          </button>
+        </div>
       </div>
     </section>
   );

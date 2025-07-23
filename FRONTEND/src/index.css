@@ -17,6 +17,13 @@
   /* Couleurs de fond */
   --background: var(--primary-blue);
   --background-alt: var(--primary-blue-light);
+  --bg-dark: var(--primary-blue-dark);
+
+  /* Couleurs de texte supplémentaires */
+  --text-muted: rgba(245, 245, 245, 0.7);
+
+  /* Couleur d'accent */
+  --accent-color: var(--secondary-gold-light);
 
   /* Espacement */
   --spacing-xs: 0.25rem;

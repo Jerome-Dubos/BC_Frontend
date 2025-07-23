@@ -135,6 +135,46 @@
       "courseType": "Cours enfant",
       "rating": 5,
       "text": "Plateforme exceptionnelle pour l'apprentissage de l'anglais. Les cours sont de très haute qualité et les résultats sont au rendez-vous."
+    },
+    {
+      "id": 18,
+      "name": "Léonie Moreau",
+      "language": "Soutien scolaire",
+      "courseType": "Mathématiques",
+      "rating": 5,
+      "text": "Le soutien scolaire en mathématiques a été un vrai plus pour ma fille. Les professeurs sont patients et expliquent très bien. Ses notes ont considérablement progressé !"
+    },
+    {
+      "id": 19,
+      "name": "Marc Dubois",
+      "language": "Soutien scolaire",
+      "courseType": "Français",
+      "rating": 4,
+      "text": "Excellent soutien en français. Mon fils a repris confiance en lui grâce aux cours personnalisés. Les exercices sont adaptés à son niveau et ses difficultés."
+    },
+    {
+      "id": 20,
+      "name": "Isabelle Rousseau",
+      "language": "Soutien scolaire",
+      "courseType": "Physique-Chimie",
+      "rating": 5,
+      "text": "Grâce au soutien scolaire en physique-chimie, ma fille a enfin compris les concepts qui lui posaient problème. Les explications sont claires et les exercices progressifs."
+    },
+    {
+      "id": 21,
+      "name": "François Leroy",
+      "language": "Soutien scolaire",
+      "courseType": "Histoire-Géographie",
+      "rating": 4,
+      "text": "Très bon soutien en histoire-géographie. Les cours sont intéressants et les méthodes de mémorisation sont efficaces. Mon fils a amélioré ses résultats."
+    },
+    {
+      "id": 22,
+      "name": "Céline Martin",
+      "language": "Soutien scolaire",
+      "courseType": "SVT",
+      "rating": 5,
+      "text": "Le soutien en SVT a permis à mon enfant de mieux comprendre les concepts scientifiques. Les professeurs sont compétents et motivants. Je recommande vivement !"
     }
   ]
-} 
+}

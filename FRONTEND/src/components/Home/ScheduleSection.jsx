@@ -1,29 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
-  IoCloseOutline,
-  IoPersonOutline,
-  IoTimeOutline,
-  IoDesktopOutline,
-  IoSchoolOutline,
-  IoCalendarOutline,
-  IoStopwatchOutline,
-  IoPeopleOutline,
   IoChevronDownOutline,
-  IoMailOutline,
-  IoCallOutline,
-  IoChatbubbleOutline,
+  IoCloseOutline,
+  IoDesktopOutline,
+  IoPeopleOutline,
+  IoSchoolOutline,
+  IoStopwatchOutline,
+  IoTimeOutline,
 } from "react-icons/io5";
 import "./ScheduleSection.css";
 
 /*
  * BACKEND INTEGRATION NOTES:
- * 
+ *
  * 1. Services API à créer:
  *    - GET /api/courses/schedule?week={date}&type={presentiel|visio}
  *    - POST /api/courses/{courseId}/interest
  *    - GET /api/courses/{courseId}/details
- * 
+ *
  * 2. Structure de données attendue du backend:
  *    Course {
  *      id: number,
@@ -38,12 +33,12 @@ import "./ScheduleSection.css";
  *      type: 'presentiel' | 'visio',
  *      date: string (YYYY-MM-DD)
  *    }
- * 
+ *
  * 3. État de chargement à gérer:
  *    - Loading states pour les appels API
  *    - Error handling
  *    - Refresh automatique des données
- * 
+ *
  * 4. Fichiers à créer:
  *    - src/services/coursesService.js
  *    - src/hooks/useCourses.js (optionnel)
@@ -76,20 +71,31 @@ const InterestModal = ({ course, onClose }) => {
   // Formatage automatique du téléphone
   const formatPhoneNumber = (value) => {
     // Supprimer tous les caractères non numériques
-    const numbers = value.replace(/\D/g, '');
-    
+    const numbers = value.replace(/\D/g, "");
+
     // Limiter à 10 chiffres maximum
     if (numbers.length > 10) {
       return value.slice(0, -1);
     }
-    
+
     // Formatage français : 06 12 34 56 78
-    if (numbers.length === 0) return '';
+    if (numbers.length === 0) return "";
     if (numbers.length <= 2) return numbers;
-    if (numbers.length <= 4) return `${numbers.slice(0, 2)} ${numbers.slice(2)}`;
-    if (numbers.length <= 6) return `${numbers.slice(0, 2)} ${numbers.slice(2, 4)} ${numbers.slice(4)}`;
-    if (numbers.length <= 8) return `${numbers.slice(0, 2)} ${numbers.slice(2, 4)} ${numbers.slice(4, 6)} ${numbers.slice(6)}`;
-    return `${numbers.slice(0, 2)} ${numbers.slice(2, 4)} ${numbers.slice(4, 6)} ${numbers.slice(6, 8)} ${numbers.slice(8)}`;
+    if (numbers.length <= 4)
+      return `${numbers.slice(0, 2)} ${numbers.slice(2)}`;
+    if (numbers.length <= 6)
+      return `${numbers.slice(0, 2)} ${numbers.slice(2, 4)} ${numbers.slice(
+        4
+      )}`;
+    if (numbers.length <= 8)
+      return `${numbers.slice(0, 2)} ${numbers.slice(2, 4)} ${numbers.slice(
+        4,
+        6
+      )} ${numbers.slice(6)}`;
+    return `${numbers.slice(0, 2)} ${numbers.slice(2, 4)} ${numbers.slice(
+      4,
+      6
+    )} ${numbers.slice(6, 8)} ${numbers.slice(8)}`;
   };
 
   // Empêcher le scroll de la page quand la modale est ouverte
@@ -99,13 +105,13 @@ const InterestModal = ({ course, onClose }) => {
     const originalOverflow = originalStyle.overflow;
     const originalPosition = originalStyle.position;
     const originalTop = originalStyle.top;
-    
+
     // Bloquer le scroll de manière plus robuste
     document.body.style.overflow = "hidden";
     document.body.style.position = "fixed";
     document.body.style.top = `-${window.scrollY}px`;
     document.body.style.width = "100%";
-    
+
     // Nettoyer à la fermeture
     return () => {
       const scrollY = document.body.style.top;
@@ -113,7 +119,7 @@ const InterestModal = ({ course, onClose }) => {
       document.body.style.position = originalPosition;
       document.body.style.top = originalTop;
       document.body.style.width = "";
-      
+
       // Restaurer la position de scroll
       if (scrollY) {
         window.scrollTo(0, parseInt(scrollY || "0") * -1);
@@ -151,12 +157,13 @@ const InterestModal = ({ course, onClose }) => {
   // Validation en temps réel
   const validateField = (name, value) => {
     let error = "";
-    
+
     if (name === "name") {
       if (!value.trim()) {
         error = "Le nom est requis";
       } else if (!validationRegex.name.test(value.trim())) {
-        error = "Le nom doit contenir entre 2 et 50 caractères (lettres et espaces uniquement)";
+        error =
+          "Le nom doit contenir entre 2 et 50 caractères (lettres et espaces uniquement)";
       }
     } else if (name === "email") {
       if (!value.trim()) {
@@ -166,38 +173,41 @@ const InterestModal = ({ course, onClose }) => {
       }
     } else if (name === "phone" && value.trim()) {
       // Vérifier si le numéro a exactement 10 chiffres
-      const numbers = value.replace(/\D/g, '');
+      const numbers = value.replace(/\D/g, "");
       if (numbers.length > 0 && numbers.length !== 10) {
         error = "Numéro incomplet";
-      } else if (numbers.length === 10 && !validationRegex.phone.test(value.trim())) {
+      } else if (
+        numbers.length === 10 &&
+        !validationRegex.phone.test(value.trim())
+      ) {
         error = "Format invalide. Exemple : 06 12 34 56 78";
       }
     }
-    
+
     return error;
   };
 
   // Gestion des changements de formulaire avec validation
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    
+
     let processedValue = value;
-    
+
     // Formatage automatique pour le téléphone
     if (name === "phone") {
       processedValue = formatPhoneNumber(value);
     }
-    
-    setFormData(prev => ({
+
+    setFormData((prev) => ({
       ...prev,
-      [name]: processedValue
+      [name]: processedValue,
     }));
-    
+
     // Validation en temps réel
     const error = validateField(name, processedValue);
-    setValidationErrors(prev => ({
+    setValidationErrors((prev) => ({
       ...prev,
-      [name]: error
+      [name]: error,
     }));
   };
 
@@ -215,29 +225,29 @@ const InterestModal = ({ course, onClose }) => {
   // Gestion de la soumission du formulaire
   const handleSubmit = (e) => {
     e.preventDefault();
-    
+
     // Validation finale avant soumission
     const finalValidation = {
       name: validateField("name", formData.name),
       email: validateField("email", formData.email),
       phone: validateField("phone", formData.phone),
     };
-    
+
     setValidationErrors(finalValidation);
-    
+
     // Vérifier s'il y a des erreurs
-    if (Object.values(finalValidation).some(error => error)) {
+    if (Object.values(finalValidation).some((error) => error)) {
       return;
     }
-    
+
     console.log("Formulaire soumis:", { course, formData });
     // TODO: Backend Integration - POST /api/courses/{courseId}/interest
     onClose();
   };
 
   return (
-    <div 
-      className="course-interest-modal-backdrop" 
+    <div
+      className="course-interest-modal-backdrop"
       onClick={handleBackdropClick}
       onWheel={handleBackdropScroll}
       onTouchMove={handleBackdropScroll}
@@ -272,7 +282,8 @@ const InterestModal = ({ course, onClose }) => {
             <div className="course-interest-modal__detail">
               <IoPeopleOutline />
               <span>
-                {course.enrolledStudents}/{course.maxStudents} places disponibles
+                {course.enrolledStudents}/{course.maxStudents} places
+                disponibles
               </span>
             </div>
           </div>
@@ -281,7 +292,10 @@ const InterestModal = ({ course, onClose }) => {
         {/* Formulaire */}
         <form className="course-interest-modal__form" onSubmit={handleSubmit}>
           <div className="course-interest-modal__form-group">
-            <label htmlFor="name" className="course-interest-modal__label course-interest-modal__label--required">
+            <label
+              htmlFor="name"
+              className="course-interest-modal__label course-interest-modal__label--required"
+            >
               {t("home.schedule.modal.name", "NOM")}
             </label>
             <input
@@ -290,7 +304,11 @@ const InterestModal = ({ course, onClose }) => {
               name="name"
               value={formData.name}
               onChange={handleInputChange}
-              className={`course-interest-modal__input ${validationErrors.name ? "course-interest-modal__input--error" : ""}`}
+              className={`course-interest-modal__input ${
+                validationErrors.name
+                  ? "course-interest-modal__input--error"
+                  : ""
+              }`}
               placeholder="Votre nom complet"
             />
             {validationErrors.name && (
@@ -301,7 +319,10 @@ const InterestModal = ({ course, onClose }) => {
           </div>
 
           <div className="course-interest-modal__form-group">
-            <label htmlFor="email" className="course-interest-modal__label course-interest-modal__label--required">
+            <label
+              htmlFor="email"
+              className="course-interest-modal__label course-interest-modal__label--required"
+            >
               {t("home.schedule.modal.email", "EMAIL")}
             </label>
             <input
@@ -310,7 +331,11 @@ const InterestModal = ({ course, onClose }) => {
               name="email"
               value={formData.email}
               onChange={handleInputChange}
-              className={`course-interest-modal__input ${validationErrors.email ? "course-interest-modal__input--error" : ""}`}
+              className={`course-interest-modal__input ${
+                validationErrors.email
+                  ? "course-interest-modal__input--error"
+                  : ""
+              }`}
               placeholder="votre.email@exemple.com"
             />
             {validationErrors.email && (
@@ -331,7 +356,11 @@ const InterestModal = ({ course, onClose }) => {
               value={formData.phone}
               onChange={handleInputChange}
               maxLength={14}
-              className={`course-interest-modal__input ${validationErrors.phone ? "course-interest-modal__input--error" : ""}`}
+              className={`course-interest-modal__input ${
+                validationErrors.phone
+                  ? "course-interest-modal__input--error"
+                  : ""
+              }`}
               placeholder="06 12 34 56 78"
             />
             {validationErrors.phone && (
@@ -339,7 +368,6 @@ const InterestModal = ({ course, onClose }) => {
                 {validationErrors.phone}
               </div>
             )}
-
           </div>
 
           <div className="course-interest-modal__form-group">
@@ -353,7 +381,10 @@ const InterestModal = ({ course, onClose }) => {
               onChange={handleInputChange}
               className="course-interest-modal__textarea"
               rows="4"
-              placeholder={t("home.schedule.modal.messagePlaceholder", "Votre message (optionnel)")}
+              placeholder={t(
+                "home.schedule.modal.messagePlaceholder",
+                "Votre message (optionnel)"
+              )}
             />
           </div>
 
@@ -367,7 +398,11 @@ const InterestModal = ({ course, onClose }) => {
             </button>
             <button
               type="submit"
-              className={`course-interest-modal__btn-primary ${!isFormValid() ? "course-interest-modal__btn-primary--disabled" : ""}`}
+              className={`course-interest-modal__btn-primary ${
+                !isFormValid()
+                  ? "course-interest-modal__btn-primary--disabled"
+                  : ""
+              }`}
               disabled={!isFormValid()}
             >
               {t("home.schedule.modal.submit", "Envoyer")}
@@ -379,8 +414,9 @@ const InterestModal = ({ course, onClose }) => {
   );
 };
 
-const ScheduleSection = () => {
+const ScheduleSection = ({ isMobile = false }) => {
   const { t } = useTranslation();
+  // TODO: Implémenter la logique mobile pour la ScheduleSection
   const [currentWeek] = useState(new Date());
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [activeTab, setActiveTab] = useState("presentiel");
@@ -399,19 +435,19 @@ const ScheduleSection = () => {
       try {
         setLoading(true);
         setError(null);
-        
+
         // Chargement depuis le fichier JSON public
         // TODO: Remplacer par l'URL de l'API backend
-        const response = await fetch('/data/courses.json');
-        
+        const response = await fetch("/data/courses.json");
+
         if (!response.ok) {
-          throw new Error('Erreur lors du chargement des données');
+          throw new Error("Erreur lors du chargement des données");
         }
-        
+
         const data = await response.json();
         setCoursesData(data);
       } catch (err) {
-        console.error('Erreur lors du chargement des cours:', err);
+        console.error("Erreur lors du chargement des cours:", err);
         setError(err.message);
         // Fallback: données par défaut en cas d'erreur
         setCoursesData({ presentiel: {}, visio: {} });
@@ -467,13 +503,13 @@ const ScheduleSection = () => {
       id: "presentiel",
       label: t("home.schedule.tabs.presentiel", "Présentiel"),
       icon: <IoSchoolOutline />,
-      description: "En salle de classe"
+      description: "En salle de classe",
     },
     {
       id: "visio",
       label: t("home.schedule.tabs.visio", "Visioconférence"),
       icon: <IoDesktopOutline />,
-      description: "En ligne depuis chez vous"
+      description: "En ligne depuis chez vous",
     },
   ];
 
@@ -507,7 +543,12 @@ const ScheduleSection = () => {
             <div className="schedule-header__content">
               <h2>{t("home.schedule.title", "Planning des cours")}</h2>
               <div className="error-message">
-                <p>{t("home.schedule.error", "Erreur lors du chargement des données :")}</p>
+                <p>
+                  {t(
+                    "home.schedule.error",
+                    "Erreur lors du chargement des données :"
+                  )}
+                </p>
                 <span className="error-details">{error}</span>
               </div>
             </div>
@@ -542,14 +583,18 @@ const ScheduleSection = () => {
           {tabs.map((tab) => (
             <button
               key={tab.id}
-              className={`course-type-btn ${activeTab === tab.id ? "course-type-btn--active" : ""}`}
+              className={`course-type-btn ${
+                activeTab === tab.id ? "course-type-btn--active" : ""
+              }`}
               onClick={() => setActiveTab(tab.id)}
               aria-pressed={activeTab === tab.id}
             >
               <div className="course-type-btn__icon">{tab.icon}</div>
               <div className="course-type-btn__content">
                 <span className="course-type-btn__title">{tab.label}</span>
-                <span className="course-type-btn__subtitle">{tab.description}</span>
+                <span className="course-type-btn__subtitle">
+                  {tab.description}
+                </span>
               </div>
             </button>
           ))}
@@ -568,7 +613,9 @@ const ScheduleSection = () => {
               return (
                 <div
                   key={dateStr}
-                  className={`weekday-item ${hasEvents ? "has-events" : ""} ${isWeekend ? "weekend" : ""} ${isExpanded ? "expanded" : ""}`}
+                  className={`weekday-item ${hasEvents ? "has-events" : ""} ${
+                    isWeekend ? "weekend" : ""
+                  } ${isExpanded ? "expanded" : ""}`}
                 >
                   {/* Jour cliquable */}
                   <button
@@ -587,15 +634,17 @@ const ScheduleSection = () => {
                         })}
                       </div>
                     </div>
-                    
+
                     {hasEvents && (
-                      <div className="events-badge">
-                        {dayEvents.length}
-                      </div>
+                      <div className="events-badge">{dayEvents.length}</div>
                     )}
-                    
+
                     {hasEvents && (
-                      <div className={`expand-icon ${isExpanded ? "expanded" : ""}`}>
+                      <div
+                        className={`expand-icon ${
+                          isExpanded ? "expanded" : ""
+                        }`}
+                      >
                         <IoChevronDownOutline />
                       </div>
                     )}
@@ -613,7 +662,9 @@ const ScheduleSection = () => {
                                 <h4 className="course-language">
                                   {course.language}
                                 </h4>
-                                <span className={`course-level ${course.level}`}>
+                                <span
+                                  className={`course-level ${course.level}`}
+                                >
                                   {course.level}
                                 </span>
                               </div>
@@ -633,11 +684,12 @@ const ScheduleSection = () => {
                                   <span>{course.duration}</span>
                                 </div>
                               </div>
-                              
+
                               <div className="course-capacity">
                                 <IoPeopleOutline />
                                 <span className="capacity-info">
-                                  {course.enrolledStudents} / {course.maxStudents}
+                                  {course.enrolledStudents} /{" "}
+                                  {course.maxStudents}
                                 </span>
                                 <span className="capacity-label">places</span>
                               </div>
@@ -647,16 +699,21 @@ const ScheduleSection = () => {
                             <div className="course-action">
                               <button
                                 className={`btn-interest ${
-                                  course.enrolledStudents >= course.maxStudents 
-                                    ? "disabled" 
+                                  course.enrolledStudents >= course.maxStudents
+                                    ? "disabled"
                                     : ""
                                 }`}
                                 onClick={() => handleInterest(course)}
-                                disabled={course.enrolledStudents >= course.maxStudents}
+                                disabled={
+                                  course.enrolledStudents >= course.maxStudents
+                                }
                               >
                                 {course.enrolledStudents >= course.maxStudents
                                   ? t("home.schedule.fullCourse", "Complet")
-                                  : t("home.schedule.interestedButton", "Je m'inscris")}
+                                  : t(
+                                      "home.schedule.interestedButton",
+                                      "Je m'inscris"
+                                    )}
                               </button>
                             </div>
                           </article>

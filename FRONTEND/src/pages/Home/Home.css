@@ -10,8 +10,26 @@
   padding: var(--spacing-xxl) var(--spacing-lg);
 }
 
+/* === OPTIMISATIONS MOBILE === */
 @media (max-width: 768px) {
   .home section:not(.testimonials) {
-    padding: var(--spacing-xl) var(--spacing-md);
+    padding: var(--spacing-lg) var(--spacing-md);
+  }
+
+  /* Optimisations pour les écrans tactiles */
+  .home {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
+
+  /* Masquer les animations complexes sur mobile */
+  .home * {
+    -webkit-tap-highlight-color: rgba(234, 189, 131, 0.2);
+  }
+}
+
+@media (max-width: 480px) {
+  .home section:not(.testimonials) {
+    padding: var(--spacing-md) var(--spacing-sm);
   }
 }

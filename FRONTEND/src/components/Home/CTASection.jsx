@@ -2,12 +2,14 @@
 
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import { IoPeopleOutline, IoPlayCircleOutline } from "react-icons/io5";
+import { AiOutlineQuestionCircle } from "react-icons/ai";
+import { IoPlayCircleOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import "./CTASection.css";
 
-const CTASection = () => {
+const CTASection = ({ isMobile = false }) => {
   const { t } = useTranslation();
+  // TODO: Implémenter la logique mobile pour la CTASection
   return (
     <section className="cta">
       <motion.div
@@ -25,8 +27,8 @@ const CTASection = () => {
             {t("home.cta_free_test")}
           </Link>
           <Link to="/about" className="btn btn-outline">
-            <IoPeopleOutline size={20} />
-            {t("home.cta_learn_more")}
+            <AiOutlineQuestionCircle size={20} />
+            En savoir plus
           </Link>
         </div>
       </motion.div>

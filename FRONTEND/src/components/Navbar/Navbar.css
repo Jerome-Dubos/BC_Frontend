@@ -88,6 +88,7 @@
   display: flex;
   gap: var(--spacing-xl);
   align-items: center;
+  flex-wrap: nowrap;
 }
 
 /* Navigation links */
@@ -105,6 +106,8 @@
   display: flex;
   align-items: center;
   gap: var(--spacing-xs);
+  white-space: nowrap;
+  min-width: fit-content;
 }
 
 .nav-link::before {
@@ -418,6 +421,11 @@
     padding: var(--spacing-sm) var(--spacing-md);
   }
 
+  .nav-link[href="/about"] {
+    font-size: 0.9rem;
+    padding: var(--spacing-sm) var(--spacing-sm);
+  }
+
   .user-menu {
     padding: var(--spacing-sm) var(--spacing-md);
     margin: var(--spacing-xs) var(--spacing-md) var(--spacing-xs)
@@ -471,6 +479,8 @@
     transition: all var(--transition-normal);
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
     border-radius: 0 0 var(--border-radius-lg) var(--border-radius-lg);
+    max-height: calc(100vh - 78px);
+    overflow-y: auto;
   }
 
   .nav-links.active {
@@ -561,6 +571,8 @@
     transition: all var(--transition-normal);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
     border-radius: 0 0 var(--border-radius-md) var(--border-radius-md);
+    max-height: calc(100vh - 72px);
+    overflow-y: auto;
   }
 
   .nav-links.active {
@@ -644,6 +656,8 @@
     transition: all var(--transition-normal);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
     border-radius: 0 0 var(--border-radius-md) var(--border-radius-md);
+    max-height: calc(100vh - 68px);
+    overflow-y: auto;
   }
 
   .nav-links.active {
