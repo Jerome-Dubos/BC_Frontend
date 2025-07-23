@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import {
@@ -17,55 +18,74 @@ const FeaturesSection = ({ isMobile = false }) => {
       title: t("home.feature_innovative"),
       description: t("home.feature_innovative_desc"),
       color: "#3498db",
-      action: "test",
+      action: "courses",
     },
     {
       icon: <IoPeopleOutline size={isMobile ? 32 : 48} />,
       title: t("home.feature_expert"),
       description: t("home.feature_expert_desc"),
       color: "#e74c3c",
-      action: "about",
+      action: "about-team",
     },
     {
       icon: <IoTrophyOutline size={isMobile ? 32 : 48} />,
       title: t("home.feature_results"),
       description: t("home.feature_results_desc"),
       color: "#f39c12",
-      action: "testimonials",
+      action: "schedule",
     },
     {
       icon: <IoTimeOutline size={isMobile ? 32 : 48} />,
       title: t("home.feature_flexible"),
       description: t("home.feature_flexible_desc"),
       color: "#2ecc71",
-      action: "test",
+      action: "about-approach",
     },
   ];
 
   const handleFeatureClick = (action) => {
-    if (isMobile) {
-      switch (action) {
-        case "test":
-          window.location.href = "/test";
-          break;
-        case "about":
-          window.location.href = "/about";
-          break;
-        case "testimonials": {
-          const testimonialsElement = document.getElementById("testimonials");
-          if (testimonialsElement) {
-            const offset = 100;
-            const elementPosition = testimonialsElement.offsetTop - offset;
-            window.scrollTo({
-              top: elementPosition,
-              behavior: "smooth",
-            });
-          }
-          break;
+    switch (action) {
+      case "test":
+        window.location.href = "/test";
+        break;
+      case "courses":
+        window.location.href = "/courses";
+        break;
+      case "about-team":
+        // Navigation vers About avec l'onglet équipe
+        window.location.href = "/about?tab=team";
+        break;
+      case "about-approach":
+        // Navigation vers About avec l'onglet approche
+        window.location.href = "/about?tab=approach";
+        break;
+      case "schedule": {
+        // Scroll vers la section planning
+        const scheduleElement = document.getElementById("schedule");
+        if (scheduleElement) {
+          const offset = 100;
+          const elementPosition = scheduleElement.offsetTop - offset;
+          window.scrollTo({
+            top: elementPosition,
+            behavior: "smooth",
+          });
         }
-        default:
-          break;
+        break;
       }
+      case "testimonials": {
+        const testimonialsElement = document.getElementById("testimonials");
+        if (testimonialsElement) {
+          const offset = 100;
+          const elementPosition = testimonialsElement.offsetTop - offset;
+          window.scrollTo({
+            top: elementPosition,
+            behavior: "smooth",
+          });
+        }
+        break;
+      }
+      default:
+        break;
     }
   };
 
@@ -99,11 +119,23 @@ const FeaturesSection = ({ isMobile = false }) => {
     <motion.div
       key={index}
       className="feature-card"
-      style={{ "--accent-color": feature.color }}
+      style={{
+        "--accent-color": feature.color,
+        cursor: "pointer",
+      }}
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.1, duration: 0.5 }}
       whileHover={{ y: -5 }}
+      onClick={() => handleFeatureClick(feature.action)}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          handleFeatureClick(feature.action);
+        }
+      }}
     >
       <div className="feature-icon">{feature.icon}</div>
       <h3>{feature.title}</h3>

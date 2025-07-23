@@ -9,6 +9,7 @@ import {
   IoStopwatchOutline,
   IoTimeOutline,
 } from "react-icons/io5";
+import { translateScheduleData } from "../../utils/translationUtils";
 import "./ScheduleSection.css";
 
 /*
@@ -414,16 +415,18 @@ const InterestModal = ({ course, onClose }) => {
   );
 };
 
-const ScheduleSection = ({ isMobile = false }) => {
+const ScheduleSection = () => {
   const { t } = useTranslation();
-  // TODO: Implémenter la logique mobile pour la ScheduleSection
-  const [currentWeek] = useState(new Date());
   const [selectedCourse, setSelectedCourse] = useState(null);
-  const [activeTab, setActiveTab] = useState("presentiel");
+
+  const [activeLevel, setActiveLevel] = useState("adult");
+
+  const [activeType, setActiveType] = useState("presentiel");
   const [expandedDay, setExpandedDay] = useState(null);
 
   // États pour la gestion des données
   const [coursesData, setCoursesData] = useState(null);
+  const [translatedCoursesData, setTranslatedCoursesData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -446,26 +449,37 @@ const ScheduleSection = ({ isMobile = false }) => {
 
         const data = await response.json();
         setCoursesData(data);
+
+        // Traduire les données avec la langue actuelle
+        const translated = translateScheduleData(data, t);
+        setTranslatedCoursesData(translated);
       } catch (err) {
         console.error("Erreur lors du chargement des cours:", err);
         setError(err.message);
         // Fallback: données par défaut en cas d'erreur
         setCoursesData({ presentiel: {}, visio: {} });
+        setTranslatedCoursesData({ presentiel: {}, visio: {} });
       } finally {
         setLoading(false);
       }
     };
 
     loadCoursesData();
-  }, []);
+  }, [t]);
+
+  // Mettre à jour les traductions quand la langue change
+  useEffect(() => {
+    if (coursesData) {
+      const translated = translateScheduleData(coursesData, t);
+      setTranslatedCoursesData(translated);
+    }
+  }, [t, coursesData]);
 
   // Utilitaires pour la gestion des dates
-  const getWeekDays = (date) => {
+  const getWeekDays = () => {
     const week = [];
-    const startDate = new Date(date);
-    const day = startDate.getDay();
-    const diff = startDate.getDate() - day + (day === 0 ? -6 : 1);
-    startDate.setDate(diff);
+    // Utiliser une date fixe pour correspondre aux données du JSON
+    const startDate = new Date("2024-01-15"); // Lundi 15 janvier 2024
 
     for (let i = 0; i < 7; i++) {
       // On affiche tous les jours de la semaine (lundi à dimanche)
@@ -497,19 +511,35 @@ const ScheduleSection = ({ isMobile = false }) => {
     }
   };
 
-  // Configuration des onglets
-  const tabs = [
+  // Configuration des onglets de niveau (adulte/enfant)
+  const levelTabs = [
+    {
+      id: "adult",
+      label: t("home.schedule.levels.adult", "Cours adulte"),
+      icon: <IoPeopleOutline />,
+      description: "Pour les adultes",
+    },
+    {
+      id: "child",
+      label: t("home.schedule.levels.child", "Cours enfant"),
+      icon: <IoSchoolOutline />,
+      description: "Pour les enfants",
+    },
+  ];
+
+  // Configuration des onglets de type (présentiel/visio)
+  const typeTabs = [
     {
       id: "presentiel",
       label: t("home.schedule.tabs.presentiel", "Présentiel"),
       icon: <IoSchoolOutline />,
-      description: "En salle de classe",
+      description: t("home.schedule.types.presentiel", "En salle de classe"),
     },
     {
       id: "visio",
       label: t("home.schedule.tabs.visio", "Visioconférence"),
       icon: <IoDesktopOutline />,
-      description: "En ligne depuis chez vous",
+      description: t("home.schedule.types.visio", "En ligne depuis chez vous"),
     },
   ];
 
@@ -559,11 +589,22 @@ const ScheduleSection = ({ isMobile = false }) => {
   }
 
   // Récupération des données pour l'affichage
-  const weekDays = getWeekDays(currentWeek);
-  const currentCourses = coursesData[activeTab] || {};
+  const weekDays = getWeekDays();
+  const currentCourses =
+    translatedCoursesData?.[activeLevel]?.[activeType] || {};
+
+  // Debug pour voir les données
+  console.log("Debug ScheduleSection:", {
+    coursesData,
+    translatedCoursesData,
+    activeLevel,
+    activeType,
+    currentCourses,
+    weekDays: weekDays.map((day) => formatDate(day)),
+  });
 
   return (
-    <section className="schedule-section">
+    <section id="schedule" className="schedule-section">
       <div className="schedule-container">
         {/* En-tête de section - Position modifiée */}
         <div className="schedule-header">
@@ -578,30 +619,79 @@ const ScheduleSection = ({ isMobile = false }) => {
           </div>
         </div>
 
-        {/* Nouveaux onglets recodés de zéro */}
-        <div className="course-type-selector">
-          {tabs.map((tab) => (
-            <button
-              key={tab.id}
-              className={`course-type-btn ${
-                activeTab === tab.id ? "course-type-btn--active" : ""
-              }`}
-              onClick={() => setActiveTab(tab.id)}
-              aria-pressed={activeTab === tab.id}
-            >
-              <div className="course-type-btn__icon">{tab.icon}</div>
-              <div className="course-type-btn__content">
-                <span className="course-type-btn__title">{tab.label}</span>
-                <span className="course-type-btn__subtitle">
-                  {tab.description}
-                </span>
-              </div>
-            </button>
-          ))}
+        {/* Filtres unifiés sur une ligne */}
+        <div className="course-filters-container">
+          {/* Onglets de niveau (adulte/enfant) */}
+          <div className="course-level-selector">
+            {levelTabs.map((tab) => (
+              <button
+                key={tab.id}
+                className={`course-level-btn ${
+                  activeLevel === tab.id ? "course-level-btn--active" : ""
+                }`}
+                onClick={() => setActiveLevel(tab.id)}
+                aria-pressed={activeLevel === tab.id}
+              >
+                <div className="course-level-btn__icon">{tab.icon}</div>
+                <div className="course-level-btn__content">
+                  <span className="course-level-btn__title">{tab.label}</span>
+                  <span className="course-level-btn__subtitle">
+                    {tab.description}
+                  </span>
+                </div>
+              </button>
+            ))}
+          </div>
+
+          {/* Séparateur visuel */}
+          <div className="course-filters-separator"></div>
+
+          {/* Onglets de type (présentiel/visio) */}
+          <div className="course-type-selector">
+            {typeTabs.map((tab) => (
+              <button
+                key={tab.id}
+                className={`course-type-btn ${
+                  activeType === tab.id ? "course-type-btn--active" : ""
+                }`}
+                onClick={() => setActiveType(tab.id)}
+                aria-pressed={activeType === tab.id}
+              >
+                <div className="course-type-btn__icon">{tab.icon}</div>
+                <div className="course-type-btn__content">
+                  <span className="course-type-btn__title">{tab.label}</span>
+                  <span className="course-type-btn__subtitle">
+                    {tab.description}
+                  </span>
+                </div>
+              </button>
+            ))}
+          </div>
         </div>
 
         {/* Planning de la semaine - Système d'expansion */}
         <div className="weekly-schedule">
+          {/* Debug: Afficher toutes les données disponibles */}
+          {Object.keys(currentCourses).length === 0 && (
+            <div
+              style={{ padding: "20px", color: "white", textAlign: "center" }}
+            >
+              <p>
+                Debug: Aucun cours trouvé pour {activeLevel} - {activeType}
+              </p>
+              <p>
+                Données disponibles:{" "}
+                {JSON.stringify(Object.keys(coursesData || {}))}
+              </p>
+              {coursesData && coursesData[activeLevel] && (
+                <p>
+                  Niveaux disponibles:{" "}
+                  {JSON.stringify(Object.keys(coursesData[activeLevel]))}
+                </p>
+              )}
+            </div>
+          )}
+
           <div className="weekdays-row">
             {weekDays.map((day) => {
               const dateStr = formatDate(day);
@@ -660,12 +750,16 @@ const ScheduleSection = ({ isMobile = false }) => {
                             <header className="course-header">
                               <div className="course-title">
                                 <h4 className="course-language">
-                                  {course.language}
+                                  {t(course.languageKey)}
                                 </h4>
                                 <span
-                                  className={`course-level ${course.level}`}
+                                  className={`course-level ${
+                                    course.levelKey === "levels.adult"
+                                      ? "adulte"
+                                      : "enfant"
+                                  }`}
                                 >
-                                  {course.level}
+                                  {t(course.levelKey)}
                                 </span>
                               </div>
                             </header>

@@ -1,11 +1,15 @@
+/* eslint-disable no-unused-vars */
 import { motion } from "framer-motion";
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { useSearchParams } from "react-router-dom";
 import AboutHeader from "../../components/About/AboutHeader";
 import AboutTabs from "../../components/About/AboutTabs";
 import "./About.css";
 
 const About = () => {
   const { t } = useTranslation();
+  const [searchParams] = useSearchParams();
 
   // Animations variants
   const containerVariants = {
@@ -18,6 +22,16 @@ const About = () => {
       },
     },
   };
+
+  // Récupérer le paramètre tab depuis l'URL
+  useEffect(() => {
+    const tabParam = searchParams.get("tab");
+    if (tabParam) {
+      // Passer le paramètre tab au composant AboutTabs
+      const event = new CustomEvent("setActiveTab", { detail: tabParam });
+      window.dispatchEvent(event);
+    }
+  }, [searchParams]);
 
   return (
     <motion.div

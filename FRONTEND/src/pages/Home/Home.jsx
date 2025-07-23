@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import CTASection from "../../components/Home/CTASection";
 import FeaturesSection from "../../components/Home/FeaturesSection";
 import HeroSection from "../../components/Home/HeroSection";
 import ScheduleSection from "../../components/Home/ScheduleSection";
@@ -33,7 +32,6 @@ const Home = () => {
       <FeaturesSection isMobile={isMobile} />
       <ScheduleSection isMobile={isMobile} />
       <TestimonialsSection isMobile={isMobile} />
-      <CTASection isMobile={isMobile} />
     </motion.div>
   );
 };

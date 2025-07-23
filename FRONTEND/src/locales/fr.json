@@ -7,6 +7,24 @@
     "phone": "Téléphone",
     "message": "Message"
   },
+  "languages": {
+    "french": "Français",
+    "english": "Anglais",
+    "spanish": "Espagnol",
+    "german": "Allemand",
+    "italian": "Italien",
+    "turkish": "Turc",
+    "arabic": "Arabe",
+    "greek": "Grec"
+  },
+  "levels": {
+    "adult": "Adulte",
+    "child": "Enfant"
+  },
+  "types": {
+    "presentiel": "Présentiel",
+    "visio": "Visioconférence"
+  },
   "nav": {
     "home": "Accueil",
     "about": "À propos",
@@ -24,32 +42,50 @@
     }
   },
   "footer": {
-    "tagline": "Excellence en apprentissage des langues",
+    "tagline": "Accompagnement personnalisé en langues et en soutien scolaire",
+    "description": "Depuis plus de 10 ans, nous accompagnons nos apprenants avec passion et expertise. Notre approche actionnelle garantit des résultats exceptionnels.",
     "follow": "Suivez-nous",
     "contact": "Contact",
     "address": "123 Rue de l'Éducation, 75001 Paris",
     "rights": "Tous droits réservés."
   },
   "home": {
-    "hero_title": "Apprenez les langues avec Bon Cours",
-    "hero_desc": "Découvrez notre méthode d'apprentissage innovante et rejoignez plus de 500 étudiants qui ont déjà transformé leur avenir linguistique.",
-    "cta_test": "Commencer le test",
+    "hero_title": "Apprenez des langues ou renforcez votre niveau scolaire avec",
+    "hero_subtitle": "Bon Cours",
+    "hero_desc": "Testez votre niveau et découvrez nos offres et nos méthodes d'apprentissage",
+    "cta_test": "Testez votre niveau",
     "cta_courses": "Voir nos cours",
     "why_choose": "Pourquoi choisir Bon Cours ?",
-    "feature_innovative": "Méthodes innovantes",
-    "feature_innovative_desc": "Apprentissage interactif et personnalisé pour tous les niveaux",
-    "feature_expert": "Professeurs experts",
-    "feature_expert_desc": "Équipe pédagogique native et expérimentée",
-    "feature_results": "Résultats garantis",
-    "feature_results_desc": "95% de réussite aux certifications",
-    "feature_flexible": "Horaires flexibles",
-    "feature_flexible_desc": "Cours adaptés à votre emploi du temps",
+    "feature_innovative": "Cours adaptés à vos besoins",
+    "feature_innovative_desc": "Diagnostic initial, cours personnalisables, bilans intermédiaires",
+    "feature_expert": "Professeurs qualifiés",
+    "feature_expert_desc": "Équipe pédagogique diplômée et expérimentée",
+    "feature_results": "Horaires flexibles",
+    "feature_results_desc": "Cours adaptés à votre emploi du temps",
+    "feature_flexible": "Accompagnement illimité",
+    "feature_flexible_desc": "Suivi individuel dans vos démarches",
     "languages_taught": "Nos langues enseignées",
     "testimonials_title": "Ce que disent nos étudiants",
-    "cta_section_title": "Prêt à commencer votre apprentissage ?",
-    "cta_section_desc": "Rejoignez notre communauté d'apprenants et découvrez une nouvelle façon d'apprendre les langues.",
-    "cta_free_test": "Faire le test gratuit",
     "cta_learn_more": "En savoir plus",
+    "hero_languages": {
+      "french": "Français",
+      "english": "Anglais",
+      "spanish": "Espagnol",
+      "german": "Allemand",
+      "turkish": "Turc",
+      "arabic": "Arabe",
+      "greek": "Grec",
+      "school_support": "Soutien Scolaire"
+    },
+    "hero_levels": {
+      "all_levels": "Tous niveaux",
+      "primary_to_high_school": "De la primaire au lycée"
+    },
+    "hero_certifications": {
+      "certification": "Certification",
+      "certified_teachers": "Professeurs diplômés"
+    },
+    "hero_students": "élèves",
     "testimonial_1": "Excellente école ! J'ai progressé rapidement grâce aux méthodes innovantes.",
     "testimonial_2": "Professeurs très compétents et ambiance conviviale. Je recommande !",
     "testimonial_3": "Formation de qualité avec un suivi personnalisé exceptionnel.",
@@ -59,6 +95,14 @@
       "tabs": {
         "presentiel": "Présentiel",
         "visio": "Visioconférence"
+      },
+      "levels": {
+        "adult": "Cours adulte",
+        "child": "Cours enfant"
+      },
+      "types": {
+        "presentiel": "En salle de classe",
+        "visio": "En ligne depuis chez vous"
       },
       "interestedButton": "Je suis intéressé(e)",
       "fullCourse": "Cours complet",
@@ -72,7 +116,7 @@
   },
   "about": {
     "tab_history": "Notre histoire",
-    "tab_approach": "Notre approche", 
+    "tab_approach": "Notre approche",
     "tab_team": "Notre équipe",
     "history_title": "Notre histoire",
     "history_desc": "Depuis plus de 10 ans, nous accompagnons nos étudiants dans leur apprentissage des langues avec passion et expertise.",
@@ -160,12 +204,12 @@
     "contact_method": "Comment souhaitez-vous être recontacté ?",
     "by_email": "Par email",
     "email_desc": "Réponse rapide",
-    "by_phone": "Par téléphone", 
+    "by_phone": "Par téléphone",
     "phone_desc": "Discussion directe",
     "preferred_days": "Jours préférés",
     "monday": "Lun",
     "tuesday": "Mar",
-    "wednesday": "Mer", 
+    "wednesday": "Mer",
     "thursday": "Jeu",
     "friday": "Ven",
     "saturday": "Sam",

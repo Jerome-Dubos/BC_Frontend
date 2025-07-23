@@ -7,6 +7,24 @@
     "phone": "Phone",
     "message": "Message"
   },
+  "languages": {
+    "french": "French",
+    "english": "English",
+    "spanish": "Spanish",
+    "german": "German",
+    "italian": "Italian",
+    "turkish": "Turkish",
+    "arabic": "Arabic",
+    "greek": "Greek"
+  },
+  "levels": {
+    "adult": "Adult",
+    "child": "Child"
+  },
+  "types": {
+    "presentiel": "In-Person",
+    "visio": "Online"
+  },
   "nav": {
     "home": "Home",
     "about": "About",
@@ -24,32 +42,50 @@
     }
   },
   "footer": {
-    "tagline": "Excellence in language learning",
+    "tagline": "Personalized support in languages and academic tutoring",
+    "description": "For over 10 years, we have been supporting our learners with passion and expertise. Our action-oriented approach guarantees exceptional results.",
     "follow": "Follow us",
     "contact": "Contact",
     "address": "123 Education Street, 75001 Paris",
     "rights": "All rights reserved."
   },
   "home": {
-    "hero_title": "Learn languages with Bon Cours",
-    "hero_desc": "Discover our innovative learning method and join more than 500 students who have already transformed their linguistic future.",
-    "cta_test": "Start the test",
+    "hero_title": "Learn languages or strengthen your academic level with",
+    "hero_subtitle": "Bon Cours",
+    "hero_desc": "Test your level and discover our offers and learning methods",
+    "cta_test": "Test your level",
     "cta_courses": "View our courses",
     "why_choose": "Why choose Bon Cours?",
-    "feature_innovative": "Innovative methods",
-    "feature_innovative_desc": "Interactive and personalised learning for all levels",
-    "feature_expert": "Expert teachers",
-    "feature_expert_desc": "Native, experienced teaching team",
-    "feature_results": "Guaranteed results",
-    "feature_results_desc": "95% success rate in certifications",
-    "feature_flexible": "Flexible timetable",
-    "feature_flexible_desc": "Courses adapted to your schedule",
+    "feature_innovative": "Courses adapted to your needs",
+    "feature_innovative_desc": "Initial diagnosis, customizable courses, intermediate assessments",
+    "feature_expert": "Qualified teachers",
+    "feature_expert_desc": "Diploma-holding and experienced teaching team",
+    "feature_results": "Flexible schedules",
+    "feature_results_desc": "Courses adapted to your timetable",
+    "feature_flexible": "Unlimited support",
+    "feature_flexible_desc": "Individual follow-up in your procedures",
     "languages_taught": "Languages we teach",
     "testimonials_title": "What our students say",
-    "cta_section_title": "Ready to start your learning journey?",
-    "cta_section_desc": "Join our community of learners and discover a new way to learn languages.",
-    "cta_free_test": "Take the free test",
     "cta_learn_more": "Learn more",
+    "hero_languages": {
+      "french": "French",
+      "english": "English",
+      "spanish": "Spanish",
+      "german": "German",
+      "turkish": "Turkish",
+      "arabic": "Arabic",
+      "greek": "Greek",
+      "school_support": "School Support"
+    },
+    "hero_levels": {
+      "all_levels": "All levels",
+      "primary_to_high_school": "From primary to high school"
+    },
+    "hero_certifications": {
+      "certification": "Certification",
+      "certified_teachers": "Certified teachers"
+    },
+    "hero_students": "students",
     "testimonial_1": "Amazing school! I improved quickly thanks to their innovative methods.",
     "testimonial_2": "Highly skilled teachers and a friendly atmosphere—I totally recommend it!",
     "testimonial_3": "Top-quality training with outstanding personalised support.",
@@ -59,6 +95,14 @@
       "tabs": {
         "presentiel": "In-Person",
         "visio": "Online"
+      },
+      "levels": {
+        "adult": "Adult courses",
+        "child": "Children courses"
+      },
+      "types": {
+        "presentiel": "In classroom",
+        "visio": "Online from home"
       },
       "interestedButton": "I'm interested",
       "fullCourse": "Class full",

@@ -33,11 +33,7 @@ const Footer = () => {
               <h2>Bon Cours</h2>
               <p>{t("footer.tagline")}</p>
             </div>
-            <p>
-              Depuis plus de 10 ans, nous accompagnons nos étudiants dans leur
-              apprentissage des langues avec passion et expertise. Notre
-              approche innovante garantit des résultats exceptionnels.
-            </p>
+            <p>{t("footer.description")}</p>
             <div className="footer-social">
               <h3>{t("footer.follow")}</h3>
               <div className="social-links">

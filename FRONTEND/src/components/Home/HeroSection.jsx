@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { AiOutlineQuestionCircle } from "react-icons/ai";
 import {
   FaArrowRight,
@@ -14,6 +15,7 @@ import { MdSchool } from "react-icons/md";
 import "./HeroSection.css";
 
 const HeroSection = () => {
+  const { t } = useTranslation();
   const [activeCard, setActiveCard] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -68,47 +70,74 @@ const HeroSection = () => {
 
   const languages = [
     {
-      name: "Français",
+      name: t("home.hero_languages.french"),
       flag: "🇫🇷",
       students: "150+",
-      level: "Tous niveaux",
-      certification: "Certification",
+      level: t("home.hero_levels.all_levels"),
+      certification: t("home.hero_certifications.certification"),
       color: "#4CAF50",
       bgColor: "rgba(76, 175, 80, 0.1)",
     },
     {
-      name: "Anglais",
+      name: t("home.hero_languages.english"),
       flag: "🇬🇧",
       students: "200+",
-      level: "Tous niveaux",
-      certification: "Certification",
+      level: t("home.hero_levels.all_levels"),
+      certification: t("home.hero_certifications.certification"),
       color: "#2196F3",
       bgColor: "rgba(33, 150, 243, 0.1)",
     },
     {
-      name: "Espagnol",
+      name: t("home.hero_languages.spanish"),
       flag: "🇪🇸",
       students: "120+",
-      level: "Tous niveaux",
-      certification: "Certification",
+      level: t("home.hero_levels.all_levels"),
+      certification: t("home.hero_certifications.certification"),
       color: "#FF9800",
       bgColor: "rgba(255, 152, 0, 0.1)",
     },
     {
-      name: "Allemand",
+      name: t("home.hero_languages.german"),
       flag: "🇩🇪",
       students: "80+",
-      level: "Tous niveaux",
-      certification: "Certification",
+      level: t("home.hero_levels.all_levels"),
+      certification: t("home.hero_certifications.certification"),
       color: "#9C27B0",
       bgColor: "rgba(156, 39, 176, 0.1)",
     },
     {
-      name: "Soutien Scolaire",
+      name: t("home.hero_languages.turkish"),
+      flag: "🇹🇷",
+      students: "60+",
+      level: t("home.hero_levels.all_levels"),
+      certification: t("home.hero_certifications.certification"),
+      color: "#E91E63",
+      bgColor: "rgba(233, 30, 99, 0.1)",
+    },
+    {
+      name: t("home.hero_languages.arabic"),
+      flag: "🇸🇦",
+      students: "70+",
+      level: t("home.hero_levels.all_levels"),
+      certification: t("home.hero_certifications.certification"),
+      color: "#795548",
+      bgColor: "rgba(121, 85, 72, 0.1)",
+    },
+    {
+      name: t("home.hero_languages.greek"),
+      flag: "🇬🇷",
+      students: "40+",
+      level: t("home.hero_levels.all_levels"),
+      certification: t("home.hero_certifications.certification"),
+      color: "#607D8B",
+      bgColor: "rgba(96, 125, 139, 0.1)",
+    },
+    {
+      name: t("home.hero_languages.school_support"),
       icon: FaChalkboardTeacher,
       students: "300+",
-      level: "De la primaire au lycée",
-      certification: "Professeurs diplômés",
+      level: t("home.hero_levels.primary_to_high_school"),
+      certification: t("home.hero_certifications.certified_teachers"),
       color: "#E91E63",
       bgColor: "rgba(233, 30, 99, 0.1)",
       iconColor: "#FFFFFF",
@@ -241,10 +270,14 @@ const HeroSection = () => {
                 <button
                   className="back-badge"
                   onClick={(e) => handleBadgeClick("students", e)}
-                  aria-label={`Voir les ${lang.students} élèves`}
+                  aria-label={`Voir les ${lang.students} ${t(
+                    "home.hero_students"
+                  )}`}
                 >
                   <FaUsers />
-                  <span>{lang.students} élèves</span>
+                  <span>
+                    {lang.students} {t("home.hero_students")}
+                  </span>
                 </button>
                 <button
                   className="back-badge"
@@ -341,8 +374,8 @@ const HeroSection = () => {
 
       <div className="hero-content">
         <h1>
-          Apprenez les langues avec{" "}
-          <span className="typed-text">Bon Cours</span>
+          {t("home.hero_title")}{" "}
+          <span className="typed-text">{t("home.hero_subtitle")}</span>
         </h1>
 
         {/* Section des cartes de langues */}
@@ -354,18 +387,15 @@ const HeroSection = () => {
           )}
         </div>
 
-        <p className="hero-description">
-          Découvrez nos cours de langues personnalisés avec des professeurs
-          expérimentés
-        </p>
+        <p className="hero-description">{t("home.hero_desc")}</p>
 
         <div className="hero-buttons">
           <button
             className="btn btn-primary"
             onClick={() => (window.location.href = "/test")}
-            aria-label="Commencer les cours maintenant"
+            aria-label={t("home.cta_test")}
           >
-            Testez votre niveau
+            {t("home.cta_test")}
             <svg
               width="20"
               height="20"
@@ -381,9 +411,9 @@ const HeroSection = () => {
           <button
             className="btn btn-secondary"
             onClick={() => (window.location.href = "/about")}
-            aria-label="En savoir plus sur Bon Cours"
+            aria-label={t("home.cta_learn_more")}
           >
-            En savoir plus <AiOutlineQuestionCircle />
+            {t("home.cta_learn_more")} <AiOutlineQuestionCircle />
           </button>
         </div>
       </div>

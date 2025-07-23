@@ -1,5 +1,6 @@
+/* eslint-disable no-unused-vars */
 import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   IoFlashOutline,
@@ -11,6 +12,21 @@ import "./AboutTabs.css";
 const AboutTabs = () => {
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState("history");
+
+  // Écouter l'événement pour changer l'onglet actif depuis l'URL
+  useEffect(() => {
+    const handleSetActiveTab = (event) => {
+      const tabId = event.detail;
+      if (["history", "approach", "team"].includes(tabId)) {
+        setActiveTab(tabId);
+      }
+    };
+
+    window.addEventListener("setActiveTab", handleSetActiveTab);
+    return () => {
+      window.removeEventListener("setActiveTab", handleSetActiveTab);
+    };
+  }, []);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -45,28 +61,36 @@ const AboutTabs = () => {
 
   const tabVariants = {
     hidden: { opacity: 0, x: 20 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       x: 0,
-      transition: { duration: 0.5, ease: "easeOut" }
+      transition: { duration: 0.5, ease: "easeOut" },
     },
-    exit: { 
-      opacity: 0, 
+    exit: {
+      opacity: 0,
       x: -20,
-      transition: { duration: 0.3 }
-    }
+      transition: { duration: 0.3 },
+    },
   };
 
   const tabs = [
-    { id: "history", label: t("about.tab_history", "Notre histoire"), icon: "📚" },
-    { id: "approach", label: t("about.tab_approach", "Notre approche"), icon: "🎯" },
-    { id: "team", label: t("about.tab_team", "Notre équipe"), icon: "👥" }
+    {
+      id: "history",
+      label: t("about.tab_history", "Notre histoire"),
+      icon: "📚",
+    },
+    {
+      id: "approach",
+      label: t("about.tab_approach", "Notre approche"),
+      icon: "🎯",
+    },
+    { id: "team", label: t("about.tab_team", "Notre équipe"), icon: "👥" },
   ];
 
   return (
     <section className="about-tabs-section">
       {/* Navigation des onglets */}
-      <motion.div 
+      <motion.div
         className="tabs-navigation"
         initial={{ y: 20, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
@@ -185,4 +209,4 @@ const AboutTabs = () => {
   );
 };
 
-export default AboutTabs; 
+export default AboutTabs;
