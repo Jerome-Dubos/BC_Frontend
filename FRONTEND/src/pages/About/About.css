@@ -1,7 +1,7 @@
 .about-page {
   min-height: 100vh;
   background: var(--background);
-  padding-top: 80px; /* Espacement pour la navbar */
+  padding-top: 80px;
 }
 
 .about-page__header {

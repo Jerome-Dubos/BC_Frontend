@@ -1,348 +1,475 @@
-import { motion } from "framer-motion";
-import { useState } from "react";
-import { useTranslation } from "react-i18next";
-import {
-  IoCheckmarkCircleOutline,
-  IoCopyOutline,
-  IoMailOutline,
-  IoTimeOutline,
-} from "react-icons/io5";
+import { Check, Clock, Mail, MessageSquare, Phone, User } from "lucide-react";
+import React, { useState } from "react";
+import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
+import "react-phone-number-input/style.css";
 import "./ContactForm.css";
 
 const ContactForm = () => {
-  const { t } = useTranslation();
-  const [contactForm, setContactForm] = useState({
-    name: "",
+  const [formData, setFormData] = useState({
+    nom: "",
+    prenom: "",
     email: "",
-    phone: "",
-    subject: "",
+    telephone: "",
     message: "",
-    language: "french",
-    contactMethod: "email",
-    preferredDays: [],
-    timeSlot: "morning",
+    preferenceContact: "email", // 'email' ou 'telephone'
+    creneauxHoraires: {}, // { lundi: ['matin', 'soir'], mardi: ['flexible'], ... }
   });
 
-  const [formErrors, setFormErrors] = useState({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitSuccess, setSubmitSuccess] = useState(false);
-  const [showTooltip, setShowTooltip] = useState(false);
+  const [errors, setErrors] = useState({});
+  const [showTimeSlots, setShowTimeSlots] = useState(false);
+  const [selectedDays, setSelectedDays] = useState([]);
+  const [selectedTimeSlots, setSelectedTimeSlots] = useState([]);
 
-  // Expressions régulières pour validation
+  // Regex pour validation
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-  const phoneRegex = /^(?:\+33|0)[1-9](?:[0-9]{8})$/;
-  const nameRegex = /^[a-zA-ZÀ-ÿ\u0100-\u017F\s'-]{2,50}$/;
-  const subjectRegex = /^[a-zA-ZÀ-ÿ\u0100-\u017F0-9\s.,!?'-]{5,100}$/;
+  const nameRegex = /^[\p{L}\s'-]{2,50}$/u;
+  const messageRegex = /^[\s\S]{10,1000}$/;
 
-  // Validation en temps réel d'un champ
-  const validateField = (fieldName, value) => {
-    switch (fieldName) {
-      case 'name':
-        if (!value.trim()) return "Le nom est requis";
-        if (!nameRegex.test(value.trim())) return "Le nom ne doit contenir que des lettres, espaces, apostrophes et tirets (2-50 caractères)";
-        return "";
-      
-      case 'email':
-        if (!value.trim()) return "L'email est requis";
-        if (!emailRegex.test(value.trim())) return "Format d'email invalide (ex: nom@domaine.com)";
-        return "";
-      
-      case 'phone':
-        if (!value.trim()) return "Le téléphone est requis";
-        if (!phoneRegex.test(value.replace(/[\s.-]/g, ''))) return "Format de téléphone français invalide (ex: 01 23 45 67 89 ou +33 1 23 45 67 89)";
-        return "";
-      
-      case 'subject':
-        if (!value.trim()) return "Le sujet est requis";
-        if (!subjectRegex.test(value.trim())) return "Le sujet doit contenir 5 à 100 caractères (lettres, chiffres, ponctuation de base)";
-        return "";
-      
-      case 'message':
-        if (!value.trim()) return "Le message est requis";
-        if (value.trim().length < 10) return "Le message doit contenir au moins 10 caractères";
-        if (value.trim().length > 1000) return "Le message ne peut pas dépasser 1000 caractères";
-        return "";
-      
-      default:
-        return "";
-    }
-  };
+  const jours = ["LUN", "MAR", "MER", "JEU", "VEN", "SAM", "DIM"];
+  const creneaux = [
+    { id: "matin", label: "Matin", icon: "🌅", time: "7h-12h" },
+    { id: "apres-midi", label: "Après-midi", icon: "☀️", time: "12h-17h" },
+    { id: "soir", label: "Soir", icon: "🌙", time: "17h-21h" },
+    { id: "flexible", label: "Flexible", icon: "⏰", time: "7h-21h" },
+  ];
 
-  // Validation complète du formulaire
-  const validateForm = () => {
-    const errors = {};
+  // Fonction pour valider un numéro de téléphone avec react-phone-number-input
+  const validatePhoneNumber = (value) => {
+    if (!value || value.trim() === "") return false;
 
-    errors.name = validateField('name', contactForm.name);
-    errors.email = validateField('email', contactForm.email);
-    errors.phone = validateField('phone', contactForm.phone);
-    errors.subject = validateField('subject', contactForm.subject);
-    errors.message = validateField('message', contactForm.message);
-
-    if (contactForm.contactMethod === "phone" && contactForm.preferredDays.length === 0) {
-      errors.preferredDays = "Veuillez sélectionner au moins un jour pour être contacté";
-    }
-
-    // Supprimer les erreurs vides
-    Object.keys(errors).forEach(key => {
-      if (!errors[key]) delete errors[key];
-    });
-
-    return errors;
-  };
-
-  // Gestion de la soumission
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const errors = validateForm();
-
-    if (Object.keys(errors).length > 0) {
-      setFormErrors(errors);
-      return;
-    }
-
-    setIsSubmitting(true);
-    setFormErrors({});
-
-    // Simulation d'envoi (remplacer par vraie API)
+    // Utiliser la validation de la bibliothèque
     try {
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-      setSubmitSuccess(true);
-      setContactForm({
-        name: "",
-        email: "",
-        phone: "",
-        subject: "",
-        message: "",
-        language: "french",
-        contactMethod: "email",
-        preferredDays: [],
-        timeSlot: "morning",
-      });
-    } catch (error) {
-      console.error("Erreur envoi:", error);
-    } finally {
-      setIsSubmitting(false);
+      return isValidPhoneNumber(value);
+    } catch {
+      // Fallback si la validation échoue
+      return value.length >= 8;
     }
   };
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setContactForm((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+  const handleInputChange = (field, value) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
 
-    // Validation en temps réel
-    const error = validateField(name, value);
-    setFormErrors((prev) => ({
+    if (field === "preferenceContact") {
+      if (value === "telephone") {
+        setShowTimeSlots(true);
+      } else {
+        setShowTimeSlots(false);
+        setSelectedDays([]);
+        setSelectedTimeSlots([]);
+        setFormData((prev) => ({ ...prev, creneauxHoraires: {} }));
+      }
+    }
+  };
+
+  // Fonction pour mettre à jour les créneaux horaires dans formData
+  const updateCreneauxHoraires = (days, timeSlots) => {
+    const creneauxHoraires = {};
+
+    if (
+      formData.preferenceContact === "telephone" &&
+      days.length > 0 &&
+      timeSlots.length > 0
+    ) {
+      days.forEach((day) => {
+        creneauxHoraires[day] = timeSlots;
+      });
+    }
+
+    setFormData((prev) => ({
       ...prev,
-      [name]: error,
+      creneauxHoraires,
     }));
   };
 
-  const handleDayToggle = (day) => {
-    setContactForm((prev) => ({
-      ...prev,
-      preferredDays: prev.preferredDays.includes(day)
-        ? prev.preferredDays.filter(d => d !== day)
-        : [...prev.preferredDays, day]
-    }));
+  const handleInputBlur = (field, value) => {
+    // Validation complète quand on quitte le champ
+    const newErrors = { ...errors };
+
+    if (field === "nom" && value) {
+      if (!nameRegex.test(value)) {
+        newErrors.nom = "Lettres, espaces, tirets et apostrophes uniquement";
+      } else {
+        delete newErrors.nom;
+      }
+    }
+
+    if (field === "prenom" && value) {
+      if (!nameRegex.test(value)) {
+        newErrors.prenom = "Lettres, espaces, tirets et apostrophes uniquement";
+      } else {
+        delete newErrors.prenom;
+      }
+    }
+
+    if (field === "email" && value) {
+      if (!emailRegex.test(value)) {
+        newErrors.email = "Format d'email invalide";
+      } else {
+        delete newErrors.email;
+      }
+    }
+
+    if (field === "telephone" && value) {
+      if (!validatePhoneNumber(value)) {
+        newErrors.telephone =
+          "Format invalide (ex: 06 12 34 56 78, +33 6 12 34 56 78, +1 555 123 4567)";
+      } else {
+        delete newErrors.telephone;
+      }
+    }
+
+    if (field === "message" && value) {
+      if (!messageRegex.test(value)) {
+        newErrors.message = "Minimum 10 caractères";
+      } else {
+        delete newErrors.message;
+      }
+    }
+
+    setErrors(newErrors);
   };
 
-  const handleContactMethodChange = (method) => {
-    setContactForm((prev) => ({
-      ...prev,
-      contactMethod: method
-    }));
+  const handleDayToggle = (jour) => {
+    setSelectedDays((prev) => {
+      const newDays = prev.includes(jour)
+        ? prev.filter((day) => day !== jour)
+        : [...prev, jour];
+
+      // Mettre à jour formData.creneauxHoraires
+      updateCreneauxHoraires(newDays, selectedTimeSlots);
+
+      return newDays;
+    });
   };
 
-  if (submitSuccess) {
-    return (
-      <motion.div
-        className="contact-success"
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5 }}
-      >
-        <IoCheckmarkCircleOutline className="success-icon" />
-        <h3>{t("about.contact_success")}</h3>
-        <p>{t("about.contact_success_desc")}</p>
-        <motion.button
-          className="btn-primary"
-          onClick={() => setSubmitSuccess(false)}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          {t("about.contact_send_another")}
-        </motion.button>
-      </motion.div>
+  const isDaySelected = (jour) => {
+    return selectedDays.includes(jour);
+  };
+
+  const handleTimeSlotToggle = (timeSlot) => {
+    setSelectedTimeSlots((prev) => {
+      let newSlots;
+
+      // Si on clique sur "flexible", on désélectionne tout le reste
+      if (timeSlot === "flexible") {
+        if (prev.includes("flexible")) {
+          newSlots = [];
+        } else {
+          newSlots = ["flexible"];
+        }
+      } else {
+        // Si on clique sur un autre créneau
+        if (prev.includes(timeSlot)) {
+          // Désélectionner le créneau
+          newSlots = prev.filter((slot) => slot !== timeSlot);
+          // Retirer "flexible" si il était sélectionné
+          newSlots = newSlots.filter((slot) => slot !== "flexible");
+        } else {
+          // Ajouter le créneau
+          newSlots = [...prev, timeSlot];
+          // Retirer "flexible" si il était sélectionné
+          newSlots = newSlots.filter((slot) => slot !== "flexible");
+
+          // Si on a maintenant 3 créneaux sélectionnés, sélectionner automatiquement "flexible"
+          if (newSlots.length >= 3) {
+            newSlots = ["flexible"];
+          }
+        }
+      }
+
+      // Mettre à jour formData.creneauxHoraires
+      updateCreneauxHoraires(selectedDays, newSlots);
+
+      return newSlots;
+    });
+  };
+
+  const isTimeSlotSelected = (timeSlot) => {
+    return selectedTimeSlots.includes(timeSlot);
+  };
+
+  const isFormValid = () => {
+    const requiredFields = [
+      "nom",
+      "prenom",
+      "email",
+      "message",
+      "preferenceContact",
+    ];
+    const hasRequiredFields = requiredFields.every((field) =>
+      formData[field].trim()
     );
-  }
+
+    const hasValidEmail = emailRegex.test(formData.email);
+    const hasValidNames =
+      nameRegex.test(formData.nom) && nameRegex.test(formData.prenom);
+    const hasValidMessage = messageRegex.test(formData.message);
+
+    let hasValidPhone = true;
+    let hasTimeSlots = true;
+
+    if (formData.preferenceContact === "telephone") {
+      hasValidPhone = validatePhoneNumber(formData.telephone);
+      hasTimeSlots = selectedDays.length > 0 && selectedTimeSlots.length > 0;
+    }
+
+    return (
+      hasRequiredFields &&
+      hasValidEmail &&
+      hasValidNames &&
+      hasValidMessage &&
+      hasValidPhone &&
+      hasTimeSlots &&
+      Object.keys(errors).length === 0
+    );
+  };
+
+  const handleSubmit = () => {
+    if (isFormValid()) {
+      // Construire l'objet creneauxHoraires à partir des états sélectionnés
+      const creneauxHoraires = {};
+
+      if (
+        formData.preferenceContact === "telephone" &&
+        selectedDays.length > 0 &&
+        selectedTimeSlots.length > 0
+      ) {
+        selectedDays.forEach((day) => {
+          creneauxHoraires[day] = selectedTimeSlots;
+        });
+      }
+
+      const formDataToSubmit = {
+        ...formData,
+        creneauxHoraires,
+      };
+
+      console.log("Formulaire soumis:", formDataToSubmit);
+      // Ici tu peux ajouter l'appel API
+    }
+  };
 
   return (
-    <motion.form
-      onSubmit={handleSubmit}
-      className="contact-form"
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
-    >
-      <div className="form-row">
-        <div className="form-group">
-          <label htmlFor="name">{t("about.form_name")} *</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={contactForm.name}
-            onChange={handleInputChange}
-            className={formErrors.name ? "error" : ""}
-            placeholder={t("about.form_placeholder_name")}
-          />
-          {formErrors.name && <span className="error-message">{formErrors.name}</span>}
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="email">{t("about.form_email")} *</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={contactForm.email}
-            onChange={handleInputChange}
-            className={formErrors.email ? "error" : ""}
-            placeholder={t("about.form_placeholder_email")}
-          />
-          {formErrors.email && <span className="error-message">{formErrors.email}</span>}
-        </div>
+    <div className="contact-form-container">
+      {/* Image du globe en arrière-plan */}
+      <div className="globe-background">
+        <img src="src/assets/images/globe.webp" alt="Globe" />
       </div>
 
-      <div className="form-row">
-        <div className="form-group">
-          <label htmlFor="phone">{t("about.form_phone")} *</label>
-          <input
-            type="tel"
-            id="phone"
-            name="phone"
-            value={contactForm.phone}
-            onChange={handleInputChange}
-            className={formErrors.phone ? "error" : ""}
-            placeholder={t("about.form_placeholder_phone")}
-          />
-          {formErrors.phone && <span className="error-message">{formErrors.phone}</span>}
+      <div className="form-content">
+        <div className="form-header">
+          <h2 className="form-title">Parlons de votre projet</h2>
+          <p className="form-subtitle">
+            Contactez-nous pour discuter de vos objectifs d'apprentissage et
+            découvrir nos solutions personnalisées
+          </p>
         </div>
 
-        <div className="form-group">
-          <label htmlFor="language">{t("about.form_language")}</label>
-          <select
-            id="language"
-            name="language"
-            value={contactForm.language}
-            onChange={handleInputChange}
-          >
-            <option value="french">{t("contact.language_french")}</option>
-            <option value="english">{t("contact.language_english")}</option>
-            <option value="spanish">{t("contact.language_spanish")}</option>
-            <option value="german">{t("contact.language_german")}</option>
-          </select>
-        </div>
-      </div>
-
-      <div className="form-group">
-        <label htmlFor="subject">{t("about.form_subject")} *</label>
-        <input
-          type="text"
-          id="subject"
-          name="subject"
-          value={contactForm.subject}
-          onChange={handleInputChange}
-          className={formErrors.subject ? "error" : ""}
-          placeholder={t("about.form_placeholder_subject")}
-        />
-        {formErrors.subject && <span className="error-message">{formErrors.subject}</span>}
-      </div>
-
-      <div className="form-group">
-        <label htmlFor="message">{t("about.form_message")} *</label>
-        <textarea
-          id="message"
-          name="message"
-          value={contactForm.message}
-          onChange={handleInputChange}
-          className={formErrors.message ? "error" : ""}
-          placeholder={t("about.form_placeholder_message")}
-          rows="6"
-        />
-        {formErrors.message && <span className="error-message">{formErrors.message}</span>}
-        <div className="char-count">
-          {contactForm.message.length}/1000 {t("contact.characters")}
-        </div>
-      </div>
-
-      <div className="contact-preferences">
-        <h4>{t("contact.preferences_title")}</h4>
-        
-        <div className="contact-method">
-          <label>{t("contact.contact_method")}</label>
-          <div className="radio-group">
-            <label>
-              <input
-                type="radio"
-                name="contactMethod"
-                value="email"
-                checked={contactForm.contactMethod === "email"}
-                onChange={() => handleContactMethodChange("email")}
-              />
-              <IoMailOutline />
-              {t("contact.by_email")}
-            </label>
-            <label>
-              <input
-                type="radio"
-                name="contactMethod"
-                value="phone"
-                checked={contactForm.contactMethod === "phone"}
-                onChange={() => handleContactMethodChange("phone")}
-              />
-              <IoTimeOutline />
-              {t("contact.by_phone")}
-            </label>
-          </div>
-        </div>
-
-        {contactForm.contactMethod === "phone" && (
-          <div className="phone-preferences">
-            <label>{t("contact.preferred_days")}</label>
-            <div className="days-grid">
-              {["monday", "tuesday", "wednesday", "thursday", "friday", "saturday"].map((day) => (
-                <label key={day} className="day-checkbox">
-                  <input
-                    type="checkbox"
-                    checked={contactForm.preferredDays.includes(day)}
-                    onChange={() => handleDayToggle(day)}
-                  />
-                  {t(`contact.${day}`)}
+        <div className="form-grid">
+          {/* Colonne gauche */}
+          <div className="form-column">
+            {/* Nom & Prénom */}
+            <div className="form-group-row">
+              <div className="form-group">
+                <label className="form-label">
+                  <User />
+                  Nom *
                 </label>
-              ))}
+                <input
+                  type="text"
+                  value={formData.nom}
+                  onChange={(e) => handleInputChange("nom", e.target.value)}
+                  onBlur={(e) => handleInputBlur("nom", e.target.value)}
+                  className={`form-input contact-form-input ${
+                    errors.nom ? "error" : ""
+                  }`}
+                  placeholder="Votre nom"
+                />
+                {errors.nom && (
+                  <p className="contact-form-error-message">{errors.nom}</p>
+                )}
+              </div>
+              <div className="form-group">
+                <label className="form-label">
+                  <User />
+                  Prénom *
+                </label>
+                <input
+                  type="text"
+                  value={formData.prenom}
+                  onChange={(e) => handleInputChange("prenom", e.target.value)}
+                  onBlur={(e) => handleInputBlur("prenom", e.target.value)}
+                  className={`form-input contact-form-input ${
+                    errors.prenom ? "error" : ""
+                  }`}
+                  placeholder="Votre prénom"
+                />
+                {errors.prenom && (
+                  <p className="contact-form-error-message">{errors.prenom}</p>
+                )}
+              </div>
             </div>
-            {formErrors.preferredDays && (
-              <span className="error-message">{formErrors.preferredDays}</span>
-            )}
-          </div>
-        )}
-      </div>
 
-      <motion.button
-        type="submit"
-        className="submit-btn"
-        disabled={isSubmitting}
-        whileHover={{ scale: 1.02 }}
-        whileTap={{ scale: 0.98 }}
-      >
-        {isSubmitting ? t("contact.sending") : t("about.form_submit")}
-      </motion.button>
-    </motion.form>
+            {/* Email */}
+            <div className="form-group">
+              <label className="form-label">
+                <Mail />
+                Email *
+              </label>
+              <input
+                type="email"
+                value={formData.email}
+                onChange={(e) => handleInputChange("email", e.target.value)}
+                onBlur={(e) => handleInputBlur("email", e.target.value)}
+                className={`form-input contact-form-input ${
+                  errors.email ? "error" : ""
+                }`}
+                placeholder="votre.email@exemple.com"
+              />
+              {errors.email && (
+                <p className="contact-form-error-message">{errors.email}</p>
+              )}
+            </div>
+
+            {/* Téléphone */}
+            <div className="form-group">
+              <label className="form-label">
+                <Phone />
+                Téléphone {formData.preferenceContact === "telephone" && "*"}
+              </label>
+              <PhoneInput
+                international
+                defaultCountry="FR"
+                value={formData.telephone}
+                onChange={(value) => handleInputChange("telephone", value)}
+                onBlur={() => handleInputBlur("telephone", formData.telephone)}
+                className={`form-input contact-form-input ${
+                  errors.telephone ? "error" : ""
+                }`}
+                placeholder="06 12 34 56 78"
+              />
+              {errors.telephone && (
+                <p className="contact-form-error-message">{errors.telephone}</p>
+              )}
+            </div>
+
+            {/* Préférence de contact */}
+            <div className="form-group">
+              <label className="form-label">
+                <MessageSquare />
+                Préférence de contact *
+              </label>
+              <div className="contact-preference">
+                <button
+                  type="button"
+                  onClick={() =>
+                    handleInputChange("preferenceContact", "email")
+                  }
+                  className={`preference-button ${
+                    formData.preferenceContact === "email" ? "active" : ""
+                  }`}
+                >
+                  <Mail />
+                  Par email
+                  {formData.preferenceContact === "email" && <Check />}
+                </button>
+                <button
+                  type="button"
+                  onClick={() =>
+                    handleInputChange("preferenceContact", "telephone")
+                  }
+                  className={`preference-button ${
+                    formData.preferenceContact === "telephone" ? "active" : ""
+                  }`}
+                >
+                  <Phone />
+                  Par téléphone
+                  {formData.preferenceContact === "telephone" && <Check />}
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Colonne droite */}
+          <div className="form-column">
+            {/* Message */}
+            <div className="form-group">
+              <label className="form-label">
+                <MessageSquare />
+                Message *
+              </label>
+              <textarea
+                value={formData.message}
+                onChange={(e) => handleInputChange("message", e.target.value)}
+                onBlur={(e) => handleInputBlur("message", e.target.value)}
+                rows={6}
+                className={`form-textarea contact-form-textarea ${
+                  errors.message ? "error" : ""
+                }`}
+                placeholder="Parlez-nous de vos objectifs linguistiques, de votre niveau actuel et de vos disponibilités..."
+              />
+              {errors.message && (
+                <p className="contact-form-error-message">{errors.message}</p>
+              )}
+            </div>
+
+            {/* Créneaux horaires */}
+            {showTimeSlots && (
+              <div className="time-slots">
+                <label className="form-label">
+                  <Clock />
+                  Créneaux de disponibilité *
+                </label>
+
+                {/* Sélection des jours */}
+                <div className="days-selection">
+                  {jours.map((jour) => (
+                    <button
+                      key={jour}
+                      type="button"
+                      onClick={() => handleDayToggle(jour)}
+                      className={`day-button ${
+                        isDaySelected(jour) ? "selected" : ""
+                      }`}
+                    >
+                      {jour}
+                    </button>
+                  ))}
+                </div>
+
+                {/* Sélection des créneaux */}
+                <div className="time-slots-grid">
+                  {creneaux.map((creneau) => (
+                    <button
+                      key={creneau.id}
+                      type="button"
+                      onClick={() => handleTimeSlotToggle(creneau.id)}
+                      className={`time-slot-card ${
+                        isTimeSlotSelected(creneau.id) ? "selected" : ""
+                      }`}
+                    >
+                      <div className="time-slot-label">{creneau.label}</div>
+                      <div className="time-slot-time">{creneau.time}</div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Bouton d'envoi */}
+            <button
+              type="button"
+              onClick={handleSubmit}
+              disabled={!isFormValid()}
+              className={`submit-button ${!isFormValid() ? "disabled" : ""}`}
+            >
+              Envoyer
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 
-export default ContactForm; 
+export default ContactForm;

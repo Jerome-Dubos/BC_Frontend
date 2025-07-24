@@ -3,6 +3,7 @@
   min-height: 100vh;
   overflow-x: hidden;
   background-color: var(--primary-blue-dark);
+  padding-top: 10px;
 }
 
 /* Sections communes */
