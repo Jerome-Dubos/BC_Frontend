@@ -111,21 +111,89 @@ img {
   height: auto;
 }
 
-/* Scrollbar personnalisée */
+/* Scrollbar personnalisée avec bords arrondis pour tout le site */
 ::-webkit-scrollbar {
   width: 8px;
 }
 
 ::-webkit-scrollbar-track {
   background: var(--primary-blue-dark);
+  border-radius: 4px;
+  overflow: hidden;
 }
 
 ::-webkit-scrollbar-thumb {
   background: var(--secondary-gold);
   border-radius: 4px;
+  border: 1px solid var(--primary-blue-dark);
+  overflow: hidden;
 }
 
 ::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary-gold-light);
+}
+
+/* Masquer complètement la scrollbar si nécessaire */
+.hide-scrollbar {
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+
+/* Scrollbar pour Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--secondary-gold) var(--primary-blue-dark);
+}
+
+/* Empêcher le scroll du body quand une modale est ouverte */
+body.modal-open {
+  overflow: hidden !important;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+}
+
+/* Scrollbar personnalisée avec bords arrondis */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--primary-blue-dark);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--secondary-gold);
+  border-radius: 4px;
+  border: 1px solid var(--primary-blue-dark);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary-gold-light);
+}
+
+/* Scrollbar pour les modales */
+.modal-open ::-webkit-scrollbar {
+  width: 6px;
+}
+
+.modal-open ::-webkit-scrollbar-track {
+  background: rgba(74, 90, 109, 0.3);
+  border-radius: 3px;
+}
+
+.modal-open ::-webkit-scrollbar-thumb {
+  background: var(--secondary-gold);
+  border-radius: 3px;
+  border: none;
+}
+
+.modal-open ::-webkit-scrollbar-thumb:hover {
   background: var(--secondary-gold-light);
 }
 

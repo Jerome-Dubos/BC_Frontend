@@ -1,211 +1,74 @@
-/* eslint-disable no-unused-vars */
-import { AnimatePresence, motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import {
-  IoFlashOutline,
-  IoPeopleOutline,
-  IoTrophyOutline,
-} from "react-icons/io5";
 import "./AboutTabs.css";
+import HistoryMethodology from "./HistoryMethodology";
+import TeamSection from "./TeamSection";
 
 const AboutTabs = () => {
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState("history");
 
-  // Écouter l'événement pour changer l'onglet actif depuis l'URL
-  useEffect(() => {
-    const handleSetActiveTab = (event) => {
-      const tabId = event.detail;
-      if (["history", "approach", "team"].includes(tabId)) {
-        setActiveTab(tabId);
-      }
-    };
+  // Fonction pour obtenir le paramètre tab de l'URL
+  const getTabFromURL = () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const tab = urlParams.get("tab");
+    return tab === "team" ? "team" : "history";
+  };
 
-    window.addEventListener("setActiveTab", handleSetActiveTab);
-    return () => {
-      window.removeEventListener("setActiveTab", handleSetActiveTab);
-    };
+  // Initialiser l'onglet actif basé sur l'URL au chargement
+  useEffect(() => {
+    const tabFromURL = getTabFromURL();
+    setActiveTab(tabFromURL);
   }, []);
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        duration: 0.6,
-        staggerChildren: 0.05,
-      },
-    },
-  };
+  // Écouter les changements d'URL
+  useEffect(() => {
+    const handleURLChange = () => {
+      const tabFromURL = getTabFromURL();
+      setActiveTab(tabFromURL);
+    };
 
-  const cardVariants = {
-    hidden: { y: 30, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.6,
-        ease: "easeOut",
-      },
-    },
-    hover: {
-      y: -6,
-      scale: 1.03,
-      transition: {
-        duration: 0.25,
-        ease: "easeOut",
-      },
-    },
-  };
-
-  const tabVariants = {
-    hidden: { opacity: 0, x: 20 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: { duration: 0.5, ease: "easeOut" },
-    },
-    exit: {
-      opacity: 0,
-      x: -20,
-      transition: { duration: 0.3 },
-    },
-  };
+    window.addEventListener("popstate", handleURLChange);
+    return () => window.removeEventListener("popstate", handleURLChange);
+  }, []);
 
   const tabs = [
-    {
-      id: "history",
-      label: t("about.tab_history", "Notre histoire"),
-      icon: "📚",
-    },
-    {
-      id: "approach",
-      label: t("about.tab_approach", "Notre approche"),
-      icon: "🎯",
-    },
-    { id: "team", label: t("about.tab_team", "Notre équipe"), icon: "👥" },
+    { id: "history", label: t("about.tab_history_methodology") },
+    { id: "team", label: t("about.tab_team") },
   ];
 
+  const handleTabClick = (tabId) => {
+    setActiveTab(tabId);
+    // Mettre à jour l'URL sans recharger la page
+    const newURL = tabId === "history" ? "/about" : `/about?tab=${tabId}`;
+    window.history.pushState({}, "", newURL);
+  };
+
   return (
-    <section className="about-tabs-section">
-      {/* Navigation des onglets */}
-      <motion.div
-        className="tabs-navigation"
-        initial={{ y: 20, opacity: 0 }}
-        whileInView={{ y: 0, opacity: 1 }}
-        viewport={{ once: true, margin: "-50px" }}
-        transition={{ duration: 0.6 }}
-      >
-        {tabs.map((tab) => (
-          <motion.button
-            key={tab.id}
-            className={`tab-button ${activeTab === tab.id ? "active" : ""}`}
-            onClick={() => setActiveTab(tab.id)}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            transition={{ duration: 0.2 }}
-          >
-            <span className="tab-icon">{tab.icon}</span>
-            <span className="tab-label">{tab.label}</span>
-          </motion.button>
-        ))}
-      </motion.div>
-
-      {/* Contenu des onglets */}
-      <motion.div className="tab-content">
-        <AnimatePresence mode="wait">
-          {activeTab === "history" && (
-            <motion.div
-              key="history"
-              variants={tabVariants}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-              className="tab-panel"
+    <div className="about-tabs">
+      <div className="about-tabs__header">
+        <div className="about-tabs__nav">
+          {tabs.map((tab) => (
+            <button
+              key={tab.id}
+              className={`about-tabs__nav-item ${
+                activeTab === tab.id ? "active" : ""
+              }`}
+              onClick={() => handleTabClick(tab.id)}
+              aria-selected={activeTab === tab.id}
+              role="tab"
             >
-              <motion.h2 className="tab-title">
-                {t("about.history_title")}
-              </motion.h2>
-              <motion.p className="tab-description">
-                {t("about.history_desc")}
-              </motion.p>
-            </motion.div>
-          )}
+              {tab.label}
+            </button>
+          ))}
+        </div>
+      </div>
 
-          {activeTab === "approach" && (
-            <motion.div
-              key="approach"
-              variants={tabVariants}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-              className="tab-panel"
-            >
-              <motion.h2 className="tab-title">
-                {t("about.approach_title")}
-              </motion.h2>
-              <motion.div
-                className="about-grid"
-                variants={containerVariants}
-                initial="hidden"
-                animate="visible"
-              >
-                <motion.div
-                  className="about-card"
-                  variants={cardVariants}
-                  whileHover="hover"
-                >
-                  <div className="card-icon">
-                    <IoFlashOutline />
-                  </div>
-                  <h3>{t("about.approach_innovation_title")}</h3>
-                  <p>{t("about.approach_innovation_desc")}</p>
-                </motion.div>
-                <motion.div
-                  className="about-card"
-                  variants={cardVariants}
-                  whileHover="hover"
-                >
-                  <div className="card-icon">
-                    <IoTrophyOutline />
-                  </div>
-                  <h3>{t("about.approach_excellence_title")}</h3>
-                  <p>{t("about.approach_excellence_desc")}</p>
-                </motion.div>
-                <motion.div
-                  className="about-card"
-                  variants={cardVariants}
-                  whileHover="hover"
-                >
-                  <div className="card-icon">
-                    <IoPeopleOutline />
-                  </div>
-                  <h3>{t("about.approach_community_title")}</h3>
-                  <p>{t("about.approach_community_desc")}</p>
-                </motion.div>
-              </motion.div>
-            </motion.div>
-          )}
-
-          {activeTab === "team" && (
-            <motion.div
-              key="team"
-              variants={tabVariants}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-              className="tab-panel"
-            >
-              <motion.h2 className="tab-title">
-                {t("about.team_title")}
-              </motion.h2>
-              {/* Contenu de l'équipe sera ajouté ici */}
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </motion.div>
-    </section>
+      <div className="about-tabs__content">
+        {activeTab === "history" && <HistoryMethodology />}
+        {activeTab === "team" && <TeamSection />}
+      </div>
+    </div>
   );
 };
 

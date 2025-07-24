@@ -39,7 +39,7 @@ const FeaturesSection = ({ isMobile = false }) => {
       title: t("home.feature_flexible"),
       description: t("home.feature_flexible_desc"),
       color: "#2ecc71",
-      action: "about-approach",
+      action: "about-history",
     },
   ];
 
@@ -55,9 +55,9 @@ const FeaturesSection = ({ isMobile = false }) => {
         // Navigation vers About avec l'onglet équipe
         window.location.href = "/about?tab=team";
         break;
-      case "about-approach":
-        // Navigation vers About avec l'onglet approche
-        window.location.href = "/about?tab=approach";
+      case "about-history":
+        // Navigation vers About avec l'onglet histoire et méthodologie
+        window.location.href = "/about";
         break;
       case "schedule": {
         // Scroll vers la section planning

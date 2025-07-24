@@ -62,6 +62,20 @@ const InterestModal = ({ course, onClose }) => {
     phone: "",
   });
 
+  // État pour détecter si on est sur mobile
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Détection du mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 600);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   // Regex de validation
   const validationRegex = {
     name: /^[a-zA-ZÀ-ÿ\s]{2,50}$/,
@@ -241,7 +255,6 @@ const InterestModal = ({ course, onClose }) => {
       return;
     }
 
-    console.log("Formulaire soumis:", { course, formData });
     // TODO: Backend Integration - POST /api/courses/{courseId}/interest
     onClose();
   };
@@ -252,36 +265,44 @@ const InterestModal = ({ course, onClose }) => {
       onClick={handleBackdropClick}
       onWheel={handleBackdropScroll}
       onTouchMove={handleBackdropScroll}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-title"
+      aria-describedby="modal-description"
     >
       <div className="course-interest-modal">
         {/* En-tête de la modale */}
         <div className="course-interest-modal__header">
-          <h3 className="course-interest-modal__title">
+          <h3 id="modal-title" className="course-interest-modal__title">
             {t("home.schedule.modal.title", "Je suis intéressé(e)")}
           </h3>
           <button
             className="course-interest-modal__close"
             onClick={onClose}
             aria-label={t("common.close", "Fermer")}
+            type="button"
           >
-            <IoCloseOutline />
+            <IoCloseOutline aria-hidden="true" />
           </button>
         </div>
 
         {/* Informations du cours */}
-        <div className="course-interest-modal__course-info">
+        <div
+          id="modal-description"
+          className="course-interest-modal__course-info"
+        >
           <div className="course-interest-modal__course-title">
             {course.language} - Niveau {course.level}
           </div>
           <div className="course-interest-modal__course-details">
             <div className="course-interest-modal__detail">
-              <IoTimeOutline />
+              <IoTimeOutline aria-hidden="true" />
               <span>
                 {course.startTime} - {course.endTime} ({course.duration})
               </span>
             </div>
             <div className="course-interest-modal__detail">
-              <IoPeopleOutline />
+              <IoPeopleOutline aria-hidden="true" />
               <span>
                 {course.enrolledStudents}/{course.maxStudents} places
                 disponibles
@@ -291,7 +312,11 @@ const InterestModal = ({ course, onClose }) => {
         </div>
 
         {/* Formulaire */}
-        <form className="course-interest-modal__form" onSubmit={handleSubmit}>
+        <form
+          className="course-interest-modal__form"
+          onSubmit={handleSubmit}
+          noValidate
+        >
           <div className="course-interest-modal__form-group">
             <label
               htmlFor="name"
@@ -311,9 +336,19 @@ const InterestModal = ({ course, onClose }) => {
                   : ""
               }`}
               placeholder="Votre nom complet"
+              aria-describedby={
+                validationErrors.name ? "name-error" : undefined
+              }
+              aria-invalid={!!validationErrors.name}
+              autoComplete="name"
+              autoFocus={!isMobile}
             />
             {validationErrors.name && (
-              <div className="course-interest-modal__error">
+              <div
+                id="name-error"
+                className="course-interest-modal__error"
+                role="alert"
+              >
                 {validationErrors.name}
               </div>
             )}
@@ -338,9 +373,18 @@ const InterestModal = ({ course, onClose }) => {
                   : ""
               }`}
               placeholder="votre.email@exemple.com"
+              aria-describedby={
+                validationErrors.email ? "email-error" : undefined
+              }
+              aria-invalid={!!validationErrors.email}
+              autoComplete="email"
             />
             {validationErrors.email && (
-              <div className="course-interest-modal__error">
+              <div
+                id="email-error"
+                className="course-interest-modal__error"
+                role="alert"
+              >
                 {validationErrors.email}
               </div>
             )}
@@ -363,9 +407,18 @@ const InterestModal = ({ course, onClose }) => {
                   : ""
               }`}
               placeholder="06 12 34 56 78"
+              aria-describedby={
+                validationErrors.phone ? "phone-error" : undefined
+              }
+              aria-invalid={!!validationErrors.phone}
+              autoComplete="tel"
             />
             {validationErrors.phone && (
-              <div className="course-interest-modal__error">
+              <div
+                id="phone-error"
+                className="course-interest-modal__error"
+                role="alert"
+              >
                 {validationErrors.phone}
               </div>
             )}
@@ -386,6 +439,7 @@ const InterestModal = ({ course, onClose }) => {
                 "home.schedule.modal.messagePlaceholder",
                 "Votre message (optionnel)"
               )}
+              autoComplete="off"
             />
           </div>
 
@@ -405,10 +459,20 @@ const InterestModal = ({ course, onClose }) => {
                   : ""
               }`}
               disabled={!isFormValid()}
+              aria-describedby={!isFormValid() ? "submit-error" : undefined}
             >
               {t("home.schedule.modal.submit", "Envoyer")}
             </button>
           </div>
+          {!isFormValid() && (
+            <div
+              id="submit-error"
+              className="course-interest-modal__error"
+              role="alert"
+            >
+              Veuillez remplir tous les champs obligatoires correctement
+            </div>
+          )}
         </form>
       </div>
     </div>
@@ -497,18 +561,30 @@ const ScheduleSection = () => {
   // TODO: Backend Integration - Remplacer par un appel API pour manifester l'intérêt
   // Cette fonction devra envoyer les données à l'API backend
   const handleInterest = (course) => {
-    console.log("Intérêt exprimé pour le cours:", course);
     // Futur: POST /api/courses/{courseId}/interest
     setSelectedCourse(course);
   };
 
-  // Gestion de l'expansion des jours
+  // Gestion de l'expansion des jours avec feedback tactile
   const handleDayClick = (dateStr) => {
     if (expandedDay === dateStr) {
       setExpandedDay(null);
     } else {
       setExpandedDay(dateStr);
     }
+  };
+
+  // Gestion des filtres avec feedback tactile
+  const handleLevelChange = (level) => {
+    setActiveLevel(level);
+    // Fermer l'expansion si on change de niveau
+    setExpandedDay(null);
+  };
+
+  const handleTypeChange = (type) => {
+    setActiveType(type);
+    // Fermer l'expansion si on change de type
+    setExpandedDay(null);
   };
 
   // Configuration des onglets de niveau (adulte/enfant)
@@ -593,16 +669,6 @@ const ScheduleSection = () => {
   const currentCourses =
     translatedCoursesData?.[activeLevel]?.[activeType] || {};
 
-  // Debug pour voir les données
-  console.log("Debug ScheduleSection:", {
-    coursesData,
-    translatedCoursesData,
-    activeLevel,
-    activeType,
-    currentCourses,
-    weekDays: weekDays.map((day) => formatDate(day)),
-  });
-
   return (
     <section id="schedule" className="schedule-section">
       <div className="schedule-container">
@@ -629,10 +695,13 @@ const ScheduleSection = () => {
                 className={`course-level-btn ${
                   activeLevel === tab.id ? "course-level-btn--active" : ""
                 }`}
-                onClick={() => setActiveLevel(tab.id)}
+                onClick={() => handleLevelChange(tab.id)}
                 aria-pressed={activeLevel === tab.id}
+                aria-label={`${tab.label} - ${tab.description}`}
               >
-                <div className="course-level-btn__icon">{tab.icon}</div>
+                <div className="course-level-btn__icon" aria-hidden="true">
+                  {tab.icon}
+                </div>
                 <div className="course-level-btn__content">
                   <span className="course-level-btn__title">{tab.label}</span>
                   <span className="course-level-btn__subtitle">
@@ -654,10 +723,13 @@ const ScheduleSection = () => {
                 className={`course-type-btn ${
                   activeType === tab.id ? "course-type-btn--active" : ""
                 }`}
-                onClick={() => setActiveType(tab.id)}
+                onClick={() => handleTypeChange(tab.id)}
                 aria-pressed={activeType === tab.id}
+                aria-label={`${tab.label} - ${tab.description}`}
               >
-                <div className="course-type-btn__icon">{tab.icon}</div>
+                <div className="course-type-btn__icon" aria-hidden="true">
+                  {tab.icon}
+                </div>
                 <div className="course-type-btn__content">
                   <span className="course-type-btn__title">{tab.label}</span>
                   <span className="course-type-btn__subtitle">
@@ -712,6 +784,20 @@ const ScheduleSection = () => {
                     className="weekday-button"
                     onClick={() => handleDayClick(dateStr)}
                     disabled={!hasEvents}
+                    aria-label={`${day.toLocaleDateString("fr-FR", {
+                      weekday: "long",
+                    })} ${day.toLocaleDateString("fr-FR", {
+                      day: "2-digit",
+                      month: "2-digit",
+                    })} - ${
+                      hasEvents
+                        ? `${dayEvents.length} cours disponible${
+                            dayEvents.length > 1 ? "s" : ""
+                          }`
+                        : "Aucun cours"
+                    }`}
+                    aria-expanded={isExpanded}
+                    aria-controls={`courses-${dateStr}`}
                   >
                     <div className="weekday-info">
                       <div className="weekday-name">
@@ -726,7 +812,12 @@ const ScheduleSection = () => {
                     </div>
 
                     {hasEvents && (
-                      <div className="events-badge">{dayEvents.length}</div>
+                      <div
+                        className="events-badge"
+                        aria-label={`${dayEvents.length} cours`}
+                      >
+                        {dayEvents.length}
+                      </div>
                     )}
 
                     {hasEvents && (
@@ -734,6 +825,7 @@ const ScheduleSection = () => {
                         className={`expand-icon ${
                           isExpanded ? "expanded" : ""
                         }`}
+                        aria-hidden="true"
                       >
                         <IoChevronDownOutline />
                       </div>
@@ -742,7 +834,16 @@ const ScheduleSection = () => {
 
                   {/* Zone d'expansion pour les cours */}
                   {isExpanded && hasEvents && (
-                    <div className="courses-expansion">
+                    <div
+                      className="courses-expansion"
+                      id={`courses-${dateStr}`}
+                      role="region"
+                      aria-label={`Cours du ${day.toLocaleDateString("fr-FR", {
+                        weekday: "long",
+                        day: "2-digit",
+                        month: "2-digit",
+                      })}`}
+                    >
                       <div className="courses-list">
                         {dayEvents.map((course) => (
                           <article key={course.id} className="course-card">
@@ -768,19 +869,19 @@ const ScheduleSection = () => {
                             <div className="course-details">
                               <div className="course-timing">
                                 <div className="course-schedule">
-                                  <IoTimeOutline />
+                                  <IoTimeOutline aria-hidden="true" />
                                   <span className="time-range">
                                     {course.startTime} - {course.endTime}
                                   </span>
                                 </div>
                                 <div className="course-duration">
-                                  <IoStopwatchOutline />
+                                  <IoStopwatchOutline aria-hidden="true" />
                                   <span>{course.duration}</span>
                                 </div>
                               </div>
 
                               <div className="course-capacity">
-                                <IoPeopleOutline />
+                                <IoPeopleOutline aria-hidden="true" />
                                 <span className="capacity-info">
                                   {course.enrolledStudents} /{" "}
                                   {course.maxStudents}
@@ -800,6 +901,15 @@ const ScheduleSection = () => {
                                 onClick={() => handleInterest(course)}
                                 disabled={
                                   course.enrolledStudents >= course.maxStudents
+                                }
+                                aria-label={
+                                  course.enrolledStudents >= course.maxStudents
+                                    ? "Cours complet"
+                                    : `S'inscrire au cours de ${t(
+                                        course.languageKey
+                                      )} - ${course.startTime} à ${
+                                        course.endTime
+                                      }`
                                 }
                               >
                                 {course.enrolledStudents >= course.maxStudents
