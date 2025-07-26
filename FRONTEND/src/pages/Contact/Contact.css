@@ -1,4 +1,49 @@
 .contact-page {
   min-height: 100vh;
   padding-top: 80px;
+  background: var(--background);
+}
+
+.contact-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xxl);
+}
+
+.contact-separator {
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--secondary-gold),
+    transparent
+  );
+  margin: var(--spacing-xl) 0;
+  opacity: 0.3;
+}
+
+/* Responsive pour la page contact */
+@media (max-width: 768px) {
+  .contact-container {
+    padding: 0 var(--spacing-md);
+    gap: var(--spacing-xl);
+  }
+
+  .contact-separator {
+    margin: var(--spacing-lg) 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-container {
+    padding: 0 var(--spacing-sm);
+    gap: var(--spacing-lg);
+  }
+
+  .contact-separator {
+    margin: var(--spacing-md) 0;
+  }
 }
