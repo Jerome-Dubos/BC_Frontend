@@ -1,13 +1,13 @@
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
-import { 
+import {
   IoCheckmarkCircleOutline,
   IoMailOutline,
   IoRefreshOutline,
   IoStarOutline,
   IoTrophyOutline,
 } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
 
 const TestResult = ({ result, onRestart }) => {
   const { t } = useTranslation();
@@ -67,7 +67,10 @@ const TestResult = ({ result, onRestart }) => {
           </div>
 
           <div className="result-level">
-            <div className="level-badge" style={{ backgroundColor: result.levelInfo.color }}>
+            <div
+              className="level-badge"
+              style={{ backgroundColor: result.levelInfo.color }}
+            >
               {result.level}
             </div>
             <h4>{result.levelInfo.name}</h4>
@@ -83,14 +86,16 @@ const TestResult = ({ result, onRestart }) => {
             <div className="stat-item">
               <IoCheckmarkCircleOutline />
               <span className="stat-label">{t("test.correct_answers")}</span>
-              <span className="stat-value">{result.correctAnswers}/{result.totalQuestions}</span>
+              <span className="stat-value">
+                {result.correctAnswers}/{result.totalQuestions}
+              </span>
             </div>
           </div>
         </div>
 
         <div className="result-actions">
           <motion.button
-            className="action-btn primary"
+            className="contact-btn"
             onClick={handleContactClick}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -100,7 +105,7 @@ const TestResult = ({ result, onRestart }) => {
           </motion.button>
 
           <motion.button
-            className="action-btn secondary"
+            className="retry-btn"
             onClick={onRestart}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -122,4 +127,4 @@ const TestResult = ({ result, onRestart }) => {
   );
 };
 
-export default TestResult; 
+export default TestResult;

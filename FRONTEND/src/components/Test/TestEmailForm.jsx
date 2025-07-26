@@ -1,8 +1,8 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { IoArrowForwardOutline, IoMailOutline } from "react-icons/io5";
 import "./TestEmailForm.css";
-import { IoMailOutline, IoArrowForwardOutline } from "react-icons/io5";
 
 const TestEmailForm = ({ onEmailSubmit, selectedLanguage }) => {
   const { t } = useTranslation();
@@ -53,7 +53,7 @@ const TestEmailForm = ({ onEmailSubmit, selectedLanguage }) => {
 
         <motion.button
           type="submit"
-          className="submit-btn"
+          className="start-test-btn"
           disabled={!userEmail.trim() || !userEmail.includes("@")}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
@@ -66,4 +66,4 @@ const TestEmailForm = ({ onEmailSubmit, selectedLanguage }) => {
   );
 };
 
-export default TestEmailForm; 
+export default TestEmailForm;

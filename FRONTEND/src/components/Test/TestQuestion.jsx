@@ -1,13 +1,23 @@
 import { motion } from "framer-motion";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { IoCheckmarkCircleOutline } from "react-icons/io5";
 import "./TestQuestion.css";
 
-const TestQuestion = ({ question, currentQuestion, totalQuestions, onAnswer }) => {
+const TestQuestion = ({
+  question,
+  currentQuestion,
+  totalQuestions,
+  onAnswer,
+}) => {
   const { t } = useTranslation();
+  const [selected, setSelected] = useState(null);
 
   const handleAnswerClick = (answerIndex) => {
-    onAnswer(answerIndex);
+    setSelected(answerIndex);
+    setTimeout(() => {
+      onAnswer(answerIndex);
+    }, 200); // Laisse le temps d'afficher l'état sélectionné
   };
 
   return (
@@ -20,9 +30,11 @@ const TestQuestion = ({ question, currentQuestion, totalQuestions, onAnswer }) =
     >
       <div className="question-header">
         <div className="progress-bar">
-          <div 
+          <div
             className="progress-fill"
-            style={{ width: `${((currentQuestion + 1) / totalQuestions) * 100}%` }}
+            style={{
+              width: `${((currentQuestion + 1) / totalQuestions) * 100}%`,
+            }}
           />
         </div>
         <div className="question-counter">
@@ -32,18 +44,19 @@ const TestQuestion = ({ question, currentQuestion, totalQuestions, onAnswer }) =
 
       <div className="question-content">
         <h3 className="question-text">{question.question}</h3>
-        
+
         <div className="answers-grid">
           {question.options.map((answer, index) => (
             <motion.button
               key={index}
-              className="answer-option"
+              className={`option-btn${selected === index ? " selected" : ""}`}
               onClick={() => handleAnswerClick(index)}
               whileHover={{ scale: 1.02, y: -2 }}
               whileTap={{ scale: 0.98 }}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: index * 0.1 }}
+              tabIndex={0}
             >
               <div className="answer-letter">
                 {String.fromCharCode(65 + index)}
@@ -58,4 +71,4 @@ const TestQuestion = ({ question, currentQuestion, totalQuestions, onAnswer }) =
   );
 };
 
-export default TestQuestion; 
+export default TestQuestion;

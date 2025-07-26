@@ -105,12 +105,16 @@ const Test = () => {
   const handleLanguageSelect = (language) => {
     setSelectedLanguage(language);
     setCurrentStep("email");
+    // Scroll vers le haut
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   // Gestion de la soumission de l'email
   const handleEmailSubmit = (email) => {
     setUserEmail(email);
     setCurrentStep("test");
+    // Scroll vers le haut
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   // Gestion de la réponse à une question
@@ -140,6 +144,8 @@ const Test = () => {
 
       setTestResult(result);
       setCurrentStep("result");
+      // Scroll vers le haut
+      window.scrollTo({ top: 0, behavior: "smooth" });
 
       // Simulation d'envoi d'email
       sendResultByEmail(result);
@@ -175,14 +181,18 @@ const Test = () => {
     setCurrentQuestion(0);
     setAnswers([]);
     setTestResult(null);
+    // Scroll vers le haut
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   // Animation des icônes flottantes
   const floatingIcons = [
-    { icon: "⭐", delay: 0, x: 20, y: -30 },
-    { icon: "📚", delay: 0.5, x: -25, y: 40 },
-    { icon: "🎯", delay: 1, x: 30, y: 20 },
-    { icon: "✨", delay: 1.5, x: -40, y: -20 },
+    { icon: "⭐", delay: 0, x: 20, y: -30, size: "2rem" },
+    { icon: "📚", delay: 0.5, x: -25, y: 40, size: "1.8rem" },
+    { icon: "🎯", delay: 1, x: 30, y: 20, size: "2.2rem" },
+    { icon: "✨", delay: 1.5, x: -40, y: -20, size: "1.6rem" },
+    { icon: "🌟", delay: 2, x: 15, y: 50, size: "1.9rem" },
+    { icon: "💡", delay: 2.5, x: -35, y: 10, size: "1.7rem" },
   ];
 
   return (
@@ -193,15 +203,16 @@ const Test = () => {
           <motion.div
             key={index}
             className="floating-icon"
+            style={{ fontSize: item.size }}
             initial={{ opacity: 0, scale: 0 }}
             animate={{
-              opacity: 0.2,
+              opacity: 0.15,
               scale: 1,
               x: [0, item.x, 0],
               y: [0, item.y, 0],
             }}
             transition={{
-              duration: 6,
+              duration: 8,
               delay: item.delay,
               repeat: Infinity,
               ease: "easeInOut",
@@ -218,9 +229,9 @@ const Test = () => {
         )}
 
         {currentStep === "email" && (
-          <TestEmailForm 
-            onEmailSubmit={handleEmailSubmit} 
-            selectedLanguage={selectedLanguage} 
+          <TestEmailForm
+            onEmailSubmit={handleEmailSubmit}
+            selectedLanguage={selectedLanguage}
           />
         )}
 
