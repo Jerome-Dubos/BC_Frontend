@@ -1,35 +1,37 @@
 import { Clock, MapPin, Navigation } from "lucide-react";
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { FaBicycle, FaBus, FaCar, FaTrain } from "react-icons/fa";
 import "./ContactInfo.css";
 
 const ContactInfo = () => {
+  const { t } = useTranslation();
   const [showNotification, setShowNotification] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState("");
   const [isHiding, setIsHiding] = useState(false);
   const horaires = [
-    { jour: "Lundi", heures: "7h - 21h" },
-    { jour: "Mardi", heures: "7h - 21h" },
-    { jour: "Mercredi", heures: "7h - 21h" },
-    { jour: "Jeudi", heures: "7h - 21h" },
-    { jour: "Vendredi", heures: "7h - 21h" },
-    { jour: "Samedi", heures: "7h - 21h" },
-    { jour: "Dimanche", heures: "7h - 21h" },
+    { jour: t("contact.hours.monday"), heures: t("contact.hours.time_range") },
+    { jour: t("contact.hours.tuesday"), heures: t("contact.hours.time_range") },
+    { jour: t("contact.hours.wednesday"), heures: t("contact.hours.time_range") },
+    { jour: t("contact.hours.thursday"), heures: t("contact.hours.time_range") },
+    { jour: t("contact.hours.friday"), heures: t("contact.hours.time_range") },
+    { jour: t("contact.hours.saturday"), heures: t("contact.hours.time_range") },
+    { jour: t("contact.hours.sunday"), heures: t("contact.hours.time_range") },
   ];
 
   const contactInfo = {
     adresse: "36 quai Mullenheim, 67000 Strasbourg",
   };
 
-  // Détermination du jour actif (français)
+  // Détermination du jour actif
   const joursFR = [
-    "Dimanche",
-    "Lundi",
-    "Mardi",
-    "Mercredi",
-    "Jeudi",
-    "Vendredi",
-    "Samedi",
+    t("contact.hours.sunday"),
+    t("contact.hours.monday"),
+    t("contact.hours.tuesday"),
+    t("contact.hours.wednesday"),
+    t("contact.hours.thursday"),
+    t("contact.hours.friday"),
+    t("contact.hours.saturday"),
   ];
   const today = new Date();
   const todayName = joursFR[today.getDay()];
@@ -68,13 +70,13 @@ const ContactInfo = () => {
 
   const handleCopyAddress = () => {
     copyToClipboard(contactInfo.adresse);
-    showLocalNotification("Adresse copiée !");
+    showLocalNotification(t("contact.info.notifications.address_copied"));
   };
 
   const handleCopyHours = () => {
     const hoursText = horaires.map((h) => `${h.jour}: ${h.heures}`).join("\n");
     copyToClipboard(hoursText);
-    showLocalNotification("Horaires copiés !");
+    showLocalNotification(t("contact.info.notifications.hours_copied"));
   };
 
   return (
@@ -107,9 +109,9 @@ const ContactInfo = () => {
       <div className="contact-info-content">
         <div className="contact-hero-section">
           <div className="contact-hero-header">
-            <h2 className="contact-hero-title">Où nous trouver</h2>
+            <h2 className="contact-hero-title">{t("contact.info.title")}</h2>
             <p className="contact-hero-subtitle">
-              Retrouvez-nous au cœur de Strasbourg pour vos cours de langues
+              {t("contact.info.subtitle")}
             </p>
           </div>
 
@@ -136,7 +138,7 @@ const ContactInfo = () => {
                       onClick={handleGetDirections}
                     >
                       <Navigation size={18} />
-                      <span>Itinéraire</span>
+                      <span>{t("contact.info.get_directions")}</span>
                     </button>
                   </div>
                 </div>
@@ -144,15 +146,15 @@ const ContactInfo = () => {
 
               {/* Section d'accès compacte */}
               <div className="access-compact-section">
-                <h3 className="access-compact-title">Comment nous rejoindre</h3>
+                <h3 className="access-compact-title">{t("contact.info.access_title")}</h3>
                 <div className="access-compact-methods">
                   <div className="access-compact-method">
                     <div className="access-compact-icon">
                       <FaTrain size={14} />
                     </div>
                     <div className="access-compact-content">
-                      <h4>Tram</h4>
-                      <p>Lignes A, B, C, D, E, F - Arrêt "Homme de Fer"</p>
+                      <h4>{t("contact.info.transport.tram")}</h4>
+                      <p>{t("contact.info.transport.tram_info")}</p>
                     </div>
                   </div>
                   <div className="access-compact-method">
@@ -160,8 +162,8 @@ const ContactInfo = () => {
                       <FaBus size={14} />
                     </div>
                     <div className="access-compact-content">
-                      <h4>Bus</h4>
-                      <p>Lignes 2, 10, 15 - Arrêt "Quai Mullenheim"</p>
+                      <h4>{t("contact.info.transport.bus")}</h4>
+                      <p>{t("contact.info.transport.bus_info")}</p>
                     </div>
                   </div>
                   <div className="access-compact-method">
@@ -169,8 +171,8 @@ const ContactInfo = () => {
                       <FaCar size={14} />
                     </div>
                     <div className="access-compact-content">
-                      <h4>Voiture</h4>
-                      <p>Parking "Place Kléber" à 5 minutes à pied</p>
+                      <h4>{t("contact.info.transport.car")}</h4>
+                      <p>{t("contact.info.transport.car_info")}</p>
                     </div>
                   </div>
                   <div className="access-compact-method">
@@ -178,8 +180,8 @@ const ContactInfo = () => {
                       <FaBicycle size={14} />
                     </div>
                     <div className="access-compact-content">
-                      <h4>Vélo</h4>
-                      <p>Piste cyclable le long du quai Mullenheim</p>
+                      <h4>{t("contact.info.transport.bike")}</h4>
+                      <p>{t("contact.info.transport.bike_info")}</p>
                     </div>
                   </div>
                 </div>
@@ -198,9 +200,8 @@ const ContactInfo = () => {
                     <MapPin size={24} />
                   </div>
                   <div className="info-hero-content">
-                    <h3 className="info-hero-label">Adresse</h3>
+                    <h3 className="info-hero-label">{t("contact.info.address_title")}</h3>
                     <p className="info-hero-text">{contactInfo.adresse}</p>
-                    <p className="info-hero-subtext">Strasbourg, France</p>
                   </div>
                 </div>
 
@@ -214,7 +215,7 @@ const ContactInfo = () => {
                       >
                         <Clock size={24} />
                       </div>
-                      <h3 className="info-hero-label">Horaires d'ouverture</h3>
+                      <h3 className="info-hero-label">{t("contact.info.hours_title")}</h3>
                     </div>
                     <div className="hours-hero-list">
                       {horaires.map((horaire, index) => (

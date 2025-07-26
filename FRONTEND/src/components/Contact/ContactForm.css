@@ -838,3 +838,97 @@
 .tooltip:hover::after {
   opacity: 1;
 }
+
+/* Styles spécifiques pour PhoneInput dans le formulaire de contact */
+.contact-form-container .PhoneInput {
+  display: flex;
+  align-items: center;
+  background: var(--primary-blue-light) !important;
+  border-radius: var(--border-radius-md);
+  border: 2px solid transparent;
+  transition: all var(--transition-normal);
+  width: 100%;
+  gap: 0;
+}
+
+.contact-form-container .PhoneInput--error {
+  border-color: #ef4444;
+}
+
+.contact-form-container .PhoneInputCountrySelect {
+  background: transparent !important;
+  border: none;
+  color: var(--text-light) !important;
+  font-size: 0.875rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: 0;
+}
+
+.contact-form-container .PhoneInputCountrySelect:focus {
+  outline: none;
+}
+
+.contact-form-container .PhoneInputCountryIcon {
+  width: 20px;
+  height: 15px;
+  margin-right: 0;
+  display: block;
+  flex-shrink: 0;
+  margin-top: 0px !important;
+}
+
+.contact-form-container .PhoneInputInput {
+  flex: 1;
+  background: transparent !important;
+  border: none !important;
+  color: var(--text-light) !important;
+  font-size: 1rem;
+  padding: 0.85em var(--spacing-md);
+  line-height: 1.5;
+  outline: none;
+  width: 100%;
+}
+
+.contact-form-container .PhoneInputInput::placeholder {
+  color: var(--text-muted) !important;
+}
+
+.contact-form-container .PhoneInputInput:focus {
+  outline: none;
+  background: transparent !important;
+}
+
+.contact-form-container .PhoneInputInput:focus-visible {
+  outline: none !important;
+  background: transparent !important;
+}
+
+.contact-form-container .PhoneInput * {
+  background: transparent !important;
+}
+
+.contact-form-container .PhoneInput .PhoneInputCountrySelectArrow {
+  color: var(--text-light) !important;
+  display: flex;
+  align-items: center;
+  margin-left: var(--spacing-xs);
+  position: relative;
+  top: 0px;
+  left: 4px;
+}
+
+.contact-form-container .PhoneInput .PhoneInputCountrySelectArrowIcon {
+  color: var(--text-light) !important;
+  width: 12px;
+  height: 12px;
+  display: block;
+  vertical-align: middle;
+}
+
+.contact-form-container .PhoneInput > * {
+  display: flex;
+  align-items: center;
+}

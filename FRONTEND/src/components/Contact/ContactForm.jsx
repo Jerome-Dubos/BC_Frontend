@@ -1,10 +1,12 @@
 import { Check, Clock, Mail, MessageSquare, Phone, User } from "lucide-react";
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 import "./ContactForm.css";
 
 const ContactForm = () => {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     nom: "",
     prenom: "",
@@ -25,12 +27,20 @@ const ContactForm = () => {
   const nameRegex = /^[\p{L}\s'-]{2,50}$/u;
   const messageRegex = /^[\s\S]{10,1000}$/;
 
-  const jours = ["LUN", "MAR", "MER", "JEU", "VEN", "SAM", "DIM"];
+  const jours = [
+    t("contact.days.mon"),
+    t("contact.days.tue"),
+    t("contact.days.wed"),
+    t("contact.days.thu"),
+    t("contact.days.fri"),
+    t("contact.days.sat"),
+    t("contact.days.sun"),
+  ];
   const creneaux = [
-    { id: "matin", label: "Matin", icon: "🌅", time: "7h-12h" },
-    { id: "apres-midi", label: "Après-midi", icon: "☀️", time: "12h-17h" },
-    { id: "soir", label: "Soir", icon: "🌙", time: "17h-21h" },
-    { id: "flexible", label: "Flexible", icon: "⏰", time: "7h-21h" },
+    { id: "matin", label: t("contact.time_slots.morning"), icon: "🌅", time: t("contact.time_slots.morning_time") },
+    { id: "apres-midi", label: t("contact.time_slots.afternoon"), icon: "☀️", time: t("contact.time_slots.afternoon_time") },
+    { id: "soir", label: t("contact.time_slots.evening"), icon: "🌙", time: t("contact.time_slots.evening_time") },
+    { id: "flexible", label: t("contact.time_slots.flexible"), icon: "⏰", time: t("contact.time_slots.flexible_time") },
   ];
 
   // Fonction pour valider un numéro de téléphone avec react-phone-number-input
@@ -87,7 +97,7 @@ const ContactForm = () => {
 
     if (field === "nom" && value) {
       if (!nameRegex.test(value)) {
-        newErrors.nom = "Lettres, espaces, tirets et apostrophes uniquement";
+        newErrors.nom = t("contact.validation.name_error");
       } else {
         delete newErrors.nom;
       }
@@ -95,7 +105,7 @@ const ContactForm = () => {
 
     if (field === "prenom" && value) {
       if (!nameRegex.test(value)) {
-        newErrors.prenom = "Lettres, espaces, tirets et apostrophes uniquement";
+        newErrors.prenom = t("contact.validation.name_error");
       } else {
         delete newErrors.prenom;
       }
@@ -103,7 +113,7 @@ const ContactForm = () => {
 
     if (field === "email" && value) {
       if (!emailRegex.test(value)) {
-        newErrors.email = "Format d'email invalide";
+        newErrors.email = t("contact.validation.email_error");
       } else {
         delete newErrors.email;
       }
@@ -111,8 +121,7 @@ const ContactForm = () => {
 
     if (field === "telephone" && value) {
       if (!validatePhoneNumber(value)) {
-        newErrors.telephone =
-          "Format invalide (ex: 06 12 34 56 78, +33 6 12 34 56 78, +1 555 123 4567)";
+        newErrors.telephone = t("contact.validation.phone_error");
       } else {
         delete newErrors.telephone;
       }
@@ -120,7 +129,7 @@ const ContactForm = () => {
 
     if (field === "message" && value) {
       if (!messageRegex.test(value)) {
-        newErrors.message = "Minimum 10 caractères";
+        newErrors.message = t("contact.validation.message_error");
       } else {
         delete newErrors.message;
       }
@@ -257,13 +266,10 @@ const ContactForm = () => {
       </div>
 
       <div className="form-content">
-        <div className="form-header">
-          <h2 className="form-title">Parlons de votre projet</h2>
-          <p className="form-subtitle">
-            Contactez-nous pour discuter de vos objectifs d'apprentissage et
-            découvrir nos solutions personnalisées
-          </p>
-        </div>
+                  <div className="form-header">
+            <h2 className="form-title">{t("contact.form_title")}</h2>
+            <p className="form-subtitle">{t("contact.form_subtitle")}</p>
+          </div>
 
         <div className="form-grid">
           {/* Colonne gauche */}
@@ -271,39 +277,39 @@ const ContactForm = () => {
             {/* Nom & Prénom */}
             <div className="form-group-row">
               <div className="form-group">
-                <label className="form-label">
-                  <User />
-                  Nom *
-                </label>
-                <input
-                  type="text"
-                  value={formData.nom}
-                  onChange={(e) => handleInputChange("nom", e.target.value)}
-                  onBlur={(e) => handleInputBlur("nom", e.target.value)}
-                  className={`form-input contact-form-input ${
-                    errors.nom ? "error" : ""
-                  }`}
-                  placeholder="Votre nom"
-                />
+                                  <label className="form-label">
+                    <User />
+                    {t("contact.last_name")} *
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.nom}
+                    onChange={(e) => handleInputChange("nom", e.target.value)}
+                    onBlur={(e) => handleInputBlur("nom", e.target.value)}
+                    className={`form-input contact-form-input ${
+                      errors.nom ? "error" : ""
+                    }`}
+                    placeholder={t("contact.last_name")}
+                  />
                 {errors.nom && (
                   <p className="contact-form-error-message">{errors.nom}</p>
                 )}
               </div>
               <div className="form-group">
-                <label className="form-label">
-                  <User />
-                  Prénom *
-                </label>
-                <input
-                  type="text"
-                  value={formData.prenom}
-                  onChange={(e) => handleInputChange("prenom", e.target.value)}
-                  onBlur={(e) => handleInputBlur("prenom", e.target.value)}
-                  className={`form-input contact-form-input ${
-                    errors.prenom ? "error" : ""
-                  }`}
-                  placeholder="Votre prénom"
-                />
+                                  <label className="form-label">
+                    <User />
+                    {t("contact.first_name")} *
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.prenom}
+                    onChange={(e) => handleInputChange("prenom", e.target.value)}
+                    onBlur={(e) => handleInputBlur("prenom", e.target.value)}
+                    className={`form-input contact-form-input ${
+                      errors.prenom ? "error" : ""
+                    }`}
+                    placeholder={t("contact.first_name")}
+                  />
                 {errors.prenom && (
                   <p className="contact-form-error-message">{errors.prenom}</p>
                 )}
@@ -314,7 +320,7 @@ const ContactForm = () => {
             <div className="form-group">
               <label className="form-label">
                 <Mail />
-                Email *
+                {t("contact.email")} *
               </label>
               <input
                 type="email"
@@ -324,7 +330,7 @@ const ContactForm = () => {
                 className={`form-input contact-form-input ${
                   errors.email ? "error" : ""
                 }`}
-                placeholder="votre.email@exemple.com"
+                placeholder={t("contact.email")}
               />
               {errors.email && (
                 <p className="contact-form-error-message">{errors.email}</p>
@@ -335,7 +341,7 @@ const ContactForm = () => {
             <div className="form-group">
               <label className="form-label">
                 <Phone />
-                Téléphone {formData.preferenceContact === "telephone" && "*"}
+                {t("contact.phone")} {formData.preferenceContact === "telephone" && "*"}
               </label>
               <PhoneInput
                 international
@@ -357,7 +363,7 @@ const ContactForm = () => {
             <div className="form-group">
               <label className="form-label">
                 <MessageSquare />
-                Préférence de contact *
+                {t("contact.contact_preference")} *
               </label>
               <div className="contact-preference">
                 <button
@@ -370,7 +376,7 @@ const ContactForm = () => {
                   }`}
                 >
                   <Mail />
-                  Par email
+                  {t("contact.preference_email")}
                   {formData.preferenceContact === "email" && <Check />}
                 </button>
                 <button
@@ -383,7 +389,7 @@ const ContactForm = () => {
                   }`}
                 >
                   <Phone />
-                  Par téléphone
+                  {t("contact.preference_phone")}
                   {formData.preferenceContact === "telephone" && <Check />}
                 </button>
               </div>
@@ -396,7 +402,7 @@ const ContactForm = () => {
             <div className="form-group">
               <label className="form-label">
                 <MessageSquare />
-                Message *
+                {t("contact.message")} *
               </label>
               <textarea
                 value={formData.message}
@@ -406,7 +412,7 @@ const ContactForm = () => {
                 className={`form-textarea contact-form-textarea ${
                   errors.message ? "error" : ""
                 }`}
-                placeholder="Parlez-nous de vos objectifs linguistiques, de votre niveau actuel et de vos disponibilités..."
+                placeholder={t("contact.message_placeholder")}
               />
               {errors.message && (
                 <p className="contact-form-error-message">{errors.message}</p>
@@ -418,7 +424,7 @@ const ContactForm = () => {
               <div className="time-slots">
                 <label className="form-label">
                   <Clock />
-                  Créneaux de disponibilité *
+                  {t("contact.time_slots_title")} *
                 </label>
 
                 {/* Sélection des jours */}
@@ -463,7 +469,7 @@ const ContactForm = () => {
               disabled={!isFormValid()}
               className={`submit-button ${!isFormValid() ? "disabled" : ""}`}
             >
-              Envoyer
+              {t("contact.send_message")}
             </button>
           </div>
         </div>
